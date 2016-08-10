@@ -1,5 +1,4 @@
-﻿using BitMobile.Application;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
@@ -163,10 +162,22 @@ namespace Test
 
         internal void SendErrorReport_OnClick(object sender, EventArgs e)
         {
+            var uploader = new PrivateUploader();
+            uploader.Start();
         }
 
         internal void SendLog_OnClick(object sender, EventArgs e)
         {
+        }
+    }
+
+    internal class PrivateUploader : Thread
+    {
+        public override void Execute()
+        {
+            FileSystem.UploadPrivate(Settings.Server, Settings.User, Settings.Password);
+            FileSystem.SyncShared(Settings.Server, Settings.User, Settings.Password);
+            Toast.MakeToast(Translator.Translate("upload_finished"));
         }
     }
 }

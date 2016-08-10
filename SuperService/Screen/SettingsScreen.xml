@@ -78,8 +78,8 @@
               <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
                 <c:VerticalLayout Id="SendErrorReport" CssClass="ButtonContainerVerticalAlign"
                                   OnClick="SendErrorReport_OnClick">
-                  <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_send_error_disable)" />
-                  <c:TextView CssClass="ReportText" Text="#report_an_error#" />
+                  <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_upload)" />
+                  <c:TextView CssClass="ReportTextActive" Text="#upload_pictures#" />
                 </c:VerticalLayout>
               </c:HorizontalLayout>
             </c:VerticalLayout>

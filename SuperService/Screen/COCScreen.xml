@@ -20,31 +20,34 @@
       <c:VerticalLayout CssClass="VLForSView">
         <!-- Итератор по услугам будет здесь-->
         <s:Iterator Id="services" Value="$GetServices()">
+          <c:VerticalLayout>
+            <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL">
+              <c:HorizontalLayout CssClass="InfoNodeHL">
+                <!-- Красный круг с минусом -->
+                <s:If Test="$isReadonly == false">
+                  <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
+                    <c:HorizontalLayout Id="Test" CssClass="InfoImageContainerHL">
+                      <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(cocscreen_delete)" />
+                    </c:HorizontalLayout>
+                  </c:VerticalLayout>
+                </s:If>
 
-          <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL">
-            <c:HorizontalLayout CssClass="InfoNodeHL">
-              <!-- Красный круг с минусом -->
-              <s:If Test="$isReadonly == false">
-                <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
-                  <c:HorizontalLayout Id="Test" CssClass="InfoImageContainerHL">
-                    <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(cocscreen_delete)" />
-                  </c:HorizontalLayout>
+                <!--Два TextView с информацией об услугах-->
+                <c:VerticalLayout Id="$services.Id" CssClass="InfoTextContainerVL"
+                                  OnClick="EditServicesOrMaterials_OnClick">
+                  <c:TextView CssClass="NameTV" Text="$services.Description" />
+                  <c:TextView CssClass="PriceTV"
+                              Text="$Concat($services.AmountFact, $GetServicePriceDescription($services), $services.Unit)" />
                 </c:VerticalLayout>
-              </s:If>
-
-              <!--Два TextView с информацией об услугах-->
-              <c:VerticalLayout Id="$services.Id" CssClass="InfoTextContainerVL" OnClick="EditServicesOrMaterials_OnClick">
-                <c:TextView CssClass="NameTV" Text="$services.Description" />
-                <c:TextView CssClass="PriceTV" Text="$Concat($services.AmountFact, $GetServicePriceDescription($services), $services.Unit)" />
-              </c:VerticalLayout>
-            </c:HorizontalLayout>
-            <s:If Test="$isReadonly == false">
-              <c:HorizontalLayout Id="$services.Id" CssClass="DeleteButtonVL" OnClick="DeleteButton_OnClick">
-                <c:TextView CssClass="DeleteButtonTV" Text="#delete_question#" />
               </c:HorizontalLayout>
-            </s:If>
-          </c:SwipeHorizontalLayout>
-          <c:HorizontalLine CssClass="MiddleHL" />
+              <s:If Test="$isReadonly == false">
+                <c:HorizontalLayout Id="$services.Id" CssClass="DeleteButtonVL" OnClick="DeleteButton_OnClick">
+                  <c:TextView CssClass="DeleteButtonTV" Text="#delete_question#" />
+                </c:HorizontalLayout>
+              </s:If>
+            </c:SwipeHorizontalLayout>
+            <c:HorizontalLine CssClass="MiddleHL" />
+          </c:VerticalLayout>
         </s:Iterator>
 
         <!-- Заканчивается здесь-->
@@ -68,31 +71,35 @@
         <c:HorizontalLine CssClass="WideHL" />
 
         <s:Iterator Id="materials" Value="$GetMaterials()">
-          <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL">
+          <c:VerticalLayout>
+            <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL">
 
-            <c:HorizontalLayout CssClass="InfoNodeHL">
-              <!-- Красный круг с минусом -->
-              <s:If Test="$isReadonly == false">
-                <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
-                  <c:HorizontalLayout CssClass="InfoImageContainerHL">
-                    <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(cocscreen_delete)" />
-                  </c:HorizontalLayout>
+              <c:HorizontalLayout CssClass="InfoNodeHL">
+                <!-- Красный круг с минусом -->
+                <s:If Test="$isReadonly == false">
+                  <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
+                    <c:HorizontalLayout CssClass="InfoImageContainerHL">
+                      <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(cocscreen_delete)" />
+                    </c:HorizontalLayout>
+                  </c:VerticalLayout>
+                </s:If>
+
+                <!--Два TextView с информацией об услугах-->
+                <c:VerticalLayout Id="$materials.Id" CssClass="InfoTextContainerVL"
+                                  OnClick="EditServicesOrMaterials_OnClick">
+                  <c:TextView CssClass="NameTV" Text="$materials.Description" />
+                  <c:TextView CssClass="PriceTV"
+                              Text="$Concat($materials.AmountFact, $GetMaterialPriceDescription($materials), $materials.Unit)" />
                 </c:VerticalLayout>
-              </s:If>
-
-              <!--Два TextView с информацией об услугах-->
-              <c:VerticalLayout Id="$materials.Id" CssClass="InfoTextContainerVL" OnClick="EditServicesOrMaterials_OnClick">
-                <c:TextView CssClass="NameTV" Text="$materials.Description" />
-                <c:TextView CssClass="PriceTV" Text="$Concat($materials.AmountFact, $GetMaterialPriceDescription($materials), $materials.Unit)" />
-              </c:VerticalLayout>
-            </c:HorizontalLayout>
-            <s:If Test="$isReadonly == false">
-              <c:HorizontalLayout Id="$materials.Id" CssClass="DeleteButtonVL" OnClick="DeleteButton_OnClick">
-                <c:TextView CssClass="DeleteButtonTV" Text="#delete_question#" />
               </c:HorizontalLayout>
-            </s:If>
-          </c:SwipeHorizontalLayout>
-          <c:HorizontalLine CssClass="MiddleHL" />
+              <s:If Test="$isReadonly == false">
+                <c:HorizontalLayout Id="$materials.Id" CssClass="DeleteButtonVL" OnClick="DeleteButton_OnClick">
+                  <c:TextView CssClass="DeleteButtonTV" Text="#delete_question#" />
+                </c:HorizontalLayout>
+              </s:If>
+            </c:SwipeHorizontalLayout>
+            <c:HorizontalLine CssClass="MiddleHL" />
+          </c:VerticalLayout>
         </s:Iterator>
 
         <s:If Test="$isReadonly == false">

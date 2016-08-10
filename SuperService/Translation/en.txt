@@ -126,3 +126,5 @@ client_parameters		Client parameters
 client_parameters_empty		There are no client parameters
 SERVICES		SERVICES
 MATERIALS		MATERIALS
+upload_pictures		Upload pictures
+upload_finished		Upload finished

@@ -4,8 +4,7 @@
   <c:VerticalLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
     <s:Push Id="emptyParameters" Value="true" />
-    <c:ScrollView CssClass="RootLayout">
-      <c:VerticalLayout CssClass="CheckListMainSVL">
+    <c:SwipeVerticalLayout CssClass="CheckListMainSVL">
         <s:Iterator Id="Parameter" Value="$GetParameters()">
           <s:Push Id="emptyParameters" Value="false" />
           <c:HorizontalLayout Id="$Parameter.Id" CssClass="CheckListItemHL"
@@ -129,7 +128,6 @@
         <s:If Test="$emptyParameters">
           <c:TextView Text="#client_parameters_empty#" CssClass="EmptyParametersMessage" />
         </s:If>
-      </c:VerticalLayout>
-    </c:ScrollView>
+    </c:SwipeVerticalLayout>
   </c:VerticalLayout>
 </c:Screen>

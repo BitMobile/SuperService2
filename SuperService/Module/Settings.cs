@@ -84,7 +84,7 @@ namespace Test
 #endif
 
             Host = @"https://sstest.superagent.ru";
-            Server = Host + @"/bitmobile3/superservice3demo/device";
+            Server = Host + @"/bitmobile3/superservice3test/device";
             AuthUrl = Server + @"/GetUserId";
             _initialized = true;
 

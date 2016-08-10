@@ -106,6 +106,7 @@ namespace Test
             {"settingsscreen_send_error_disable",@"Image\SettingsScreen\Error_disable.png" },
             {"settingsscreen_send_log_disable",@"Image\SettingsScreen\Log_Disable.png" },
             {"settingsscreen_userpic",@"Image\SettingsScreen\Userpic_blank.png" },
+            {"settingsscreen_upload",@"Image\SettingsScreen\upload.png" },
         };
 
         public static string GetImage(string tag)
