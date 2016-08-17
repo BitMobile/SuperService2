@@ -85,8 +85,8 @@ namespace Test
             DConsole.WriteLine($"{Parameters.Splitter}{Environment.NewLine}");
 #endif
 
-            Host = @"http://nt0420.bt";
-            var server = Host + @"/bitmobile/testsolution";
+            Host = @"https://ssdemo.superagent.ru";
+            var server = Host + @"/server/aplink";
             Server = server + "/device";
             ImageServer = server + "/";
             AuthUrl = Server + @"/GetUserId";
