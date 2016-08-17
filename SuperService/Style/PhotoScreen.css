@@ -254,204 +254,37 @@ HorizontalLine {
   horizontal-align: right;
   margin-right: 5sp;
 }
-/* Client Screen css class */
-.ClientDescriptionVL {
-  background-color: #626271;
-  width: 100%;
-}
-.ClientDescriptionTV {
-  color: #ffffff;
-  font: 3.08558441sp arial;
-  height: 3.4249987sp auto;
-  height: 0sp auto;
-  width: 100%;
-  margin-top: 1.54279221sp;
-  margin-bottom: 1.54279221sp;
-  horizontal-align: center;
-  text-align: center;
-  width: 80%;
-}
-.ClientSV {
-  background-color: #ffffff;
+.OuterButtonLayout {
+  width: 45sp;
   height: 100%;
-  width: 100%;
+  border-color: #f4f4f5;
+  border-style: solid;
+  border-width: 3px;
 }
-.MapContainerHL {
-  height: 25sp;
-  width: 100%;
-}
-.MapStyleClient {
-  height: 100%;
-  width: 100%;
-}
-.ClientAdressHL {
-  height: 7.5sp auto;
+.BigPhoto {
   width: 90%;
   horizontal-align: center;
 }
-.ClientAdressTV {
-  font: 2.5sp arial;
-  height: 2.775sp auto;
-  margin-top: 2.5sp;
-  margin-bottom: 2.5sp;
-  text-align: left;
-  white-space: normal;
-  vertical-align: top;
-  width: 70%;
+.ButtonsHolder {
+  height: 9.18558654sp;
+  horizontal-align: center;
+  margin-top: 4sp;
+  width: 90%;
 }
-.DistanceVL {
-  margin-top: 2.5sp;
-  width: 30%;
-  height: 2.75sp;
-  vertical-align: top;
-}
-.DistanceHL {
-  horizontal-align: right;
+.ButtonLayout {
+  height: 100%;
+  horizontal-align: center;
   width: 0sp auto;
 }
-.ClientDistanceTV {
-  color: #909499;
-  margin-left: 1sp;
+.ButtonLayout Image {
+  height: 4.59279327sp;
+  vertical-align: center;
+}
+.ButtonLayout TextView {
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  vertical-align: center;
+  text-align: left;
   width: 0sp auto;
+  margin-left: 2sp;
 }
-.GPSImage {
-  height: 1.5sp;
-  vertical-align: center;
-}
-.ContactsTV {
-  color: #a4a8a9;
-  text-align: center;
-}
-.ContactsListHL {
-  height: 0% auto;
-  width: 100%;
-}
-.ContactsListVL {
-  height: 0% auto;
-  width: 100%;
-}
-.ContactsContainerVL {
-  height: 10sp;
-  width: 80%;
-}
-.ContactDescriptionTV {
-  color: #51595b;
-  font: 2.5sp arial;
-  height: 50%;
-  padding-left: 5sp;
-  padding-top: 25%;
-  text-align: left;
-  white-space: nowrap;
-  width: 100%;
-}
-.ContactPositionTV {
-  color: #9b9fa0;
-  font: 2.5sp arial;
-  height: 50%;
-  padding-left: 5sp;
-  padding-top: 5%;
-  text-align: left;
-  white-space: nowrap;
-  width: 100%;
-}
-.CallToClientButton {
-  height: 10sp;
-  width: 20%;
-}
-.CallToClientContainer {
-  height: 100%;
-  horizontal-align: center;
-  width: 0% auto;
-}
-.CallImageImg {
-  height: 4sp;
-  vertical-align: center;
-}
-.AddContactBtn {
-  color: #ff0000;
-  font: 3sp arial;
-  height: 8sp;
-  margin-left: 11%;
-  width: 100%;
-}
-.EquipmentsTV {
-  color: #a4a8a9;
-  font: 3sp arial;
-  height: 8sp;
-  margin-left: 11%;
-  padding-top: 25%;
-  text-align: center;
-  width: 100%;
-}
-.EquipmentVL {
-  height: 0% auto;
-  width: 100%;
-}
-.EquipmentContainerVL {
-  height: 10sp;
-  width: 100%;
-}
-.EquipmentTypeTV {
-  color: #51595b;
-  font: 2.5sp arial;
-  height: 50%;
-  padding-left: 5sp;
-  padding-top: 25%;
-  text-align: left;
-  width: 100%;
-}
-.EquipmentNameTV {
-  color: #a6a9aa;
-  font: 2.5sp arial;
-  height: 50%;
-  padding-left: 5sp;
-  padding-top: 5%;
-  text-align: left;
-  width: 100%;
-}
-.FatLine {
-  background-color: #c6c6c9;
-  height: 0.3sp;
-  horizontal-align: center;
-  width: 5%;
-}
-.WideLineHL {
-  background-color: f3f3f4;
-  height: 3dp;
-  width: 100%;
-}
-.ContainerLineSplitter {
-  height: 3dp;
-  width: 100%;
-}
-.LineSplitter {
-  background-color: #f3f3f4;
-  height: 100%;
-  horizontal-align: center;
-  width: 90%;
-}
-.AddButtonVl {
-  height: 10sp;
-  width: 100%;
-}
-.AddContainerHL {
-  height: 90%;
-  horizontal-align: center;
-  padding-left: 20%;
-  width: 90%;
-}
-.AddImg {
-  height: 2sp;
-  vertical-align: center;
-}
-.AddTV {
-  color: #fd724c;
-  font: 3sp arial;
-  height: 80%;
-  margin-left: 3%;
-  padding-top: 22%;
-  text-align: left;
-  vertical-align: center;
-  width: 40% auto;
-}
-/* ------------------------------------ */

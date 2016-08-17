@@ -306,8 +306,8 @@ HorizontalLine {
 }
 .RIMItemDescription {
   color: #000000;
-  font: 3sp arial;
-  height: 3.33sp auto;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
   horizontal-align: left;
   margin-top: 2sp;
   margin-left: 2sp;
@@ -317,17 +317,13 @@ HorizontalLine {
   font: 2.5sp arial;
   height: 2.775sp auto;
   horizontal-align: left;
-  margin-bottom: 3sp;
+  margin-top: 0.7sp;
+  margin-bottom: 2.3sp;
   margin-left: 2sp;
   text-align: left;
 }
 .RIMBreaker {
-  background-color: #f3f3f4;
-  height: 3px;
-  horizontal-align: left;
-  margin-left: 2sp;
-  vertical-align: center;
-  width: 90%;
+  width: 100%;
 }
 .EmptyBagText {
   margin-top: 20sp;

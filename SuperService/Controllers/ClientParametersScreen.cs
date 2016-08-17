@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using Test.Catalog;
 using Test.Components;
 
 namespace Test
@@ -31,8 +32,7 @@ namespace Test
 
         private bool _readonly;
 
-        private static readonly Dictionary<string, object> ChecklistResults = new Dictionary<string, object>();
-        private static readonly int _checklistResultThreshold = 4;
+        private long _lineNumber;
 
         public override void OnLoading()
         {
@@ -42,36 +42,20 @@ namespace Test
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
                 ArrowVisible = false,
             };
+            _topInfoComponent.ActivateBackButton();
             _readonly = (bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
             _topInfoComponent.ActivateBackButton();
         }
 
         private static void UpdateChecklist(string id, string result)
         {
-            ChecklistResults[id] = result;
-            if (ChecklistResults.Count >= _checklistResultThreshold)
-                SaveChecklist();
-        }
-
-        private static void SaveChecklist()
-        {
-            var entities = new ArrayList();
-            foreach (var checklistResult in ChecklistResults)
-            {
-                var id = checklistResult.Key;
-                var result = (string)checklistResult.Value;
-                var clientParameters = (Catalog.Client_Parameters)DBHelper.LoadEntity(id);
-                clientParameters.Val = result;
-                entities.Add(clientParameters);
-            }
-            if (entities.Count != 0)
-                DBHelper.SaveEntities(entities);
-            ChecklistResults.Clear();
+            var clientParameters = (Client_Parameters)DBHelper.LoadEntity(id);
+            clientParameters.Val = result;
+            DBHelper.SaveEntity(clientParameters, false);
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            SaveChecklist();
             Navigation.Back();
         }
 
@@ -98,19 +82,35 @@ namespace Test
         internal void CheckListSnapshot_OnClick(object sender, EventArgs eventArgs)
         {
             if (_readonly) return;
-            _currentCheckListItemID = ((VerticalLayout)sender).Id;
-            _newGuid = Guid.NewGuid().ToString();
-            _pathToImg = $@"\private\{_newGuid}.jpg";
-
             _imgToReplace = (Image)((VerticalLayout)sender).GetControl(0);
+            _currentCheckListItemID = ((VerticalLayout)sender).Id;
 
-            Camera.MakeSnapshot(_pathToImg, int.MaxValue, CameraCallback, sender);
+            if (_imgToReplace.Source.StartsWith("~"))
+            {
+                Navigation.Move(nameof(PhotoScreen), new Dictionary<string, object>
+                {
+                    [Parameters.IdImage] = _imgToReplace.Source,
+                    [nameof(ClientParametersScreen)] = _currentCheckListItemID
+                });
+            }
+            else if (_imgToReplace.Source == ResourceManager.GetImage("checklistscreen_photo"))
+            {
+                _newGuid = Guid.NewGuid().ToString();
+                _pathToImg = $@"\private\{_newGuid}.jpg";
+
+                Camera.MakeSnapshot(_pathToImg, Settings.PictureSize, CameraCallback, _newGuid);
+            }
         }
 
         private void CameraCallback(object state, ResultEventArgs<bool> args)
         {
+            if (!args.Result) return;
+
             DConsole.WriteLine("New image");
-            _imgToReplace.Source = _pathToImg;
+            _imgToReplace.Source = "~" + _pathToImg;
+            _imgToReplace.Refresh();
+            DConsole.WriteLine("Updating");
+            UpdateChecklist(_currentCheckListItemID, state.ToString());
         }
 
         // Список
@@ -123,10 +123,10 @@ namespace Test
             var tv = GetTextView(sender);
             var startObject = "not_choosed";
             var items = new Dictionary<object, string>
-                {
-                    {"not_choosed", Translator.Translate("not_choosed")}
-                };
-            var temp = DBHelper.GetActionValuesList(_textView.Id);
+            {
+                {"not_choosed", Translator.Translate("not_choosed")}
+            };
+            var temp = DBHelper.GetClientOptionValuesList(_textView.Id);
             while (temp.Next())
             {
                 items[temp["Id"].ToString()] = temp["Val"].ToString();
@@ -171,10 +171,10 @@ namespace Test
             var tv = GetTextView(sender);
 
             var items = new Dictionary<object, string>
-                {
-                    {"true", Translator.Translate("yes")},
-                    {"false", Translator.Translate("no")},
-                };
+            {
+                {"true", Translator.Translate("yes")},
+                {"false", Translator.Translate("no")},
+            };
             var startKey = _textView.Text == Translator.Translate("no") ? "false" : "true";
             Dialog.Choose(tv.Text, items, startKey, BooleanCallback);
         }
@@ -241,9 +241,55 @@ namespace Test
         {
         }
 
+        internal string GetResultImage(string guid)
+        {
+            return string.IsNullOrEmpty(guid)
+                ? ResourceManager.GetImage("checklistscreen_photo")
+                : FileSystem.Exists($@"\private\{guid}.jpg")
+                    ? $@"~\private\{guid}.jpg"
+                    : FileSystem.Exists($@"\shared\{guid}.jpg")
+                        ? $@"~\shared\{guid}.jpg"
+                        : ResourceManager.GetImage("checklistscreen_nophoto");
+        }
+
         internal IEnumerable GetParameters()
         {
-            return DBHelper.GetClientParametersByClientId(Variables[Parameters.IdClientId].ToString());
+            var list = new ArrayList();
+            var recordset = DBHelper.GetClientParametersByClientId(Variables[Parameters.IdClientId].ToString());
+            _lineNumber = DBHelper.GetMaxNumberFromTableInColumn("Catalog_Client_Parameters", "LineNumber", "Ref",
+                Variables[Parameters.IdClientId].ToString());
+#if DEBUG
+            var countEmptyEntitys = 0;
+#endif
+
+            while (recordset.Next())
+            {
+                var dictionary = new Dictionary<string, object>()
+                {
+                    {"TypeName", recordset["TypeName"] },
+                    {"Description", recordset["Description"] },
+                    {"Result", recordset["Result"] },
+                    {"ClientId", recordset["ClientId"]?.ToString() ?? Variables[Parameters.IdClientId].ToString()},
+                    {"Id", recordset["Id"]?.ToString() ?? CreateNewEntity((DbRef)recordset["OptionId"])},
+                    {"OptionId", recordset["OptionId"].ToString() }
+                };
+
+#if DEBUG
+                if (recordset["Id"] == null)
+                {
+                    ++countEmptyEntitys;
+                }
+#endif
+
+                list.Add(dictionary);
+            }
+#if DEBUG
+            DConsole.WriteLine(Parameters.Splitter);
+            DConsole.WriteLine($"Count arraylist = {list.Count}");
+            DConsole.WriteLine($"Total Entitys: {list.Count} Empty Entitys: {countEmptyEntitys}");
+            DConsole.WriteLine(Parameters.Splitter);
+#endif
+            return list;
         }
 
         internal bool IsNotEmptyString(string item)
@@ -274,6 +320,33 @@ namespace Test
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
+        }
+
+        private string CreateNewEntity(DbRef optionId)
+        {
+#if DEBUG
+            DConsole.WriteLine($"Before lineNumber = {_lineNumber}");
+#endif
+            var entity = new Client_Parameters
+            {
+                Id = DbRef.CreateInstance("Catalog_Client_Parameters", Guid.NewGuid()),
+                Ref = DbRef.FromString((string)Variables[Parameters.IdClientId]),
+                Parameter = optionId,
+                LineNumber = (int)++_lineNumber
+            };
+
+#if DEBUG
+            DConsole.WriteLine($"After lineNumber = {_lineNumber}");
+#endif
+            //#if DEBUG
+            //            DConsole.WriteLine(Parameters.Splitter);
+            //            DConsole.WriteLine($"Entity ID: {entity.Id.ToString()}");
+            //            DConsole.WriteLine($"Ref: {entity.Ref.ToString()}");
+            //            DConsole.WriteLine($"Parameter: {entity.Parameter.ToString()}");
+            //            DConsole.WriteLine(Parameters.Splitter);
+            //#endif
+            entity.Save(false);
+            return entity.Id.ToString();
         }
     }
 }

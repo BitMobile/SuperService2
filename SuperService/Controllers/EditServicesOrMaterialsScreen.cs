@@ -106,7 +106,7 @@ namespace Test
             _priceEditText = (EditText)Variables["PriceEditText"];
             _totalPriceTextView = (TextView)Variables["TotalPriceTextView"];
             _minusImage = (Image)Variables["MinusImage"];
-            _isEdit = (bool) Variables.GetValueOrDefault(Parameters.IsEdit, false);
+            _isEdit = (bool)Variables.GetValueOrDefault(Parameters.IsEdit, false);
 
             BusinessProcess.GlobalVariables.Remove(_key);
 
@@ -166,7 +166,7 @@ namespace Test
             eventServicesMaterials.Price = Price;
             eventServicesMaterials.AmountFact = AmountFact;
             eventServicesMaterials.SumFact = Price * AmountFact;
-            DBHelper.SaveEntity(eventServicesMaterials);
+            DBHelper.SaveEntity(eventServicesMaterials, false);
         }
 
         private void InsertIntoDb()
@@ -186,7 +186,7 @@ namespace Test
                         @ref) + 1
             };
 
-            DBHelper.SaveEntity(line);
+            DBHelper.SaveEntity(line, false);
         }
 
         internal void RemoveButton_OnClick(object sender, EventArgs eventArgs)
@@ -237,11 +237,11 @@ namespace Test
 
         internal void ReturnToThePreviousScreen_OnClick(object sender, EventArgs e)
         {
-            if(_isEdit)
+            if (_isEdit)
                 Navigation.Back();
             else
-            Navigation.ModalMove(nameof(RIMListScreen),
-                (IDictionary<string, object>)Variables.GetValueOrDefault(Parameters.PreviousScreen));
+                Navigation.ModalMove(nameof(RIMListScreen),
+                    (IDictionary<string, object>)Variables.GetValueOrDefault(Parameters.PreviousScreen));
         }
     }
 

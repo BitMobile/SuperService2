@@ -94,7 +94,7 @@ namespace Test
 
         internal string GetSurname(string description)
         {
-            return string.IsNullOrWhiteSpace(description) ? "" : description.Substring(GetName(description).Length + 1);
+            return string.IsNullOrWhiteSpace(description) ? "" : description.Substring(GetName(description).Length).TrimStart();
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)

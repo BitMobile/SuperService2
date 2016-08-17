@@ -274,7 +274,7 @@ HorizontalLine {
 }
 .CheckListMainSVL {
   background-color: #ffffff;
-  height: 0sp auto;
+  height: auto;
   width: 100%;
 }
 .CheckListItemHL {

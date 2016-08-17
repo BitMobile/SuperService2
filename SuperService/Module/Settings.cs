@@ -34,6 +34,8 @@ namespace Test
         // TODO: Хранить сервер
         public static string Server { get; set; }
 
+        public static string ImageServer { get; set; }
+
         public static string Host { get; set; }
 
         public static string UserId { get; set; }
@@ -84,7 +86,9 @@ namespace Test
 #endif
 
             Host = @"https://sstest.superagent.ru";
-            Server = Host + @"/bitmobile3/superservice3demo/device";
+            var server = Host + @"/bitmobile3/superservice3demo";
+            Server = server + "/device";
+            ImageServer = server + "/";
             AuthUrl = Server + @"/GetUserId";
             _initialized = true;
 

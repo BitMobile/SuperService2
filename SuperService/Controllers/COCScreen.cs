@@ -194,7 +194,7 @@ namespace Test
         {
             //TODO: Обходной путь получения парента. Внимание!!!!!.
             var vl = (HorizontalLayout)sender;
-            DBHelper.DeleteByRef(DbRef.FromString(vl.Id));
+            DBHelper.DeleteByRef(DbRef.FromString(vl.Id), false);
             var shl = (ISwipeHorizontalLayout3)vl.Parent;
             var outerVl = (IVerticalLayout3)shl.Parent;
             outerVl.CssClass = "NoHeight";

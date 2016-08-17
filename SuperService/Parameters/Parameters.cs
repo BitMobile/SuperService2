@@ -13,6 +13,7 @@
         public const string IdEquipmentId = "idEquipmentId";
         public const string IdIsMaterialsRequest = "isMaterialsRequest";
         public const string IdIsReadonly = "isReadonly";
+        public const string IdImage = "image";
         public const string Contact = "contact";
 
         /// <summary>

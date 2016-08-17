@@ -16,6 +16,7 @@ namespace Test
         private string _clientId;
         private WebMapGoogle _map;
         private TopInfoComponent _topInfoComponent;
+        private string _clientDesc;
 
         public override void OnLoading()
         {
@@ -32,6 +33,7 @@ namespace Test
             _map.AddMarker((string)_client["Description"], (double)(decimal)_client["Latitude"],
                 (double)(decimal)_client["Longitude"], "red");
 
+            _clientDesc = GetConstLenghtString(_client["Description"].ToString());
             DConsole.WriteLine("Client end");
         }
 
@@ -177,9 +179,13 @@ namespace Test
 
         internal string GetDistance()
         {
+            var latitude = (double)(decimal)_client["Latitude"];
+            var longitude = (double)(decimal)_client["Longitude"];
+            if (Math.Abs(latitude) < 0.1 && Math.Abs(longitude) < 0.1) return "NaN";
+
             var distanceInKm =
                 Utils.GetDistance(GPS.CurrentLocation.Latitude, GPS.CurrentLocation.Longitude,
-                    (double)(decimal)_client["Latitude"], (double)(decimal)_client["Longitude"]) / 1000;
+                    latitude, longitude) / 1000;
             return
                 $"{Math.Round(distanceInKm, 2)}" +
                 $" {Translator.Translate("uom_distance")}";

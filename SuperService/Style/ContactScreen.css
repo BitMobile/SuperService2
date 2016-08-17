@@ -255,53 +255,47 @@ HorizontalLine {
   margin-right: 5sp;
 }
 .ContactDescription {
-  font: 3.5sp arial bold italic;
-  width: 90%;
-  margin-bottom: 1sp;
-  margin-top: 4sp;
-  color: #51595b;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  height: 0sp auto;
+  width: 100%;
+  width: 70%;
 }
 .Position {
-  font: 3sp arial;
-  width: 90%;
-  margin-bottom: 1sp;
-  margin-top: 1sp;
-  color: #51595b;
+  width: 70%;
 }
 .TelEMailHL {
-  height: 0% auto;
-  width: 100%;
+  height: 10sp;
+  width: 90%;
+  horizontal-align: center;
 }
 .TelContainer {
-  height: 10sp;
+  height: 5.95sp;
+  vertical-align: center;
   width: 70%;
 }
 .EMailContainer {
-  height: 10sp;
+  height: 5.95sp;
+  vertical-align: center;
   width: 85%;
 }
 .ContactValTextView {
-  color: #51595b;
-  font: 3sp arial;
-  height: 50%;
-  padding-left: 5sp;
-  padding-top: 25%;
   text-align: left;
   white-space: nowrap;
   width: 100%;
 }
 .ContactTitleTextView {
   color: #9b9fa0;
-  font: 2.5sp arial;
-  height: 50%;
-  padding-left: 5sp;
-  padding-top: 5%;
+  font: 2sp arial;
+  height: 2.22sp auto;
+  margin-top: 1sp;
   text-align: left;
   white-space: nowrap;
   width: 100%;
 }
 .ImageActionButton {
-  height: 10sp;
+  height: 0sp auto;
+  width: 100%;
   width: 15%;
   vertical-align: center;
   horizontal-align: center;
@@ -312,23 +306,25 @@ HorizontalLine {
   width: 0% auto;
 }
 .CallImageImg {
-  height: 4sp;
+  height: 5sp;
   vertical-align: center;
   horizontal-align: center;
 }
 .ActionButtonHL {
   height: 10sp;
   width: 90%;
-  horizontal-align: left;
+  horizontal-align: center;
   vertical-align: center;
-  padding-left: 5sp;
 }
 .ActionTextTV {
   color: #fd724c;
-  font: 3sp arial;
-  height: 80%;
-  padding-top: 22%;
   text-align: left;
   vertical-align: center;
   width: 40% auto;
+}
+.FatLine {
+  background-color: #c6c6c9;
+  height: 0.3sp;
+  horizontal-align: center;
+  width: 5%;
 }

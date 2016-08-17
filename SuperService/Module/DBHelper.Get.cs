@@ -47,12 +47,12 @@ namespace Test
                                    on event.client = client.Id
                                      left join
                                         (select
-                                            Document_Event_TypeDepartures.Ref,
+                                            t1.Ref,
                                             Catalog_TypesDepartures.description
                                         from
                                            (select
                                                ref,
-                                               min(lineNumber) as lineNumber
+                                               min(ifnull(lineNumber,1)) as lineNumber
                                             from
                                                Document_Event_TypeDepartures
                                             where
@@ -136,123 +136,121 @@ namespace Test
         /// <param name="eventID"> Идентификатор события</param>
         public static DbRecordset GetEventByID(string eventID)
         {
-            var queryText = "select " +
-                            "    event.Id,  " + //гуид события
-                            "    event.StartDatePlan,  " + //плановая дата начала
-                            "    Date(event.StartDatePlan) as StartDatePlanDate,  " +
-                            "    Time(event.StartDatePlan) as StartDatePlanTime,  " +
-                            "    TypeDeparturesTable.description as TypeDeparture,  " +
-                            //вид работ - выбирается одна из табличной части
-                            "    event.ActualStartDate,  " + //фактическая дата начала
-                            "    event.ActualEndDate,  " + // фактическая дата конца
-                            "    Enum_StatusImportance.Description as Importance,  " + //важность
-                            "    Enum_StatusImportance.Name as ImportanceName,  " + //важность
-                            "    event.Comment,  " +
-                            //"    100500 as sumFact, " +
-                            "    docSUm.sumFact,  " +
-                            "    docSUm.sumMaterials,  " +
-                            "    docSUm.sumServices,  " +
-                            "    docCheckList.Total as checkListTotal,  " + //общее количество вопросов в чеклисте
-                            "    docCheckList.Answered as checkListAnswered,  " +
-                            //количество отвеченных вопросов в чеклисте
-                            "    docEquipment.Total as equipmentTotal,  " + //количество оборудования (задач)
-                            "    docEquipment.Answered as equipmentAnswered,  " +
-                            //количество оборудования (задач) с заполненным результатом
-                            "    client.id as clientId,  " +
-                            "    client.Description as clientDescription,  " + //имя клиента
-                            "    client.Address as clientAddress,  " + //адрес клиента
-                            "    docCheckList.Required as checkListRequired, " +
-                            // количество обязательных вопросов в чеклистах
-                            "    docCheckList.RequiredAnswered as checkListRequiredAnswered, " +
-                            //количество отвеченных обязательных вопросов в чеклистах
-                            "    case  " +
-                            "        when ifnull(docCheckList.Required, 0) = ifnull(docCheckList.RequiredAnswered, 0) then 1 " +
-                            "        else 0 " +
-                            "    end as checkListAllRequiredIsAnswered, " +
-                            //признак, что все обязательные вопросы в чеклистах отвечены
-                            "    Enum_StatusyEvents.Name as statusName, " + //наименование статуса (служебное имя)
-                            "    Enum_StatusyEvents.Description as statusDescription, " + //представление статуса +
-                            "    event.DetailedDescription, " + //описание события
-                            "    Catalog_Contacts.Description as ContactVisitingDescription," +
-                            "    Catalog_Contacts.Id as contactId " +
-                            "    " +
-                            "from  " +
-                            "    Document_Event as event  " +
-                            "        left join Catalog_Client as client  " +
-                            "        on  event.id = @id and event.client = client.Id  " +
-                            "      " +
-                            "        left join  " +
-                            "            (select  " +
-                            "                  Document_Event_TypeDepartures.Ref,   " +
-                            "                  Catalog_TypesDepartures.description  " +
-                            "             from  " +
-                            "                 (select   " +
-                            "                      ref,  " +
-                            "                      min(lineNumber) as lineNumber  " +
-                            "                  from  " +
-                            "                      Document_Event_TypeDepartures  " +
-                            "                  where   " +
-                            "                      ref = @id   " +
-                            "                      and active = 1   " +
-                            "                  group by " +
-                            "                      ref) as t1  " +
-                            "    " +
-                            "               left join Document_Event_TypeDepartures " +
-                            "                    on t1.ref= Document_Event_TypeDepartures.ref " +
-                            "                       and t1.lineNumber = Document_Event_TypeDepartures.lineNumber  " +
-                            "               left join Catalog_TypesDepartures  " +
-                            "                    on Document_Event_TypeDepartures.typeDeparture =  Catalog_TypesDepartures.id) as TypeDeparturesTable  " +
-                            "        on event.id = TypeDeparturesTable.Ref  " +
-                            "    " +
-                            "        left join Enum_StatusImportance  " +
-                            "           on event.Importance = Enum_StatusImportance.Id  " +
-                            "    " +
-                            "        left join (select Document_Event_ServicesMaterials.Ref, " +
-                            "                       TOTAL(SumFact) as sumFact," +
-                            "                       TOTAL(case when (select " +
-                            "                                          Catalog_RIM.Service " +
-                            "                                        from Catalog_RIM " +
-                            "                                        where Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id) = 1 " +
-                            "                             then SumFact else 0 end) as sumServices, " +
-                            "                       TOTAL(case when (select " +
-                            "                                          Catalog_RIM.Service " +
-                            "                                        from Catalog_RIM " +
-                            "                                        where Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id) = 0 " +
-                            "                             then SumFact else 0 end) as sumMaterials " +
-                            "                   from Document_Event_ServicesMaterials " +
-                            "                   where Document_Event_ServicesMaterials.Ref = @id group by Document_Event_ServicesMaterials.Ref ) as docSum  " +
-                            "           on event.id = docSUm.ref " +
-                            "    " +
-                            "        left join (select " +
-                            "                       Document_Event_CheckList.Ref,  " +
-                            "                       count(Document_Event_CheckList.Ref) as Total,  " +
-                            "                       TOTAL(case when result = '' then 0 else 1 end) as Answered, " +
-                            "                       TOTAL(case when Required = 1 then 1 else 0 end) as Required, " +
-                            "                       TOTAL(case when Required = 1 and result <> ''  then 1 else 0 end) as RequiredAnswered " +
-                            "                   from  " +
-                            "                       Document_Event_CheckList  " +
-                            "                   where  " +
-                            "                       Document_Event_CheckList.Ref = @id group by Document_Event_CheckList.Ref ) as docCheckList " +
-                            "           on event.id = docCheckList.ref " +
-                            "    " +
-                            "        left join (select " +
-                            "                       Document_Event_Equipments.Ref, " +
-                            "                       count(Document_Event_Equipments.Ref) as Total, " +
-                            "                       TOTAL(case when result is null or result = '' or result not in (select Id from Enum_ResultEvent where Name like 'Done') then 0 else 1 end) as Answered " +
-                            "                   from" +
-                            "                       Document_Event_Equipments " +
-                            "                   where " +
-                            "                       Document_Event_Equipments.Ref = @id group by Document_Event_Equipments.Ref ) as docEquipment " +
-                            "           on event.id = docEquipment.ref " +
-                            "    " +
-                            "        left join Catalog_Contacts " +
-                            "           on event.ContactVisiting = Catalog_Contacts.Id " +
-                            "    " +
-                            "        left join Enum_StatusyEvents " +
-                            "           on event.status = Enum_StatusyEvents.Id     " +
-                            "    " +
-                            "where  " +
-                            "   event.id = @id  ";
+            var queryText = @"select
+                                event.Id,                                         --гуид события
+                                event.StartDatePlan,                              --плановая дата начала
+                                Date(event.StartDatePlan) as StartDatePlanDate,
+                                Time(event.StartDatePlan) as StartDatePlanTime,
+                                TypeDeparturesTable.description as TypeDeparture, --вид работ - выбирается одна из табличной части
+                                event.ActualStartDate,                            --фактическая дата начала
+                                event.ActualEndDate,                              --фактическая дата конца
+                                Enum_StatusImportance.Description as Importance,  --важность
+                                Enum_StatusImportance.Name as ImportanceName,     --важность
+                                event.Comment,
+                                docSUm.sumFact,
+                                docSUm.sumMaterials,
+                                docSUm.sumServices,
+                                docCheckList.Total as checkListTotal,             --общее количество вопросов в чеклисте
+                                docCheckList.Answered as checkListAnswered,
+                            --//количество отвеченных вопросов в чеклисте
+                                docEquipment.Total as equipmentTotal,  --количество оборудования (задач)
+                                docEquipment.Answered as equipmentAnswered,
+                            --//количество оборудования (задач) с заполненным результатом
+                                client.id as clientId,
+                                client.Description as clientDescription,  --//имя клиента
+                                client.Address as clientAddress,  --адрес клиента
+                                docCheckList.Required as checkListRequired,
+                            --// количество обязательных вопросов в чеклистах
+                                docCheckList.RequiredAnswered as checkListRequiredAnswered,
+                            --//количество отвеченных обязательных вопросов в чеклистах
+                                case
+                                    when ifnull(docCheckList.Required, 0) = ifnull(docCheckList.RequiredAnswered, 0) then 1
+                                    else 0
+                                end as checkListAllRequiredIsAnswered,
+                            --//признак, что все обязательные вопросы в чеклистах отвечены
+                                Enum_StatusyEvents.Name as statusName, --//наименование статуса (служебное имя)
+                                Enum_StatusyEvents.Description as statusDescription, --//представление статуса +
+                                event.DetailedDescription, --//описание события
+                                Catalog_Contacts.Description as ContactVisitingDescription,
+                                Catalog_Contacts.Id as contactId
+
+                            from
+                                Document_Event as event
+                                    left join Catalog_Client as client
+                                    on  event.id = @id and event.client = client.Id
+
+                                    left join
+                                        (select
+                                              t1.Ref,
+                                              Catalog_TypesDepartures.description
+                                         from
+                                             (select
+                                                  ref,
+                                                  min(lineNumber) as lineNumber
+                                              from
+                                                  Document_Event_TypeDepartures
+                                              where
+                                                  ref = @id
+                                                  and active = 1
+                                              group by
+                                                  ref) as t1
+
+                                           left join Document_Event_TypeDepartures
+                                                on t1.ref= Document_Event_TypeDepartures.ref
+                                                   and t1.lineNumber = Document_Event_TypeDepartures.lineNumber
+                                           left join Catalog_TypesDepartures
+                                                on Document_Event_TypeDepartures.typeDeparture =  Catalog_TypesDepartures.id) as TypeDeparturesTable
+                                    on event.id = TypeDeparturesTable.Ref
+
+                                    left join Enum_StatusImportance
+                                       on event.Importance = Enum_StatusImportance.Id
+
+                                    left join (select Document_Event_ServicesMaterials.Ref,
+                                                   TOTAL(SumFact) as sumFact,
+                                                   TOTAL(case when (select
+                                                                      Catalog_RIM.Service
+                                                                    from Catalog_RIM
+                                                                    where Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id) = 1
+                                                         then SumFact else 0 end) as sumServices,
+                                                   TOTAL(case when (select
+                                                                      Catalog_RIM.Service
+                                                                    from Catalog_RIM
+                                                                    where Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id) = 0
+                                                         then SumFact else 0 end) as sumMaterials
+                                               from Document_Event_ServicesMaterials
+                                               where Document_Event_ServicesMaterials.Ref = @id group by Document_Event_ServicesMaterials.Ref ) as docSum
+                                       on event.id = docSUm.ref
+
+                                    left join (select
+                                                   Document_Event_CheckList.Ref,
+                                                   count(Document_Event_CheckList.Ref) as Total,
+                                                   TOTAL(case when result is null or result = '' then 0 else 1 end) as Answered,
+                                                   TOTAL(case when Required = 1 then 1 else 0 end) as Required,
+                                                   TOTAL(case when Required = 1 and result <> ''  then 1 else 0 end) as RequiredAnswered
+                                               from
+                                                   Document_Event_CheckList
+                                               where
+                                                   Document_Event_CheckList.Ref = @id group by Document_Event_CheckList.Ref ) as docCheckList
+                                       on event.id = docCheckList.ref
+
+                                    left join (select
+                                                   Document_Event_Equipments.Ref,
+                                                   count(Document_Event_Equipments.Ref) as Total,
+                                                   TOTAL(case when result is null or result = '' or result not in (select Id from Enum_ResultEvent where Name like 'Done') then 0 else 1 end) as Answered
+                                               from
+                                                   Document_Event_Equipments
+                                               where
+                                                   Document_Event_Equipments.Ref = @id group by Document_Event_Equipments.Ref ) as docEquipment
+                                       on event.id = docEquipment.ref
+
+                                    left join Catalog_Contacts
+                                       on event.ContactVisiting = Catalog_Contacts.Id
+
+                                    left join Enum_StatusyEvents
+                                       on event.status = Enum_StatusyEvents.Id
+
+                            where
+                                event.id = @id  ";
 
             var query = new Query(queryText);
             query.AddParameter("id", eventID);
@@ -435,25 +433,24 @@ namespace Test
 
         public static DbRecordset GetClientParametersByClientId(string clientId)
         {
-            var query = new Query("select " +
-                                  "   parameters.Id as Id, " +
-                                  "   parameters.Ref as ClientId, " +
-                                  "   parameters.Val as Result, " +
-                                  "   options.Id as OptionId, " + //значение результата
-                                  "   options.Description as Description, " +
-                                  "   typesDataParameters.Name as TypeName " +
-                                  "from " +
-                                  "   Catalog_Client_Parameters as parameters " +
-                                  "   left join Catalog_ClientOptions as options " +
-                                  "     ON parameters.Ref = @clientId " +
-                                  "       AND parameters.Parameter = options.Id " +
-                                  "    " +
-                                  "   left join Enum_TypesDataParameters as typesDataParameters " +
-                                  "     ON options.DataTypeParameter = TypesDataParameters.Id " +
-                                  "    " +
-                                  "where " +
-                                  "    parameters.Ref = @clientId " +
-                                  "order by parameters.LineNumber asc");
+            var query = new Query(@"select
+                                     parameters.Id as Id,
+                                     parameters.Ref as ClientId,
+                                     parameters.Val as Result,
+                                     options.Id as OptionId,
+                                     options.Description as Description,
+                                     typesDataParameters.Name as TypeName
+                                  from
+
+                                    Catalog_ClientOptions as options
+                                        left join Catalog_Client_Parameters as parameters
+                                            on  options.Id = parameters.Parameter
+                                            and parameters.Ref = @clientId
+
+                                        left join Enum_TypesDataParameters as typesDataParameters
+                                            on options.DataTypeParameter = typesDataParameters.Id
+
+                                  order by parameters.LineNumber asc");
 
             query.AddParameter("clientId", clientId);
             return query.Execute();
@@ -1158,7 +1155,7 @@ namespace Test
         public static int GetMaxNumberFromTableInColumn(string table, string column, string whereColumnName,
             string whereColumnValue)
         {
-            var query = new Query($"select max({column}) as max from {table} where {whereColumnName} = @where");
+            var query = new Query($"select ifnull(max({column}), 0) as max from {table} where {whereColumnName} = @where");
             query.AddParameter("where", whereColumnValue);
             return (int)query.ExecuteScalar();
         }

@@ -128,3 +128,7 @@ SERVICES		SERVICES
 MATERIALS		MATERIALS
 upload_pictures		Upload pictures
 upload_finished		Upload finished
+upload_failed		Upload failed
+photo		Photo
+delete		Delete
+retake_photo		Retake

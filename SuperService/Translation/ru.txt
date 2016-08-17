@@ -128,3 +128,7 @@ SERVICES		УСЛУГИ
 MATERIALS		МАТЕРИАЛЫ
 upload_pictures		Отправить фотографии
 upload_finished		Отправка завершена
+upload_failed		Отправка неудачна
+photo		Фото
+delete		Удалить
+retake_photo		Переснять

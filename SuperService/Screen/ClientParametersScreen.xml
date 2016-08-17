@@ -4,7 +4,8 @@
   <c:VerticalLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
     <s:Push Id="emptyParameters" Value="true" />
-    <c:SwipeVerticalLayout CssClass="CheckListMainSVL">
+    <c:ScrollView CssClass="CheckListMainSVL">
+      <c:VerticalLayout>
         <s:Iterator Id="Parameter" Value="$GetParameters()">
           <s:Push Id="emptyParameters" Value="false" />
           <c:HorizontalLayout Id="$Parameter.Id" CssClass="CheckListItemHL"
@@ -21,7 +22,7 @@
 
               <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$Parameter.Id"
                                 OnClick="CheckListSnapshot_OnClick">
-                <c:Image Source="$GetResourceImage(checklistscreen_photo)" Id="$Parameter.Id"
+                <c:Image Source="$GetResultImage($Parameter.Result)" Id="$CheckList.CheckListId"
                          CssClass="CheckListAnswerImage" />
               </c:VerticalLayout>
             </s:If>
@@ -95,9 +96,11 @@
               </c:VerticalLayout>
 
               <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$Parameter.Id">
-                <c:EditText Enabled="$IsNotReadonly()" Text="$Parameter.Result" Keyboard="numeric" Mask="^(\d*)(\.\d+)?$"
+                <c:EditText Enabled="$IsNotReadonly()" Text="$Parameter.Result" Keyboard="numeric"
+                            Mask="^(\d*)(\.\d+)?$"
                             OnLostFocus="CheckListDecimal_OnLostFocus" Id="$Parameter.Id"
-                            Placeholder="#not_specified#" CssClass="CheckListAnswerElementTV" OnGetFocus="CheckListDecimal_OnGetFocus" />
+                            Placeholder="#not_specified#" CssClass="CheckListAnswerElementTV"
+                            OnGetFocus="CheckListDecimal_OnGetFocus" />
               </c:VerticalLayout>
             </s:If>
 
@@ -110,7 +113,8 @@
               <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$Parameter.Id">
                 <c:EditText Enabled="$IsNotReadonly()" Text="$Parameter.Result" Keyboard="numeric" Mask="^\d*$"
                             OnLostFocus="CheckListInteger_OnLostFocus" Id="$Parameter.Id"
-                            Placeholder="#not_specified#" CssClass="CheckListAnswerElementTV" OnGetFocus="CheckListInteger_OnGetFocus" />
+                            Placeholder="#not_specified#" CssClass="CheckListAnswerElementTV"
+                            OnGetFocus="CheckListInteger_OnGetFocus" />
               </c:VerticalLayout>
             </s:If>
 
@@ -118,16 +122,18 @@
             <s:If Test="$Parameter.TypeName == String">
               <c:VerticalLayout CssClass="CheckListStringVL" Id="$Parameter.Id">
                 <c:TextView Text="$Parameter.Description" CssClass="CheckListDescriptionTV" />
-                <c:EditText Enabled="$IsNotReadonly()" Text="$Parameter.Result" Placeholder="#text#" CssClass="CheckListStringET"
-                            OnLostFocus="CheckListString_OnLostFocus" Id="$Parameter.Id" OnGetFocus="CheckListString_OnGetFocus" />
+                <c:EditText Enabled="$IsNotReadonly()" Text="$Parameter.Result" Placeholder="#text#"
+                            CssClass="CheckListStringET"
+                            OnLostFocus="CheckListString_OnLostFocus" Id="$Parameter.Id"
+                            OnGetFocus="CheckListString_OnGetFocus" />
               </c:VerticalLayout>
             </s:If>
           </c:HorizontalLayout>
           <c:HorizontalLine CssClass="CheckListBreaker" />
-        </s:Iterator>
-        <s:If Test="$emptyParameters">
-          <c:TextView Text="#client_parameters_empty#" CssClass="EmptyParametersMessage" />
-        </s:If>
-    </c:SwipeVerticalLayout>
+        </s:Iterator></c:VerticalLayout>
+      <s:If Test="$emptyParameters">
+        <c:TextView Text="#client_parameters_empty#" CssClass="EmptyParametersMessage" />
+      </s:If>
+    </c:ScrollView>
   </c:VerticalLayout>
 </c:Screen>

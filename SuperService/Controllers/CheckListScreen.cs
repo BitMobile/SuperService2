@@ -38,9 +38,6 @@ namespace Test
 
         private bool _readonly;
 
-        private static readonly Dictionary<string, object> ChecklistResults = new Dictionary<string, object>();
-        private static int _checklistResultThreshold = 4;
-
         public override void OnLoading()
         {
             DConsole.WriteLine("CheckListScreen init");
@@ -49,7 +46,8 @@ namespace Test
                 Header = Translator.Translate("clist"),
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
                 ArrowVisible = false,
-                SubHeader = string.Format(Translator.Translate("mandatory_questions_0_1"), _totalAnswered, _totalRequired)
+                SubHeader =
+                    string.Format(Translator.Translate("mandatory_questions_0_1"), _totalAnswered, _totalRequired)
             };
             _readonly = (bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
             _topInfoComponent.ActivateBackButton();
@@ -57,24 +55,9 @@ namespace Test
 
         private void UpdateChecklist(string id, string result)
         {
-            ChecklistResults[id] = result;
-            if (ChecklistResults.Count >= _checklistResultThreshold)
-                SaveChecklist();
-        }
-
-        private static void SaveChecklist()
-        {
-            var entities = new ArrayList();
-            foreach (var checklistResult in ChecklistResults)
-            {
-                var id = checklistResult.Key;
-                var result = (string)checklistResult.Value;
-                var checkList = (Event_CheckList)DBHelper.LoadEntity(id);
-                checkList.Result = result;
-                entities.Add(checkList);
-            }
-            DBHelper.SaveEntities(entities);
-            ChecklistResults.Clear();
+            var checkList = (Event_CheckList)DBHelper.LoadEntity(id);
+            checkList.Result = result;
+            DBHelper.SaveEntity(checkList, false);
         }
 
         internal int IncTotalAnswered()
@@ -91,7 +74,6 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            SaveChecklist();
             Navigation.Back();
         }
 
@@ -118,29 +100,37 @@ namespace Test
         internal void CheckListSnapshot_OnClick(object sender, EventArgs eventArgs)
         {
             if (_readonly) return;
-            _currentCheckListItemID = ((VerticalLayout)sender).Id;
-            _newGuid = Guid.NewGuid().ToString();
-            _pathToImg = $@"\private\{_newGuid}.jpg";
-
             _imgToReplace = (Image)((VerticalLayout)sender).GetControl(0);
+            _currentCheckListItemID = ((VerticalLayout)sender).Id;
 
-            Camera.MakeSnapshot(_pathToImg, int.MaxValue, CameraCallback, sender);
-            // TODO: Ожидать фичи получения изображения с памяти устройства
+            if (_imgToReplace.Source.StartsWith("~"))
+            {
+                Navigation.Move(nameof(PhotoScreen), new Dictionary<string, object>
+                {
+                    [Parameters.IdImage] = _imgToReplace.Source,
+                    [nameof(CheckListScreen)] = _currentCheckListItemID
+                });
+            }
+            else if (_imgToReplace.Source == ResourceManager.GetImage("checklistscreen_photo"))
+            {
+                _newGuid = Guid.NewGuid().ToString();
+                _pathToImg = $@"\private\{_newGuid}.jpg";
+
+                Camera.MakeSnapshot(_pathToImg, Settings.PictureSize, CameraCallback, _newGuid);
+            }
         }
 
         private void CameraCallback(object state, ResultEventArgs<bool> args)
         {
-            //Document.Order order = (Document.Order)state;
-            //order.HasPhoto = args.Result;
+            if (!args.Result) return;
+
             DConsole.WriteLine("New image");
-            _imgToReplace.Source = _pathToImg;
-            //_imgToReplace.Refresh();
+            _imgToReplace.Source = "~" + _pathToImg;
+            _imgToReplace.Refresh();
+            DConsole.WriteLine("Updating");
+            UpdateChecklist(_currentCheckListItemID, state.ToString());
             DConsole.WriteLine("Changing indicator");
-            //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов ChangeRequiredIndicator(_lastClickedRequiredIndicatior, args.Result);
-            if (args.Result)
-                ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
-            else
-                ChangeRequiredIndicatorForRequired(_lastClickedRequiredIndicatior);
+            ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
         }
 
         // Список
@@ -153,9 +143,9 @@ namespace Test
             var tv = GetTextView(sender);
             var startObject = "not_choosed";
             var items = new Dictionary<object, string>
-                {
-                    {"not_choosed", Translator.Translate("not_choosed")}
-                };
+            {
+                {"not_choosed", Translator.Translate("not_choosed")}
+            };
             var temp = DBHelper.GetActionValuesList(_textView.Id);
             while (temp.Next())
             {
@@ -210,11 +200,11 @@ namespace Test
             var tv = GetTextView(sender);
 
             var items = new Dictionary<object, string>
-                {
-                    {"true", Translator.Translate("yes")},
-                    {"false", Translator.Translate("no")},
-                    {"", Translator.Translate("not_choosed")}
-                };
+            {
+                {"true", Translator.Translate("yes")},
+                {"false", Translator.Translate("no")},
+                {"", Translator.Translate("not_choosed")}
+            };
             var startKey = _textView.Text == Translator.Translate("not_choosed")
                 ? ""
                 : _textView.Text == Translator.Translate("yes") ? "true" : "false";
@@ -254,7 +244,8 @@ namespace Test
 
             UpdateChecklist(_currentCheckListItemID, _editText.Text);
 
-            _lastClickedRequiredIndicatior = (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
+            _lastClickedRequiredIndicatior =
+                (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
 
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов  ChangeRequiredIndicator(_lastClickedRequiredIndicatior, string.IsNullOrWhiteSpace(_editText.Text));
             if (!string.IsNullOrWhiteSpace(_editText.Text))
@@ -269,25 +260,10 @@ namespace Test
             _editText = (EditText)sender;
             _currentCheckListItemID = ((EditText)sender).Id;
 
-            //var vl1 = (IHorizontalLayout3)_editText.Parent;
-            //var hl = (IVerticalLayout3)vl1.Parent;
-            //var vl2 = (IHorizontalLayout3)hl.Parent;
-            //var vltarget = (IVerticalLayout3)vl2.Controls[0];
-
-            //if (_editText.Text.Length > 0)
-            //{
-            //    vltarget.CssClass = "VLRequiredDone";
-            //    vltarget.Refresh();
-            //}
-            //else
-            //{
-            //    vltarget.CssClass = "VLRequired";
-            //    vltarget.Refresh();
-            //}
-
             UpdateChecklist(_currentCheckListItemID, _editText.Text);
 
-            _lastClickedRequiredIndicatior = (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
+            _lastClickedRequiredIndicatior =
+                (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
 
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов  ChangeRequiredIndicator(_lastClickedRequiredIndicatior, string.IsNullOrWhiteSpace(_editText.Text));
             if (!string.IsNullOrWhiteSpace(_editText.Text))
@@ -299,19 +275,22 @@ namespace Test
         internal void CheckListString_OnGetFocus(object sender, EventArgs e)
         {
             _currentCheckListItemID = ((EditText)sender).Id;
-            _lastClickedRequiredIndicatior = (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_currentCheckListItemID), true);
+            _lastClickedRequiredIndicatior =
+                (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_currentCheckListItemID), true);
         }
 
         internal void CheckListDecimal_OnGetFocus(object sender, EventArgs e)
         {
             _currentCheckListItemID = ((EditText)sender).Id;
-            _lastClickedRequiredIndicatior = (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_currentCheckListItemID), true);
+            _lastClickedRequiredIndicatior =
+                (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_currentCheckListItemID), true);
         }
 
         internal void CheckListInteger_OnGetFocus(object sender, EventArgs e)
         {
             _currentCheckListItemID = ((EditText)sender).Id;
-            _lastClickedRequiredIndicatior = (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_currentCheckListItemID), true);
+            _lastClickedRequiredIndicatior =
+                (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_currentCheckListItemID), true);
         }
 
         // Строка
@@ -320,38 +299,10 @@ namespace Test
             _editText = (EditText)sender;
             _currentCheckListItemID = ((EditText)sender).Id;
 
-            //var vl = (IVerticalLayout3)_editText.Parent;
-            //var hl = (IHorizontalLayout3)vl.Parent;
-            //var vltarget = (IVerticalLayout3) hl.Controls[0];
-
-            //DConsole.WriteLine("CSS " + vltarget.CssClass.ToString());
-
-            //vltarget.CssClass = "VLRequiredDone";
-            //DConsole.WriteLine("1");
-            //vltarget.Refresh();
-
-            //DConsole.WriteLine("CSS " + vltarget.CssClass.ToString());
-
-            //if (vltarget.CssClass == "VLRequiredDone" || vltarget.CssClass == "VLRequired")
-            //{
-            //    DConsole.WriteLine("1");
-            //    if (_editText.Text.Length > 0)
-            //    {
-            //        DConsole.WriteLine("2");
-            //        vltarget.CssClass = "VLRequiredDone";
-            //        vltarget.Refresh();
-            //    }
-            //    else
-            //    {
-            //        DConsole.WriteLine("3");
-            //        vltarget.CssClass = "VLRequired";
-            //        vltarget.Refresh();
-            //    }
-            //}
-            // TODO: Непонятное поведение Refresh(), из-за чего не можем оперативно сменить индикатор важности. Работает на android 4, не работает на android 6
             UpdateChecklist(_currentCheckListItemID, _editText.Text);
 
-            _lastClickedRequiredIndicatior = (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
+            _lastClickedRequiredIndicatior =
+                (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
 
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов  ChangeRequiredIndicator(_lastClickedRequiredIndicatior, string.IsNullOrWhiteSpace(_editText.Text)););
             if (!string.IsNullOrWhiteSpace(_editText.Text))
@@ -408,6 +359,17 @@ namespace Test
                 _totalRequired);
             requiredIndecator.CssClass = "CheckListRequiredVL";
             requiredIndecator.Refresh();
+        }
+
+        internal string GetResultImage(string guid)
+        {
+            return string.IsNullOrEmpty(guid)
+                ? ResourceManager.GetImage("checklistscreen_photo")
+                : FileSystem.Exists($@"\private\{guid}.jpg")
+                    ? $@"~\private\{guid}.jpg"
+                    : FileSystem.Exists($@"\shared\{guid}.jpg")
+                        ? $@"~\shared\{guid}.jpg"
+                        : ResourceManager.GetImage("checklistscreen_nophoto");
         }
 
         internal IEnumerable GetCheckList()

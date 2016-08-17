@@ -69,6 +69,7 @@ namespace Test
             {"cocscreen_plus", @"Image\COCScreen\plus_img.png"},
             //CheckListScreen
             {"checklistscreen_photo", @"Image\CheckListScreen\TakePhoto.png"},
+            {"checklistscreen_nophoto", @"Image\CheckListScreen\NoPhoto.png"},
             //BagListScreen
             {"baglistscreen_busket", @"Image\BagListScreen\BagBusket.png"},
             {"baglistscreen_plus", @"Image\BagListScreen\BagPlus.png"},
@@ -93,6 +94,9 @@ namespace Test
             // EditContactScreen
             {"editcontactscreen_plus", @"Image\EditContactScreen\plus_img.png" },
             {"editcontactscreen_minus", @"Image\EditContactScreen\delete_img.png" },
+            // PhotoScreen
+            {"photoscreen_delete", @"Image\PhotoScreen\delete.png" },
+            {"photoscreen_retake", @"Image\PhotoScreen\reload.png" },
             // Settings Screen
             {"settingsscreen_white_arrow",@"Image\SettingsScreen\bg_bottom.png" },
             {"settingsscreen_grey_arrow",@"Image\SettingsScreen\bg_top.png" },

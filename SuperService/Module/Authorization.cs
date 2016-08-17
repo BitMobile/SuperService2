@@ -1,5 +1,5 @@
-﻿using System;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
+using System;
 
 namespace Test
 {
@@ -77,7 +77,13 @@ namespace Test
 #endif
                         DBHelper.FullSync((o, eventArgs) =>
                         {
-                            if (!DBHelper.SuccessSync) return;
+                            if (!DBHelper.SuccessSync)
+                            {
+//                                Settings.User = "";
+//                                Settings.Password = "";
+//                                screen.ClearPassword();
+                                return;
+                            }
 #if DEBUG
                             DConsole.WriteLine(Parameters.Splitter);
                             DConsole.WriteLine("Синхронизация удачна");
@@ -86,6 +92,9 @@ namespace Test
                             DConsole.WriteLine(Parameters.Splitter);
                             DConsole.WriteLine("Loading first screen...");
 #endif
+                            FileSystem.ClearPrivate();
+                            FileSystem.ClearShared();
+                            FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password);
                             Navigation.ModalMove("EventListScreen");
                         });
                     }

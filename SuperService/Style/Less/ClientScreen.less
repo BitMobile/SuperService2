@@ -5,20 +5,18 @@
 
 .ClientDescriptionVL {
     background-color: #626271;
-    border-style: none;
-    height: 10sp;
     width: 100%;
 }
 
 .ClientDescriptionTV {
     color: #ffffff;
-    font: 3sp arial;
-    height: 100%;
-    margin-left: 3%;
-    margin-right: 3%;
-    padding-top: 25%;
+    .text-view-style(@topheading-text-size);
+    .auto-height;
+    margin-top: @topheading-text-size / 2;
+    margin-bottom: @topheading-text-size / 2;
+    horizontal-align: center;
     text-align: center;
-    width: 26% auto;
+    width: 80%;
 }
 
 .ClientSV {
@@ -37,50 +35,52 @@
     width: 100%;
 }
 
+@address-margin: @default-font-size;
+
 .ClientAdressHL {
-    height: 10sp;
-    width: 100%;
+    height: (@default-font-size + @address-margin * 2) auto;
+    width: 90%;
+    horizontal-align: center;
 }
 
-.TextDataVL {
-    height: 100%;
-    width: 80%;
-}
+@address-distance-relation: 70%;
 
 .ClientAdressTV {
-    color: #51595b;
-    font: 2.5sp arial;
-    height: 100%;
-    horizontal-align: left;
-    padding-left: 2%;
-    padding-top: 40%;
+    .text-view-style(@default-font-size);
+    margin-top: @address-margin;
+    margin-bottom: @address-margin;
     text-align: left;
     white-space: normal;
-    width: 100%;
+    vertical-align: top;
+    width: @address-distance-relation;
+}
+
+.DistanceVL {
+    margin-top: @address-margin;
+    width: 100% - @address-distance-relation;
+    height: @default-font-size * 1.1;
+    vertical-align: top;
 }
 
 .DistanceHL {
-    height: 100%;
-    width: 20%;
+    horizontal-align: right;
+    width: 0sp auto;
 }
 
 .ClientDistanceTV {
     color: #909499;
-    font: 2sp arial;
-    height: auto;
-    padding-top: 40%;
-    text-align: left;
-    width: auto;
+    margin-left: 1sp;
+    width: 0sp auto;
+}
+
+.GPSImage {
+    height: 1.5sp;
+    vertical-align: center;
 }
 
 .ContactsTV {
     color: #a4a8a9;
-    font: 3sp arial;
-    height: 8sp;
-    margin-left: 11%;
-    padding-top: 25%;
     text-align: center;
-    width: 100%;
 }
 
 .ContactsListHL {
@@ -136,13 +136,6 @@
     vertical-align: center;
 }
 
-.GPSImage {
-    height: 1.3sp;
-    margin-top: 48%;
-    margin-left: 30%;
-    horizontal-align: center;
-}
-
 .AddContactBtn {
     color: #ff0000;
     font: 3sp arial;
@@ -191,16 +184,11 @@
     width: 100%;
 }
 
-.FatLineHL {
+.FatLine {
     background-color: #c6c6c9;
-    height: 100%;
+    height: 0.3sp;
     horizontal-align: center;
     width: 5%;
-}
-
-.FatLineContainerVL {
-    height: 9dp;
-    width: 100%;
 }
 
 .WideLineHL {

@@ -147,6 +147,7 @@ namespace Test
         private static void Logout()
         {
             DBHelper.Sync();
+            FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password);
             Settings.Password = "";
             Navigation.CleanStack();
             Navigation.ModalMove("AuthScreen");
@@ -162,22 +163,21 @@ namespace Test
 
         internal void SendErrorReport_OnClick(object sender, EventArgs e)
         {
-            var uploader = new PrivateUploader();
-            uploader.Start();
+            Toast.MakeToast(Translator.Translate("start_sync"));
+            FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password, (o, args) =>
+            {
+                DConsole.WriteLine("Sync succesful? = " + args.Result);
+                Toast.MakeToast(Translator.Translate(args.Result ? "upload_finished" : "upload_failed"));
+                if (args.Result)
+                    FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password, (o1, args1) =>
+                    {
+                        Toast.MakeToast(Translator.Translate(args1.Result ? "sync_success" : "sync_fail"));
+                    });
+            });
         }
 
         internal void SendLog_OnClick(object sender, EventArgs e)
         {
-        }
-    }
-
-    internal class PrivateUploader : Thread
-    {
-        public override void Execute()
-        {
-            FileSystem.UploadPrivate(Settings.Server, Settings.User, Settings.Password);
-            FileSystem.SyncShared(Settings.Server, Settings.User, Settings.Password);
-            Toast.MakeToast(Translator.Translate("upload_finished"));
         }
     }
 }
