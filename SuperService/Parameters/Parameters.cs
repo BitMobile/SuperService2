@@ -14,6 +14,7 @@
         public const string IdIsMaterialsRequest = "isMaterialsRequest";
         public const string IdIsReadonly = "isReadonly";
         public const string IdImage = "image";
+        public const string IdWasEventStarted = "wasEventStarted";
         public const string Contact = "contact";
 
         /// <summary>

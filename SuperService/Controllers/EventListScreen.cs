@@ -57,6 +57,11 @@ namespace Test
             _topInfoComponent.ExtraLayout.AddChild(extraHorizontalLayout);
         }
 
+        public override void OnShow()
+        {
+            GpsTracking.Start();
+        }
+
         internal string GetStatusPicture(string importance, string status)
         {
             var pictureTag = @"eventlistscreen_";
@@ -197,7 +202,7 @@ namespace Test
 
         internal IEnumerable GetEvents()
         {
-            return DBHelper.GetEvents();
+            return DBHelper.GetEvents(DateTime.Now.Date);
         }
 
         internal string GetResourceImage(string tag)

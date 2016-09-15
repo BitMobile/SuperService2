@@ -34,7 +34,7 @@ namespace Test
             var eventId = (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId];
             var @event = (Document.Event)DbRef.FromString(eventId).GetObject();
             var commentMemoEdit = (MemoEdit)Variables["CommentaryMemoEdit"];
-            @event.Comment = commentMemoEdit.Text;
+            @event.CommentContractor = commentMemoEdit.Text;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Cancel);
             DBHelper.SaveEntity(@event);
             Navigation.CleanStack();

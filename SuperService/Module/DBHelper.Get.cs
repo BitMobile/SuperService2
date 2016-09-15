@@ -433,24 +433,25 @@ namespace Test
 
         public static DbRecordset GetClientParametersByClientId(string clientId)
         {
-            var query = new Query(@"select
-                                     parameters.Id as Id,
-                                     parameters.Ref as ClientId,
-                                     parameters.Val as Result,
-                                     options.Id as OptionId,
-                                     options.Description as Description,
-                                     typesDataParameters.Name as TypeName
-                                  from
-
-                                    Catalog_ClientOptions as options
-                                        left join Catalog_Client_Parameters as parameters
-                                            on  options.Id = parameters.Parameter
-                                            and parameters.Ref = @clientId
-
-                                        left join Enum_TypesDataParameters as typesDataParameters
-                                            on options.DataTypeParameter = typesDataParameters.Id
-
-                                  order by parameters.LineNumber asc");
+            var query = new Query("select " +
+                                  "   parameters.Id as Id, " +
+                                  "   parameters.Ref as ClientId, " +
+                                  "   parameters.Val as Result, " +
+                                  "   options.Id as OptionId, " + //значение результата
+                                  "   options.Description as Description, " +
+                                  "   typesDataParameters.Name as TypeName " +
+                                  "from " +
+                                  "   Catalog_Client_Parameters as parameters " +
+                                  "   left join Catalog_ClientOptions as options " +
+                                  "     ON parameters.Ref = @clientId " +
+                                  "       AND parameters.Parameter = options.Id " +
+                                  "    " +
+                                  "   left join Enum_TypesDataParameters as typesDataParameters " +
+                                  "     ON options.DataTypeParameter = TypesDataParameters.Id " +
+                                  "    " +
+                                  "where " +
+                                  "    parameters.Ref = @clientId " +
+                                  "order by parameters.LineNumber asc");
 
             query.AddParameter("clientId", clientId);
             return query.Execute();
@@ -555,18 +556,20 @@ namespace Test
         ///     Возвращает суммы по АВР
         /// </summary>
         /// <param name="eventId">Идентификатор наряда</param>
+        /// <param name="isPlanSums">Собирать фактическую или плановую сумму</param>
         /// <returns>
         ///     DbRecordset со следующими полями:
         ///     Sum - сумма по наряду
         ///     SumMaterials - сумма только по материалам
         ///     SumServices - сумма только по услугам
         /// </returns>
-        public static DbRecordset GetCocSumsByEventId(string eventId)
+        public static DbRecordset GetCocSumsByEventId(string eventId, bool isPlanSums = false)
         {
+            var column = isPlanSums ? "SumPlan" : "SumFact";
             var query = new Query("select " +
-                                  "    TOTAL(SumFact) as Sum, " +
-                                  "    TOTAL(case when Service = 0 then SumFact else 0 end) as SumMaterials, " +
-                                  "    TOTAL(case when Service = 1 then SumFact else 0 end) as SumServices " +
+                                  $"    TOTAL({column}) as Sum, " +
+                                  $"    TOTAL(case when Service = 0 then {column} else 0 end) as SumMaterials, " +
+                                  $"    TOTAL(case when Service = 1 then {column} else 0 end) as SumServices " +
                                   "from " +
                                   "    Document_Event_ServicesMaterials " +
                                   "    join Catalog_RIM " +
@@ -601,7 +604,7 @@ namespace Test
                                   "    join Catalog_RIM " +
                                   "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   " where Catalog_RIM.Service = 0 and " +
-                                  " Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  " (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and" +
                                   "    Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
@@ -630,8 +633,20 @@ namespace Test
                                   "       join Catalog_RIM" +
                                   "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
                                   " where Catalog_RIM.Service = 1 and " +
-                                  " Document_Event_ServicesMaterials.AmountFact != 0 and" +
+                                  " (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and" +
                                   "    Document_Event_ServicesMaterials.Ref = @eventId");
+            query.AddParameter("eventId", eventId);
+            return query.Execute();
+        }
+
+        /// <summary>
+        /// Возвращает список Id УиМ
+        /// </summary>
+        /// <param name="eventId">Идентификатор ивента</param>
+        /// <returns></returns>
+        public static DbRecordset GetServicesAndMaterialsByEventId(string eventId)
+        {
+            var query = new Query("select Id from Document_Event_ServicesMaterials where Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
         }
@@ -902,8 +917,9 @@ namespace Test
                                 from
                                     Catalog_Client as client
                                 where
-                                    client.Latitude != 0
-                                    and client.Longitude != 0
+                                    ifnull(client.Latitude, 0) != 0 and client.Latitude not like ''
+                                    and
+                                    ifnull(client.Longitude, 0) != 0 and client.Longitude not like ''
                                     and client.Id = @clientId");
 
             query.AddParameter("clientId", clientId);
@@ -923,7 +939,6 @@ namespace Test
                                         on event.client = client.id
                                     where
                                         event.DeletionMark = 0
-                                        and event.ResultInteractions != '@ref[Enum_ResultEvent]:81270b2c-190a-faf2-440f-4a593042495e'
                                         and date(event.StartDatePlan) = date('now','start of day')
                                         and client.Latitude != 0
                                         and client.Longitude != 0");
@@ -1103,14 +1118,11 @@ namespace Test
         public static DbRecordset GetTotalFinishedRequireQuestionByEventId(string eventId)
         {
             var query = new Query(@"select
-                                        SUM(case
-                                        when result like '' then 1
-                                        else 0
-                                        end) as count
+                                        count(*) as count
                                     from
                                         Document_Event_CheckList
                                         where
-                                        Ref = @ref and Required = 1");
+                                        Ref = @ref and Required = 1 and ifnull(result, '') like '' ");
 
             query.AddParameter("ref", eventId);
 
@@ -1158,6 +1170,29 @@ namespace Test
             var query = new Query($"select ifnull(max({column}), 0) as max from {table} where {whereColumnName} = @where");
             query.AddParameter("where", whereColumnValue);
             return (int)query.ExecuteScalar();
+        }
+
+        /// <summary>
+        /// Получить UserId из БД
+        /// </summary>
+        /// <returns>Возращается строка содержащая UserId, если в БД не найден UserId возращается пустая строка.</returns>
+        public static string GetUserId()
+        {
+            var result = new Query("SELECT UserId FROM ___UserInfo  LIMIT 1").Execute();
+            return result.Next() ? (string)result["UserId"] : "";
+        }
+
+        /// <summary>
+        /// Получаем актуальные координаты.
+        /// </summary>
+        /// <param name="timeSpan">Указывает промежуток, который указывает,
+        ///  из какого временного диапазона выбирать актуальные координаты.
+        /// По умолчанию, координаты выбираются из всего временного диапазона.</param>
+        /// <returns>Возращяет координаты. Нулевые координаты указывают, что нет актуальных координат.</returns>
+        public static DbRecordset GetCoordinate(uint timeSpan = uint.MaxValue)
+        {
+            return new Query($@"select id, ifnull(Latitude, 0.0) as Latitude, ifnull(Longitude, 0.0) as Longitude, max(datetime(EndTime,'localtime')) as EndTime from ___DbLocations
+                                where datetime(EndTime, 'localtime') between datetime('now','localtime', '-{timeSpan} minutes') and datetime('now', 'localtime')").Execute();
         }
     }
 }

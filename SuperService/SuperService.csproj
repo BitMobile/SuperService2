@@ -73,7 +73,7 @@
     <EmbeddedResource Include="Style\*" />
     <EmbeddedResource Include="Translation\**" />
     <None Include="Style\Less\**" />
-    <EmbeddedResource Include="settings.xml" />
+    <EmbeddedResource Include="*.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

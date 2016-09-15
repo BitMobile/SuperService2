@@ -1,30 +1,32 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.DbEngine;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Test.Catalog;
 using Test.Components;
+using Test.Document;
 using Test.Enum;
-using Converter = BitMobile.ClientModel3.Converter;
-using Dialog = BitMobile.ClientModel3.Dialog;
+using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
 namespace Test
 {
     public class EventScreen : Screen
     {
         private DbRecordset _currentEventRecordset;
+        private bool _readonly;
         private Button _refuseButton;
         private DockLayout _rootLayout;
         private Button _startButton;
-        private Image _statusImage;
 
         private VerticalLayout _startFinishButton;
+        private Image _statusImage;
         private bool _taskCommentTextExpanded;
         private TextView _taskCommentTextView;
 
         private TopInfoComponent _topInfoComponent;
         private Image _wrapUnwrapImage;
-        private bool _readonly = false;
 
         public override void OnLoading()
         {
@@ -97,7 +99,7 @@ namespace Test
 
         public override void OnShow()
         {
-            GPS.StartTracking();
+            GpsTracking.Start();
             if ((string)_currentEventRecordset["statusName"] == "Done")
             {
                 Toast.MakeToast(Translator.Translate("event_finished_ro"));
@@ -191,7 +193,7 @@ namespace Test
                 {
                     if (!CheckEventBeforeClosing() || args.Result != 0) return;
                     var @event =
-                        (Document.Event)
+                        (Event)
                             DBHelper.LoadEntity(
                                 (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
                     @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Done);
@@ -254,13 +256,33 @@ namespace Test
 
         private void Event_OnStart()
         {
-            var @event =
-                (Document.Event)
-                    DBHelper.LoadEntity((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+            ChangeEventStatus();
+            GetCurrentEvent();
+        }
+
+        private void ChangeEventStatus()
+        {
+            var result = DBHelper.GetCoordinate(TimeRangeCoordinate.DefaultTimeRange);
+            var latitude = Converter.ToDouble(result["Latitude"]);
+            var longitude = Converter.ToDouble(result["Longitude"]);
+
+            var currentEventId = (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId];
+            var @event = (Event)DBHelper.LoadEntity(currentEventId);
             @event.ActualStartDate = DateTime.Now;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
+            @event.Latitude = Converter.ToDecimal(latitude);
+            @event.Longitude = Converter.ToDecimal(longitude);
             DBHelper.SaveEntity(@event);
-            GetCurrentEvent();
+            var rimList = DBHelper.GetServicesAndMaterialsByEventId(currentEventId);
+            var rimArrayList = new ArrayList();
+            while (rimList.Next())
+            {
+                var rim = (Event_ServicesMaterials)((DbRef)rimList["Id"]).GetObject();
+                rim.AmountFact = rim.AmountPlan;
+                rim.SumFact = rim.SumPlan;
+                rimArrayList.Add(rim);
+            }
+            DBHelper.SaveEntities(rimArrayList, false);
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
@@ -302,10 +324,14 @@ namespace Test
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
 
+            var @event = (Event)DBHelper.LoadEntity(_currentEventRecordset["Id"].ToString());
+            var status = ((StatusyEvents)@event.Status.GetObject()).GetEnum();
+            var wasStarted = status == StatusyEventsEnum.InWork || status == StatusyEventsEnum.Done;
             var dictinory = new Dictionary<string, object>
             {
                 {Parameters.IdCurrentEventId, (string) eventId},
-                {Parameters.IdIsReadonly, _readonly}
+                {Parameters.IdIsReadonly, _readonly},
+                {Parameters.IdWasEventStarted, wasStarted}
             };
             Navigation.Move("COCScreen", dictinory);
         }
@@ -348,6 +374,20 @@ namespace Test
         internal string GetStringPartOfTotal(long part, long total)
         {
             return Converter.ToDecimal(part) != 0 ? $"{part}/{total}" : $"{total}";
+        }
+
+        internal string GetPrice(DbRecordset eventRecordset)
+        {
+            var status = (string)eventRecordset["statusName"];
+            var sums = DBHelper.GetCocSumsByEventId(eventRecordset["Id"].ToString(),
+                status != "Done" && status != "InWork");
+            var total = (double)sums["Sum"];
+            var services = (double)sums["SumServices"];
+            var materials = (double)sums["SumMaterials"];
+            if (!Settings.ShowMaterialPrice) return $"{services:N2} {Translator.Translate("currency")}";
+            return Settings.ShowServicePrice
+                ? $"{total:N2} {Translator.Translate("currency")}"
+                : $"{materials:N2} {Translator.Translate("currency")}";
         }
 
         internal bool IsEmptyDateTime(string dateTime)
@@ -404,7 +444,7 @@ namespace Test
                 total += (decimal)materials;
             if (Settings.ShowServicePrice)
                 total += (decimal)services;
-            return $"{total:0.00} {Translator.Translate("currency")}";
+            return $"{total:N2} {Translator.Translate("currency")}";
         }
     }
 }

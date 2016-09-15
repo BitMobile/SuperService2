@@ -7,6 +7,7 @@ namespace Test
     {
         private static WebRequest _webRequest;
         public static bool Initialized { get; private set; }
+        private static AuthScreen _screen;
 
         public static void Init()
         {
@@ -35,81 +36,86 @@ namespace Test
         {
             _webRequest.UserName = userName;
             _webRequest.Password = password;
+            _screen = screen;
 
-            _webRequest.Get(Settings.AuthUrl, (sender, args) =>
+            _webRequest.Get(Settings.AuthUrl, Callback);
+        }
+
+        private static void Callback(object sender, ResultEventArgs<WebRequest.WebRequestResult> args)
+        {
+            if (args.Result.Success)
             {
-                if (args.Result.Success)
+                Settings.UserId = args.Result.Result;
+#if DEBUG
+                DConsole.WriteLine("Авторизация успешна");
+                DConsole.WriteLine($"UserId - {Settings.UserId} Web Request Result - {args.Result.Result}");
+#endif
+
+                //Проверяем, если пользователь уже сохранен, то делаем частичную синхронизацию, иначе полную.
+                // ReSharper disable once StringCompareIsCultureSpecific.3
+                if (string.Compare(Settings.User, _webRequest.UserName, true) == 0)
                 {
-                    Settings.UserId = args.Result.Result;
 #if DEBUG
-                    DConsole.WriteLine("Авторизация успешна");
-                    DConsole.WriteLine($"UserId - {Settings.UserId} Web Request Result - {args.Result.Result}");
+                    DConsole.WriteLine($"Авторизировались, пользователь сохранен в системе.");
+                    DConsole.WriteLine("Сохраняем пароль");
 #endif
 
-                    //Проверяем, если пользователь уже сохранен, то делаем частичную синхронизацию, иначе полную.
-                    // ReSharper disable once StringCompareIsCultureSpecific.3
-                    if (string.Compare(Settings.User, userName, true) == 0)
-                    {
-#if DEBUG
-                        DConsole.WriteLine($"Авторизировались, пользователь сохранен в системе.");
-                        DConsole.WriteLine("Сохраняем пароль");
-#endif
-
-                        Settings.Password = password;
+                    Settings.Password = _webRequest.Password;
 
 #if DEBUG
-                        DConsole.WriteLine($"Запустили частичную синхронизацию. From class {nameof(Authorization)}");
+                    DConsole.WriteLine($"Запустили частичную синхронизацию. From class {nameof(Authorization)}");
 #endif
-                        DBHelper.SyncAsync();
-                        DConsole.WriteLine("Loading first screen...");
-                        Navigation.ModalMove("EventListScreen");
-                    }
-                    else
-                    {
-#if DEBUG
-                        DConsole.WriteLine($"Авторизировались, пользователь НЕ сохранен в системе.");
-                        DConsole.WriteLine("Сохраняем пользователя и пароль в системе");
-#endif
-                        Settings.User = userName;
-                        Settings.Password = password;
-#if DEBUG
-                        DConsole.WriteLine($"Запустили полную синхронизацию. From class {nameof(Authorization)}");
-#endif
-                        DBHelper.FullSync((o, eventArgs) =>
-                        {
-                            if (!DBHelper.SuccessSync)
-                            {
-//                                Settings.User = "";
-//                                Settings.Password = "";
-//                                screen.ClearPassword();
-                                return;
-                            }
-#if DEBUG
-                            DConsole.WriteLine(Parameters.Splitter);
-                            DConsole.WriteLine("Синхронизация удачна");
-                            DConsole.WriteLine($"{nameof(DBHelper.SuccessSync)} - {DBHelper.SuccessSync}");
-                            DConsole.WriteLine($"In Class {nameof(Authorization)} Method {nameof(StartAuthorization)}");
-                            DConsole.WriteLine(Parameters.Splitter);
-                            DConsole.WriteLine("Loading first screen...");
-#endif
-                            FileSystem.ClearPrivate();
-                            FileSystem.ClearShared();
-                            FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password);
-                            Navigation.ModalMove("EventListScreen");
-                        });
-                    }
+                    DBHelper.SyncAsync();
+                    DConsole.WriteLine("Loading first screen...");
+                    Navigation.ModalMove("EventListScreen");
                 }
                 else
                 {
 #if DEBUG
-                    DConsole.WriteLine($"Авторизация не удалась. Сбрасываем пароль.");
+                    DConsole.WriteLine($"Авторизировались, пользователь НЕ сохранен в системе.");
+                    DConsole.WriteLine("Сохраняем пользователя и пароль в системе");
 #endif
-                    Settings.Password = "";
-                    screen.ClearPassword();
-
-                    ErrorMessageWithToast(args);
+                    Settings.User = _webRequest.UserName;
+                    Settings.Password = _webRequest.Password;
+#if DEBUG
+                    DConsole.WriteLine($"Запустили полную синхронизацию. From class {nameof(Authorization)}");
+#endif
+                    DBHelper.FullSync(ResultEventHandler);
                 }
-            });
+            }
+            else
+            {
+#if DEBUG
+                DConsole.WriteLine($"Авторизация не удалась. Сбрасываем пароль.");
+#endif
+                Settings.Password = "";
+                _screen.ClearPassword();
+
+                ErrorMessageWithToast(args);
+            }
+        }
+
+        private static void ResultEventHandler(object sender, ResultEventArgs<bool> resultEventArgs)
+        {
+            if (!DBHelper.SuccessSync)
+            {
+                Settings.User = "";
+                Settings.Password = "";
+                _screen.ClearPassword();
+                return;
+            }
+#if DEBUG
+            DConsole.WriteLine(Parameters.Splitter);
+            DConsole.WriteLine("Синхронизация удачна");
+            DConsole.WriteLine($"{nameof(DBHelper.SuccessSync)} - {DBHelper.SuccessSync}");
+            DConsole.WriteLine($"In Class {nameof(Authorization)} Method {nameof(StartAuthorization)}");
+            DConsole.WriteLine(Parameters.Splitter);
+            DConsole.WriteLine("Loading first screen...");
+#endif
+            FileSystem.ClearPrivate();
+            FileSystem.ClearShared();
+            FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password);
+            Navigation.ModalMove("EventListScreen");
         }
 
         private static void ErrorMessageWithToast(ResultEventArgs<WebRequest.WebRequestResult> args)

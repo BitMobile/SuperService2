@@ -29,9 +29,16 @@ namespace Test
                 ArrowVisible = false
             };
             _topInfoComponent.ActivateBackButton();
-            _map = (WebMapGoogle)GetControl("MapClient", true);
-            _map.AddMarker((string)_client["Description"], (double)(decimal)_client["Latitude"],
-                (double)(decimal)_client["Longitude"], "red");
+
+            var latitude = Converter.ToDouble(_client["Latitude"]);
+            var longitude = Converter.ToDouble(_client["Longitude"]);
+
+            if (!latitude.Equals(0.0) && !longitude.Equals(0.0))
+            {
+                _map = (WebMapGoogle)GetControl("MapClient", true);
+                _map.AddMarker((string)_client["Description"], latitude,
+                    longitude, "red");
+            }
 
             _clientDesc = GetConstLenghtString(_client["Description"].ToString());
             DConsole.WriteLine("Client end");
@@ -39,7 +46,7 @@ namespace Test
 
         public override void OnShow()
         {
-            GPS.StartTracking();
+            GpsTracking.Start();
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
@@ -179,12 +186,17 @@ namespace Test
 
         internal string GetDistance()
         {
-            var latitude = (double)(decimal)_client["Latitude"];
-            var longitude = (double)(decimal)_client["Longitude"];
+            var latitude = Converter.ToDouble(_client["Latitude"]);
+            var longitude = Converter.ToDouble(_client["Longitude"]);
+            if (latitude.Equals(0.0) && longitude.Equals(0.0)) return "NaN";
             if (Math.Abs(latitude) < 0.1 && Math.Abs(longitude) < 0.1) return "NaN";
 
+            var coordinate = DBHelper.GetCoordinate(TimeRangeCoordinate.DefaultTimeRange);
+            var lastLatitude = Converter.ToDouble(coordinate["Latitude"]);
+            var lastLongitude = Converter.ToDouble(coordinate["Longitude"]);
+
             var distanceInKm =
-                Utils.GetDistance(GPS.CurrentLocation.Latitude, GPS.CurrentLocation.Longitude,
+                Utils.GetDistance(lastLatitude, lastLongitude,
                     latitude, longitude) / 1000;
             return
                 $"{Math.Round(distanceInKm, 2)}" +

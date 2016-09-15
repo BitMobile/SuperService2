@@ -70,7 +70,7 @@
         <c:HorizontalLayout CssClass="InfoLayout" OnClick="GoToCOCScreen_OnClick">
           <c:Image Source="$GetResourceImage(eventscreen_coc)" CssClass="InfoImage" />
           <c:TextView Text="#coc#" Id="CertificateOfCompletionNameTextView" CssClass="InfoTitle" />
-          <c:TextView Text="$SelectAndShowRightPrice($event.sumMaterials, $event.sumServices)"
+          <c:TextView Text="$GetPrice($event)"
                       Id="CertificateOfCompletionTextView" CssClass="InfoContent" />
         </c:HorizontalLayout>
 

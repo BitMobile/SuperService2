@@ -32,8 +32,6 @@ namespace Test
 
         private bool _readonly;
 
-        private long _lineNumber;
-
         public override void OnLoading()
         {
             _topInfoComponent = new TopInfoComponent(this)
@@ -151,7 +149,9 @@ namespace Test
             if (_readonly) return;
             _currentCheckListItemID = ((VerticalLayout)sender).Id;
             _textView = (TextView)((VerticalLayout)sender).GetControl(0);
-            DateTime date = DateTime.Now;
+            DateTime date;
+            var isDate = DateTime.TryParse(_textView.Text, out date);
+            date = isDate ? date : DateTime.Now;
             Dialog.DateTime(Translator.Translate("select_date"), date, DateCallback);
         }
 
@@ -254,42 +254,7 @@ namespace Test
 
         internal IEnumerable GetParameters()
         {
-            var list = new ArrayList();
-            var recordset = DBHelper.GetClientParametersByClientId(Variables[Parameters.IdClientId].ToString());
-            _lineNumber = DBHelper.GetMaxNumberFromTableInColumn("Catalog_Client_Parameters", "LineNumber", "Ref",
-                Variables[Parameters.IdClientId].ToString());
-#if DEBUG
-            var countEmptyEntitys = 0;
-#endif
-
-            while (recordset.Next())
-            {
-                var dictionary = new Dictionary<string, object>()
-                {
-                    {"TypeName", recordset["TypeName"] },
-                    {"Description", recordset["Description"] },
-                    {"Result", recordset["Result"] },
-                    {"ClientId", recordset["ClientId"]?.ToString() ?? Variables[Parameters.IdClientId].ToString()},
-                    {"Id", recordset["Id"]?.ToString() ?? CreateNewEntity((DbRef)recordset["OptionId"])},
-                    {"OptionId", recordset["OptionId"].ToString() }
-                };
-
-#if DEBUG
-                if (recordset["Id"] == null)
-                {
-                    ++countEmptyEntitys;
-                }
-#endif
-
-                list.Add(dictionary);
-            }
-#if DEBUG
-            DConsole.WriteLine(Parameters.Splitter);
-            DConsole.WriteLine($"Count arraylist = {list.Count}");
-            DConsole.WriteLine($"Total Entitys: {list.Count} Empty Entitys: {countEmptyEntitys}");
-            DConsole.WriteLine(Parameters.Splitter);
-#endif
-            return list;
+            return DBHelper.GetClientParametersByClientId(Variables[Parameters.IdClientId].ToString());
         }
 
         internal bool IsNotEmptyString(string item)
@@ -320,33 +285,6 @@ namespace Test
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
-        }
-
-        private string CreateNewEntity(DbRef optionId)
-        {
-#if DEBUG
-            DConsole.WriteLine($"Before lineNumber = {_lineNumber}");
-#endif
-            var entity = new Client_Parameters
-            {
-                Id = DbRef.CreateInstance("Catalog_Client_Parameters", Guid.NewGuid()),
-                Ref = DbRef.FromString((string)Variables[Parameters.IdClientId]),
-                Parameter = optionId,
-                LineNumber = (int)++_lineNumber
-            };
-
-#if DEBUG
-            DConsole.WriteLine($"After lineNumber = {_lineNumber}");
-#endif
-            //#if DEBUG
-            //            DConsole.WriteLine(Parameters.Splitter);
-            //            DConsole.WriteLine($"Entity ID: {entity.Id.ToString()}");
-            //            DConsole.WriteLine($"Ref: {entity.Ref.ToString()}");
-            //            DConsole.WriteLine($"Parameter: {entity.Parameter.ToString()}");
-            //            DConsole.WriteLine(Parameters.Splitter);
-            //#endif
-            entity.Save(false);
-            return entity.Id.ToString();
         }
     }
 }

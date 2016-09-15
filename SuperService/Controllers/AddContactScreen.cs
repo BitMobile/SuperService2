@@ -62,7 +62,7 @@ namespace Test
 
         public override void OnShow()
         {
-            GPS.StopTracking();
+            GpsTracking.Start();
         }
     }
 }

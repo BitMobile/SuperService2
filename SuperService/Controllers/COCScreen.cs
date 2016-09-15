@@ -3,7 +3,9 @@ using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Controls;
 using BitMobile.DbEngine;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using Test.Catalog;
 using Test.Components;
 using Test.Document;
 using Test.Enum;
@@ -26,6 +28,7 @@ namespace Test
         private TextView _totalSumForServices;
         private bool _usedCalculateMaterials;
         private bool _usedCalculateService;
+        private bool _isReadOnly;
 
         public override void OnLoading()
         {
@@ -38,8 +41,10 @@ namespace Test
             }
             else
             {
-                totalSum =
-                    $"{Math.Round((_usedCalculateService ? (double)_sums["SumServices"] : 0) + (_usedCalculateMaterials ? (double)_sums["SumMaterials"] : 0), 2)}";
+                var total = (_usedCalculateService ? (double)_sums["SumServices"] : 0D) +
+                            (_usedCalculateMaterials ? (double)_sums["SumMaterials"] : 0D);
+
+                totalSum = $"{total:N2}";
             }
 
             _topInfoComponent = new TopInfoComponent(this)
@@ -50,7 +55,10 @@ namespace Test
             };
 
             _topInfoComponent.CommentLayout.AddChild(new TextView($"{Translator.Translate("total")}"));
-            _topInfoTotalTextView = new TextView($"{totalSum} {Translator.Translate("currency")}") { CssClass = "TotalPriceTV" };
+            _topInfoTotalTextView = new TextView($"{totalSum} {Translator.Translate("currency")}")
+            {
+                CssClass = "TotalPriceTV"
+            };
             _topInfoComponent.CommentLayout.AddChild(_topInfoTotalTextView);
             _totalSumForServices = (TextView)GetControl("RightInfoServicesTV", true);
             _totalSumForMaterials = (TextView)GetControl("RightInfoMaterialsTV", true);
@@ -81,7 +89,7 @@ namespace Test
 
         public override void OnShow()
         {
-            GPS.StopTracking();
+            _isReadOnly = (bool)Variables[Parameters.IdIsReadonly];
         }
 
         internal string GetResourceImage(string tag)
@@ -105,8 +113,9 @@ namespace Test
 
         internal void AddService_OnClick(object sender, EventArgs e)
         {
-            var eventStatus = (string)_currentEventDbRecordset["statusName"];
+            if(_isReadOnly) return;
 
+            var eventStatus = (string)_currentEventDbRecordset["statusName"];
             if (eventStatus.Equals(EventStatus.Appointed))
             {
                 Dialog.Ask(Translator.Translate("start_event"), (innerSender, args) =>
@@ -135,14 +144,16 @@ namespace Test
 
         internal void AddMaterial_OnClick(object sender, EventArgs e)
         {
-            var eventStatus = (string)_currentEventDbRecordset["statusName"];
+            if (_isReadOnly) return;
 
+            var eventStatus = (string)_currentEventDbRecordset["statusName"];
             if (eventStatus.Equals(EventStatus.Appointed))
             {
                 Dialog.Ask(Translator.Translate("start_event"), (innerSender, args) =>
                 {
                     if (args.Result != Dialog.Result.Yes) return;
                     ChangeEventStatus();
+
                     AddMaterialArgument();
                 });
             }
@@ -164,16 +175,39 @@ namespace Test
 
         internal void EditServicesOrMaterials_OnClick(object sender, EventArgs e)
         {
-            if ((bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, true)) return;
-            var vl = (VerticalLayout)sender;
-            var dictionary = new Dictionary<string, object>
-            {
-                {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.UpdateDB},
-                {Parameters.IdLineId, vl.Id},
-                {Parameters.IsEdit, true }
-            };
+            if (_isReadOnly) return;
 
-            Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
+            var eventStatus = (string)_currentEventDbRecordset["statusName"];
+            var vl = (VerticalLayout)sender;
+
+            if (eventStatus.Equals(EventStatus.Appointed))
+            {
+                Dialog.Ask(Translator.Translate("start_event"), (innerSender, args) =>
+                {
+                    if (args.Result != Dialog.Result.Yes) return;
+                    ChangeEventStatus();
+
+                    var dictionary = new Dictionary<string, object>
+                    {
+                        {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.UpdateDB},
+                        {Parameters.IdLineId, vl.Id},
+                        {Parameters.IsEdit, true}
+                    };
+
+                    Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
+                });
+            }
+            else
+            {
+                var dictionary = new Dictionary<string, object>
+                {
+                    {Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.UpdateDB},
+                    {Parameters.IdLineId, vl.Id},
+                    {Parameters.IsEdit, true}
+                };
+
+                Navigation.Move("EditServicesOrMaterialsScreen", dictionary);
+            }
         }
 
         internal void ApplicatioMaterials_OnClick(object sender, EventArgs e)
@@ -183,7 +217,6 @@ namespace Test
 
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
         {
-            //TODO: Обходной путь получения парента. Внимание!!!!! .
             var vl = (VerticalLayout)sender;
             var hl = (IHorizontalLayout3)vl.Parent;
             var shl = (ISwipeHorizontalLayout3)hl.Parent;
@@ -192,41 +225,62 @@ namespace Test
 
         internal void DeleteButton_OnClick(object sender, EventArgs e)
         {
-            //TODO: Обходной путь получения парента. Внимание!!!!!.
+            if(_isReadOnly) return;
+
             var vl = (HorizontalLayout)sender;
-            DBHelper.DeleteByRef(DbRef.FromString(vl.Id), false);
-            var shl = (ISwipeHorizontalLayout3)vl.Parent;
-            var outerVl = (IVerticalLayout3)shl.Parent;
-            outerVl.CssClass = "NoHeight";
+            var deleted = CheckAndMaybeDelete(vl.Id);
+            if (deleted)
+            {
+                var shl = (ISwipeHorizontalLayout3)vl.Parent;
+                var outerVl = (IVerticalLayout3)shl.Parent;
+                outerVl.CssClass = "NoHeight";
+                outerVl.Refresh();
+            }
+            else
+            {
+                var shl = (ISwipeHorizontalLayout3)vl.Parent;
+                var hl = (IHorizontalLayout3)shl.Controls[0];
+                var priceContainer = (IVerticalLayout3)hl.Controls[1];
+                var priceTv = (ITextView3)priceContainer.Controls[1];
+                var sm = (Event_ServicesMaterials)DBHelper.LoadEntity(vl.Id);
+                var sku = (RIM)sm.SKU.GetObject();
+                priceTv.Text =
+                    $"{sm.AmountFact} x {sm.Price} {Translator.Translate("currency")} {(string.IsNullOrEmpty(sku.Unit) ? "" : $"/ {sku.Unit}")}";
+                shl.Index = 0;
+            }
+
             var sums = GetSums();
             _totalSumForServices.Text = GetFormatStringForServiceSums();
             _totalSumForMaterials.Text = GetFormatStringForMaterialSums();
-            _topInfoTotalTextView.Text = $"{Math.Round((double)sums["Sum"], 2)} {Translator.Translate("currency")}";
-            shl.Refresh();
+            _topInfoTotalTextView.Text = $"{sums["Sum"]:N2} {Translator.Translate("currency")}";
+        }
+
+        private bool CheckAndMaybeDelete(string id)
+        {
+            var sm = (Event_ServicesMaterials)DBHelper.LoadEntity(id);
+            if (sm.AmountPlan == 0)
+            {
+                DBHelper.DeleteByRef(sm.Id, false);
+                return true;
+            }
+            sm.AmountFact = 0;
+            sm.SumFact = 0;
+            sm.Save(false);
+            return false;
         }
 
         internal string GetFormatStringForServiceSums()
         {
-            var totalSum = Convert.ToDouble(_sums["SumServices"]).ToString();
+            var totalSum = $"{Convert.ToDouble(_sums["SumServices"]):N2}";
             return
                 $"\u2022 {(_usedCalculateService ? totalSum : Parameters.EmptyPriceDescription)} {Translator.Translate("currency")}";
         }
 
         internal string GetFormatStringForMaterialSums()
         {
-            var totalSum = Convert.ToDouble(_sums["SumMaterials"]).ToString();
+            var totalSum = $"{Convert.ToDouble(_sums["SumMaterials"]):N2}";
             return
                 $"\u2022 {(_usedCalculateMaterials ? totalSum : Parameters.EmptyPriceDescription)} {Translator.Translate("currency")}";
-        }
-
-        internal string GetServicePriceDescription(DbRecordset service)
-        {
-            return _usedCalculateService ? service["Price"].ToString() : Parameters.EmptyPriceDescription;
-        }
-
-        internal string GetMaterialPriceDescription(DbRecordset material)
-        {
-            return _usedCalculateMaterials ? material["Price"].ToString() : Parameters.EmptyPriceDescription;
         }
 
         internal DbRecordset GetSums()
@@ -236,8 +290,8 @@ namespace Test
             {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
-            DConsole.WriteLine("In to: " + nameof(GetSums));
-            _sums = DBHelper.GetCocSumsByEventId((string)eventId);
+            var wasStarted = (bool)Variables[Parameters.IdWasEventStarted];
+            _sums = DBHelper.GetCocSumsByEventId((string)eventId, !wasStarted);
 
             return _sums;
         }
@@ -253,10 +307,16 @@ namespace Test
             return DBHelper.GetServicesByEventId((string)eventId);
         }
 
-        internal string Concat(float amountFact, string price, string unit)
+        internal string CreatePriceString(DbRecordset priceRecordset, string serviceString)
         {
-            return $"{amountFact} x {price} {Translator.Translate("currency")} " +
-                   (string.IsNullOrEmpty(unit) ? "" : $"/ {unit}");
+            var wasEventStarted = (bool)Variables[Parameters.IdWasEventStarted];
+            var isService = serviceString == "service";
+            var showPrice = isService ? Settings.ShowServicePrice : Settings.ShowMaterialPrice;
+            var amount = (decimal)priceRecordset[wasEventStarted ? "AmountFact" : "AmountPlan"];
+            var price = showPrice ? $"{priceRecordset["Price"]:N2}" : Parameters.EmptyPriceDescription;
+            var unit = (string)priceRecordset["Unit"];
+            return
+                $"{amount} x {price} {Translator.Translate("currency")} {(string.IsNullOrEmpty(unit) ? "" : $"/ {unit}")}";
         }
 
         internal DbRecordset GetMaterials()
@@ -272,11 +332,27 @@ namespace Test
 
         private void ChangeEventStatus()
         {
+            var result = DBHelper.GetCoordinate(TimeRangeCoordinate.DefaultTimeRange);
+            var latitude = Converter.ToDouble(result["Latitude"]);
+            var longitude = Converter.ToDouble(result["Longitude"]);
             var @event = (Event)DBHelper.LoadEntity(_currentEventId);
             @event.ActualStartDate = DateTime.Now;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
+            @event.Latitude = Converter.ToDecimal(latitude);
+            @event.Longitude = Converter.ToDecimal(longitude);
             DBHelper.SaveEntity(@event);
+            Variables[Parameters.IdWasEventStarted] = true;
             _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);
+            var rimList = DBHelper.GetServicesAndMaterialsByEventId(_currentEventId);
+            var rimArrayList = new ArrayList();
+            while (rimList.Next())
+            {
+                var rim = (Event_ServicesMaterials)((DbRef)rimList["Id"]).GetObject();
+                rim.AmountFact = rim.AmountPlan;
+                rim.SumFact = rim.SumPlan;
+                rimArrayList.Add(rim);
+            }
+            DBHelper.SaveEntities(rimArrayList, false);
         }
 
         internal bool ShowNotEnoughMaterials() => Settings.BagEnabled;

@@ -3,28 +3,29 @@
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
-    <c:SwipeVerticalLayout CssClass="TaskListLayout">
-      <s:Iterator Id="task" Value="$GetTasks()">
-        <c:HorizontalLayout Id="$task.Id" CssClass="TaskLayout" OnClick="TaskLayout_OnClick">
-          <c:VerticalLayout CssClass="TaskDoneImageContainer">
-            <s:If Test="$task.ResultEventName == Done">
-              <c:Image Source="$GetResourceImage(tasklist_done)" CssClass="TaskDoneImage" />
-            </s:If>
-            <s:If Test="$task.ResultEventName == NotDone">
-              <c:Image Source="$GetResourceImage(tasklist_specdone)" CssClass="TaskDoneImage" />
-            </s:If>
-            <s:If Test="$task.ResultEventName == New">
-              <c:Image Source="$GetResourceImage(tasklist_notdone)" CssClass="TaskDoneImage" />
-            </s:If>
-          </c:VerticalLayout>
-          <c:VerticalLayout CssClass="TaskInfoLayout">
-            <c:TextView Text="$task.equipmentDescription" CssClass="TaskName" />
-            <c:TextView Text="" CssClass="TaskDescription" />
-          </c:VerticalLayout>
-        </c:HorizontalLayout>
-        <c:HorizontalLine CssClass="TaskBreaker" />
-      </s:Iterator>
-    </c:SwipeVerticalLayout>
-    
+    <c:ScrollView CssClass="TaskListLayout">
+      <c:VerticalLayout>
+        <s:Iterator Id="task" Value="$GetTasks()">
+          <c:HorizontalLayout Id="$task.Id" CssClass="TaskLayout" OnClick="TaskLayout_OnClick">
+            <c:VerticalLayout CssClass="TaskDoneImageContainer">
+              <s:If Test="$task.ResultEventName == Done">
+                <c:Image Source="$GetResourceImage(tasklist_done)" CssClass="TaskDoneImage" />
+              </s:If>
+              <s:If Test="$task.ResultEventName == NotDone">
+                <c:Image Source="$GetResourceImage(tasklist_specdone)" CssClass="TaskDoneImage" />
+              </s:If>
+              <s:If Test="$task.ResultEventName == New">
+                <c:Image Source="$GetResourceImage(tasklist_notdone)" CssClass="TaskDoneImage" />
+              </s:If>
+            </c:VerticalLayout>
+            <c:VerticalLayout CssClass="TaskInfoLayout">
+              <c:TextView Text="$task.equipmentDescription" CssClass="TaskName" />
+              <c:TextView Text="" CssClass="TaskDescription" />
+            </c:VerticalLayout>
+          </c:HorizontalLayout>
+          <c:HorizontalLine CssClass="TaskBreaker" />
+        </s:Iterator>
+      </c:VerticalLayout>
+    </c:ScrollView>
   </c:VerticalLayout>
 </c:Screen>

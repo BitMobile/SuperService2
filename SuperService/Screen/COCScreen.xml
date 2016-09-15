@@ -37,7 +37,7 @@
                                   OnClick="EditServicesOrMaterials_OnClick">
                   <c:TextView CssClass="NameTV" Text="$services.Description" />
                   <c:TextView CssClass="PriceTV"
-                              Text="$Concat($services.AmountFact, $GetServicePriceDescription($services), $services.Unit)" />
+                              Text="$CreatePriceString($services, services)" />
                 </c:VerticalLayout>
               </c:HorizontalLayout>
               <s:If Test="$isReadonly == false">
@@ -89,7 +89,7 @@
                                   OnClick="EditServicesOrMaterials_OnClick">
                   <c:TextView CssClass="NameTV" Text="$materials.Description" />
                   <c:TextView CssClass="PriceTV"
-                              Text="$Concat($materials.AmountFact, $GetMaterialPriceDescription($materials), $materials.Unit)" />
+                              Text="$CreatePriceString($materials, materials)" />
                 </c:VerticalLayout>
               </c:HorizontalLayout>
               <s:If Test="$isReadonly == false">

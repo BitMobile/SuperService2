@@ -39,6 +39,7 @@ namespace Test
 
         public override void OnShow()
         {
+            GpsTracking.Start();
             FillMap();
         }
 
@@ -200,15 +201,14 @@ namespace Test
 
         internal void GetLocation_OnClick(object sender, EventArgs e)
         {
-            if (GPS.CurrentLocation.NotEmpty)
-            {
-#if DEBUG
-                DConsole.WriteLine($"{nameof(GPS.CurrentLocation.Latitude)} : {GPS.CurrentLocation.Latitude}" +
-                                   $"{nameof(GPS.CurrentLocation.Longitude)} : {GPS.CurrentLocation.Longitude}");
-#endif
+            var coordinate = DBHelper.GetCoordinate(TimeRangeCoordinate.DefaultTimeRange);
+            var latitude = Converter.ToDouble(coordinate["Latitude"]);
+            var longitude = Converter.ToDouble(coordinate["Longitude"]);
 
-                _clientLatitude = Convert.ToDecimal(GPS.CurrentLocation.Latitude);
-                _clientLongitude = Convert.ToDecimal(GPS.CurrentLocation.Longitude);
+            if (!latitude.Equals(0.0) && !longitude.Equals(0.0))
+            {
+                _clientLatitude = Convert.ToDecimal(latitude);
+                _clientLongitude = Convert.ToDecimal(longitude);
 
 #if DEBUG
                 DConsole.WriteLine($"{nameof(_clientLatitude)}:{_clientLatitude} " +

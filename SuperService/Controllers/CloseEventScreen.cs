@@ -101,7 +101,7 @@ namespace Test
             if (!string.IsNullOrEmpty(_commentaryMemoEdit.Text))
             {
                 var @event = (Event)eventRef.GetObject();
-                @event.Comment = _commentaryMemoEdit.Text;
+                @event.CommentContractor = _commentaryMemoEdit.Text;
                 entitiesList.Add(@event);
             }
             DBHelper.SaveEntities(entitiesList);

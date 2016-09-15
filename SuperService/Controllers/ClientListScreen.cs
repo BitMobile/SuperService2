@@ -25,7 +25,7 @@ namespace Test
 
         public override void OnShow()
         {
-            GPS.StopTracking();
+            GpsTracking.Start();
         }
 
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)

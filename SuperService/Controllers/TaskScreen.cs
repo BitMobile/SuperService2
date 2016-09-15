@@ -51,11 +51,11 @@ namespace Test
 
             _taskCommentEditText = (MemoEdit)GetControl("TaskCommentEditText", true);
             _rootLayout = (DockLayout)Controls[0];
+            _topInfoComponent.ActivateBackButton();
         }
 
         public override void OnShow()
         {
-            GPS.StopTracking();
         }
 
         internal void TaskFinishedButton_OnClick(object sender, EventArgs eventArgs)

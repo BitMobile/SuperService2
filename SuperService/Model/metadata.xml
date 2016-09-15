@@ -111,7 +111,7 @@
 				</TabularSection>
 			</TabularSections>
 		</Entity>
-		<Entity Schema="Document" Name="Event" SyncUpload="True" SyncDownload="True" SyncFilter="t.[Id] IN(SELECT EV.[Id] FROM [Document].[Event] EV JOIN [Enum].[StatusyEvents] SE ON EV.[Status] = SE.[Id] WHERE EV.[UserMA] = @UserId AND EV.[Date] > (getDate() - 31) AND SE.[Name] = 'Appointed')
+		<Entity Schema="Document" Name="Event" SyncUpload="True" SyncDownload="True" SyncFilter="t.[Id] IN(SELECT EV.[Id] FROM [Document].[Event] EV JOIN [Enum].[StatusyEvents] SE ON EV.[Status] = SE.[Id] WHERE EV.[UserMA] = @UserId AND EV.[Date] > (getDate() - 31) AND NOT (SE.[Name] = 'Done'))
 ">
 			<Fields>
 				<Field Name="Posted" AllowNull="true" Type="Boolean"/>
@@ -130,7 +130,7 @@
 				<Field Name="ActualStartDate" AllowNull="true" Type="DateTime2"/>
 				<Field Name="ActualEndDate" AllowNull="true" Type="DateTime2"/>
 				<Field Name="Author" AllowNull="true" Type="Catalog.User"/>
-				<Field Name="UserMA" AllowNull="false" Type="Catalog.User"/>
+				<Field Name="UserMA" AllowNull="true" Type="Catalog.User"/>
 				<Field Name="Comment" AllowNull="true" Type="String" Length="1000"/>
 				<Field Name="DetailedDescription" AllowNull="true" Type="String" Length="500"/>
 				<Field Name="CommentContractor" AllowNull="true" Type="String" Length="1000"/>
@@ -169,7 +169,7 @@
 					<Field Name="UIDPhoto" AllowNull="true" Type="Guid"/>
 					<Field Name="Equipment" AllowNull="true" Type="Catalog.Equipment"/>
 				</TabularSection>
-				<TabularSection Name="Parameters" SyncFilter="" Key="Parameter,Val">
+				<TabularSection Name="Parameters" SyncFilter="" Key="Parameter">
 					<Field Name="Id" Type="Guid" KeyField="true"/>
 					<Field Name="LineNumber" AllowNull="true" Type="Integer"/>
 					<Field Name="Ref" Type="Guid" KeyField="false" AllowNull="false"/>
@@ -303,7 +303,7 @@
 					<Field Name="FullFileName" AllowNull="true" Type="String" Length="700"/>
 					<Field Name="FileName" AllowNull="true" Type="Guid"/>
 				</TabularSection>
-				<TabularSection Name="Parameters" SyncFilter="" Key="Parameter,Val">
+				<TabularSection Name="Parameters" SyncFilter="" Key="Parameter">
 					<Field Name="Id" Type="Guid" KeyField="true"/>
 					<Field Name="LineNumber" AllowNull="true" Type="Integer"/>
 					<Field Name="Ref" Type="Guid" KeyField="false" AllowNull="false"/>
@@ -339,7 +339,7 @@
 					<Field Name="Contact" AllowNull="false" Type="Catalog.Contacts"/>
 					<Field Name="Actual" AllowNull="true" Type="Boolean"/>
 				</TabularSection>
-				<TabularSection Name="Parameters" SyncFilter="" Key="Parameter,Val">
+				<TabularSection Name="Parameters" SyncFilter="" Key="Parameter">
 					<Field Name="Id" Type="Guid" KeyField="true"/>
 					<Field Name="LineNumber" AllowNull="true" Type="Integer"/>
 					<Field Name="Ref" Type="Guid" KeyField="false" AllowNull="false"/>
