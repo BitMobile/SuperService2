@@ -1,6 +1,6 @@
 <#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
-<#@ assembly name="D:\Coding\SuperService2\SDK\BitMobileSDK\BitMobileSDK.exe" #>
+<#@ assembly name="D:\Development\SuperService2\SDK\BitMobileSDK\BitMobileSDK.exe" #>
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>

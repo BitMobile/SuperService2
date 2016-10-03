@@ -495,7 +495,7 @@
 				<Field AllowNull="true" Length="100" Name="EMail" Type="String"/>
 			</Fields>
 			<TabularSections/>
-		</Entity>
+		</Entity> 
 		<Entity Name="NeedMat" Schema="Document" SyncDownload="True" DeleteFilter="" SyncFilter="t.[SR] = @UserId" SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Posted" Type="Boolean"/>
@@ -532,6 +532,11 @@
 				<Field AllowNull="true" Name="Equipment" Type="Catalog.Equipment"/>
 				<Field AllowNull="true" Name="Event" Type="Document.Event"/>
 				<Field AllowNull="true" Length="100" Name="TaskType" Type="String"/>
+      
+        <!-- +++BIOVITRUM -->
+        <Field AllowNull="true" Name="Tender" Type="Document.Tender"/>
+        <!-- +++BIOVITRUM -->
+        
 			</Fields>
 			<TabularSections>
 				<TabularSection Key="Description" Name="Targets" DeleteFilter="" SyncFilter="">
@@ -552,6 +557,47 @@
 				</TabularSection>
 			</TabularSections>
 		</Entity>
+    
+    <!-- +++BIOVITRUM -->
+    
+    <Entity Name="ActivityTypes" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
+			<Fields>
+				<Field KeyField="true" Name="Id" Type="Guid"/>
+				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="true" Length="9" Name="Code" Type="String"/>
+				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+				<Field AllowNull="true" Name="Responsible" Type="Catalog.User"/>
+			</Fields>
+			<TabularSections/>
+		</Entity> 
+    <Entity Name="Tender" Schema="Document" SyncDownload="True" DeleteFilter="" SyncFilter="" SyncUpload="True">
+			<Fields>
+				<Field KeyField="true" Name="Id" Type="Guid"/>
+				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="true" Length="9" Name="Number" Type="String"/>
+        <Field AllowNull="false" Name="Client" Type="Catalog.Client"/>
+        <Field AllowNull="true" Name="ApplicationDeadline" Type="DateTime2"/>
+				<Field AllowNull="true" Name="ActivityType" Type="Catalog.ActivityTypes"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="true" Name="DeliveryTime" Type="DateTime2"/>
+        <Field AllowNull="true" Length="100" Name="Marketplace" Type="String"/>
+        <Field AllowNull="false" Name="Sum" Precision="15" Scale="3" Type="Decimal"/>
+			</Fields>
+			<TabularSections/>
+		</Entity>   
+    <Entity Name="Chat" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
+			<Fields>
+				<Field KeyField="true" Name="Id" Type="Guid"/>
+				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Name="DateTime" Type="DateTime2"/>
+				<Field AllowNull="false" Name="Tender" Type="Document.Tender"/>
+				<Field AllowNull="false" Name="User" Type="Catalog.User"/>
+        <Field AllowNull="true" Length="500" Name="Marketplace" Type="String"/>
+			</Fields>
+			<TabularSections/>
+		</Entity>     
+    <!-- +++BIOVITRUM -->   
+    
 	</Entities>
 	<Constants>
 		<Entity Name="Enum.TypesDataParameters">

@@ -15,6 +15,7 @@ namespace Test.Document
         public DbRef Equipment { get; set; }
         public DbRef Event { get; set; }
         public string TaskType { get; set; }
+        public DbRef Tender { get; set; }
 }
     public class Task_Targets : DbEntity
     {
