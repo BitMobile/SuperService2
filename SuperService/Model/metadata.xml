@@ -72,6 +72,14 @@
 				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
 			</Fields>
 		</Entity>
+    <Entity Name="Webactions" Schema="Enum">
+			<Fields>
+				<Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Length="100" Name="Name" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+			</Fields>
+			<TabularSections/>
+		</Entity>     
 		<Entity Name="TypesDepartures" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
@@ -372,7 +380,7 @@
 				<Field AllowNull="true" Length="100" Name="EMail" Type="String"/>
 				<Field AllowNull="true" Name="UserID" Type="Guid"/>
 				<Field AllowNull="true" Length="100" Name="Phone" Type="String"/>
-				<Field Length="500" Name="Role" Type="String"/>
+				<Field AllowNull="false"  Name="Role" Type="Catalog.Roles"/>
 				<Field Length="128" Name="AspNetUserID" Type="String"/>
 			</Fields>
 			<TabularSections>
@@ -558,6 +566,26 @@
 			</TabularSections>
 		</Entity>
     
+    <Entity Name="Roles" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
+			<Fields>
+				<Field KeyField="true" Name="Id" Type="Guid"/>
+				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Length="9" Name="Name" Type="String"/>
+				<Field AllowNull="false" Length="50" Name="Ident" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="false" Name="CanManageSelf" Type="Boolean"/>
+			</Fields>
+			<TabularSections/>
+		</Entity>   
+    <Entity Name="RoleWebactions" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
+			<Fields>
+				<Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="Role" Type="Catalog.Roles"/>
+				<Field AllowNull="false" Name="Webaction" Type="Enum.Webactions"/>
+			</Fields>
+			<TabularSections/>
+		</Entity>     
+        
     <!-- +++BIOVITRUM -->
     
     <Entity Name="ActivityTypes" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
@@ -566,7 +594,7 @@
 				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
         <Field AllowNull="true" Length="9" Name="Code" Type="String"/>
 				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="true" Name="Responsible" Type="Catalog.User"/>
+				<Field AllowNull="true" Name="User" Type="Catalog.User"/>
 			</Fields>
 			<TabularSections/>
 		</Entity> 
@@ -576,10 +604,10 @@
 				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
         <Field AllowNull="true" Length="9" Name="Number" Type="String"/>
         <Field AllowNull="false" Name="Client" Type="Catalog.Client"/>
-        <Field AllowNull="true" Name="ApplicationDeadline" Type="DateTime2"/>
+        <Field AllowNull="true" Name="DueDateTime" Type="DateTime2"/>
 				<Field AllowNull="true" Name="ActivityType" Type="Catalog.ActivityTypes"/>
         <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-        <Field AllowNull="true" Name="DeliveryTime" Type="DateTime2"/>
+        <Field AllowNull="true" Name="DeliveryDateTime" Type="DateTime2"/>
         <Field AllowNull="true" Length="100" Name="Marketplace" Type="String"/>
         <Field AllowNull="false" Name="Sum" Precision="15" Scale="3" Type="Decimal"/>
 			</Fields>
@@ -592,7 +620,7 @@
         <Field AllowNull="false" Name="DateTime" Type="DateTime2"/>
 				<Field AllowNull="false" Name="Tender" Type="Document.Tender"/>
 				<Field AllowNull="false" Name="User" Type="Catalog.User"/>
-        <Field AllowNull="true" Length="500" Name="Marketplace" Type="String"/>
+        <Field AllowNull="true" Length="500" Name="Message" Type="String"/>
 			</Fields>
 			<TabularSections/>
 		</Entity>     
@@ -657,5 +685,36 @@
 			<Row Description="Выполнена" Id="a0a9e67f-483e-423a-a714-859f13c1245c" Name="Done" _RS="0"/>
 			<Row Description="Отклонена" Id="a0a9e67f-483e-426b-a714-859f13c1245c" Name="Rejected" _RS="0"/>
 		</Entity>
+		<Entity Name="Enum.Webactions">
+			<Row Description="Создание и редактирование нарядов" Id="0236eb9f-eed9-489b-9152-86b037e79a79" Name="EventsEditing" _RS="0"/>
+      <Row Description="Удаление нарядов" Id="0236eb9f-eed9-490b-9152-86b037e79a79" Name="EventsDeleting" _RS="0"/>
+      <Row Description="Управление параметрами нарядов" Id="0236eb9f-eed9-491b-9152-86b037e79a79" Name="EventsOptionsEditing" _RS="0"/>
+      <Row Description="Разрешить доступ ко всем нарядам (иначе только к назначенным)" Id="0236eb9f-eed9-492b-9152-86b037e79a79" Name="EventsAllAvaliable" _RS="0"/>
+      <Row Description="Показывать наряды подчиненных" Id="0236eb9f-eed9-493b-9152-86b037e79a79" Name="EventsShowSubordinate" _RS="0"/>
+      <Row Description="Отображать АВР в нарядах" Id="0236eb9f-eed9-494b-9152-86b037e79a79" Name="EventsShowAVR" _RS="0"/>
+      
+      <Row Description="Редактирование сотрудников" Id="0236eb9f-eed9-495b-9152-86b037e79a79" Name="UsersEditing" _RS="0"/>
+      <Row Description="Удаление сотрудников" Id="0236eb9f-eed9-496b-9152-86b037e79a79" Name="UsersDeleting" _RS="0"/>
+      <Row Description="Управление ролями сотрудников" Id="0236eb9f-eed9-497b-9152-86b037e79a79" Name="UsersManageRoles" _RS="0"/>
+
+      <Row Description="Создание и редактирование клиентов" Id="0236eb9f-eed9-498b-9152-86b037e79a79" Name="ClientsEditing" _RS="0"/>
+      <Row Description="Удаление клиентов" Id="0236eb9f-eed9-499b-9152-86b037e79a79" Name="ClientsDeleting" _RS="0"/>
+      <Row Description="Управление параметрами клиентов" Id="0236eb9f-eed9-500b-9152-86b037e79a79" Name="ClientsOptionsEditing" _RS="0"/>      
+       
+      <Row Description="Редактирование задач" Id="0236eb9f-eed9-501b-9152-86b037e79a79" Name="TasksEditing" _RS="0"/>
+      
+      <Row Description="Создание и редактирование оборудования" Id="0236eb9f-eed9-502b-9152-86b037e79a79" Name="EquipmentsEditing" _RS="0"/>
+      <Row Description="Удаление оборудования" Id="0236eb9f-eed9-503b-9152-86b037e79a79" Name="EquipmentsDeleting" _RS="0"/>
+      <Row Description="Управление параметрами оборудования" Id="0236eb9f-eed9-504b-9152-86b037e79a79" Name="EquipmentsOptionsEditing" _RS="0"/>     
+  
+      <Row Description="Создание и редактирование услуг и материалов" Id="0236eb9f-eed9-505b-9152-86b037e79a79" Name="RIMEditing" _RS="0"/>
+      <Row Description="Удаление услуг и материлов" Id="0236eb9f-eed9-506b-9152-86b037e79a79" Name="RIMDeleting" _RS="0"/>            
+ 
+      <Row Description="Создание и редактирование чек-листов" Id="0236eb9f-eed9-507b-9152-86b037e79a79" Name="CheckListsEditing" _RS="0"/>
+      <Row Description="Управление активностью чек-листов" Id="0236eb9f-eed9-508b-9152-86b037e79a79" Name="CheckListManageActivityStatus" _RS="0"/>   
+
+      <Row Description="Доступ к аналитике" Id="0236eb9f-eed9-509b-9152-86b037e79a79" Name="AnaliticAccess" _RS="0"/> 
+            
+		</Entity>    
 	</Constants>
 </Configuration>

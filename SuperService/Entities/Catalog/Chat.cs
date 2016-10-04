@@ -10,7 +10,7 @@ namespace Test.Catalog
         public DateTime DateTime { get; set; }
         public DbRef Tender { get; set; }
         public DbRef User { get; set; }
-        public string Marketplace { get; set; }
+        public string Message { get; set; }
 }
 
 

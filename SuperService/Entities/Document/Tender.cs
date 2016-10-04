@@ -9,10 +9,10 @@ namespace Test.Document
         public bool DeletionMark { get; set; }
         public string Number { get; set; }
         public DbRef Client { get; set; }
-        public DateTime ApplicationDeadline { get; set; }
+        public DateTime DueDateTime { get; set; }
         public DbRef ActivityType { get; set; }
         public string Description { get; set; }
-        public DateTime DeliveryTime { get; set; }
+        public DateTime DeliveryDateTime { get; set; }
         public string Marketplace { get; set; }
         public decimal Sum { get; set; }
 }
