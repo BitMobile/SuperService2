@@ -136,3 +136,4 @@ targets		Цели
 tenders		Тендеры
 new		Новые
 in_progress		В работе
+deadline		Срок подачи

@@ -114,6 +114,7 @@ namespace Test
             return DateTime.Parse(datetime).ToString("dd MMMM yyyy").ToUpper();
         }
 
+        [Obsolete("Не используется на экране.")]
         internal string GetStartDate(string startPlan, string endPlan)
         {
             var startTime = DateTime.Parse(startPlan); //DateTime.Parse(startPlan).ToString("HH:mm:ss");
@@ -191,10 +192,8 @@ namespace Test
             return DateTime.Parse(datetime).ToString("dddd dd MMMM");
         }
 
-        internal IEnumerable GetEvents()
-        {
-            return DBHelper.GetEvents(DateTime.Now.Date);
-        }
+        internal IEnumerable GetTenders() =>
+            DBHelper.GetTenderList(DBHelper.GetUserInfoByUserName(Settings.User)["Id"]);
 
         internal string GetResourceImage(string tag)
         {
@@ -237,12 +236,12 @@ namespace Test
         // TabBar parts
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
         {
-            //_tabBarComponent.Events_OnClick(sender, eventArgs);
+            _tabBarComponent.Events_OnClick(sender, eventArgs);
         }
 
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _tabBarComponent.TendersListScreen_OnClick(sender, eventArgs);
+            //_tabBarComponent.TendersListScreen_OnClick(sender, eventArgs);
         }
 
         internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
@@ -254,5 +253,22 @@ namespace Test
         {
             _tabBarComponent.Settings_OnClick(sender, eventArgs);
         }
+
+        internal string ToUpper(object @string) => @string.ToString().ToUpper();
+
+        internal string GetFormatDate(object date)
+        {
+            DateTime extractDate;
+
+            if (!DateTime.TryParse(date.ToString(), out extractDate))
+            {
+                Utils.TraceMessage($"DateTime {date?.ToString()} don't parse");
+            }
+
+            return extractDate.ToString("dd.MM");
+        }
+
+        internal string ConcatCurrencyString(object activityTypeDescription, object totalSum)
+            => $"{activityTypeDescription} - {totalSum:C2}";
     }
 }

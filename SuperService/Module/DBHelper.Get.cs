@@ -1,7 +1,6 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.DbEngine;
 using System;
-using System.Security.Cryptography;
 using Test.Document;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
@@ -620,7 +619,7 @@ namespace Test
         }
 
         /// <summary>
-        /// Возвращает список Id УиМ
+        ///     Возвращает список Id УиМ
         /// </summary>
         /// <param name="eventId">Идентификатор ивента</param>
         /// <returns></returns>
@@ -929,12 +928,14 @@ namespace Test
         }
 
         /// <summary>
-        /// Получаем значение связанное с тем,
-        /// что используется ли рюкзак или нет.
-        /// возращяет булевское значение упакованное в object
+        ///     Получаем значение связанное с тем,
+        ///     что используется ли рюкзак или нет.
+        ///     возращяет булевское значение упакованное в object
         /// </summary>
-        /// <returns>true используется рюкзак монтажника,
-        /// false если не используется. null если таблица пустая или не найдено значение</returns>
+        /// <returns>
+        ///     true используется рюкзак монтажника,
+        ///     false если не используется. null если таблица пустая или не найдено значение
+        /// </returns>
         public static bool GetIsUseServiceBag()
         {
             var query = new Query(@"SELECT LogicValue
@@ -947,11 +948,13 @@ namespace Test
         }
 
         /// <summary>
-        /// Получаем значение связанное с тем, включено ли отображение цен или нет
-        /// возращяет булевское значение упакованное в object
+        ///     Получаем значение связанное с тем, включено ли отображение цен или нет
+        ///     возращяет булевское значение упакованное в object
         /// </summary>
-        /// <returns>true , если включено отображение цен
-        /// false если не используется. null если таблица пустая или не найдено значение</returns>
+        /// <returns>
+        ///     true , если включено отображение цен
+        ///     false если не используется. null если таблица пустая или не найдено значение
+        /// </returns>
         public static bool GetIsUsedCalculateService()
         {
             var query = new Query(@"SELECT LogicValue
@@ -964,11 +967,13 @@ namespace Test
         }
 
         /// <summary>
-        /// Получаем значение связанное с тем, включено ли отображение цен или нет
-        /// возращяет булевское значение упакованное в object
+        ///     Получаем значение связанное с тем, включено ли отображение цен или нет
+        ///     возращяет булевское значение упакованное в object
         /// </summary>
-        /// <returns>true , если включено отображение цен
-        /// false если не используется. null если таблица пустая или не найдено значение</returns>
+        /// <returns>
+        ///     true , если включено отображение цен
+        ///     false если не используется. null если таблица пустая или не найдено значение
+        /// </returns>
         public static bool GetIsUsedCalculateMaterials()
         {
             var query = new Query(@"SELECT LogicValue
@@ -1013,7 +1018,6 @@ namespace Test
         /// <summary>
         ///     возвращает параметры оборудования с их значениями по ИД оборудования
         /// </summary>
-        ///
         /// <param name="equipmentId">Идентификатор оборудования</param>
         public static DbRecordset GetEquipmentParametersById(string equipmentId)
         {
@@ -1046,7 +1050,6 @@ namespace Test
         /// <summary>
         ///     Возвращает историю оборудования начиная с указанноЙ даты
         /// </summary>
-        ///
         /// <param name="equpmentId">Идентификатор оборудования</param>
         /// <param name="afterDate">Дата начиная с которой выводится история</param>
         public static DbRecordset GetEquipmentHistoryById(string equpmentId, DateTime afterDate)
@@ -1083,7 +1086,6 @@ namespace Test
         /// <summary>
         ///     Возвращает описание оборудования
         /// </summary>
-        ///
         /// <param name="equipmentId">Идентификатор оборудования</param>
         public static DbRecordset GetEquipmentById(string equipmentId)
         {
@@ -1123,8 +1125,8 @@ namespace Test
         }
 
         /// <summary>
-        /// Получаем Id и Description пользователя
-        /// по его UserName
+        ///     Получаем Id и Description пользователя
+        ///     по его UserName
         /// </summary>
         /// <param name="userName">UserName пользователя</param>
         /// <returns>Возращяет DbRecordset с данными</returns>
@@ -1150,7 +1152,7 @@ namespace Test
         }
 
         /// <summary>
-        /// Достать максимальное число из колонки таблицы
+        ///     Достать максимальное число из колонки таблицы
         /// </summary>
         /// <param name="table">Имя таблицы</param>
         /// <param name="column">Имя колонки</param>
@@ -1160,13 +1162,14 @@ namespace Test
         public static int GetMaxNumberFromTableInColumn(string table, string column, string whereColumnName,
             string whereColumnValue)
         {
-            var query = new Query($"select ifnull(max({column}), 0) as max from {table} where {whereColumnName} = @where");
+            var query =
+                new Query($"select ifnull(max({column}), 0) as max from {table} where {whereColumnName} = @where");
             query.AddParameter("where", whereColumnValue);
             return (int)query.ExecuteScalar();
         }
 
         /// <summary>
-        /// Получить UserId из БД
+        ///     Получить UserId из БД
         /// </summary>
         /// <returns>Возращается строка содержащая UserId, если в БД не найден UserId возращается пустая строка.</returns>
         public static string GetUserId()
@@ -1176,20 +1179,25 @@ namespace Test
         }
 
         /// <summary>
-        /// Получаем актуальные координаты.
+        ///     Получаем актуальные координаты.
         /// </summary>
-        /// <param name="timeSpan">Указывает промежуток, который указывает,
-        ///  из какого временного диапазона выбирать актуальные координаты.
-        /// По умолчанию, координаты выбираются из всего временного диапазона.</param>
+        /// <param name="timeSpan">
+        ///     Указывает промежуток, который указывает,
+        ///     из какого временного диапазона выбирать актуальные координаты.
+        ///     По умолчанию, координаты выбираются из всего временного диапазона.
+        /// </param>
         /// <returns>Возращяет координаты. Нулевые координаты указывают, что нет актуальных координат.</returns>
         public static DbRecordset GetCoordinate(uint timeSpan = uint.MaxValue)
         {
-            return new Query($@"select id, ifnull(Latitude, 0.0) as Latitude, ifnull(Longitude, 0.0) as Longitude, max(datetime(EndTime,'localtime')) as EndTime from ___DbLocations
-                                where datetime(EndTime, 'localtime') between datetime('now','localtime', '-{timeSpan} minutes') and datetime('now', 'localtime')").Execute();
+            return
+                new Query(
+                    $@"select id, ifnull(Latitude, 0.0) as Latitude, ifnull(Longitude, 0.0) as Longitude, max(datetime(EndTime,'localtime')) as EndTime from ___DbLocations
+                                where datetime(EndTime, 'localtime') between datetime('now','localtime', '-{timeSpan} minutes') and datetime('now', 'localtime')")
+                    .Execute();
         }
 
         /// <summary>
-        /// Получить статус задачи.
+        ///     Получить статус задачи.
         /// </summary>
         /// <param name="taskId">Индетификатор задачи.</param>
         /// <returns></returns>
@@ -1199,7 +1207,7 @@ namespace Test
             query.AddParameter("taskId", taskId);
 
             var result = query.Execute();
-            return new Task_Status()
+            return new Task_Status
             {
                 Id = (DbRef)result[nameof(Task_Status.Id)],
                 ActualEndDate = (DateTime)result[nameof(Task_Status.ActualEndDate)],
@@ -1283,6 +1291,34 @@ namespace Test
                                       Catalog_EquipmentOptions_ListValues.Ref = @optionId
                                     ORDER BY LineNumber ASC");
             query.AddParameter("optionId", optionId);
+
+            return query.Execute();
+        }
+
+        public static DbRecordset GetTenderList(object userId)
+        {
+            var query = new Query(@"SELECT
+                                      Tender.Id                AS Id,
+                                      Tender.Number            AS TenderNumber,
+                                      Tender.DueDateTime       AS DueDateTime,
+                                      Tender.Sum               AS TotalSum,
+                                      Client.Description       AS ClientDescription,
+                                      ActivityType.Description AS ActivityType,
+                                      ActivityType.User        AS UserId
+                                    FROM
+                                      _Document_Tender AS Tender
+                                      LEFT JOIN
+                                      _Catalog_Client AS Client
+                                        ON Tender.Client = Client.Id
+                                      LEFT JOIN
+                                      _Catalog_ActivityTypes AS ActivityType
+                                        ON Tender.ActivityType = ActivityType.Id
+                                    WHERE
+                                      ActivityType.User = @userId
+                                    ORDER BY Tender.DueDateTime ASC
+                                    ");
+
+            query.AddParameter("userId", userId);
 
             return query.Execute();
         }

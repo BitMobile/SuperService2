@@ -13,129 +13,40 @@
     <c:ScrollView CssClass="RootLayout">
       <c:VerticalLayout>
 
+        <c:TextView Text="$ToUpper(#deadline#)" CssClass="EventListDateTV" />
+        <c:HorizontalLine CssClass="EventListLongBreaker" />
+
+        <!--К удалению
         <s:Push Id="EventListLastDate" Value="$GetDateNowEventList()" />
         <s:Push Id="EventListCurrentDate" Value="$GetDateNowEventList()" />
-        <s:Push Id="IsEmptyEventList" value="true" />
+        <s:Push Id="IsEmptyEventList" value="true" />-->
 
-        <s:Iterator Id="EventList" Value="$GetEvents()" Status="Counter">
-          <s:If Test="$Counter.Index == 0">
-          </s:If>
-          <s:Else>
+        <s:Iterator Id="tenderList" Value="$GetTenders()" Status="Counter">
 
-            <!-- Проверка на необходимость плашки "Сегодня" -->
-            <s:If Test="$IsTodayLayoutNeed()">
-              <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $StartPlanDate)">
-                <c:TextView Text="#todayUpper#" CssClass="EventListDateTV" />
-                <c:HorizontalLine CssClass="EventListLongBreaker" />
-              </s:If>
-              <s:Else>
-                <c:TextView Text="$DateTimeToDateWithWeekCheck($StartPlanDate)"
-                            CssClass="EventListDateTV" />
-                <c:HorizontalLine CssClass="EventListLongBreaker" />
-              </s:Else>
-              <s:Push Id="void" Value="$SetTodayLayoutToFalse()" />
-              <s:Push Id="void" Value="$SetTodayBreakerToFalse()" />
-            </s:If>
-            <!-- Конец проверки на необходимость плашки "Сегодня" -->
-
-            <c:HorizontalLayout CssClass="EventListItemHL" OnClick="EventListItemHL_OnClick" Id="$EventID">
-
-              <c:VerticalLayout CssClass="EventListTimeVL">
-                <c:TextView Text="$GetStartDate($StartPlan, $EndPlan)" CssClass="EventListTimeTV" />
-                <c:TextView Text="$GetTimeCounter($ActualStartDate, $StatusName)" CssClass="EventListCounterTV" />
-              </c:VerticalLayout>
-
-              <c:VerticalLayout CssClass="EventListStatusVL">
-                <c:VerticalLayout CssClass="EventListLineBeforeVL" />
-                <c:Image CssClass="EventListStatusIMG" Source="$GetStatusPicture($ImportanceName, $StatusName)" />
-                <c:VerticalLayout CssClass="EventListLineAfterVL" />
-              </c:VerticalLayout>
-
-              <c:VerticalLayout CssClass="EventListDescriptionVL">
-                <c:TextView Text="$Description" CssClass="EventListItemName" />
-                <c:TextView Text="$Address" CssClass="EventListItemAddress" />
-                <c:TextView Text="$TypeDeparture" CssClass="EventListItemType" />
-
-                <!-- Проверка на необходимость брейкера-->
-                <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $EventList.startDatePlanDate)">
-                  <c:HorizontalLine CssClass="EventListShortBreaker" />
-                </s:If>
-                <s:Else>
-                  <s:If Test="$IsDateChanged($StartPlanDate, $EventList.startDatePlanDate)">
-                  </s:If>
-                  <s:Else>
-                    <c:HorizontalLine CssClass="EventListShortBreaker" />
-                  </s:Else>
-                </s:Else>
-                <!--Конец проверки на необходимость брейкера-->
-              </c:VerticalLayout>
-            </c:HorizontalLayout>
-
-            <!-- Проверка на необходимость плашки с датой-->
-            <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $EventList.startDatePlanDate)">
-            </s:If>
-            <s:Else>
-              <s:If Test="$IsDateChanged($StartPlanDate, $EventList.startDatePlanDate)">
-                <c:HorizontalLine CssClass="EventListLongBreaker" />
-                <c:TextView Text="$DateTimeToDateWithWeekCheck($EventList.startDatePlanDate)"
-                            CssClass="EventListDateTV" />
-                <c:HorizontalLine CssClass="EventListLongBreaker" />
-              </s:If>
-            </s:Else>
-            <!-- Конец проверки на необходимость плашки с датой-->
-          </s:Else>
-
-          <s:Push Id="EventID" Value="$EventList.Id" />
-          <s:Push Id="StartPlan" Value="$EventList.StartDatePlan" />
-          <s:Push Id="StartPlanDate" Value="$EventList.startDatePlanDate" />
-          <s:Push Id="EndPlan" Value="$EventList.EndDatePlan" />
-          <s:Push Id="TypeDeparture" Value="$EventList.TypeDeparture" />
-          <s:Push Id="ActualStartDate" Value="$EventList.ActualStartDate" />
-          <s:Push Id="StatusName" Value="$EventList.statusName" />
-          <s:Push Id="ImportanceName" Value="$EventList.ImportanceName" />
-          <s:Push Id="Description" Value="$EventList.Description" />
-          <s:Push Id="Address" Value="$EventList.Address" />
-          <s:Push Id="IsEmptyEventList" value="false" />
-
-          <s:Push Id="EventListLastDate" Value="$StartPlanDate" />
-        </s:Iterator>
-
-        <!--После итератора обрабатываем последний элемент-->
-        <s:If Test="$IsEmptyEventList == false">
-          <s:If Test="$IsTodayLayoutNeed()">
-            <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $StartPlanDate)">
-              <c:TextView Text="#todayUpper#" CssClass="EventListDateTV" />
-              <c:HorizontalLine CssClass="EventListLongBreaker" />
-            </s:If>
-            <s:Else>
-              <c:TextView Text="$DateTimeToDateWithWeekCheck($StartPlanDate)"
-                          CssClass="EventListDateTV" />
-              <c:HorizontalLine CssClass="EventListLongBreaker" />
-            </s:Else>
-            <s:Push Id="void" Value="$SetTodayLayoutToFalse()" />
-            <s:Push Id="void" Value="$SetTodayBreakerToFalse()" />
-          </s:If>
-          <c:HorizontalLayout CssClass="EventListItemHL" OnClick="EventListItemHL_OnClick" Id="$EventID">
+          <c:HorizontalLayout CssClass="EventListItemHL" OnClick="EventListItemHL_OnClick" Id="$tendersList.Id">
 
             <c:VerticalLayout CssClass="EventListTimeVL">
-              <c:TextView Text="$GetStartDate($StartPlan, $EndPlan)" CssClass="EventListTimeTV" />
-              <c:TextView Text="$GetTimeCounter($ActualStartDate, $StatusName)" CssClass="EventListCounterTV" />
+              <c:TextView Text="$GetFormatDate($tenderList.DueDateTime)" CssClass="EventListTimeTV" />
+              <!--<c:TextView Text="$GetTimeCounter($ActualStartDate, $StatusName)" CssClass="EventListCounterTV" />-->
             </c:VerticalLayout>
 
             <c:VerticalLayout CssClass="EventListStatusVL">
               <c:VerticalLayout CssClass="EventListLineBeforeVL" />
-              <c:Image CssClass="EventListStatusIMG" Source="$GetStatusPicture($ImportanceName, $StatusName)" />
+              <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(eventlistscreen_blueborder)" />
               <c:VerticalLayout CssClass="EventListLineAfterVL" />
             </c:VerticalLayout>
 
             <c:VerticalLayout CssClass="EventListDescriptionVL">
-              <c:TextView Text="$Description" CssClass="EventListItemName" />
-              <c:TextView Text="$Address" CssClass="EventListItemAddress" />
-              <c:TextView Text="$TypeDeparture" CssClass="EventListItemType" />
+              <c:TextView Text="$tenderList.TenderNumber" CssClass="EventListItemName" />
+              <c:TextView Text="$tenderList.ClientDescription" CssClass="EventListItemAddress" />
+              <c:TextView Text="$ConcatCurrencyString($tenderList.ActivityType, $tenderList.TotalSum)"
+                          CssClass="EventListItemType" />
+
+              <!-- Проверка на необходимость брейкера-->
+              <c:HorizontalLine CssClass="EventListShortBreaker" />
             </c:VerticalLayout>
           </c:HorizontalLayout>
-        </s:If>
-        <!-- Конец обработки последнего элемента-->
+        </s:Iterator>
       </c:VerticalLayout>
     </c:ScrollView>
   </c:DockLayout>
