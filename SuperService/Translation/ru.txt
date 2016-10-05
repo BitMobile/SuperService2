@@ -133,3 +133,6 @@ photo		Фото
 delete		Удалить
 retake_photo		Переснять
 targets		Цели
+tenders		Тендеры
+new		Новые
+in_progress		В работе

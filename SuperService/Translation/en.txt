@@ -133,3 +133,6 @@ photo		Photo
 delete		Delete
 retake_photo		Retake
 targets		Targets
+tenders		Tenders
+new		New
+in_progress		In progress

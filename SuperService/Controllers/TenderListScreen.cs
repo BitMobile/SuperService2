@@ -7,7 +7,7 @@ using Test.Components;
 
 namespace Test
 {
-    public class EventListScreen : Screen
+    public class TenderListScreen : Screen
     {
         private bool _needTodayBreaker = true;
         private bool _needTodayLayout = true;
@@ -16,17 +16,13 @@ namespace Test
 
         public override void OnLoading()
         {
-            DConsole.WriteLine("OnLoading EventList");
-
             _tabBarComponent = new TabBarComponent(this);
             _topInfoComponent = new TopInfoComponent(this)
             {
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_sync") },
                 RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_map") },
-                Header = Translator.Translate("orders")
+                Header = Translator.Translate("tenders")
             };
-
-            var statistic = DBHelper.GetEventsStatistic();
 
             var extraHorizontalLayout = new HorizontalLayout { CssClass = "ExtraHorizontalLayout" };
             var leftExtraLayout = new VerticalLayout { CssClass = "ExtraLeftLayoutCss" };
@@ -35,31 +31,26 @@ namespace Test
             extraHorizontalLayout.AddChild(rightExtraLayout);
 
             leftExtraLayout.AddChild(
-                new TextView($"{statistic.DayCompleteAmout}/{statistic.DayTotalAmount}")
+                new TextView($"Новые")
                 {
                     CssClass = "ExtraInfo"
                 });
-            leftExtraLayout.AddChild(new TextView(Translator.Translate("today"))
+            leftExtraLayout.AddChild(new TextView(Translator.Translate("new").ToLower())
             {
                 CssClass = "ButtonExtraInfo"
             });
 
             rightExtraLayout.AddChild(
-                new TextView($"{statistic.MonthCompleteAmout}/{statistic.MonthTotalAmount}")
+                new TextView($"В работе")
                 {
                     CssClass = "ExtraInfo"
                 });
-            rightExtraLayout.AddChild(new TextView(Translator.Translate("per_month"))
+            rightExtraLayout.AddChild(new TextView(Translator.Translate("in_progress").ToLower())
             {
                 CssClass = "ButtonExtraInfo"
             });
 
             _topInfoComponent.ExtraLayout.AddChild(extraHorizontalLayout);
-        }
-
-        public override void OnShow()
-        {
-            GpsTracking.Start();
         }
 
         internal string GetStatusPicture(string importance, string status)

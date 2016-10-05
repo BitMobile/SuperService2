@@ -187,5 +187,12 @@
     "minify": {
       "enabled": false
     }
+  },
+  {  
+    "outputFile": "Style/TenderListScreen.css",
+    "inputFile": "Style/Less/TenderListScreen.less",
+    "minify": {
+      "enabled": false
+    }
   }
 ]
