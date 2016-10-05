@@ -251,7 +251,7 @@ namespace Test
 
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _tabBarComponent.Bag_OnClick(sender, eventArgs);
+            _tabBarComponent.TendersListScreen_OnClick(sender, eventArgs);
         }
 
         internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
