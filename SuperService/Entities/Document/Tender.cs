@@ -8,6 +8,7 @@ namespace Test.Document
         public DbRef Id { get; set; }
         public bool DeletionMark { get; set; }
         public string Number { get; set; }
+        public DateTime Date { get; set; }
         public DbRef Client { get; set; }
         public DateTime DueDateTime { get; set; }
         public DbRef ActivityType { get; set; }

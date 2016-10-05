@@ -76,6 +76,12 @@ namespace Test.Enum
                 case WebactionsEnum.AnaliticAccess:
                     res = "0236eb9f-eed9-509b-9152-86b037e79a79";
                     break;
+                case WebactionsEnum.WebInterfaceAccess:
+                    res = "0236eb9f-eed9-510b-9152-86b037e79a79";
+                    break;
+                case WebactionsEnum.MobileAppAccess:
+                    res = "0236eb9f-eed9-511b-9152-86b037e79a79";
+                    break;
             }
             if (string.IsNullOrEmpty(res)) return null;
             return DbRef.FromString($"@ref[Enum_Webactions]:{res}");
@@ -127,6 +133,10 @@ namespace Test.Enum
                     return WebactionsEnum.CheckListManageActivityStatus;
                 case "0236eb9f-eed9-509b-9152-86b037e79a79": 
                     return WebactionsEnum.AnaliticAccess;
+                case "0236eb9f-eed9-510b-9152-86b037e79a79": 
+                    return WebactionsEnum.WebInterfaceAccess;
+                case "0236eb9f-eed9-511b-9152-86b037e79a79": 
+                    return WebactionsEnum.MobileAppAccess;
             }
             return default(WebactionsEnum);
         }
@@ -157,6 +167,8 @@ namespace Test.Enum
         CheckListsEditing,
         CheckListManageActivityStatus,
         AnaliticAccess,
+        WebInterfaceAccess,
+        MobileAppAccess,
     } 
 }
     
