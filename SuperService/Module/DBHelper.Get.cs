@@ -1315,8 +1315,8 @@ namespace Test
                                         ON Tender.ActivityType = ActivityType.Id
                                     WHERE
                                       ActivityType.User = @userId
-                                    ORDER BY Tender.DueDateTime ASC
-                                    ");
+                                      AND Tender.DeletionMark = 0
+                                    ORDER BY Tender.DueDateTime ASC");
 
             query.AddParameter("userId", userId);
 

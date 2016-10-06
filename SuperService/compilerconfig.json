@@ -194,5 +194,12 @@
     "minify": {
       "enabled": false
     }
+  },
+  {  
+    "outputFile": "Style/TenderScreen.css",
+    "inputFile": "Style/Less/TenderScreen.less",
+    "minify": {
+      "enabled": false
+    }
   }
 ]

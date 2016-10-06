@@ -148,6 +148,7 @@ namespace Test
             return 0;
         }
 
+        [Obsolete("Не используется в Биовитрум")]
         internal int SetTodayBreakerToFalse()
         {
             _needTodayBreaker = false;
@@ -226,12 +227,8 @@ namespace Test
         }
 
         internal void EventListItemHL_OnClick(object sender, EventArgs e)
-        {
-            DConsole.WriteLine("Go To View Event");
-            var currentEvent = (HorizontalLayout)sender;
-            BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId] = currentEvent.Id;
-            Navigation.Move("EventScreen");
-        }
+            => Navigation.Move(nameof(TenderScreen),
+                new Dictionary<string, object> { { Parameters.IdTenderId, ((HorizontalLayout)sender).Id } });
 
         // TabBar parts
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)

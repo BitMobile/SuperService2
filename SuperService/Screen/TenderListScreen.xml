@@ -16,11 +16,6 @@
         <c:TextView Text="$ToUpper(#deadline#)" CssClass="EventListDateTV" />
         <c:HorizontalLine CssClass="EventListLongBreaker" />
 
-        <!--К удалению
-        <s:Push Id="EventListLastDate" Value="$GetDateNowEventList()" />
-        <s:Push Id="EventListCurrentDate" Value="$GetDateNowEventList()" />
-        <s:Push Id="IsEmptyEventList" value="true" />-->
-
         <s:Iterator Id="tenderList" Value="$GetTenders()" Status="Counter">
 
           <c:HorizontalLayout CssClass="EventListItemHL" OnClick="EventListItemHL_OnClick" Id="$tendersList.Id">
