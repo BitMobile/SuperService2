@@ -21,7 +21,8 @@ namespace Test
             {
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_sync") },
                 RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_map") },
-                Header = Translator.Translate("tenders")
+                Header = Translator.Translate("tenders"),
+                ArrowVisible = false
             };
 
             var extraHorizontalLayout = new HorizontalLayout { CssClass = "ExtraHorizontalLayout" };
