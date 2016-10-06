@@ -1,5 +1,5 @@
-﻿using System;
-using BitMobile.ClientModel3.UI;
+﻿using BitMobile.ClientModel3.UI;
+using System;
 
 namespace Test.Components
 {
@@ -20,33 +20,33 @@ namespace Test.Components
             var screenName = Navigation.CurrentScreenInfo.Name;
             switch (screenName)
             {
-                case "EventListScreen":
-                    _textView = (TextView) _parentScreen.GetControl("TabBarFirstTabTextView", true);
-                    _image = (Image) parentScreen.GetControl("TabBarFirstTabImage", true);
+                case nameof(EventListScreen):
+                    _textView = (TextView)_parentScreen.GetControl("TabBarFirstTabTextView", true);
+                    _image = (Image)parentScreen.GetControl("TabBarFirstTabImage", true);
 
                     _textView.CssClass = "TabTextViewActive";
                     _image.Source = ResourceManager.GetImage("tabbar_events_active");
                     break;
 
-                case "BagListScreen":
-                    _textView = (TextView) parentScreen.GetControl("TabBarSecondTabTextView", true);
-                    _image = (Image) parentScreen.GetControl("TabBarSecondTabImage", true);
+                case nameof(TenderListScreen):
+                    _textView = (TextView)parentScreen.GetControl("TabBarSecondTabTextView", true);
+                    _image = (Image)parentScreen.GetControl("TabBarSecondTabImage", true);
 
                     _textView.CssClass = "TabTextViewActive";
                     _image.Source = ResourceManager.GetImage("tabbar_bag_active");
                     break;
 
-                case "ClientListScreen":
-                    _textView = (TextView) parentScreen.GetControl("TabBarThirdTabTextView", true);
-                    _image = (Image) parentScreen.GetControl("TabBarThirdTabImage", true);
+                case nameof(ClientListScreen):
+                    _textView = (TextView)parentScreen.GetControl("TabBarThirdTabTextView", true);
+                    _image = (Image)parentScreen.GetControl("TabBarThirdTabImage", true);
 
                     _textView.CssClass = "TabTextViewActive";
                     _image.Source = ResourceManager.GetImage("tabbar_clients_active");
                     break;
 
-                case "SettingsScreen":
-                    _textView = (TextView) parentScreen.GetControl("TabBarFourthTabTextView", true);
-                    _image = (Image) parentScreen.GetControl("TabBarFourthTabImage", true);
+                case nameof(SettingsScreen):
+                    _textView = (TextView)parentScreen.GetControl("TabBarFourthTabTextView", true);
+                    _image = (Image)parentScreen.GetControl("TabBarFourthTabImage", true);
 
                     _textView.CssClass = "TabTextViewActive";
                     _image.Source = ResourceManager.GetImage("tabbar_settings_active");
@@ -59,9 +59,9 @@ namespace Test.Components
             Navigation.ModalMove("EventListScreen");
         }
 
-        internal void Bag_OnClick(object sender, EventArgs e)
+        internal void TendersListScreen_OnClick(object sender, EventArgs e)
         {
-            Navigation.ModalMove("BagListScreen");
+            Navigation.ModalMove(nameof(TenderListScreen));
         }
 
         internal void Clients_OnClick(object sender, EventArgs e)

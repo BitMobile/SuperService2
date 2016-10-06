@@ -16,6 +16,7 @@
         public const string IdImage = "image";
         public const string IdWasEventStarted = "wasEventStarted";
         public const string Contact = "contact";
+        public const string IdTenderId = "tenderId";
 
         /// <summary>
         /// Используется для передачи параметров на экран EditServiceOrMaterials,

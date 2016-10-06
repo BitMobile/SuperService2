@@ -7,7 +7,7 @@ using Test.Components;
 
 namespace Test
 {
-    public class EventListScreen : Screen
+    public class TenderListScreen : Screen
     {
         private bool _needTodayBreaker = true;
         private bool _needTodayLayout = true;
@@ -16,17 +16,14 @@ namespace Test
 
         public override void OnLoading()
         {
-            DConsole.WriteLine("OnLoading EventList");
-
             _tabBarComponent = new TabBarComponent(this);
             _topInfoComponent = new TopInfoComponent(this)
             {
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_sync") },
                 RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_map") },
-                Header = Translator.Translate("orders")
+                Header = Translator.Translate("tenders"),
+                ArrowVisible = false
             };
-
-            var statistic = DBHelper.GetEventsStatistic();
 
             var extraHorizontalLayout = new HorizontalLayout { CssClass = "ExtraHorizontalLayout" };
             var leftExtraLayout = new VerticalLayout { CssClass = "ExtraLeftLayoutCss" };
@@ -35,31 +32,26 @@ namespace Test
             extraHorizontalLayout.AddChild(rightExtraLayout);
 
             leftExtraLayout.AddChild(
-                new TextView($"{statistic.DayCompleteAmout}/{statistic.DayTotalAmount}")
+                new TextView($"Новые")
                 {
                     CssClass = "ExtraInfo"
                 });
-            leftExtraLayout.AddChild(new TextView(Translator.Translate("today"))
+            leftExtraLayout.AddChild(new TextView(Translator.Translate("new").ToLower())
             {
                 CssClass = "ButtonExtraInfo"
             });
 
             rightExtraLayout.AddChild(
-                new TextView($"{statistic.MonthCompleteAmout}/{statistic.MonthTotalAmount}")
+                new TextView($"В работе")
                 {
                     CssClass = "ExtraInfo"
                 });
-            rightExtraLayout.AddChild(new TextView(Translator.Translate("per_month"))
+            rightExtraLayout.AddChild(new TextView(Translator.Translate("in_progress").ToLower())
             {
                 CssClass = "ButtonExtraInfo"
             });
 
             _topInfoComponent.ExtraLayout.AddChild(extraHorizontalLayout);
-        }
-
-        public override void OnShow()
-        {
-            GpsTracking.Start();
         }
 
         internal string GetStatusPicture(string importance, string status)
@@ -123,6 +115,7 @@ namespace Test
             return DateTime.Parse(datetime).ToString("dd MMMM yyyy").ToUpper();
         }
 
+        [Obsolete("Не используется на экране.")]
         internal string GetStartDate(string startPlan, string endPlan)
         {
             var startTime = DateTime.Parse(startPlan); //DateTime.Parse(startPlan).ToString("HH:mm:ss");
@@ -156,6 +149,7 @@ namespace Test
             return 0;
         }
 
+        [Obsolete("Не используется в Биовитрум")]
         internal int SetTodayBreakerToFalse()
         {
             _needTodayBreaker = false;
@@ -200,10 +194,8 @@ namespace Test
             return DateTime.Parse(datetime).ToString("dddd dd MMMM");
         }
 
-        internal IEnumerable GetEvents()
-        {
-            return DBHelper.GetEvents(DateTime.Now.Date);
-        }
+        internal IEnumerable GetTenders() =>
+            DBHelper.GetTenderList(DBHelper.GetUserInfoByUserName(Settings.User)["Id"]);
 
         internal string GetResourceImage(string tag)
         {
@@ -236,22 +228,18 @@ namespace Test
         }
 
         internal void EventListItemHL_OnClick(object sender, EventArgs e)
-        {
-            DConsole.WriteLine("Go To View Event");
-            var currentEvent = (HorizontalLayout)sender;
-            BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId] = currentEvent.Id;
-            Navigation.Move("EventScreen");
-        }
+            => Navigation.Move(nameof(TenderScreen),
+                new Dictionary<string, object> { { Parameters.IdTenderId, ((HorizontalLayout)sender).Id } });
 
         // TabBar parts
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
         {
-            //_tabBarComponent.Events_OnClick(sender, eventArgs);
+            _tabBarComponent.Events_OnClick(sender, eventArgs);
         }
 
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _tabBarComponent.TendersListScreen_OnClick(sender, eventArgs);
+            //_tabBarComponent.TendersListScreen_OnClick(sender, eventArgs);
         }
 
         internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
@@ -263,5 +251,22 @@ namespace Test
         {
             _tabBarComponent.Settings_OnClick(sender, eventArgs);
         }
+
+        internal string ToUpper(object @string) => @string.ToString().ToUpper();
+
+        internal string GetFormatDate(object date)
+        {
+            DateTime extractDate;
+
+            if (!DateTime.TryParse(date.ToString(), out extractDate))
+            {
+                Utils.TraceMessage($"DateTime {date?.ToString()} don't parse");
+            }
+
+            return extractDate.ToString("dd.MM");
+        }
+
+        internal string ConcatCurrencyString(object activityTypeDescription, object totalSum)
+            => $"{activityTypeDescription} - {totalSum:C2}";
     }
 }

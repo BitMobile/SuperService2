@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:DockLayout CssClass="RootLayout">
+
+    <!-- Добавление верхней панели -->
+    <s:Include File="Components\TopInfoComponent.xml" />
+
+    <!-- Tab Bar-->
+    <s:Include File="Components\TabBarСomponent.xml" />
+
+    <!-- Main SVL-->
+    <c:ScrollView CssClass="RootLayout">
+      <c:VerticalLayout>
+
+        <c:TextView Text="$ToUpper(#deadline#)" CssClass="EventListDateTV" />
+        <c:HorizontalLine CssClass="EventListLongBreaker" />
+
+        <s:Iterator Id="tenderList" Value="$GetTenders()" Status="Counter">
+
+          <c:HorizontalLayout CssClass="EventListItemHL" OnClick="EventListItemHL_OnClick" Id="$tendersList.Id">
+
+            <c:VerticalLayout CssClass="EventListTimeVL">
+              <c:TextView Text="$GetFormatDate($tenderList.DueDateTime)" CssClass="EventListTimeTV" />
+              <!--<c:TextView Text="$GetTimeCounter($ActualStartDate, $StatusName)" CssClass="EventListCounterTV" />-->
+            </c:VerticalLayout>
+
+            <c:VerticalLayout CssClass="EventListStatusVL">
+              <c:VerticalLayout CssClass="EventListLineBeforeVL" />
+              <c:Image CssClass="EventListStatusIMG" Source="$GetResourceImage(eventlistscreen_blueborder)" />
+              <c:VerticalLayout CssClass="EventListLineAfterVL" />
+            </c:VerticalLayout>
+
+            <c:VerticalLayout CssClass="EventListDescriptionVL">
+              <c:TextView Text="$tenderList.TenderNumber" CssClass="EventListItemName" />
+              <c:TextView Text="$tenderList.ClientDescription" CssClass="EventListItemAddress" />
+              <c:TextView Text="$ConcatCurrencyString($tenderList.ActivityType, $tenderList.TotalSum)"
+                          CssClass="EventListItemType" />
+
+              <!-- Проверка на необходимость брейкера-->
+              <c:HorizontalLine CssClass="EventListShortBreaker" />
+            </c:VerticalLayout>
+          </c:HorizontalLayout>
+        </s:Iterator>
+      </c:VerticalLayout>
+    </c:ScrollView>
+  </c:DockLayout>
+</c:Screen>
