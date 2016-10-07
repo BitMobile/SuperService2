@@ -137,3 +137,9 @@ tenders		Тендеры
 new		Новые
 in_progress		В работе
 deadline		Срок подачи
+add_task		Добавить задачу
+activity		Направление
+tender_activity		Направление тендера
+delivery_date		Срок поставки
+marketlace		Площадка
+sum		Сумма

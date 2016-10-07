@@ -328,12 +328,9 @@ HorizontalLine {
   height: 7.5sp auto;
 }
 .InfoLayout {
-  border-color: #f4f4f5;
-  border-style: solid;
-  border-width: 3px;
   height: 9.18558654sp;
   horizontal-align: center;
-  margin-bottom: 2sp;
+  margin-bottom: 0.5sp;
   width: 90%;
 }
 .InfoImage {
@@ -390,7 +387,7 @@ HorizontalLine {
   width: 100%;
 }
 .FinishButton TextView {
-  margin-top: 1.53093109sp;
+  vertical-align: center;
   color: #fecbc0;
   font: 3.06186218sp arial;
   height: 3.39866702sp auto;
@@ -424,4 +421,7 @@ HorizontalLine {
 .WrapUnwrapImage {
   vertical-align: center;
   width: 10%;
+}
+.Line {
+  margin-bottom: 0.5sp;
 }

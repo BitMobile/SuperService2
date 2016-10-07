@@ -91,12 +91,9 @@
 @info-font-size: @default-font-size * sqrt(3/2);
 
 .InfoLayout {
-    border-color: #f4f4f5;
-    border-style: solid;
-    border-width: 3px;
     height: @info-font-size * 3;
     horizontal-align: center;
-    margin-bottom: 2sp;
+    margin-bottom: 0.5sp;
     width: 90%;
 }
 
@@ -158,7 +155,7 @@
     background-color: #fe9c81;
 
     TextView {
-        margin-top: @info-font-size * 1 / 2;
+        vertical-align: center;
         color: #fecbc0;
         .text-view-style(@info-font-size);
     }
@@ -201,4 +198,8 @@
 .WrapUnwrapImage {
     vertical-align: center;
     width: 10%;
+}
+
+.Line {
+    margin-bottom: 0.5sp;
 }
