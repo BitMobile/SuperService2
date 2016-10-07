@@ -254,56 +254,174 @@ HorizontalLine {
   horizontal-align: right;
   margin-right: 5sp;
 }
-.TabBarMainVL {
-  background-color: #ffffff;
-  dock-align: bottom;
-  height: 9%;
-  horizontal-align: center;
-  width: 100%;
+.ExtraHorizontalLayout {
+  margin-top: 2.5sp;
 }
-.TabBarHL {
-  background-color: #ffffff;
-  dock-align: bottom;
-  height: 100%;
-  horizontal-align: center;
-  width: 100%;
+.ExtraVerticalLayout {
+  width: 50%;
 }
-.TabBarBreaker {
-  background-color: #f3f3f4;
-  height: 1dp;
+.TopInfoSideImage {
   horizontal-align: center;
-  width: 100%;
+  height: 7.5sp;
 }
-.TabBarItemVL {
-  background-color: #ffffff;
+.TopInfoSideText {
+  horizontal-align: center;
+  width: 80%;
+  font: 2.5sp arial;
+  height: 2.775sp auto;
   color: #ffffff;
-  height: 100%;
-  horizontal-align: center;
-  margin-bottom: 0%;
-  vertical-align: center;
-  width: 25%;
 }
-.TabImage {
-  background-color: #ffffff;
+.EventScreenMainLayout {
+  dock-align: top;
+  height: auto;
+  width: 100%;
+}
+.LightInfoLayout {
+  height: 6sp auto;
+  horizontal-align: center;
+  width: 90%;
+}
+.LightInfoBox {
+  height: 4sp auto;
+  width: 49.5%;
+}
+.LightInfoBoxBreaker {
+  margin-top: 0.625sp;
+  width: 3px;
+  height: auto;
+  background-color: #f4f4f5;
+}
+.LightInfoImage {
+  width: 2.5sp;
+  margin-left: 2sp;
+  margin-right: 2sp;
+  vertical-align: center;
+}
+.LightInfoTitle {
+  color: #a4a8a9;
+  font: 2sp arial;
+  height: 3sp;
+}
+.LightInfoContentWithImage {
+  width: 20% auto;
+  height: 2.775sp auto;
+  horizontal-align: center;
+}
+.LightInfoContent {
+  width: 0sp auto;
+  horizontal-align: center;
+}
+.LayoutBreaker {
+  background-color: #a4a8a9;
+  height: 0.1sp;
+  horizontal-align: center;
+  width: 90%;
+}
+.CommentLayout {
+  height: 10sp auto;
+  horizontal-align: center;
+  margin-bottom: 3sp;
+  margin-top: 2sp;
+  width: 80%;
+}
+.Comment {
+  height: 7.5sp auto;
+}
+.InfoLayout {
+  border-color: #f4f4f5;
+  border-style: solid;
+  border-width: 3px;
+  height: 9.18558654sp;
+  horizontal-align: center;
+  margin-bottom: 2sp;
+  width: 90%;
+}
+.InfoImage {
+  height: 4.59279327sp;
+  margin-left: 3%;
+  vertical-align: center;
+}
+.InfoTitle {
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  margin-left: 2%;
+  text-align: left;
+  width: 35%;
+  vertical-align: center;
+}
+.InfoContent {
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  color: #a4a8a9;
+  margin-right: 3%;
+  text-align: right;
+  width: 57%;
+  vertical-align: center;
+}
+.StartButton {
+  background-color: #fd724c;
+  border-color: #fd724c;
+  border-style: solid;
+  border-width: 2px;
   color: #ffffff;
-  margin-top: 1.5sp;
-  height: 35%;
+  font: 4sp arial;
+  height: 10sp;
   horizontal-align: center;
-  vertical-align: center;
+  margin-top: 2sp;
+  width: 90%;
 }
-.TabTextViewActive {
+.RefuseButton {
   background-color: #ffffff;
+  border-color: #a4a8a9;
+  border-style: solid;
+  border-width: 2px;
   color: #fd724c;
-  text-align: center;
-  font: 2.04124145sp arial;
-  height: 2.26577801sp auto;
-  margin-top: 1sp;
+  font: 4sp arial;
+  height: 10sp;
+  horizontal-align: center;
+  margin-top: 2sp;
+  width: 90%;
 }
-.TabTextViewNotActive {
-  background-color: #ffffff;
-  color: #9b9fa0;
-  text-align: center;
-  font: 2.04124145sp arial;
-  height: 2.26577801sp auto;
+.FinishButton {
+  dock-align: bottom;
+  background-color: #fe9c81;
+  height: 10sp;
+  white-space: normal;
+  width: 100%;
+}
+.FinishButton TextView {
+  margin-top: 1.53093109sp;
+  color: #fecbc0;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+}
+.FinishTimer {
+  margin-top: 0.5sp;
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  color: #ffffff;
+}
+.SubComment {
+  height: 9sp;
+  margin-top: 1.5sp;
+  width: 87%;
+}
+.SubCommentExpanded {
+  height: 9sp auto;
+  margin-top: 1.5sp;
+  width: 90%;
+}
+.WrapUnwrapLayout {
+  height: 6sp;
+  horizontal-align: center;
   margin-top: 1sp;
+  width: 90%;
+}
+.WrapUnwrapLine {
+  vertical-align: center;
+  width: 45%;
+}
+.WrapUnwrapImage {
+  vertical-align: center;
+  width: 10%;
 }
