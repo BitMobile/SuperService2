@@ -137,3 +137,9 @@ tenders		Tenders
 new		New
 in_progress		In progress
 deadline		Deadline
+add_task		Add task
+activity		Activity
+tender_activity		Tender activity
+delivery_date		Delivery Date
+marketlace		Marketlace
+sum		Sum

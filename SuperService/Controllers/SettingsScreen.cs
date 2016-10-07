@@ -1,7 +1,9 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using ClientModel3.MD;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Test.Components;
 
 namespace Test
@@ -179,6 +181,7 @@ namespace Test
 
         internal void SendLog_OnClick(object sender, EventArgs e)
         {
+            PushNotification.PushMessage("Test", new List<string>() { "71E1C804-1387-11E6-B0E4-6C71D97753D2" });
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BitMobile.Application;
 using BitMobile.ClientModel3;
+using ClientModel3.MD;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -133,6 +134,19 @@ namespace Test
             DConsole.WriteLine($"Host = {Host}");
             DConsole.WriteLine($"Server = {Server}");
 
+            if (!PushNotification.IsInitialized)
+            {
+                var userId = DBHelper.GetUserId();
+
+                if (!string.IsNullOrEmpty(userId) && !string.IsNullOrEmpty(Password))
+                {
+                    PushNotification.InitializePushService(server, userId, Password);
+                }
+            }
+
+            Utils.TraceMessage($"{nameof(PushNotification)}.{nameof(PushNotification.IsInitialized)} " +
+                               $"is {PushNotification.IsInitialized}{Environment.NewLine}" +
+                               $"server = {server} userID = {server} password {Password}");
             _initialized = true;
 
             GpsTrackingInit();

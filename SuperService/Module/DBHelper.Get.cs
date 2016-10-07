@@ -1336,5 +1336,34 @@ namespace Test
 
             return query.Execute();
         }
+
+        public static DbRecordset GetTenderById(object tenderId)
+        {
+            var query = new Query(@"SELECT
+                                      Tender.Id                 AS Id,
+                                      Tender.DueDateTime        AS DueDateTime,
+                                      Tender.Description        AS Tender_Description,
+                                      Tender.DeliveryDateTime   AS DeliveryDate,
+                                      Tender.Marketplace        AS Marketplace,
+                                      Tender.Sum                AS Sum,
+                                      Client.Address            AS Client_Address,
+                                      Client.Description        AS Client_Description,
+                                      ActivityTypes.Description AS ActivityType
+                                    FROM
+                                      _Document_Tender AS Tender
+                                      INNER JOIN
+                                      _Catalog_Client AS Client
+                                        ON Tender.Client = Client.Id
+                                      INNER JOIN
+                                      _Catalog_ActivityTypes AS ActivityTypes
+                                        ON Tender.ActivityType = ActivityTypes.Id
+                                    WHERE
+                                      Tender.Id = @tenderId
+                                      AND Tender.DeletionMark = 0");
+
+            query.AddParameter("tenderId", tenderId);
+
+            return query.Execute();
+        }
     }
 }

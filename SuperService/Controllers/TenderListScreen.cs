@@ -228,8 +228,8 @@ namespace Test
         }
 
         internal void EventListItemHL_OnClick(object sender, EventArgs e)
-            => Navigation.Move(nameof(TenderScreen),
-                new Dictionary<string, object> { { Parameters.IdTenderId, ((HorizontalLayout)sender).Id } });
+        => Navigation.Move(nameof(TenderScreen),
+            new Dictionary<string, object> { { Parameters.IdTenderId, ((HorizontalLayout)sender).Id } });
 
         // TabBar parts
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
@@ -260,7 +260,7 @@ namespace Test
 
             if (!DateTime.TryParse(date.ToString(), out extractDate))
             {
-                Utils.TraceMessage($"DateTime {date?.ToString()} don't parse");
+                Utils.TraceMessage($"DateTime {date} don't parse");
             }
 
             return extractDate.ToString("dd.MM");

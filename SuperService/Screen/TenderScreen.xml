@@ -1,4 +1,72 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:DockLayout Id="RootLayout" CssClass="RootLayout">
+    <s:Push Id="tender" Value="$GetCurrentTender()" />
+    <s:Include File="Components\TopInfoComponent.xml" />
+
+    <c:HorizontalLayout Id="StartFinishButton"
+                        CssClass="FinishButton"
+                        OnClick="AddTask_OnClick">
+      <c:TextView Text="#add_task#" />
+    </c:HorizontalLayout>
+
+    <c:ScrollView CssClass="EventScreenMainLayout">
+      <c:VerticalLayout>
+        <c:VerticalLayout CssClass="EmptySpace2sp" />
+        <c:HorizontalLayout CssClass="LightInfoLayout">
+          <c:VerticalLayout CssClass="LightInfoBox">
+            <c:TextView Text="#deadline#" CssClass="LightInfoTitle" />
+            <c:HorizontalLayout CssClass="LightInfoContentWithImage">
+              <c:Image Source="$GetResourceImage(eventlistscreen_blueborder)"
+                       Id="StatusImage"
+                       CssClass="LightInfoImage" />
+              <c:TextView Text="$GetFormatDate($tender.DueDateTime)" Id="StartTimeTextView"
+                          CssClass="LightInfoContent" />
+              <c:VerticalLayout CssClass="LightInfoImage" />
+            </c:HorizontalLayout>
+          </c:VerticalLayout>
+          <c:VerticalLayout CssClass="LightInfoBoxBreaker" />
+          <c:VerticalLayout CssClass="LightInfoBox">
+            <c:TextView Text="#activity#" CssClass="LightInfoTitle" />
+            <c:TextView Text="$tender.ActivityType" Id="DepartureTypeTextView" CssClass="LightInfoContent" />
+          </c:VerticalLayout>
+        </c:HorizontalLayout>
+        <c:VerticalLayout CssClass="EmptySpace3sp" />
+        <c:HorizontalLine />
+
+        <c:VerticalLayout CssClass="CommentLayout">
+          <c:TextView Text="#tender_activity#" CssClass="LightInfoTitle" />
+          <c:TextView Text="$tender.Tender_Description" Id="EventCommentTextView" CssClass="SubComment" />
+        </c:VerticalLayout>
+
+        <c:HorizontalLayout Id="WrapUnwrapButton" CssClass="WrapUnwrapLayout" OnClick="WrapUnwrapButton_OnClick">
+          <c:HorizontalLine CssClass="WrapUnwrapLine" />
+          <c:Image Id="WrapUnwrapImage" Source="$GetResourceImage(longtext_expand)" CssClass="WrapUnwrapImage" />
+          <c:HorizontalLine CssClass="WrapUnwrapLine" />
+        </c:HorizontalLayout>
+
+        <c:TextView Visible="False" />
+        <c:HorizontalLayout CssClass="InfoLayout">
+          <c:TextView Text="#delivery_date#" Id="TaskCounterNameTextView" CssClass="InfoTitle" />
+          <c:TextView Text="$GetFormatDate($tender.DeliveryDate)"
+                      Id="TaskCounterTextView" CssClass="InfoContent" />
+          <c:HorizontalLine />
+        </c:HorizontalLayout>
+        <c:HorizontalLine />
+        <c:HorizontalLayout CssClass="InfoLayout">
+          <c:TextView Text="#marketlace#" Id="CertificateOfCompletionNameTextView" CssClass="InfoTitle" />
+          <c:TextView Text="$tender.Marketplace"
+                      Id="CertificateOfCompletionTextView" CssClass="InfoContent" />
+        </c:HorizontalLayout>
+        <c:HorizontalLine />
+        <c:HorizontalLayout CssClass="InfoLayout">
+          <c:TextView Text="#sum#" Id="CheckListCounterNameTextView" CssClass="InfoTitle" />
+          <c:TextView Text="$FormatCurrency($tender.Sum)"
+                      Id="CheckListCounterTextView" CssClass="InfoContent" />
+        </c:HorizontalLayout>
+        <c:HorizontalLine CssClass="Line" />
+      </c:VerticalLayout>
+    </c:ScrollView>
+  </c:DockLayout>
 </c:Screen>

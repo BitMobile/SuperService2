@@ -1,3 +1,205 @@
 ﻿@import "defaults.less";
 @import "Components/TopInfoComponent.less";
-@import "Components/TabBarComponent.less";
+
+.ExtraHorizontalLayout {
+    margin-top: 2.5sp;
+}
+
+.ExtraVerticalLayout {
+    width: 50%;
+}
+
+.TopInfoSideImage {
+    horizontal-align: center;
+    height: 3 * @default-font-size;
+}
+
+.TopInfoSideText {
+    horizontal-align: center;
+    width: 80%;
+    .text-view-style(@default-font-size);
+    color: @topheading-text-color;
+}
+
+.EventScreenMainLayout {
+    dock-align: top;
+    height: auto;
+    width: 100%;
+}
+
+.LightInfoLayout {
+    height: 6sp auto;
+    horizontal-align: center;
+    width: 90%;
+}
+
+.LightInfoBox {
+    height: 4sp auto;
+    width: 49.5%;
+}
+
+.LightInfoBoxBreaker {
+    margin-top: @default-font-size / 4;
+    width: 3px;
+    height: auto;
+    background-color: #f4f4f5;
+}
+
+.LightInfoImage {
+    width: 2.5sp;
+    margin-left: 2sp;
+    margin-right: 2sp;
+    vertical-align: center;
+}
+
+.LightInfoTitle {
+    color: #a4a8a9;
+    font: 2sp arial;
+    height: 3sp;
+}
+
+.LightInfoContentWithImage {
+    width: 20% auto;
+    .height-of-TextView(@default-font-size);
+    horizontal-align: center;
+}
+
+.LightInfoContent {
+    width: 0sp auto;
+    horizontal-align: center;
+}
+
+.LayoutBreaker {
+    background-color: #a4a8a9;
+    height: 0.1sp;
+    horizontal-align: center;
+    width: 90%;
+}
+
+.CommentLayout {
+    height: 10sp auto;
+    horizontal-align: center;
+    margin-bottom: 3sp;
+    margin-top: 2sp;
+    width: 80%;
+}
+
+.Comment {
+    height: 7.5sp auto;
+}
+
+@info-font-size: @default-font-size * sqrt(3/2);
+
+.InfoLayout {
+    height: @info-font-size * 3;
+    horizontal-align: center;
+    margin-bottom: 0.5sp;
+    width: 90%;
+}
+
+@info-title-part: 35%;
+@info-image-part: 8%;
+@info-content-part: 100% - @info-title-part - @info-image-part;
+
+.InfoImage {
+    height: @info-font-size * 1.5;
+    margin-left: 3%;
+    vertical-align: center;
+}
+
+.InfoTitle {
+    .text-view-style(@info-font-size);
+    margin-left: 2%;
+    text-align: left;
+    width: @info-title-part;
+    vertical-align: center;
+}
+
+.InfoContent {
+    .text-view-style(@info-font-size);
+    color: #a4a8a9;
+    margin-right: 3%;
+    text-align: right;
+    width: @info-content-part;
+    vertical-align: center;
+}
+
+.StartButton {
+    background-color: #fd724c;
+    border-color: #fd724c;
+    border-style: solid;
+    border-width: 2px;
+    color: #ffffff;
+    font: 4sp arial;
+    height: 10sp;
+    horizontal-align: center;
+    margin-top: 2sp;
+    width: 90%;
+}
+
+.RefuseButton {
+    background-color: #ffffff;
+    border-color: #a4a8a9;
+    border-style: solid;
+    border-width: 2px;
+    color: #fd724c;
+    font: 4sp arial;
+    height: 10sp;
+    horizontal-align: center;
+    margin-top: 2sp;
+    width: 90%;
+}
+
+.FinishButton {
+    dock-align: bottom;
+    background-color: #fe9c81;
+
+    TextView {
+        vertical-align: center;
+        color: #fecbc0;
+        .text-view-style(@info-font-size);
+    }
+
+    height: 10sp;
+    white-space: normal;
+    width: 100%;
+}
+
+.FinishTimer {
+    margin-top: 0.5sp;
+    .text-view-style(@default-font-size);
+    color: #ffffff;
+}
+
+.SubComment {
+    height: 9sp;
+    margin-top: 1.5sp;
+    width: 87%;
+}
+
+.SubCommentExpanded {
+    height: 9sp auto;
+    margin-top: 1.5sp;
+    width: 90%;
+}
+
+.WrapUnwrapLayout {
+    height: 6sp;
+    horizontal-align: center;
+    margin-top: 1sp;
+    width: 90%;
+}
+
+.WrapUnwrapLine {
+    vertical-align: center;
+    width: 45%;
+}
+
+.WrapUnwrapImage {
+    vertical-align: center;
+    width: 10%;
+}
+
+.Line {
+    margin-bottom: 0.5sp;
+}
