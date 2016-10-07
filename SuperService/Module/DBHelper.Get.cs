@@ -274,7 +274,8 @@ namespace Test
         /// </summary>
         /// <param name="eventId"> Идентификатор наряда.</param>
         /// <param name="clientId"> Индетефикатор клиента.</param>
-        public static DbRecordset GetTasksByEventIDOrClientID(string eventId, string clientId)
+        /// <param name="userId"></param>
+        public static DbRecordset GetTaskList(string eventId, string clientId)
         {
             var query = new Query(@"SELECT
                                       Task.Id          AS Id,
@@ -290,14 +291,27 @@ namespace Test
                                       _Enum_StatusTasks AS Status
                                         ON Task_Status.Status = Status.Id
                                     WHERE
-                                      (Task.Event LIKE @eventId AND Task.Client LIKE @clientId)
-                                      OR
-                                      (Task.Client LIKE @clientId AND Task.Event LIKE '@ref[Document_Event]:00000000-0000-0000-0000-000000000000')
+                                      ((Task.Event = @eventId AND Task.Client = @clientId AND Status.Name LIKE 'New'
+                                        OR
+                                        Task.Event = @eventId AND Task.Client = @clientId AND Status.Name NOT LIKE 'New'
+                                        AND Task_Status.CloseEvent = @eventId)
+                                       OR
+                                       (Task.Client LIKE @clientId
+                                        AND Task.Event
+                                            = '@ref[Document_Event]:00000000-0000-0000-0000-000000000000'
+                                        AND Status.Name LIKE 'New'
+                                        OR
+                                        Task.Client LIKE @clientId
+                                        AND Task.Event
+                                            = '@ref[Document_Event]:00000000-0000-0000-0000-000000000000'
+                                        AND Status.Name NOT LIKE 'New'
+                                        AND Task_Status.CloseEvent = @eventId))
                                       AND Task.DeletionMark == 0");
+
             query.AddParameter("eventId", eventId);
             query.AddParameter("clientId", clientId);
-            var result = query.Execute();
-            return result;
+
+            return query.Execute();
         }
 
         /// <summary>

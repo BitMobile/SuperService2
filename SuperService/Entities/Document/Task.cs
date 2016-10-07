@@ -35,6 +35,7 @@ namespace Test.Document
         public DbRef Status { get; set; }
         public DbRef UserMA { get; set; }
         public DateTime ActualEndDate { get; set; }
+        public DbRef CloseEvent { get; set; }
 
    }
 

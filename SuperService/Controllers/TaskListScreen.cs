@@ -58,10 +58,8 @@ namespace Test
         }
 
         internal IEnumerable GetTasks()
-        {
-            return DBHelper.GetTasksByEventIDOrClientID((string)Variables[Parameters.IdCurrentEventId],
-                (string)Variables[Parameters.IdClientId]);
-        }
+           => DBHelper.GetTaskList($"{Variables[Parameters.IdCurrentEventId]}",
+                $"{Variables[Parameters.IdClientId]}");
 
         internal string GetResourceImage(string tag)
         {

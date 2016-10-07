@@ -560,6 +560,7 @@
 					<Field AllowNull="true" Name="Status" Type="Enum.StatusTasks"/>
 					<Field AllowNull="true" Name="UserMA" Type="Catalog.User"/>
 					<Field AllowNull="true" Name="ActualEndDate" Type="DateTime2"/>
+					<Field AllowNull="true" Name="CloseEvent" Type="Document.Event"/>
 				</TabularSection>
 			</TabularSections>
 		</Entity>

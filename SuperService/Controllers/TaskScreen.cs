@@ -33,6 +33,7 @@ namespace Test
         private Image _wrapUnwrapImage;
         private bool _isReadOnly;
         private DbRecordset _currentEvent;
+        private DbRef _userId;
 
         public override void OnLoading()
         {
@@ -59,6 +60,7 @@ namespace Test
 
             _isReadOnly = (bool)Variables[Parameters.IdIsReadonly];
             _currentEvent = DBHelper.GetEventByID($"{Variables[Parameters.IdCurrentEventId]}");
+            _userId = (DbRef)DBHelper.GetUserInfoByUserName(Settings.User)["Id"];
         }
 
         public override void OnShow()
@@ -114,7 +116,9 @@ namespace Test
 
         private void ChangeTaskToNew()
         {
-            _taskStatus.ActualEndDate = DateTime.Now;
+            _taskStatus.ActualEndDate = DateTime.MinValue;
+            _taskStatus.CloseEvent = null;
+            _taskStatus.UserMA = null;
             _taskResult = "New";
             _resultTaskStatus = StatusTasksEnum.New;
             _taskFinishedButton.CssClass = "FinishedButtonActive";
@@ -130,6 +134,8 @@ namespace Test
         private void ChangeTaskToDone()
         {
             _taskStatus.ActualEndDate = DateTime.Now;
+            _taskStatus.CloseEvent = (DbRef)_currentEvent["Id"];
+            _taskStatus.UserMA = _userId;
             _taskResult = "Done";
             _resultTaskStatus = StatusTasksEnum.Done;
             _taskFinishedButton.CssClass = "FinishedButtonPressed";
@@ -182,6 +188,8 @@ namespace Test
         private void ChangeTaskToNotRejected()
         {
             _taskStatus.ActualEndDate = DateTime.Now;
+            _taskStatus.CloseEvent = (DbRef)_currentEvent["Id"];
+            _taskStatus.UserMA = _userId;
             _taskResult = "Rejected";
             _resultTaskStatus = StatusTasksEnum.Rejected;
             _taskFinishedButton.CssClass = "FinishedButtonActive";
@@ -255,7 +263,6 @@ namespace Test
         {
             string currentTaskId = $"{Variables[Parameters.IdTaskId]}";
             _taskStatus = DBHelper.GetTaskStatusByTaskId(currentTaskId);
-            _taskStatus.UserMA = (DbRef)DBHelper.GetUserInfoByUserName(Settings.User)["Id"];
             return DBHelper.GetTaskById(currentTaskId);
         }
 
