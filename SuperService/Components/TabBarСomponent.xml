@@ -7,7 +7,7 @@
     <c:HorizontalLayout Id="TabBarLayout" CssClass="TabBarHL">
       <c:VerticalLayout CssClass="TabBarItemVL" Id="TabBarFirstTabButton" OnClick="TabBarFirstTabButton_OnClick">
         <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_events)" Id="TabBarFirstTabImage" />
-        <c:TextView Text="#orders#" CssClass="TabTextViewNotActive" Id="TabBarFirstTabTextView" />
+        <c:TextView Text="#tasks#" CssClass="TabTextViewNotActive" Id="TabBarFirstTabTextView" />
       </c:VerticalLayout>
 
       <c:VerticalLayout CssClass="TabBarItemVL" Id="TabBarSecondTabButton" OnClick="TabBarSecondTabButton_OnClick">

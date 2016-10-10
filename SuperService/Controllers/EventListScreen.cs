@@ -23,7 +23,7 @@ namespace Test
             {
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_sync") },
                 RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_map") },
-                Header = Translator.Translate("orders")
+                Header = Translator.Translate("tasks")
             };
 
             var statistic = DBHelper.GetEventsStatistic();
@@ -202,7 +202,7 @@ namespace Test
 
         internal IEnumerable GetEvents()
         {
-            return DBHelper.GetEvents(DateTime.Now.Date);
+            return DBHelper.GetEvents();
         }
 
         internal string GetResourceImage(string tag)
