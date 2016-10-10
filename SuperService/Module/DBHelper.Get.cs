@@ -1229,7 +1229,8 @@ namespace Test
                 Ref = (DbRef)result[nameof(Task_Status.Ref)],
                 LineNumber = (int)result[nameof(Task_Status.LineNumber)],
                 Status = (DbRef)result[nameof(Task_Status.Status)],
-                UserMA = (DbRef)result[nameof(Task_Status.UserMA)]
+                UserMA = (DbRef)result[nameof(Task_Status.UserMA)],
+                CloseEvent = (DbRef)result[nameof(Task_Status.CloseEvent)]
             };
         }
 
@@ -1252,14 +1253,28 @@ namespace Test
         {
             var query = new Query(@"SELECT ifnull(count(*), 0) AS TotalTask
                                     FROM
-                                      _Document_Task
+                                      _Document_Task AS Task
+                                      INNER JOIN _Document_Task_Status AS Task_Status
+                                      ON Task_Status.Ref = Task.Id
+                                      INNER JOIN _Enum_StatusTasks AS Status
+                                      ON Task_Status.Status = Status.Id
                                     WHERE
-                                      CASE WHEN EXISTS(SELECT *
-                                                       FROM _Document_Task
-                                                       WHERE _Document_Task.Event LIKE @eventId)
-                                        THEN Event LIKE @eventId
-                                      ELSE Client LIKE @clientId AND Event LIKE '@ref[Document_Event]:00000000-0000-0000-0000-000000000000'
-                                      END");
+                                      ((Task.Event = @eventId AND Task.Client = @clientId AND Status.Name LIKE 'New'
+                                        OR
+                                        Task.Event = @eventId AND Task.Client = @clientId AND Status.Name NOT LIKE 'New'
+                                        AND Task_Status.CloseEvent = @eventId)
+                                       OR
+                                       (Task.Client LIKE @clientId
+                                        AND Task.Event
+                                            = '@ref[Document_Event]:00000000-0000-0000-0000-000000000000'
+                                        AND Status.Name LIKE 'New'
+                                        OR
+                                        Task.Client LIKE @clientId
+                                        AND Task.Event
+                                            = '@ref[Document_Event]:00000000-0000-0000-0000-000000000000'
+                                        AND Status.Name NOT LIKE 'New'
+                                        AND Task_Status.CloseEvent = @eventId))
+                                      AND Task.DeletionMark == 0");
             query.AddParameter("eventId", eventId);
             query.AddParameter("clientId", clientId);
             var result = query.Execute();
@@ -1272,20 +1287,20 @@ namespace Test
             var query = new Query(@"SELECT ifnull(count(*), 0) AS TaskAnswered
                                     FROM
                                       _Document_Task AS Task
-                                      LEFT JOIN
-                                      _Document_Task_Status AS Status
-                                        ON Task.Id = Status.Ref
+                                      INNER JOIN _Document_Task_Status AS Task_Status
+                                      ON Task_Status.Ref = Task.Id
+                                      INNER JOIN _Enum_StatusTasks AS Status
+                                      ON Task_Status.Status = Status.Id
                                     WHERE
-                                      CASE WHEN EXISTS(SELECT *
-                                                       FROM _Document_Task
-                                                       WHERE _Document_Task.Event LIKE @eventId)
-                                        THEN Task.Event LIKE @eventId
-                                      ELSE Task.Client LIKE @clientId AND Task.Event LIKE '@ref[Document_Event]:00000000-0000-0000-0000-000000000000'
-                                      END
-                                      AND Status.Status IN (SELECT Id
-                                                                FROM Enum_StatusTasks
-                                                                WHERE Name LIKE 'Done')
-                                    ");
+                                      ((Task.Event = @eventId AND Task.Client = @clientId AND Status.Name NOT LIKE 'New'
+                                        AND Task_Status.CloseEvent = @eventId)
+                                       OR
+                                       (Task.Client LIKE @clientId
+                                        AND Task.Event
+                                            = '@ref[Document_Event]:00000000-0000-0000-0000-000000000000'
+                                        AND Status.Name NOT LIKE 'New'
+                                        AND Task_Status.CloseEvent = @eventId))
+                                      AND Task.DeletionMark == 0");
             query.AddParameter("eventId", eventId);
             query.AddParameter("clientId", clientId);
 
