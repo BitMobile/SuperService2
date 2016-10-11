@@ -15,6 +15,9 @@ namespace Test
     {
         private const string EventStatusDoneName = "Done";
         private const string EventStatusCancelName = "Cancel";
+        private const string EventStatusAppointed = "Appointed";
+        private const string EventStatusInWork = "InWork";
+
 
         private static Database _db;
 
