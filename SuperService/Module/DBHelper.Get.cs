@@ -72,8 +72,8 @@ namespace Test
                                     on event.status = Enum_StatusyEvents.Id
                                 where
                                     event.DeletionMark = 0
-                                    AND (event.StartDatePlan >= @eventDate 
-                                              OR (event.ActualEndDate > date('now','start of day') and Enum_StatusyEvents.Name IN (@statusDone, @statusCancel)) 
+                                    AND (event.StartDatePlan >= @eventDate
+                                              OR (event.ActualEndDate > date('now','start of day') and Enum_StatusyEvents.Name IN (@statusDone, @statusCancel))
                                               OR (Enum_StatusyEvents.Name IN (@statusAppointed, @statusInWork)))
 
                                order by
@@ -1384,6 +1384,11 @@ namespace Test
             query.AddParameter("tenderId", tenderId);
 
             return query.Execute();
+        }
+
+        public static DbRecordset GetMessages(object tenderId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

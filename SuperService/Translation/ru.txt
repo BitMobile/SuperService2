@@ -143,3 +143,5 @@ tender_activity		Направление тендера
 delivery_date		Срок поставки
 marketlace		Площадка
 sum		Сумма
+discussion_feed		Лента обсуждений
+write_message		Написать сообщение

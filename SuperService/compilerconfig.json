@@ -201,5 +201,12 @@
     "minify": {
       "enabled": false
     }
+  },
+  {  
+    "outputFile": "Style/ChatScreen.css",
+    "inputFile": "Style/Less/ChatScreen.less",
+    "minify": {
+      "enabled": false
+    }
   }
 ]

@@ -143,3 +143,5 @@ tender_activity		Tender activity
 delivery_date		Delivery Date
 marketlace		Marketlace
 sum		Sum
+discussion_feed		Discussion feed
+write_message		Write message

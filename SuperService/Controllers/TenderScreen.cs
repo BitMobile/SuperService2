@@ -34,7 +34,6 @@ namespace Test
             LoadControls();
             FillControls();
 
-            //IsEmptyDateTime((string)_currentEventRecordset["ActualStartDate"]);
             Utils.TraceMessage($"{Variables.GetValueOrDefault(Parameters.IdTenderId, string.Empty)}");
         }
 
@@ -159,9 +158,8 @@ namespace Test
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
-        {
-            Toast.MakeToast("Тут будет переход на экран чаттера");
-        }
+            => Navigation.Move(nameof(ChatScreen), new Dictionary<string, object>
+            {{Parameters.IdTenderId, Variables[Parameters.IdTenderId]}});
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
         {

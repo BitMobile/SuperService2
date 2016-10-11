@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:DockLayout Id="3B889066-CCCB-4090-AD94-9CA7EFCF2EFC" CssClass="RootLayout">
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <c:Button Id="A0D29075-412E-4ABF-8D72-D77FA331832B" CssClass="WriteMessageButton"
+              Text="#write_message#" />
+    <c:ScrollView Id="98A27447-8476-4131-BB9E-81A13D08F012" CssClass="RootLayout">
+      <c:VerticalLayout Id="B70229D7-1C27-4D4B-8566-8EA6D678DC9D">
+        <s:Iterator Id="messages" Value="$GetMessages()">
+        </s:Iterator>
+      </c:VerticalLayout>
+    </c:ScrollView>
+  </c:DockLayout>
+</c:Screen>
