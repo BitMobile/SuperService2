@@ -263,38 +263,14 @@ HorizontalLine {
   font: 3.06186218sp arial;
   color: #fecbc0;
 }
-.MessageContainer {
-  height: 10sp auto;
-  width: 100%;
-  padding-left: 3sp;
-  padding-right: 3sp;
-  margin-bottom: 5sp;
-}
-.DataContainer {
-  height: 4sp auto;
-  width: 100%;
-  margin-top: 2sp;
-}
-.Initials {
-  font: 2.5sp arial;
-  height: 2.775sp auto;
-  text-align: left;
-  color: #656565;
-  width: 80%;
-}
-.MessageDate {
-  font: 2.5sp arial;
-  height: 2.775sp auto;
-  text-align: right;
-  color: #afadc4;
-  width: 20%;
-}
 .Message {
-  font: 2.5sp arial;
-  height: 2.775sp auto;
-  color: #c2c2c2;
-  width: 100%;
-  white-space: normal;
+  height: auto;
+  width: auto;
   text-align: left;
-  margin-top: 2sp;
+  color: #666666;
+  placeholder-color: #c2c2c2;
+  margin-top: 3sp;
+  margin-left: 3sp;
+  margin-right: 3sp;
+  margin-bottom: 3sp;
 }

@@ -1,22 +1,27 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.DbEngine;
 using System;
-using System.Collections.Generic;
+using Test.Catalog;
 using Test.Components;
+using Test.Document;
 
 namespace Test
 {
-    public class ChatScreen : Screen
+    public class WriteMessageScreen : Screen
     {
         private TopInfoComponent _topInfoComponent;
+        private MemoEdit _memoEdit;
 
         public override void OnLoading()
         {
+            _memoEdit = (MemoEdit)GetControl("ADF2E7DC-DB28-4CAA-90BC-C7C1C231F791", true);
+
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ArrowVisible = false,
                 ArrowActive = false,
-                Header = Translator.Translate("discussion_feed"),
+                Header = Translator.Translate("write_message"),
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") }
             };
 
@@ -39,24 +44,27 @@ namespace Test
         internal string GetResourceImage(object tag)
             => ResourceManager.GetImage($"{tag}");
 
-        internal DbRecordset GetMessages()
-            => DBHelper.GetMessages(Variables[Parameters.IdTenderId]);
-
-        internal string FormatMessageTime(object date)
+        internal void SendMessage_OnClick(object sender, EventArgs e)
         {
-            DateTime parseDate;
-
-            if (!DateTime.TryParse($"{date}", out parseDate))
+            if (string.IsNullOrEmpty(_memoEdit.Text))
             {
-                Utils.TraceMessage($"Не удалось распарсить дату {Environment.NewLine}" +
-                                   $"{date}");
+                Toast.MakeToast(Translator.Translate("empty_message"));
+                return;
             }
 
-            return parseDate.ToString("HH:mm");
-        }
+            var userId = (DbRef)DBHelper.GetUserInfoByUserName(Settings.User)["Id"];
+            var entity = new Chat()
+            {
+                DateTime = DateTime.Now,
+                Tender = DbRef.FromString($"{Variables[Parameters.IdTenderId]}"),
+                User = userId,
+                Message = _memoEdit.Text,
+                Id = DbRef.CreateInstance($"{nameof(Catalog)}_{nameof(Chat)}", Guid.NewGuid())
+            };
 
-        internal void WriteMessage_OnClick(object sender, EventArgs e)
-            => Navigation.Move(nameof(WriteMessageScreen), new Dictionary<string, object>
-            {{Parameters.IdTenderId, Variables[Parameters.IdTenderId]}});
+            DBHelper.SaveEntity(entity);
+
+            Navigation.Back();
+        }
     }
 }

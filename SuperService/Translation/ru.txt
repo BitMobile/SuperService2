@@ -145,3 +145,5 @@ marketlace		Площадка
 sum		Сумма
 discussion_feed		Лента обсуждений
 write_message		Написать сообщение
+enter_message		Введите сообщение
+empty_message		Невозможно отправить пустое сообщение

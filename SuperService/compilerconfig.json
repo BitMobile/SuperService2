@@ -208,5 +208,12 @@
     "minify": {
       "enabled": false
     }
+  },
+  {  
+    "outputFile": "Style/WriteMessageScreen.css",
+    "inputFile": "Style/Less/WriteMessageScreen.less",
+    "minify": {
+      "enabled": false
+    }
   }
 ]

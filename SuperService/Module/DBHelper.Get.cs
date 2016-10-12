@@ -1388,7 +1388,24 @@ namespace Test
 
         public static DbRecordset GetMessages(object tenderId)
         {
-            throw new NotImplementedException();
+            var query = new Query(@"SELECT
+                                      Chat.Id          AS Id,
+                                      Chat.DateTime    AS Date,
+                                      Chat.Message     AS Message,
+                                      User.Description AS UserDescription
+                                    FROM
+                                      _Catalog_Chat AS Chat
+                                      LEFT JOIN
+                                      _Catalog_User AS User
+                                        ON Chat.User = User.Id
+
+                                    WHERE
+                                      Chat.Tender = @tenderId
+                                      AND Chat.DeletionMark = 0
+                                    ORDER BY DateTime");
+
+            query.AddParameter("tenderId", tenderId);
+            return query.Execute();
         }
     }
 }

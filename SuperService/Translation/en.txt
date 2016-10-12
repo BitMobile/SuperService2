@@ -145,3 +145,5 @@ marketlace		Marketlace
 sum		Sum
 discussion_feed		Discussion feed
 write_message		Write message
+enter_message		Enter your message
+empty_message		You can not send an empty message

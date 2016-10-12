@@ -1,6 +1,9 @@
 ﻿@import "defaults.less";
 @import "Components/TopInfoComponent.less";
 
+@paddings-left-right: 3sp;
+@margin-between-message: 5sp;
+
 .WriteMessageButton {
     dock-align: bottom;
     background-color: #fe9c81;
@@ -9,4 +12,41 @@
     width: 100%;
     font: (@default-font-size * sqrt(3/2)) arial;
     color: #fecbc0;
+}
+
+.MessageContainer {
+    height: 10sp auto;
+    width: 100%;
+    padding-left: @paddings-left-right;
+    padding-right: @paddings-left-right;
+    margin-bottom: @margin-between-message;
+}
+
+.DataContainer {
+    height: 4sp auto;
+    width: 100%;
+    margin-top: 2sp;
+}
+
+.Initials {
+    .text-view-style(@default-font-size);
+    text-align: left;
+    color: #656565;
+    width: 80%;
+}
+
+.MessageDate {
+    .text-view-style(@default-font-size);
+    text-align: right;
+    color: #afadc4;
+    width: 20%;
+}
+
+.Message {
+    .text-view-style(@default-font-size);
+    color: #c2c2c2;
+    width: 100%;
+    white-space: normal;
+    text-align: left;
+    margin-top: 2sp;
 }
