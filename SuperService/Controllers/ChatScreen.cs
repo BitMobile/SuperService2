@@ -52,7 +52,7 @@ namespace Test
                                    $"{date}");
             }
 
-            return parseDate.ToString("HH:mm");
+            return parseDate.ToString("g");
         }
 
         internal void WriteMessage_OnClick(object sender, EventArgs e)

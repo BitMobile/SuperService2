@@ -22,10 +22,17 @@ namespace Test
                 ArrowVisible = false,
                 ArrowActive = false,
                 Header = Translator.Translate("write_message"),
-                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") }
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
+                RightButtonControl = new TextView { Text = Translator.Translate("send") }
             };
 
             _topInfoComponent.ActivateBackButton();
+        }
+
+        public override void OnShow()
+        {
+            _memoEdit.AutoFocus = true;
+            _memoEdit.SetFocus();
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
@@ -34,17 +41,6 @@ namespace Test
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
-        {
-        }
-
-        internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
-        {
-        }
-
-        internal string GetResourceImage(object tag)
-            => ResourceManager.GetImage($"{tag}");
-
-        internal void SendMessage_OnClick(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(_memoEdit.Text))
             {
@@ -66,5 +62,12 @@ namespace Test
 
             Navigation.Back();
         }
+
+        internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
+        {
+        }
+
+        internal string GetResourceImage(object tag)
+            => ResourceManager.GetImage($"{tag}");
     }
 }

@@ -3,8 +3,6 @@
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:DockLayout Id="30348276-875E-4C4D-963E-2970BB97EFE0" CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
-    <c:Button Id="91808D0E-665C-44D1-B09D-E5D4FD0F7514" CssClass="WriteMessageButton"
-              Text="#send_message#" OnClick="SendMessage_OnClick" />
     <c:MemoEdit Id="ADF2E7DC-DB28-4CAA-90BC-C7C1C231F791" Placeholder="#enter_message#"
                 CssClass="Message" />
   </c:DockLayout>

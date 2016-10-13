@@ -254,17 +254,8 @@ HorizontalLine {
   horizontal-align: right;
   margin-right: 5sp;
 }
-.WriteMessageButton {
-  dock-align: bottom;
-  background-color: #fe9c81;
-  height: 10sp;
-  white-space: normal;
-  width: 100%;
-  font: 3.06186218sp arial;
-  color: #fecbc0;
-}
 .Message {
-  height: auto;
+  height: 50%;
   width: auto;
   text-align: left;
   color: #666666;
