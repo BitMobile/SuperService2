@@ -324,23 +324,22 @@ namespace Test
         /// </summary>
         public static DbRecordset GetContactsByClientID(string clientID)
         {
-            var query = new Query("select " +
-                                  "     Contacts.Id, " + //гиуд контакноголица
-                                  "     Contacts.DeletionMark, " + // признак пометки удаления
-                                  "     Contacts.Description, " + //имя
-                                  "     Contacts.Position, " + // должность
-                                  "     Contacts.Tel " + //телефон
-                                  "from " +
-                                  "  Catalog_Client_Contacts as ClientContacts " +
-                                  "    left join Catalog_Contacts as Contacts " +
-                                  "      on ClientContacts.Ref = @clientID " +
-                                  "        and  ClientContacts.Contact = Contacts.Id " +
-                                  " " +
-                                  "where " +
-                                  "    Contacts.DeletionMark = 0" +
-                                  "    and ClientContacts.Ref = @clientID " +
-                                  "    and ClientContacts.Actual = 0 ");
-            //выбираем только неактуальных сотрудников, потому что актуальные являются уволенными
+            var query = new Query(@"SELECT
+                                      Contacts.Id,
+                                      Contacts.DeletionMark,
+                                      Contacts.Description,
+                                      Contacts.Position,
+                                      Contacts.Tel
+                                    FROM
+                                      Catalog_Client_Contacts AS ClientContacts
+                                      LEFT JOIN Catalog_Contacts AS Contacts
+                                        ON ClientContacts.Ref = @clientID
+                                           AND ClientContacts.Contact = Contacts.Id
+
+                                    WHERE
+                                      Contacts.DeletionMark = 0
+                                      AND ClientContacts.Ref = @clientID
+                                      AND ifnull(ClientContacts.Actual, 0) = 0 ");
 
             query.AddParameter("clientID", clientID);
 

@@ -2,6 +2,7 @@
 using BitMobile.ClientModel3.UI;
 using BitMobile.DbEngine;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Test.Components;
 using Test.Document;
@@ -378,6 +379,17 @@ namespace Test
             DBHelper.SaveEntity(@event);
             _currentEvent = DBHelper.GetEventByID($"{Variables[Parameters.IdCurrentEventId]}");
             _taskCommentEditText.Enabled = true;
+
+            var rimList = DBHelper.GetServicesAndMaterialsByEventId($"{Variables[Parameters.IdCurrentEventId]}");
+            var rimArrayList = new ArrayList();
+            while (rimList.Next())
+            {
+                var rim = (Event_ServicesMaterials)((DbRef)rimList["Id"]).GetObject();
+                rim.AmountFact = rim.AmountPlan;
+                rim.SumFact = rim.SumPlan;
+                rimArrayList.Add(rim);
+            }
+            DBHelper.SaveEntities(rimArrayList, false);
         }
 
         internal void CheckStartEvent_OnGetFocus(object sender, EventArgs e)
