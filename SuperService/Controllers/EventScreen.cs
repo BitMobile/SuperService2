@@ -456,5 +456,9 @@ namespace Test
 
         internal long GetTotalAnsweredTask(object eventId, object clientId)
             => DBHelper.GetTotalTaskAnsweredByEventIdOrClientId(eventId, clientId);
+
+        internal void Delegate_OnClick(object sender, EventArgs e)
+            => Navigation.Move($"{nameof(DelegateScreen)}", new Dictionary<string, object>
+            { {Parameters.IdCurrentEventId, $"{_currentEventRecordset["Id"]}"} });
     }
 }

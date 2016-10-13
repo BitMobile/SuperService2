@@ -1406,5 +1406,11 @@ namespace Test
             query.AddParameter("tenderId", tenderId);
             return query.Execute();
         }
+
+        public static DbRecordset GetUsers()
+            => new Query(@"SELECT
+                          Id,
+                          Description
+                        FROM _Catalog_User").Execute();
     }
 }

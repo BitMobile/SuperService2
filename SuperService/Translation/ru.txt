@@ -147,3 +147,6 @@ discussion_feed		Лента обсуждений
 write_message		Написать сообщение
 enter_message		Введите сообщение
 empty_message		Невозможно отправить пустое сообщение
+delegate		Делегирование
+assign_task		Вам назначена задача
+assign_user		Назначить на этого пользователя?

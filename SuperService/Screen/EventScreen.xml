@@ -58,8 +58,8 @@
           <c:HorizontalLine CssClass="WrapUnwrapLine" />
         </c:HorizontalLayout>
 
-        <s:Push Id="totalTask" Value="$GetTotalTask($event.Id, $event.clientId)"/>
-        <s:Push Id="answeredTask" Value="$GetTotalAnsweredTask($event.Id, $event.clientId)"/>
+        <s:Push Id="totalTask" Value="$GetTotalTask($event.Id, $event.clientId)" />
+        <s:Push Id="answeredTask" Value="$GetTotalAnsweredTask($event.Id, $event.clientId)" />
         <c:TextView Visible="False" />
         <s:If Test="$IsNotZero($totalTask) AND $ShowTaskButton()">
           <c:HorizontalLayout CssClass="InfoLayout" OnClick="TaskCounterLayout_OnClick">
@@ -89,6 +89,7 @@
           <c:HorizontalLayout CssClass="EmptySpace2sp" />
           <c:Button Id="StartButton" Text="#start#" CssClass="StartButton" OnClick="StartButton_OnClick" />
           <c:Button Id="RefuseButton" Text="#refuse#" CssClass="RefuseButton" OnClick="RefuseButton_OnClick" />
+          <c:Button Id="DelegateButton" Text="#delegate#" CssClass="RefuseButton" OnClick="Delegate_OnClick" />
           <c:HorizontalLayout CssClass="EmptySpace5sp" />
         </s:If>
       </c:VerticalLayout>
