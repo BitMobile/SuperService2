@@ -1,5 +1,6 @@
 ﻿using BitMobile.Application;
 using BitMobile.ClientModel3;
+using BitMobile.DbEngine;
 using ClientModel3.MD;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,11 @@ namespace Test
 
         public static string UserId
         {
-            get { return _userId ?? DBHelper.GetUserId(); }
+            get
+            {
+                return _userId?.Length == 0 ?
+                  $"{((DbRef)DBHelper.GetUserInfoByUserName(User)["Id"]).Guid}" : _userId;
+            }
             set { _userId = value; }
         }
 
@@ -136,7 +141,7 @@ namespace Test
 
             if (!PushNotification.IsInitialized)
             {
-                var userId = DBHelper.GetUserId();
+                var userId = Settings.UserId;
 
                 if (!string.IsNullOrEmpty(userId) && !string.IsNullOrEmpty(Password))
                 {
