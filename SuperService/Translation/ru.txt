@@ -151,3 +151,8 @@ delegate		Делегирование
 assign_task		Вам назначена задача
 assign_user		Назначить на этого пользователя?
 notification		Уведомление
+task_finished_ro		Задача завершена. Изменение данных невозможно.
+task_canceled_ro		Задача отменена. Изменение данных невозможно.
+closetaskquestion		Закрыть задачу?
+start_task		Наряд будет начат. Продолжить?
+complete		Выполнить

@@ -24,6 +24,7 @@ namespace Test
         private Image _statusImage;
         private bool _taskCommentTextExpanded;
         private TextView _taskCommentTextView;
+        private TextView _startDatePlanTextView;
 
         private TopInfoComponent _topInfoComponent;
         private Image _wrapUnwrapImage;
@@ -36,6 +37,8 @@ namespace Test
             FillControls();
 
             IsEmptyDateTime((string)_currentEventRecordset["ActualStartDate"]);
+
+            _startDatePlanTextView = (TextView)GetControl("StartTimeTextView", true);
         }
 
         private void FillControls()
@@ -102,12 +105,12 @@ namespace Test
             GpsTracking.Start();
             if ((string)_currentEventRecordset["statusName"] == "Done")
             {
-                Toast.MakeToast(Translator.Translate("event_finished_ro"));
+                Toast.MakeToast(Translator.Translate("task_finished_ro"));
                 _readonly = true;
             }
             if ((string)_currentEventRecordset["statusName"] == "Cancel")
             {
-                Toast.MakeToast(Translator.Translate("event_canceled_ro"));
+                Toast.MakeToast(Translator.Translate("task_canceled_ro"));
                 _readonly = true;
             }
         }
@@ -189,7 +192,7 @@ namespace Test
 
             if (isActiveEvent)
             {
-                Dialog.Alert(Translator.Translate("closeeventquestion"), (o, args) =>
+                Dialog.Alert(Translator.Translate("closetaskquestion"), (o, args) =>
                 {
                     if (!CheckEventBeforeClosing() || args.Result != 0) return;
                     var @event =
@@ -349,7 +352,7 @@ namespace Test
             var statusName = (string)_currentEventRecordset["statusName"];
             if (statusName.Equals(EventStatus.Appointed))
             {
-                Dialog.Ask(Translator.Translate("start_event"), (o, args) =>
+                Dialog.Ask(Translator.Translate("start_task"), (o, args) =>
                 {
                     if (args.Result != Dialog.Result.Yes) return;
                     Event_OnStart();
@@ -460,5 +463,27 @@ namespace Test
         internal void Delegate_OnClick(object sender, EventArgs e)
             => Navigation.Move($"{nameof(DelegateScreen)}", new Dictionary<string, object>
             { {Parameters.IdCurrentEventId, $"{_currentEventRecordset["Id"]}"} });
+
+        internal void ChangeStartDatePlan_OnClick(object sender, EventArgs e)
+        {
+            DateTime currentStartDate;
+
+            if (!DateTime.TryParse($"{_currentEventRecordset["StartDatePlan"]}",
+                out currentStartDate))
+            {
+                Utils.TraceMessage($"uncorrect format date {_currentEventRecordset["StartDatePlan"]}");
+                currentStartDate = DateTime.Now;
+            }
+
+            Dialog.DateTime(Translator.Translate("select_date"), currentStartDate,
+                (o, args) =>
+                {
+                    _startDatePlanTextView.Text = args.Result.ToString("HH:mm");
+                    var @event = (Event)DBHelper.LoadEntity($"{_currentEventRecordset["Id"]}");
+                    @event.EndDatePlan = args.Result + (@event.EndDatePlan - @event.StartDatePlan);
+                    @event.StartDatePlan = args.Result;
+                    DBHelper.SaveEntity(@event);
+                });
+        }
     }
 }

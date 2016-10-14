@@ -151,3 +151,8 @@ delegate		Delegate
 assign_task		You assigned the task
 assign_user		Assign this user?
 notification		Notification
+task_finished_ro		Task finished. Read-only mode.
+task_canceled_ro		Task canceled. Read-only mode.
+closetaskquestion		Are you sure you want to close this task?
+start_task		Task will be launched. Continue?
+complete		Complete

@@ -8,7 +8,7 @@
       <c:VerticalLayout Id="StartFinishButton"
                         CssClass="FinishButton"
                         OnClick="StartFinishButton_OnClick">
-        <c:TextView Text="#finish#" />
+        <c:TextView Text="#complete#" />
         <c:TextView Text="$FormatTimer($event.ActualStartDate)" CssClass="FinishTimer" />
       </c:VerticalLayout>
     </s:If>
@@ -16,7 +16,7 @@
       <c:VerticalLayout Id="StartFinishButton"
                         CssClass="NoHeight"
                         OnClick="StartFinishButton_OnClick">
-        <c:TextView Text="#finish#" />
+        <c:TextView Text="#complete#" />
         <c:TextView Text="00:00" CssClass="FinishTimer" />
       </c:VerticalLayout>
     </s:If>
@@ -29,7 +29,8 @@
         <c:HorizontalLayout CssClass="LightInfoLayout">
           <c:VerticalLayout CssClass="LightInfoBox">
             <c:TextView Text="#time#" CssClass="LightInfoTitle" />
-            <c:HorizontalLayout CssClass="LightInfoContentWithImage">
+            <c:HorizontalLayout CssClass="LightInfoContentWithImage"
+                                OnClick="ChangeStartDatePlan_OnClick">
               <c:Image Source="$GetStatusPicture($event.ImportanceName, $event.statusName)"
                        Id="StatusImage"
                        CssClass="LightInfoImage" />
