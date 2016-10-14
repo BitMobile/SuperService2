@@ -54,7 +54,7 @@ namespace Test
 
         public override void OnPushMessage(string message)
         {
-            LocalNotification.Notify("Уведомление", message);
+            LocalNotification.Notify(Translator.Translate("notification"), message);
         }
     }
 }

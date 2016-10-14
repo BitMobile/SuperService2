@@ -150,3 +150,4 @@ empty_message		You can not send an empty message
 delegate		Delegate
 assign_task		You assigned the task
 assign_user		Assign this user?
+notification		Notification

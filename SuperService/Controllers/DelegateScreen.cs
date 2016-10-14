@@ -65,11 +65,10 @@ namespace Test
 
                     currentEvent.UserMA = user.Id;
                     DBHelper.SaveEntity(currentEvent);
-                    Utils.TraceMessage($"GUID: {user.UserID}");
 
                     try
                     {
-                        PushNotification.PushMessage(Translator.Translate("assign_user"), new[] { $"{user.UserID}" });
+                        PushNotification.PushMessage(Translator.Translate("assign_user"), new[] { $"{user.Id.Guid}" });
                     }
                     catch (Exception exception)
                     {
