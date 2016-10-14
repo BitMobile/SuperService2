@@ -141,11 +141,9 @@ namespace Test
 
             if (!PushNotification.IsInitialized)
             {
-                var userId = Settings.UserId;
-
-                if (!string.IsNullOrEmpty(userId) && !string.IsNullOrEmpty(Password))
+                if (!string.IsNullOrEmpty(Settings.User) && !string.IsNullOrEmpty(Password))
                 {
-                    PushNotification.InitializePushService(server, userId, Password);
+                    PushNotification.InitializePushService(server, Settings.UserId, Password);
                 }
             }
 
