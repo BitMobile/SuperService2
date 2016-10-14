@@ -17,6 +17,7 @@ namespace Test.Catalog
         public DbRef UserID { get; set; }
         public string Phone { get; set; }
         public DbRef Role { get; set; }
+        public DbRef Manager { get; set; }
         public string AspNetUserID { get; set; }
 }
     public class User_Bag : DbEntity

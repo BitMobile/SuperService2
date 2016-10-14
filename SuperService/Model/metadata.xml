@@ -126,7 +126,7 @@
 				</TabularSection>
 			</TabularSections>
 		</Entity>
-		<Entity DeleteFilter="" Name="Event" Schema="Document" SyncDownload="True" SyncFilter="t.[Id] IN(SELECT EV.[Id] FROM [Document].[Event] EV JOIN [Enum].[StatusyEvents] SE ON EV.[Status] = SE.[Id] WHERE EV.[UserMA] = @UserId AND EV.[Date] &gt;(getDate() - 31) AND NOT (SE.[Name] = 'Done')) " SyncUpload="True">
+		<Entity DeleteFilter="" Name="Event" Schema="Document" SyncDownload="True" SyncFilter="t.[Id] IN(SELECT EV.[Id] FROM [Document].[Event] EV JOIN [Enum].[StatusyEvents] SE ON EV.[Status] = SE.[Id] WHERE EV.[UserMA] = @UserId AND EV.[Date] &gt;(getDate() - 31) AND NOT (SE.[Name] = 'Done')) OR @UserId IN (SELECT US.[id] FROM [Catalog].[User] US WHERE US.[UserName]='Exchange')" SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Posted" Type="Boolean"/>
 				<Field KeyField="true" Name="Id" Type="Guid"/>
@@ -220,7 +220,7 @@
 				</TabularSection>
 			</TabularSections>
 		</Entity>
-		<Entity DeleteFilter="" Name="SKU" Schema="Catalog" SyncDownload="False" SyncFilter="t.Id IN (SELECT DE.SKU FROM [Document].[Event_ServicesMaterials] DE WHERE DE.Ref IN (SELECT SE.Id FROM [Document].[Event] SE WHERE SE.UserMA = @UserId))" SyncUpload="True">
+		<Entity DeleteFilter="" Name="SKU" Schema="Catalog" SyncDownload="False" SyncFilter="t.Id IN (SELECT DE.SKU FROM [Document].[Event_ServicesMaterials] DE WHERE DE.Ref IN (SELECT SE.Id FROM [Document].[Event] SE WHERE SE.UserMA = @UserId)) OR @UserId IN (SELECT US.[id] FROM [Catalog].[User] US WHERE US.[UserName]='Exchange')" SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
 				<Field KeyField="true" Name="Id" Type="Guid"/>
@@ -232,7 +232,7 @@
 			</Fields>
 			<TabularSections/>
 		</Entity>
-		<Entity DeleteFilter="" Name="ServiceAgreement" Schema="Catalog" SyncDownload="False" SyncFilter="t.Id IN (SELECT SE.CantractService FROM [Catalog].[Equipment_Equipments] SE WHERE SE.Clients IN (SELECT DE.Client FROM [Document].[Event] DE WHERE DE.UserMA = @UserId))" SyncUpload="True">
+		<Entity DeleteFilter="" Name="ServiceAgreement" Schema="Catalog" SyncDownload="False" SyncFilter="t.Id IN (SELECT SE.CantractService FROM [Catalog].[Equipment_Equipments] SE WHERE SE.Clients IN (SELECT DE.Client FROM [Document].[Event] DE WHERE DE.UserMA = @UserId)) OR @UserId IN (SELECT US.[id] FROM [Catalog].[User] US WHERE US.[UserName]='Exchange')" SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
 				<Field KeyField="true" Name="Id" Type="Guid"/>
@@ -266,7 +266,7 @@
 				</TabularSection>
 			</TabularSections>
 		</Entity>
-		<Entity DeleteFilter="" Name="Equipment" Schema="Catalog" SyncDownload="True" SyncFilter="t.Id IN (SELECT DE.Equipment FROM [Catalog].[Equipment_Equipments] DE WHERE DE.Clients IN (SELECT SE.Client FROM [Document].[Event] SE WHERE SE.UserMA = @UserId))" SyncUpload="True">
+		<Entity DeleteFilter="" Name="Equipment" Schema="Catalog" SyncDownload="True" SyncFilter="t.Id IN (SELECT DE.Equipment FROM [Catalog].[Equipment_Equipments] DE WHERE DE.Clients IN (SELECT SE.Client FROM [Document].[Event] SE WHERE SE.UserMA = @UserId)) OR @UserId IN (SELECT US.[id] FROM [Catalog].[User] US WHERE US.[UserName]='Exchange')" SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
 				<Field KeyField="true" Name="Id" Type="Guid"/>
@@ -318,7 +318,7 @@
 				</TabularSection>
 			</TabularSections>
 		</Entity>
-		<Entity DeleteFilter="" Name="Client" Schema="Catalog" SyncDownload="True" SyncFilter="t.Id IN (SELECT DE.Client FROM [Document].[Event] DE WHERE DE.UserMA = @UserId)" SyncUpload="True">
+		<Entity DeleteFilter="" Name="Client" Schema="Catalog" SyncDownload="True" SyncFilter="t.Id IN (SELECT DE.Client FROM [Document].[Event] DE WHERE DE.UserMA = @UserId) OR @UserId IN (SELECT US.[id] FROM [Catalog].[User] US WHERE US.[UserName]='Exchange')" SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
 				<Field KeyField="true" Name="Id" Type="Guid"/>
@@ -367,7 +367,7 @@
 			</Fields>
 			<TabularSections/>
 		</Entity>
-		<Entity DeleteFilter="" Name="User" Schema="Catalog" SyncDownload="False" SyncFilter="t.[Id] = @UserId OR t.[Id] IN (SELECT Executor FROM [Catalog].[Equipment_EquipmentsHistory] WHERE Equipments IN ( SELECT DE.Equipment FROM [Catalog].[Equipment_Equipments] DE WHERE DE.Clients IN (SELECT SE.Client FROM [Document].[Event] SE WHERE SE.UserMA = @UserId))) OR t.[Id] IN (SELECT [Author] FROM [Document].[Event] WHERE [UserMA] = @UserId)" SyncUpload="True">
+		<Entity DeleteFilter="" Name="User" Schema="Catalog" SyncDownload="False" SyncFilter="" SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
 				<Field KeyField="true" Name="Id" Type="Guid"/>
@@ -381,6 +381,7 @@
 				<Field AllowNull="true" Name="UserID" Type="Guid"/>
 				<Field AllowNull="true" Length="100" Name="Phone" Type="String"/>
 				<Field AllowNull="false" Name="Role" Type="Catalog.Roles"/>
+				<Field AllowNull="true" Name="Manager" Type="Catalog.User"/>
 				<Field Length="128" Name="AspNetUserID" Type="String"/>
 			</Fields>
 			<TabularSections>
@@ -452,7 +453,7 @@
 				</TabularSection>
 			</TabularSections>
 		</Entity>
-		<Entity DeleteFilter="" Name="CheckList" Schema="Document" SyncDownload="False" SyncFilter="t.Id IN (SELECT DEC.[CheckListRef] FROM [Document].[Event_CheckList] DEC LEFT JOIN [Document].[Event] DE ON DEC.Ref = DE.Id WHERE DE.[UserMA] = @UserId)" SyncUpload="True">
+		<Entity DeleteFilter="" Name="CheckList" Schema="Document" SyncDownload="False" SyncFilter="t.Id IN (SELECT DEC.[CheckListRef] FROM [Document].[Event_CheckList] DEC LEFT JOIN [Document].[Event] DE ON DEC.Ref = DE.Id WHERE DE.[UserMA] = @UserId) OR @UserId IN (SELECT US.[id] FROM [Catalog].[User] US WHERE US.[UserName]='Exchange')" SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Posted" Type="Boolean"/>
 				<Field KeyField="true" Name="Id" Type="Guid"/>
@@ -473,7 +474,7 @@
 				</TabularSection>
 			</TabularSections>
 		</Entity>
-		<Entity DeleteFilter="" Name="Actions" Schema="Catalog" SyncDownload="False" SyncFilter="t.Id IN (SELECT DEC.Action FROM [Document].[Event_CheckList] DEC LEFT JOIN [Document].[Event] DE ON DEC.Ref = DE.Id WHERE DE.[UserMA] = @UserId)" SyncUpload="True">
+		<Entity DeleteFilter="" Name="Actions" Schema="Catalog" SyncDownload="False" SyncFilter="t.Id IN (SELECT DEC.Action FROM [Document].[Event_CheckList] DEC LEFT JOIN [Document].[Event] DE ON DEC.Ref = DE.Id WHERE DE.[UserMA] = @UserId) OR @UserId IN (SELECT US.[id] FROM [Catalog].[User] US WHERE US.[UserName]='Exchange')" SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
 				<Field KeyField="true" Name="Id" Type="Guid"/>
