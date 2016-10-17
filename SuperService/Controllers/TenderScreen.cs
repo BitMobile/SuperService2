@@ -2,6 +2,7 @@
 using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Test.Catalog;
 using Test.Components;
 
@@ -198,11 +199,27 @@ namespace Test
         internal void OpenMarketplace_OnClick(object sender, EventArgs e)
         {
             var textView = (TextView)((HorizontalLayout)sender).GetControl("MarketPlace", true);
+            var rxgUrl = new Regex(@"(http|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?");
+
+            try
+            {
+                if (!rxgUrl.IsMatch(textView.Text ?? ""))
+                {
+                    Toast.MakeToast(Translator.Translate("uri_error"));
+                    return;
+                }
+            }
+            catch (Exception exception)
+            {
+                Utils.TraceMessage($"{exception.Message}");
+                Toast.MakeToast(Translator.Translate("uri_error"));
+                return;
+            }
 
             Navigation.Move(nameof(WebViewScreen),
                 new Dictionary<string, object>
                 {
-                    {Parameters.WebUri, textView?.Text }
+                    {Parameters.WebUri, textView?.Text}
                 });
         }
     }

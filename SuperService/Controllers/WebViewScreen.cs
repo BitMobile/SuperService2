@@ -1,4 +1,5 @@
-﻿using BitMobile.ClientModel3.UI;
+﻿using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
 using System;
 using Test.Components;
 
@@ -14,7 +15,7 @@ namespace Test
             {
                 ArrowActive = false,
                 ArrowVisible = false,
-                Header = "Обозреватель",
+                Header = Translator.Translate("browser"),
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") }
             };
             _topInfoComponent.ActivateBackButton();
