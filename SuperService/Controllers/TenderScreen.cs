@@ -194,5 +194,16 @@ namespace Test
 
         internal void AddTask_OnClick(object sender, EventArgs e)
             => Toast.MakeToast("Тут будет экран добавления задачи");
+
+        internal void OpenMarketplace_OnClick(object sender, EventArgs e)
+        {
+            var textView = (TextView)((HorizontalLayout)sender).GetControl("MarketPlace", true);
+
+            Navigation.Move(nameof(WebViewScreen),
+                new Dictionary<string, object>
+                {
+                    {Parameters.WebUri, textView?.Text }
+                });
+        }
     }
 }

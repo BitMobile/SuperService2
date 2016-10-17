@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:VerticalLayout Id="b8c745b1abe64f368a2475711e947991" CssClass="RootLayout">
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <c:WebView Id="3695be827ff14c0eb6288d26be7d1b3e" Url="$GetUrl()" CssClass="WebView" />
+  </c:VerticalLayout>
+</c:Screen>

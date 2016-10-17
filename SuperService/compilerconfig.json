@@ -222,5 +222,17 @@
     "minify": {
       "enabled": false
     }
+  }, {  
+    "outputFile": "Style/AddTaskScreen.css",
+    "inputFile": "Style/Less/AddTaskScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  }, {  
+    "outputFile": "Style/WebViewScreen.css",
+    "inputFile": "Style/Less/WebViewScreen.less",
+    "minify": {
+      "enabled": false
+    }
   }
 ]

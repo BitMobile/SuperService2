@@ -54,10 +54,10 @@
           <c:HorizontalLine />
         </c:HorizontalLayout>
         <c:HorizontalLine />
-        <c:HorizontalLayout CssClass="InfoLayout">
+        <c:HorizontalLayout CssClass="InfoLayout" OnClick="OpenMarketplace_OnClick">
           <c:TextView Text="#marketlace#" Id="CertificateOfCompletionNameTextView" CssClass="InfoTitle" />
           <c:TextView Text="$tender.Marketplace"
-                      Id="CertificateOfCompletionTextView" CssClass="InfoContent" />
+                      Id="MarketPlace" CssClass="InfoContent" />
         </c:HorizontalLayout>
         <c:HorizontalLine />
         <c:HorizontalLayout CssClass="InfoLayout">

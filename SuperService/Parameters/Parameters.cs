@@ -47,6 +47,8 @@
         /// </summary>
         public const string IdTaskId = "TaskId";
 
+        public const string WebUri = "WebUri";
+
         /// <summary>
         ///     Представляет разделитель строк для режима DEBUG
         /// </summary>
