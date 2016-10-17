@@ -156,3 +156,5 @@ task_canceled_ro		Task canceled. Read-only mode.
 closetaskquestion		Are you sure you want to close this task?
 start_task		Task will be launched. Continue?
 complete		Complete
+browser		Browser
+uri_error		Uncorrect URI format

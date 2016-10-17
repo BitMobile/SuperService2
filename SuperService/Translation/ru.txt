@@ -156,3 +156,5 @@ task_canceled_ro		Задача отменена. Изменение данных
 closetaskquestion		Закрыть задачу?
 start_task		Наряд будет начат. Продолжить?
 complete		Выполнить
+browser		Обозреватель
+uri_error		Неверный формат веб-адреса

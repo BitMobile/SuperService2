@@ -202,7 +202,7 @@ namespace Test
             Navigation.Move(nameof(WebViewScreen),
                 new Dictionary<string, object>
                 {
-                    {Parameters.WebUri, textView?.Text }
+                    {Parameters.WebUri, textView?.Text}
                 });
         }
     }
