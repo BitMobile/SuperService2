@@ -20,7 +20,6 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_sync") },
-                RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_map") },
                 Header = Translator.Translate("tenders"),
                 ArrowVisible = false
             };
@@ -216,15 +215,6 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            DConsole.WriteLine("GO to map");
-            DConsole.WriteLine("Before dictionary");
-            var dictionary = new Dictionary<string, object>
-            {
-                {Parameters.IdScreenStateId, MapScreenStates.EventListScreen}
-            };
-            DConsole.WriteLine("After");
-            BusinessProcess.GlobalVariables[Parameters.IdScreenStateId] = MapScreenStates.EventListScreen;
-            Navigation.Move("MapScreen", dictionary);
         }
 
         internal void EventListItemHL_OnClick(object sender, EventArgs e)

@@ -48,6 +48,12 @@ namespace Test
                 return;
             }
 
+            if (_memoEdit.Text.Length > 500)
+            {
+                Toast.MakeToast(Translator.Translate("max_lenght"));
+                return;
+            }
+
             var userId = (DbRef)DBHelper.GetUserInfoByUserName(Settings.User)["Id"];
             var entity = new Chat()
             {

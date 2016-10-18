@@ -158,3 +158,4 @@ start_task		Task will be launched. Continue?
 complete		Complete
 browser		Browser
 uri_error		Uncorrect URI format
+max_lenght		Exceeded the maximum message length
