@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
+using Test.Module;
 using XmlDocument = BitMobile.ClientModel3.XmlDocument;
 
 namespace Test
@@ -54,6 +55,8 @@ namespace Test
             }
             set { _userId = value; }
         }
+
+        public static string PushServer { get; set; }
 
         public static string AuthUrl { get; set; }
 
@@ -139,14 +142,9 @@ namespace Test
             DConsole.WriteLine($"Host = {Host}");
             DConsole.WriteLine($"Server = {Server}");
 
-            if (!PushNotification.IsInitialized)
-            {
-                if (!string.IsNullOrEmpty(Settings.User) && !string.IsNullOrEmpty(Password))
-                {
-                    PushNotification.InitializePushService(server, Settings.UserId, Password);
-                }
-            }
+            PushServer = server;
 
+            
             Utils.TraceMessage($"{nameof(PushNotification)}.{nameof(PushNotification.IsInitialized)} " +
                                $"is {PushNotification.IsInitialized}{Environment.NewLine}" +
                                $"server = {server} userID = {server} password {Password}");

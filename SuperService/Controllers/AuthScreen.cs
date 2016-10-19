@@ -1,6 +1,7 @@
 ﻿using System;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using Test.Module;
 
 namespace Test
 {
@@ -19,6 +20,7 @@ namespace Test
 
         public override void OnShow()
         {
+            PushServerServices.Init();
             _loginEditText.Text = Settings.User;
             _passwordEditText.Text = Settings.Password;
         }

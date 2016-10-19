@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Test.Components;
+using Test.Module;
 
 namespace Test
 {
@@ -59,6 +60,7 @@ namespace Test
 
         public override void OnShow()
         {
+            PushServerServices.Init();
             GpsTracking.Start();
         }
 
