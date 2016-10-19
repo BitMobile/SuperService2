@@ -139,17 +139,17 @@ namespace Test
             DConsole.WriteLine($"Host = {Host}");
             DConsole.WriteLine($"Server = {Server}");
 
-            if (!PushNotification.IsInitialized)
-            {
-                if (!string.IsNullOrEmpty(Settings.User) && !string.IsNullOrEmpty(Password))
-                {
-                    PushNotification.InitializePushService(server, Settings.UserId, Password);
-                }
-            }
+            //if (!PushNotification.IsInitialized)
+            //{
+            //    if (!string.IsNullOrEmpty(Settings.User) && !string.IsNullOrEmpty(Password))
+            //    {
+            //        PushNotification.InitializePushService(server, Settings.UserId, Password);
+            //    }
+            //}
 
-            Utils.TraceMessage($"{nameof(PushNotification)}.{nameof(PushNotification.IsInitialized)} " +
-                               $"is {PushNotification.IsInitialized}{Environment.NewLine}" +
-                               $"server = {server} userID = {server} password {Password}");
+            //Utils.TraceMessage($"{nameof(PushNotification)}.{nameof(PushNotification.IsInitialized)} " +
+            //                   $"is {PushNotification.IsInitialized}{Environment.NewLine}" +
+            //                   $"server = {server} userID = {server} password {Password}");
             _initialized = true;
 
             GpsTrackingInit();

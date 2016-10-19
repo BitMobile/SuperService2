@@ -160,3 +160,11 @@ browser		Обозреватель
 uri_error		Неверный формат веб-адреса
 max_lenght		Превышена максимальная длина сообщения
 create_task		Создать задачу
+subject		Тема
+description_required		Описание(обязательно)
+task_type		Тип задачи
+target		Цель
+importance		Важность
+responsible		Ответственный
+date_from		Дата с
+date_of		Дата по

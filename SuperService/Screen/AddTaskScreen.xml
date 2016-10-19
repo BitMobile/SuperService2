@@ -1,3 +1,79 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:DockLayout Id="848041a67f6f49928e0b3c335b594b77" CssClass="RootLayout">
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <c:Button Id="f78eec59219c440cb8aa28c048f29dc0" Text="#create_task#"
+              CssClass="CreateTask" OnClick="CreateTask_OnClick" />
+    <c:ScrollView Id="945dff75808c47c7b3a4f23cfb30b78e" CssClass="RootLayout">
+      <c:VerticalLayout Id="d5e6a5acf0c8431983fb1eb83db30684">
+        <c:VerticalLayout CssClass="Node">
+          <c:HorizontalLine CssClass="Line" />
+          <c:HorizontalLayout CssClass="InnerNode">
+            <c:TextView Id="1c4f5837a75a47248fb1122b481614dc" Text="#task_type#" CssClass="DescriptionText" />
+            <c:VerticalLayout Id="3b4ad009eabb400ca0fc2372a3f2033a" CssClass="VerticalLine" />
+            <c:Button Id="0e8bcc83cac645debd0df7a2bc7ae59a" CssClass="ButtonClk"
+                      OnClick="SelectTaskType_OnClick" Text="#not_choosed#" />
+          </c:HorizontalLayout>
+          <c:HorizontalLine CssClass="Line" />
+        </c:VerticalLayout>
+        <c:VerticalLayout CssClass="Node">
+          <c:HorizontalLine CssClass="Line" />
+          <c:HorizontalLayout CssClass="InnerNode">
+            <c:TextView Id="1c4f5837a75a47248fb1122b481614dc" Text="#client#" CssClass="DescriptionText" />
+            <c:VerticalLayout Id="3b4ad009eabb400ca0fc2372a3f2033a" CssClass="VerticalLine" />
+            <c:Button Id="0e8bcc83cac645debd0df7a2bc7ae59a" CssClass="ButtonClk"
+                      OnClick="SelectTaskType_OnClick" Text="#not_choosed#" />
+          </c:HorizontalLayout>
+          <c:HorizontalLine CssClass="Line" />
+        </c:VerticalLayout>
+        <c:VerticalLayout CssClass="Node">
+          <c:HorizontalLine CssClass="Line" />
+          <c:HorizontalLayout CssClass="InnerNode">
+            <c:TextView Id="1c4f5837a75a47248fb1122b481614dc" Text="#responsible#" CssClass="DescriptionText" />
+            <c:VerticalLayout Id="3b4ad009eabb400ca0fc2372a3f2033a" CssClass="VerticalLine" />
+            <c:Button Id="0e8bcc83cac645debd0df7a2bc7ae59a" CssClass="ButtonClk"
+                      OnClick="SelectTaskType_OnClick" Text="#not_choosed#" />
+          </c:HorizontalLayout>
+          <c:HorizontalLine CssClass="Line" />
+        </c:VerticalLayout>
+        <c:VerticalLayout CssClass="Node">
+          <c:HorizontalLine CssClass="Line" />
+          <c:HorizontalLayout CssClass="InnerNode">
+            <c:TextView Id="1c4f5837a75a47248fb1122b481614dc" Text="#date_from" CssClass="DescriptionText" />
+            <c:VerticalLayout Id="3b4ad009eabb400ca0fc2372a3f2033a" CssClass="VerticalLine" />
+            <c:Button Id="0e8bcc83cac645debd0df7a2bc7ae59a" CssClass="ButtonClk"
+                      OnClick="StartDatePlan_OnClick" Text="#not_choosed#" />
+          </c:HorizontalLayout>
+          <c:HorizontalLine CssClass="Line" />
+        </c:VerticalLayout>
+        <c:VerticalLayout CssClass="Node">
+          <c:HorizontalLine CssClass="Line" />
+          <c:HorizontalLayout CssClass="InnerNode">
+            <c:TextView Id="1c4f5837a75a47248fb1122b481614dc" Text="#date_of#" CssClass="DescriptionText" />
+            <c:VerticalLayout Id="3b4ad009eabb400ca0fc2372a3f2033a" CssClass="VerticalLine" />
+            <c:Button Id="0e8bcc83cac645debd0df7a2bc7ae59a" CssClass="ButtonClk"
+                      OnClick="EndDatePlan_OnClick" Text="#not_choosed#" />
+          </c:HorizontalLayout>
+          <c:HorizontalLine CssClass="Line" />
+        </c:VerticalLayout>
+        <c:VerticalLayout CssClass="Node">
+          <c:HorizontalLine CssClass="Line" />
+          <c:HorizontalLayout CssClass="InnerNode">
+            <c:TextView Id="1c4f5837a75a47248fb1122b481614dc" Text="#importance#" CssClass="DescriptionText" />
+            <c:VerticalLayout Id="3b4ad009eabb400ca0fc2372a3f2033a" CssClass="VerticalLine" />
+            <c:Button Id="0e8bcc83cac645debd0df7a2bc7ae59a" CssClass="ButtonClk"
+                      OnClick="SelectTaskType_OnClick" Text="#not_choosed#" />
+          </c:HorizontalLayout>
+          <c:HorizontalLine CssClass="Line" />
+        </c:VerticalLayout>
+        <c:VerticalLayout CssClass="Node">
+          <c:HorizontalLine CssClass="Line" />
+          <c:MemoEdit Id="2776dd7e8c604323a293635d9a0e6c09"
+                      Placeholder="#description_required#"
+                      CssClass="DescriptionMemoedit" />
+          <c:HorizontalLine CssClass="Line" />
+        </c:VerticalLayout>
+      </c:VerticalLayout>
+    </c:ScrollView>
+  </c:DockLayout>
 </c:Screen>
