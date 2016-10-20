@@ -18,7 +18,6 @@
         public const string Contact = "contact";
         public const string IdTenderId = "tenderId";
         public const string IsAsTask = "IsAsTask";
-
         /// <summary>
         /// Используется для передачи параметров на экран EditServiceOrMaterials,
         /// для того чтобы сохранить состояние экрана RIMScreen.

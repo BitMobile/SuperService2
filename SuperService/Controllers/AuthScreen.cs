@@ -20,6 +20,7 @@ namespace Test
 
         public override void OnShow()
         {
+            PushServerServices.Init();
             _loginEditText.Text = Settings.User;
             _passwordEditText.Text = Settings.Password;
         }

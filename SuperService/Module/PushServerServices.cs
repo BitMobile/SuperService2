@@ -12,13 +12,11 @@ namespace Test.Module
     {
         public static void Init()
         {
-            if (!PushNotification.IsInitialized)
-            {
-                if (!string.IsNullOrEmpty(Settings.User) && !string.IsNullOrEmpty(Settings.Password))
+            if (PushNotification.IsInitialized) return;
+            if (!string.IsNullOrEmpty(Settings.User) && !string.IsNullOrEmpty(Settings.Password) && !string.IsNullOrEmpty(Settings.PushServer) && !string.IsNullOrEmpty(Settings.UserId))
                 {
                     PushNotification.InitializePushService(Settings.PushServer, Settings.UserId, Settings.Password);
                 }
-            }
         }
     }
 }
