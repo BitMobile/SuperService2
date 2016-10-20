@@ -2,17 +2,23 @@
 using BitMobile.ClientModel3.UI;
 using ClientModel3.MD;
 using System;
+using BitMobile.DbEngine;
 using Test.Catalog;
 using Test.Components;
 using Test.Document;
+using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
 namespace Test
 {
     public class DelegateScreen : Screen
     {
+        private bool IsAsTask;
         private TopInfoComponent _topInfoComponent;
 
-        public override void OnLoading()
+        internal bool AddTask()
+            => IsAsTask = (bool)Variables.GetValueOrDefault(Parameters.IsAsTask, false);
+        
+            public override void OnLoading()
         {
             _topInfoComponent = new TopInfoComponent(this)
             {
@@ -21,7 +27,7 @@ namespace Test
                 Header = Translator.Translate("delegate"),
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") }
             };
-
+            
             _topInfoComponent.ActivateBackButton();
         }
 
@@ -50,6 +56,10 @@ namespace Test
         internal DbRecordset GetUsers()
             => DBHelper.GetUsers();
 
+        internal bool GetCurUserOrNO(DbRef UsId)
+        {
+            return Settings.UserId != $"{UsId.Guid}";
+        }
         internal void SelectUser_OnClick(object sender, EventArgs e)
         {
             var eventId = (string)Variables[Parameters.IdCurrentEventId];
@@ -57,9 +67,8 @@ namespace Test
             {
                 Utils.TraceMessage($"{eventId.GetType()}");
                 var currentEvent = (Event)DBHelper.LoadEntity(eventId.ToString());
-                var user = (User)DBHelper.LoadEntity(((VerticalLayout)sender).Id);
-
-                Dialog.Ask(Translator.Translate("assign_user"), (o, args) =>
+                var user = (User)DBHelper.LoadEntity(((VerticalLayout)sender).Id);       
+                Dialog.Ask(Translator.Translate("assign_on") + " " + user.Description + "?", (o, args) =>
                 {
                     if (args.Result == Dialog.Result.No) return;
 
@@ -68,12 +77,17 @@ namespace Test
 
                     try
                     {
-                        PushNotification.PushMessage(Translator.Translate("assign_user"), new[] { $"{user.Id.Guid}" });
+                        PushNotification.PushMessage(Translator.Translate("assign_user"), new[] {$"{user.Id.Guid}"});
                     }
                     catch (Exception exception)
                     {
                         Utils.TraceMessage($"{exception.Message}{Environment.NewLine}" +
                                            $"{exception.StackTrace}");
+                    }
+                    finally
+                    {
+                        Navigation.CleanStack();
+                        Navigation.ModalMove(nameof(EventListScreen));
                     }
                 });
             }

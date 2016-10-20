@@ -8,11 +8,13 @@
     <c:ScrollView Id="c9c77e671ef64d128a4ecfea7cdf5bbf"
                   CssClass="RootLayout">
       <s:Iterator Id="users" Value="$GetUsers()">
-        <c:VerticalLayout Id="$users.Id" CssClass="ClientListItemVL"
-                          OnClick="SelectUser_OnClick">
-          <c:TextView Text="$users.Description" CssClass="ClientListNameTV" />
-          <c:HorizontalLine CssClass="ClientListBreaker" />
-        </c:VerticalLayout>
+        <s:If Test="$GetCurUserOrNO($users.Id)">
+          <c:VerticalLayout Id="$users.Id" CssClass="ClientListItemVL"
+                            OnClick="SelectUser_OnClick">
+            <c:TextView Text="$users.Description" CssClass="ClientListNameTV" />
+            <c:HorizontalLine CssClass="ClientListBreaker" />
+          </c:VerticalLayout>
+        </s:If>
       </s:Iterator>
     </c:ScrollView>
   </c:DockLayout>
