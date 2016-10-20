@@ -16,10 +16,7 @@ namespace Test
         private bool _isAsTask;
         private TopInfoComponent _topInfoComponent;
 
-        internal bool AddTask()
-            => IsAsTask = (bool)Variables.GetValueOrDefault(Parameters.IsAsTask, false);
-        
-            public override void OnLoading()
+        public override void OnLoading()
         {
             _topInfoComponent = new TopInfoComponent(this)
             {
