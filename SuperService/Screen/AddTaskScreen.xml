@@ -21,8 +21,8 @@
           <c:HorizontalLayout CssClass="InnerNode">
             <c:TextView Id="1c4f5837a75a47248fb1122b481614dc" Text="#client#" CssClass="DescriptionText" />
             <c:VerticalLayout Id="3b4ad009eabb400ca0fc2372a3f2033a" CssClass="VerticalLine" />
-            <c:Button Id="0e8bcc83cac645debd0df7a2bc7ae59a" CssClass="ButtonClk"
-                      OnClick="SelectTaskType_OnClick" Text="#not_choosed#" />
+            <c:Button Id="9a0421b3c9644f2095ae851b6adae631" CssClass="ButtonClk"
+                      OnClick="AddClient_OnClick" Text="#not_choosed#" />
           </c:HorizontalLayout>
           <c:HorizontalLine CssClass="Line" />
         </c:VerticalLayout>
@@ -31,7 +31,7 @@
           <c:HorizontalLayout CssClass="InnerNode">
             <c:TextView Id="1c4f5837a75a47248fb1122b481614dc" Text="#responsible#" CssClass="DescriptionText" />
             <c:VerticalLayout Id="3b4ad009eabb400ca0fc2372a3f2033a" CssClass="VerticalLine" />
-            <c:Button Id="0e8bcc83cac645debd0df7a2bc7ae59a" CssClass="ButtonClk"
+            <c:Button Id="3d8605b488da4d3db9469ca0a3c890ca" CssClass="ButtonClk"
                       OnClick="SelectTaskType_OnClick" Text="#not_choosed#" />
           </c:HorizontalLayout>
           <c:HorizontalLine CssClass="Line" />
@@ -41,7 +41,7 @@
           <c:HorizontalLayout CssClass="InnerNode">
             <c:TextView Id="1c4f5837a75a47248fb1122b481614dc" Text="#date_from" CssClass="DescriptionText" />
             <c:VerticalLayout Id="3b4ad009eabb400ca0fc2372a3f2033a" CssClass="VerticalLine" />
-            <c:Button Id="0e8bcc83cac645debd0df7a2bc7ae59a" CssClass="ButtonClk"
+            <c:Button Id="a61ad431c4a94635a3c8625e5491f380" CssClass="ButtonClk"
                       OnClick="StartDatePlan_OnClick" Text="#not_choosed#" />
           </c:HorizontalLayout>
           <c:HorizontalLine CssClass="Line" />
@@ -51,7 +51,7 @@
           <c:HorizontalLayout CssClass="InnerNode">
             <c:TextView Id="1c4f5837a75a47248fb1122b481614dc" Text="#date_of#" CssClass="DescriptionText" />
             <c:VerticalLayout Id="3b4ad009eabb400ca0fc2372a3f2033a" CssClass="VerticalLine" />
-            <c:Button Id="0e8bcc83cac645debd0df7a2bc7ae59a" CssClass="ButtonClk"
+            <c:Button Id="52541d2e3483440f9403a92776f297f7" CssClass="ButtonClk"
                       OnClick="EndDatePlan_OnClick" Text="#not_choosed#" />
           </c:HorizontalLayout>
           <c:HorizontalLine CssClass="Line" />
@@ -61,7 +61,7 @@
           <c:HorizontalLayout CssClass="InnerNode">
             <c:TextView Id="1c4f5837a75a47248fb1122b481614dc" Text="#importance#" CssClass="DescriptionText" />
             <c:VerticalLayout Id="3b4ad009eabb400ca0fc2372a3f2033a" CssClass="VerticalLine" />
-            <c:Button Id="0e8bcc83cac645debd0df7a2bc7ae59a" CssClass="ButtonClk"
+            <c:Button Id="f8b670c4dffc477da344e73eba160cfe" CssClass="ButtonClk"
                       OnClick="StatusImportance_OnClick" Text="#not_choosed#" />
           </c:HorizontalLayout>
           <c:HorizontalLine CssClass="Line" />

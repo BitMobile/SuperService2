@@ -4,6 +4,7 @@ using BitMobile.ClientModel3.UI;
 using BitMobile.DbEngine;
 using System;
 using System.Collections.Generic;
+using Test.Catalog;
 using Test.Components;
 using Test.Document;
 using Dialog = BitMobile.ClientModel3.Dialog;
@@ -16,6 +17,7 @@ namespace Test
         private Event _event;
         private object _choosedTaskType;
         private object _statusImportance;
+        private Client _client;
 
         public override void OnLoading()
         {
@@ -28,6 +30,18 @@ namespace Test
             };
             _event = new Event();
             _topInfoComponent.ActivateBackButton();
+
+            if (!string.IsNullOrEmpty($"{Variables.GetValueOrDefault(Parameters.IdClientId, "")}"))
+            {
+                _client = (Client)DBHelper.LoadEntity($"{Variables[Parameters.IdClientId]}");
+                ((Button)GetControl("9a0421b3c9644f2095ae851b6adae631", true)).Text = _client.Description;
+                _event.Client = _client.Id;
+            }
+            else if (_client != null)
+            {
+                ((Button)GetControl("9a0421b3c9644f2095ae851b6adae631", true)).Text = _client.Description;
+                _event.Client = _client.Id;
+            }
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
@@ -46,6 +60,7 @@ namespace Test
         internal string GetResourceImage(object tag)
             => ResourceManager.GetImage($"{tag}");
 
+        //TODO: Делать проверку на заполнение обязательных полей
         internal void CreateTask_OnClick(object sender, EventArgs e)
         {
         }
@@ -107,5 +122,10 @@ namespace Test
                                        $"{_event.Importance}");
                 });
         }
+
+        internal void AddClient_OnClick(object sender, EventArgs e)
+        => Navigation.ModalMove(nameof(ClientListScreen),
+            new Dictionary<string, object>
+            { {Parameters.IsAsTask, true}});
     }
 }
