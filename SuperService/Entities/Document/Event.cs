@@ -33,7 +33,9 @@ namespace Test.Document
         public DateTime GPSTime { get; set; }
         public DbRef ContactVisiting { get; set; }
         public DbRef TypesDepartures { get; set; }
+        public DbRef EventResult { get; set; }
         public DbRef Importance { get; set; }
+        public DbRef Tender { get; set; }
 }
     public class Event_Files : DbEntity
     {
