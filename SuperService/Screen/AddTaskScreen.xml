@@ -32,7 +32,7 @@
             <c:TextView Id="1c4f5837a75a47248fb1122b481614dc" Text="#responsible#" CssClass="DescriptionText" />
             <c:VerticalLayout Id="3b4ad009eabb400ca0fc2372a3f2033a" CssClass="VerticalLine" />
             <c:Button Id="3d8605b488da4d3db9469ca0a3c890ca" CssClass="ButtonClk"
-                      OnClick="SelectTaskType_OnClick" Text="#not_choosed#" />
+                      OnClick="AddUser_OnClick" Text="#not_choosed#" />
           </c:HorizontalLayout>
           <c:HorizontalLine CssClass="Line" />
         </c:VerticalLayout>
@@ -70,7 +70,8 @@
           <c:HorizontalLine CssClass="Line" />
           <c:MemoEdit Id="2776dd7e8c604323a293635d9a0e6c09"
                       Placeholder="#description_required#"
-                      CssClass="DescriptionMemoedit" />
+                      CssClass="DescriptionMemoedit"
+                      OnChange="SaveDescription_OnChange" />
           <c:HorizontalLine CssClass="Line" />
         </c:VerticalLayout>
       </c:VerticalLayout>
