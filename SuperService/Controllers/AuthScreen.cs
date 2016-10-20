@@ -1,6 +1,6 @@
-﻿using System;
-using BitMobile.ClientModel3;
+﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using System;
 using Test.Module;
 
 namespace Test
@@ -14,13 +14,12 @@ namespace Test
         {
             DConsole.WriteLine("AuthScreen init");
 
-            _loginEditText = (EditText) GetControl("AuthScreenLoginET", true);
-            _passwordEditText = (EditText) GetControl("AuthScreenPasswordET", true);
+            _loginEditText = (EditText)GetControl("AuthScreenLoginET", true);
+            _passwordEditText = (EditText)GetControl("AuthScreenPasswordET", true);
         }
 
         public override void OnShow()
         {
-            PushServerServices.Init();
             _loginEditText.Text = Settings.User;
             _passwordEditText.Text = Settings.Password;
         }
