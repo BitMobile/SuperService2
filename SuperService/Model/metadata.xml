@@ -103,6 +103,17 @@
 			<TabularSections/>
 		</Entity>
 		
+		<Entity DeleteFilter="" Name="MobileTaskFilters" Schema="Catalog" SyncDownload="False" SyncFilter="" SyncUpload="True">
+			<Fields>
+				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
+				<Field KeyField="true" Name="Id" Type="Guid"/>
+				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+				<Field AllowNull="true" Length="2000" Name="Query" Type="String"/>
+			</Fields>
+			<TabularSections/>
+		</Entity>
+		
 		<Entity DeleteFilter="" Name="RIM" Schema="Catalog" SyncDownload="True" SyncFilter="" SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
@@ -631,6 +642,7 @@
 				<Field AllowNull="true" Name="DeliveryDateTime" Type="DateTime2"/>
 				<Field AllowNull="true" Length="1000" Name="Marketplace" Type="String"/>
 				<Field AllowNull="false" Name="Sum" Precision="15" Scale="2" Type="Decimal"/>
+				<Field AllowNull="false" Name="Closed" Type="Boolean"/>
 			</Fields>
 			<TabularSections>
 				<TabularSection DeleteFilter="" Key="ActivityType" Name="ActivityTypes" SyncFilter="">
