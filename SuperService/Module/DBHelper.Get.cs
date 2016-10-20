@@ -1328,7 +1328,7 @@ namespace Test
             return query.Execute();
         }
 
-        public static DbRecordset GetTenderList(object userId)
+  public static DbRecordset GetTenderList(object userId)
         {
             var query = new Query(@"SELECT
                                       Tender.Id                AS Id,
@@ -1336,18 +1336,24 @@ namespace Test
                                       Tender.DueDateTime       AS DueDateTime,
                                       Tender.Sum               AS TotalSum,
                                       Client.Description       AS ClientDescription,
-                                      ActivityType.Description AS ActivityType,
-                                      ActivityType.User        AS UserId
+                                      ActivityTypeC.Description AS ActivityType,
+                                      ActivityTypeUser.User        AS UserId
                                     FROM
-                                      _Document_Tender AS Tender
+                                      _Catalog_Tender AS Tender
+                                      LEFT JOIN
+                                      _Catalog_Tender_ActivityTypes AS ActivityTypes
+                                        ON Tender.Id = ActivityTypes.Ref
+                                      LEFT JOIN
+                                      _Catalog_ActivityTypes As ActivityTypeC
+                                        ON ActivityTypes.ActivityType = ActivityTypeC.Id
+                                      LEFT JOIN 
+                                        _Catalog_ActivityTypes_Users AS ActivityTypeUser
+                                        ON ActivityTypeUser.Ref = ActivityTypeC.Id
                                       LEFT JOIN
                                       _Catalog_Client AS Client
                                         ON Tender.Client = Client.Id
-                                      LEFT JOIN
-                                      _Catalog_ActivityTypes AS ActivityType
-                                        ON Tender.ActivityType = ActivityType.Id
                                     WHERE
-                                      ActivityType.User = @userId
+                                      ActivityTypeUser.User = @userId
                                       AND Tender.DeletionMark = 0
                                     ORDER BY Tender.DueDateTime ASC");
 
@@ -1369,13 +1375,16 @@ namespace Test
                                       Client.Description        AS Client_Description,
                                       ActivityTypes.Description AS ActivityType
                                     FROM
-                                      _Document_Tender AS Tender
+                                      _Catalog_Tender AS Tender
+                                      INNER JOIN
+                                        _Catalog_Tender_ActivityTypes AS ActivityTypesTC
+                                        ON ActivityTypesTC.Ref = Tender.Id
                                       INNER JOIN
                                       _Catalog_Client AS Client
                                         ON Tender.Client = Client.Id
                                       INNER JOIN
                                       _Catalog_ActivityTypes AS ActivityTypes
-                                        ON Tender.ActivityType = ActivityTypes.Id
+                                        ON ActivityTypesTC.ActivityType = ActivityTypes.Id
                                     WHERE
                                       Tender.Id = @tenderId
                                       AND Tender.DeletionMark = 0");

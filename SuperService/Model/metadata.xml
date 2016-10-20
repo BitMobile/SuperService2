@@ -90,6 +90,19 @@
 			</Fields>
 			<TabularSections/>
 		</Entity>
+		
+		<Entity DeleteFilter="" Name="EventResults" Schema="Catalog" SyncDownload="False" SyncFilter="" SyncUpload="True">
+			<Fields>
+				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
+				<Field KeyField="true" Name="Id" Type="Guid"/>
+				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+				<Field AllowNull="true" Length="9" Name="Code" Type="String"/>
+				<Field AllowNull="false" Name="Negative" Type="Boolean"/>
+			</Fields>
+			<TabularSections/>
+		</Entity>
+		
 		<Entity DeleteFilter="" Name="RIM" Schema="Catalog" SyncDownload="True" SyncFilter="" SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
@@ -156,7 +169,9 @@
 				<Field AllowNull="true" Name="GPSTime" Type="DateTime2"/>
 				<Field AllowNull="true" Name="ContactVisiting" Type="Catalog.Contacts"/>
 				<Field AllowNull="true" Name="TypesDepartures" Type="Catalog.TypesDepartures"/>
+				<Field AllowNull="true" Name="EventResult" Type="Catalog.EventResults"/>
 				<Field AllowNull="false" Name="Importance" Type="Enum.StatusImportance"/>
+				<Field AllowNull="true" Name="Tender" Type="Catalog.Tender"/>
 			</Fields>
 			<TabularSections>
 				<TabularSection DeleteFilter="" Key="FullFileName,FileName" Name="Files" SyncFilter="">
@@ -382,6 +397,7 @@
 				<Field AllowNull="true" Length="100" Name="Phone" Type="String"/>
 				<Field AllowNull="false" Name="Role" Type="Catalog.Roles"/>
 				<Field AllowNull="true" Name="Manager" Type="Catalog.User"/>
+				<Field AllowNull="false" Name="EnablePush" Type="Boolean"/>
 				<Field Length="128" Name="AspNetUserID" Type="String"/>
 			</Fields>
 			<TabularSections>
@@ -542,7 +558,7 @@
 				<Field AllowNull="true" Name="Event" Type="Document.Event"/>
 				<Field AllowNull="true" Length="100" Name="TaskType" Type="String"/>
 				<!-- +++BIOVITRUM -->
-				<Field AllowNull="true" Name="Tender" Type="Document.Tender"/>
+				<Field AllowNull="true" Name="Tender" Type="Catalog.Tender"/>
 				<!-- +++BIOVITRUM -->
 			</Fields>
 			<TabularSections>
@@ -584,18 +600,26 @@
 			</Fields>
 			<TabularSections/>
 		</Entity>
+		
 		<!-- +++BIOVITRUM -->
+		
 		<Entity DeleteFilter="" Name="ActivityTypes" Schema="Catalog" SyncDownload="False" SyncFilter="" SyncUpload="True">
 			<Fields>
 				<Field KeyField="true" Name="Id" Type="Guid"/>
 				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
 				<Field AllowNull="true" Length="9" Name="Code" Type="String"/>
 				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="true" Name="User" Type="Catalog.User"/>
 			</Fields>
-			<TabularSections/>
+			<TabularSections>
+				<TabularSection DeleteFilter="" Key="User" Name="Users" SyncFilter="">
+					<Field KeyField="true" Name="Id" Type="Guid"/>
+					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+					<Field AllowNull="false" Name="User" Type="Catalog.User"/>
+				</TabularSection>
+			</TabularSections>
 		</Entity>
-		<Entity DeleteFilter="" Name="Tender" Schema="Document" SyncDownload="True" SyncFilter="" SyncUpload="True">
+		<Entity DeleteFilter="" Name="Tender" Schema="Catalog" SyncDownload="True" SyncFilter="" SyncUpload="True">
 			<Fields>
 				<Field KeyField="true" Name="Id" Type="Guid"/>
 				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
@@ -603,20 +627,26 @@
 				<Field AllowNull="true" Name="Date" Type="DateTime2"/>
 				<Field AllowNull="false" Name="Client" Type="Catalog.Client"/>
 				<Field AllowNull="true" Name="DueDateTime" Type="DateTime2"/>
-				<Field AllowNull="true" Name="ActivityType" Type="Catalog.ActivityTypes"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+				<Field AllowNull="false" Length="1000" Name="Description" Type="String"/>
 				<Field AllowNull="true" Name="DeliveryDateTime" Type="DateTime2"/>
-				<Field AllowNull="true" Length="100" Name="Marketplace" Type="String"/>
+				<Field AllowNull="true" Length="1000" Name="Marketplace" Type="String"/>
 				<Field AllowNull="false" Name="Sum" Precision="15" Scale="2" Type="Decimal"/>
 			</Fields>
-			<TabularSections/>
+			<TabularSections>
+				<TabularSection DeleteFilter="" Key="ActivityType" Name="ActivityTypes" SyncFilter="">
+					<Field KeyField="true" Name="Id" Type="Guid"/>
+					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+					<Field AllowNull="false" Name="ActivityType" Type="Catalog.ActivityTypes"/>
+				</TabularSection>
+			</TabularSections>
 		</Entity>
 		<Entity DeleteFilter="" Name="Chat" Schema="Catalog" SyncDownload="False" SyncFilter="" SyncUpload="True">
 			<Fields>
 				<Field KeyField="true" Name="Id" Type="Guid"/>
 				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
 				<Field AllowNull="false" Name="DateTime" Type="DateTime2"/>
-				<Field AllowNull="false" Name="Tender" Type="Document.Tender"/>
+				<Field AllowNull="false" Name="Tender" Type="Catalog.Tender"/>
 				<Field AllowNull="false" Name="User" Type="Catalog.User"/>
 				<Field AllowNull="true" Length="500" Name="Message" Type="String"/>
 			</Fields>
