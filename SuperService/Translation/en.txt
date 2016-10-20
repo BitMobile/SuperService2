@@ -168,3 +168,4 @@ importance		Importance
 responsible		Responsible
 date_from		Date from
 date_of		Date Of
+select_importance		Select status importance

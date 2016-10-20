@@ -60,7 +60,7 @@ namespace Test
 
         public override void OnShow()
         {
-            PushServerServices.Init();
+            //PushServerServices.Init();
             GpsTracking.Start();
         }
 

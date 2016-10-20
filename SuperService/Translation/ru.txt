@@ -168,3 +168,4 @@ importance		Важность
 responsible		Ответственный
 date_from		Дата с
 date_of		Дата по
+select_importance		Выберите статус важности задачи

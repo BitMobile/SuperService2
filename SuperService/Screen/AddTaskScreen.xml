@@ -62,7 +62,7 @@
             <c:TextView Id="1c4f5837a75a47248fb1122b481614dc" Text="#importance#" CssClass="DescriptionText" />
             <c:VerticalLayout Id="3b4ad009eabb400ca0fc2372a3f2033a" CssClass="VerticalLine" />
             <c:Button Id="0e8bcc83cac645debd0df7a2bc7ae59a" CssClass="ButtonClk"
-                      OnClick="SelectTaskType_OnClick" Text="#not_choosed#" />
+                      OnClick="StatusImportance_OnClick" Text="#not_choosed#" />
           </c:HorizontalLayout>
           <c:HorizontalLine CssClass="Line" />
         </c:VerticalLayout>
