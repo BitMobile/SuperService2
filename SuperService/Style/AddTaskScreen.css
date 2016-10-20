@@ -254,3 +254,66 @@ HorizontalLine {
   horizontal-align: right;
   margin-right: 5sp;
 }
+.Node {
+  height: 12sp auto;
+  width: 100%;
+  padding-left: 5%;
+  padding-right: 5%;
+  margin-bottom: 1sp;
+}
+.Line {
+  background-color: #f4f4f5;
+  height: 0.15sp;
+  horizontal-align: center;
+  width: 100%;
+  margin-top: 1sp;
+  margin-bottom: 1sp;
+}
+.DescriptionText {
+  height: 2.775sp auto;
+  width: 30%;
+  color: #51595b;
+  margin-top: 1sp;
+  white-space: normal;
+  vertical-align: center;
+}
+.InputField {
+  height: 2.775sp auto;
+  width: 100%;
+  color: #51595b;
+  margin-top: 1sp;
+}
+.DescriptionMemoedit {
+  height: 70sp;
+  placeholder-color: #c2c2c2;
+  font: 2.5sp 2.5sp arial;
+  color: #51595b;
+  width: 100%;
+}
+.VerticalLine {
+  height: 100%;
+  width: 0.15sp;
+  margin-left: 1sp;
+  margin-right: 1sp;
+  background-color: #f4f4f5;
+}
+.ButtonClk {
+  height: 100%;
+  width: 70%;
+  background-color: #faf5f5;
+  color: #51595b;
+  font: 2.5sp 2.5sp arial;
+}
+.CreateTask {
+  dock-align: bottom;
+  background-color: #fe9c81;
+  height: 10sp;
+  white-space: normal;
+  width: 100%;
+  font: 3.06186218sp arial;
+  color: #fecbc0;
+}
+.InnerNode {
+  height: 8sp;
+  width: 100%;
+}

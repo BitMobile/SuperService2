@@ -1421,5 +1421,17 @@ namespace Test
                           Id,
                           Description
                         FROM _Catalog_User").Execute();
+
+        public static DbRecordset GetTaskTypes()
+            => new Query(@"SELECT
+                              Id,
+                              Description
+                            FROM Enum_TypesEvents").Execute();
+
+        public static DbRecordset GetStatusImportance()
+            => new Query(@"SELECT
+                          Id,
+                          Description
+                        FROM Enum_StatusImportance").Execute();
     }
 }

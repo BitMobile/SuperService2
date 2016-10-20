@@ -1,2 +1,81 @@
 ﻿@import "defaults.less";
 @import "Components/TopInfoComponent.less";
+
+@paddings-left-right: 5%;
+@margin-botton: 1sp;
+@line-color: #f4f4f5;
+
+.Node {
+    height: 12sp auto;
+    width: 100%;
+    padding-left: @paddings-left-right;
+    padding-right: @paddings-left-right;
+    margin-bottom: @margin-botton;
+}
+
+.Line {
+    background-color: @line-color;
+    height: 0.15sp;
+    horizontal-align: center;
+    width: 100%;
+    margin-top: 1sp;
+    margin-bottom: 1sp;
+}
+
+.DescriptionText {
+    .height-of-TextView(@default-font-size);
+    width: 30%;
+    color: @default-text-color;
+    margin-top: 1sp;
+    white-space: normal;
+    vertical-align: center;
+}
+
+.InputField {
+    .height-of-TextView(@default-font-size);
+    width: 100%;
+    color: @default-text-color;
+    margin-top: 1sp;
+}
+
+.DescriptionMemoedit {
+    height: 70sp;
+    color: @default-text-color;
+    placeholder-color: #c2c2c2;
+    font: @default-font-size @deafult-font;
+    color: @default-text-color;
+    width: 100%;
+}
+
+@verticalLine-margin: 1sp;
+
+.VerticalLine {
+    height: 100%;
+    width: 0.15sp;
+    margin-left: @verticalLine-margin;
+    margin-right: @verticalLine-margin;
+    background-color: @line-color;
+}
+
+.ButtonClk {
+    height: 100%;
+    width: 70%;
+    background-color: #faf5f5;
+    color: @default-text-color;
+    font: @default-font-size @deafult-font;
+}
+
+.CreateTask {
+    dock-align: bottom;
+    background-color: #fe9c81;
+    height: 10sp;
+    white-space: normal;
+    width: 100%;
+    font: (@default-font-size * sqrt(3/2)) arial;
+    color: #fecbc0;
+}
+
+.InnerNode {
+    height: 8sp;
+    width: 100%;
+}

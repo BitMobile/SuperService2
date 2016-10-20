@@ -159,4 +159,15 @@ complete		Complete
 browser		Browser
 uri_error		Uncorrect URI format
 max_lenght		Exceeded the maximum message length
+create_task		Create Task
+subject		Subject
+description_required		Description(required)
+task_type		Task type
+target		Target
+importance		Importance
+responsible		Responsible
+date_from		Date from
+date_of		Date Of
+select_importance		Select status importance
 assign_on		Assign on user
+new_task		A new task is assigned to you
