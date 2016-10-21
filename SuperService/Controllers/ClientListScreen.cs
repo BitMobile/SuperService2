@@ -2,6 +2,7 @@
 using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Test.Components;
 
 namespace Test
@@ -10,6 +11,7 @@ namespace Test
     {
         private TabBarComponent _tabBarComponent;
         private TopInfoComponent _topInfoComponent;
+        private bool _isAddTask;
 
         public override void OnLoading()
         {
@@ -20,7 +22,14 @@ namespace Test
                 Header = Translator.Translate("clients"),
                 ArrowVisible = false
             };
-            _tabBarComponent = new TabBarComponent(this);
+
+            if (_isAddTask)
+            {
+                _topInfoComponent.LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") };
+                _topInfoComponent.ActivateBackButton();
+            }
+            else
+                _tabBarComponent = new TabBarComponent(this);
         }
 
         public override void OnShow()
@@ -30,13 +39,13 @@ namespace Test
 
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _tabBarComponent.Events_OnClick(sender, eventArgs);
+            _tabBarComponent?.Events_OnClick(sender, eventArgs);
             DConsole.WriteLine("Clients Events");
         }
 
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _tabBarComponent.TendersListScreen_OnClick(sender, eventArgs);
+            _tabBarComponent?.TendersListScreen_OnClick(sender, eventArgs);
             DConsole.WriteLine("Clients Bag");
         }
 
@@ -48,12 +57,14 @@ namespace Test
 
         internal void TabBarFourthButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _tabBarComponent.Settings_OnClick(sender, eventArgs);
+            _tabBarComponent?.Settings_OnClick(sender, eventArgs);
             DConsole.WriteLine("Clients Settings");
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
+            if (_isAddTask)
+                Navigation.ModalMove(nameof(AddTaskScreen));
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
@@ -72,10 +83,16 @@ namespace Test
 
         internal void ClientLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            DConsole.WriteLine("ClientLayout_OnClick " + ((VerticalLayout)sender).Id);
-            // TODO: Передача Id конкретной таски
-            BusinessProcess.GlobalVariables[Parameters.IdClientId] = ((VerticalLayout)sender).Id;
-            Navigation.Move("ClientScreen");
+            if (!_isAddTask)
+            {
+                DConsole.WriteLine("ClientLayout_OnClick " + ((VerticalLayout)sender).Id);
+                BusinessProcess.GlobalVariables[Parameters.IdClientId] = ((VerticalLayout)sender).Id;
+                Navigation.Move("ClientScreen");
+            }
+            else
+                Navigation.ModalMove(nameof(AddTaskScreen),
+                    new Dictionary<string, object>
+                    { {Parameters.IdClientId, ((VerticalLayout) sender).Id} });
         }
 
         internal IEnumerable GetClients()
@@ -90,5 +107,8 @@ namespace Test
 
             return result;
         }
+
+        internal bool IsNeedTabBar()
+            => !(_isAddTask = (bool)Variables.GetValueOrDefault(Parameters.IsAsTask, false));
     }
 }

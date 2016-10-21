@@ -226,15 +226,7 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            DConsole.WriteLine("GO to map");
-            DConsole.WriteLine("Before dictionary");
-            var dictionary = new Dictionary<string, object>
-            {
-                {Parameters.IdScreenStateId, MapScreenStates.EventListScreen}
-            };
-            DConsole.WriteLine("After");
-            BusinessProcess.GlobalVariables[Parameters.IdScreenStateId] = MapScreenStates.EventListScreen;
-            Navigation.Move("MapScreen", dictionary);
+            Navigation.Move(nameof(AddTaskScreen));
         }
 
         internal void EventListItemHL_OnClick(object sender, EventArgs e)

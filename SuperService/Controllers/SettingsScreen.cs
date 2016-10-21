@@ -181,7 +181,6 @@ namespace Test
 
         internal void SendLog_OnClick(object sender, EventArgs e)
         {
-            PushNotification.PushMessage("Test", new List<string>() { "71E1C804-1387-11E6-B0E4-6C71D97753D2" });
         }
     }
 }

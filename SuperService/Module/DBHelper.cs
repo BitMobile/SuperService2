@@ -18,7 +18,6 @@ namespace Test
         private const string EventStatusAppointed = "Appointed";
         private const string EventStatusInWork = "InWork";
 
-
         private static Database _db;
 
         public static string LastError => _db.LastError;
@@ -193,9 +192,11 @@ namespace Test
             DConsole.WriteLine("Пришли новые настройки. Обновляем их");
             DConsole.WriteLine(Parameters.Splitter);
 #endif
-            GpsTracking.Stop();
+            Application.InvokeOnMainThread(() => GpsTracking.Stop());
+
             Settings.Init();
-            GpsTracking.Start();
+
+            Application.InvokeOnMainThread(() => GpsTracking.Start());
         }
 
         public static void FullSync(ResultEventHandler<bool> resultEventHandler = null)
