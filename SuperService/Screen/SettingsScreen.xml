@@ -96,9 +96,28 @@
                 </c:VerticalLayout>
               </c:HorizontalLayout>
             </c:VerticalLayout>
-            <c:Button Id="DelegateButton" Text="#delegate#" CssClass="RefuseButton" />
           </c:HorizontalLayout>
         </c:VerticalLayout>
+        <s:If Test="$IsPushEnable()">
+          <c:HorizontalLayout Id="TaskFinishedButton" CssClass="FinishedButtonPressed"
+                         OnClick="ChangePushStatus_OnClick">
+            <c:TextView Id="TaskFinishedButtonTextView" Text="#push_message#" CssClass="FinishedButtonPressedText" />
+            <c:VerticalLayout CssClass="FinishedRefuseButtonImageWrapper">
+              <c:Image Id="TaskFinishedButtonImage" Source="$GetResourceImage(tasklist_done)"
+                       CssClass="FinishedRefuseButtonImage" />
+            </c:VerticalLayout>
+          </c:HorizontalLayout>
+        </s:If>
+        <s:Else>
+          <c:HorizontalLayout Id="TaskFinishedButton" CssClass="FinishedButtonActive"
+                          OnClick="ChangePushStatus_OnClick">
+            <c:TextView Id="TaskFinishedButtonTextView" Text="#push_message#" CssClass="RefuseButtonText" />
+            <c:VerticalLayout CssClass="FinishedRefuseButtonImageWrapper">
+              <c:Image Id="TaskFinishedButtonImage" Source="$GetResourceImage(tasklist_notdone)"
+                       CssClass="FinishedRefuseButtonImage" />
+            </c:VerticalLayout>
+          </c:HorizontalLayout>
+        </s:Else>
       </c:VerticalLayout>
     </c:ScrollView>
   </c:DockLayout>

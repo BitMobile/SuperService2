@@ -172,3 +172,4 @@ select_importance		Select status importance
 assign_on		Assign on user
 new_task		A new task is assigned to you
 title		Title
+push_message		Push message

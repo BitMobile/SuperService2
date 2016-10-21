@@ -307,9 +307,219 @@ HorizontalLine {
   height: 2.26577801sp auto;
   margin-top: 1sp;
 }
+/*  Task */
+.TargetTextView {
+  color: #8587b1;
+  font: 2.8sp arial;
+  height: 3sp;
+  margin-top: 2.8sp;
+}
+.EquipDescTextView {
+  margin-top: 0.7sp;
+}
+.SubHeading {
+  color: #a7abab;
+  margin-top: 2sp;
+}
+.SubComment {
+  height: 9sp;
+  margin-top: 1.5sp;
+  width: 87%;
+}
+.SubCommentExpanded {
+  height: 9sp auto;
+  margin-top: 1.5sp;
+  width: 90%;
+}
+.WrapUnwrapLayout {
+  height: 6sp;
+  horizontal-align: center;
+  margin-top: 1sp;
+  width: 90%;
+}
+.WrapUnwrapImage {
+  vertical-align: center;
+  width: 10%;
+}
+.WrapUnwrapLine {
+  vertical-align: center;
+  width: 45%;
+}
+.CommentLayout {
+  height: 10sp auto;
+  horizontal-align: center;
+  margin-top: 3sp;
+  width: 90%;
+}
+.Comment {
+  background-color: #ffffff;
+  color: #51595b;
+  height: 10sp auto;
+  margin-bottom: 0.5sp;
+  padding-left: 3sp;
+  padding-right: 3sp;
+  placeholder-color: #a2a2aa;
+  width: 100%;
+}
+.CommentEndLine {
+  width: 100%;
+}
+/* Task Finish/Refuse Buttons */
+.FinishedRefuseButtonImageWrapper {
+  height: 6sp;
+  vertical-align: center;
+  width: 20%;
+}
+.FinishedRefuseButtonImage {
+  height: 100%;
+  horizontal-align: center;
+}
+.FinishedButtonInactive {
+  margin-top: 1.5sp;
+  border-color: #f2f2f3;
+  border-style: solid;
+  border-width: 3px;
+  height: 11sp;
+  horizontal-align: center;
+  width: 90%;
+}
+.FinishedButtonActive {
+  margin-top: 1.5sp;
+  border-color: #f0f1f2;
+  border-style: solid;
+  border-width: 3px;
+  height: 11sp;
+  horizontal-align: center;
+  width: 90%;
+}
+.FinishedButtonPressed {
+  margin-top: 1.5sp;
+  border-color: #97c66b;
+  border-style: solid;
+  border-width: 3px;
+  height: 11sp;
+  horizontal-align: center;
+  width: 90%;
+}
+.RefuseButton {
+  margin-top: 1.5sp;
+  border-color: #f6f6f7;
+  border-style: solid;
+  border-width: 3px;
+  height: 11sp;
+  horizontal-align: center;
+  width: 90%;
+}
+.RefuseButtonPressed {
+  margin-top: 1.5sp;
+  border-color: #eb5040;
+  border-style: solid;
+  border-width: 3px;
+  height: 11sp;
+  horizontal-align: center;
+  width: 90%;
+}
+.FinishedButtonInactiveText {
+  color: #c4c4c9;
+  font: 3.75sp arial;
+  padding-left: 5sp;
+  padding-bottom: 0.1sp;
+  height: 3.87sp;
+  text-align: left;
+  vertical-align: center;
+  width: 80%;
+}
+.FinishedButtonActiveText {
+  color: #8abf57;
+  font: 3.75sp arial;
+  padding-left: 5sp;
+  padding-bottom: 0.1sp;
+  height: 3.87sp;
+  text-align: left;
+  vertical-align: center;
+  width: 80%;
+}
+.FinishedButtonPressedText {
+  color: #8abf57;
+  font: 3.75sp arial;
+  padding-left: 5sp;
+  padding-bottom: 0.1sp;
+  height: 3.87sp;
+  text-align: left;
+  vertical-align: center;
+  width: 80%;
+}
+.RefuseButtonText {
+  color: #eb5040;
+  font: 3.75sp arial;
+  padding-left: 5sp;
+  padding-bottom: 0.1sp;
+  height: 3.87sp;
+  text-align: left;
+  vertical-align: center;
+  width: 80%;
+}
+.RefuseButtonPressedText {
+  color: #eb5040;
+  font: 3.75sp arial;
+  padding-left: 5sp;
+  padding-bottom: 0.1sp;
+  height: 3.87sp;
+  text-align: left;
+  vertical-align: center;
+  width: 80%;
+}
+.EquipmentDescriptionLayout {
+  height: 10sp auto;
+  width: 100%;
+}
+.DescriptionHorizontalCenterAlign {
+  height: 100%;
+  width: 90%;
+  horizontal-align: center;
+}
+.DescriptionVerticalAlign {
+  height: 0sp auto;
+  width: 100%;
+  vertical-align: central;
+}
+.EquipmentDescription {
+  horizontal-align: center;
+  height: 2.775sp auto;
+  white-space: nowrap;
+  width: 100%;
+  color: #8587b1;
+}
+.TargetContainer {
+  height: 12sp auto;
+  width: 90%;
+  horizontal-align: center;
+}
+.StateContainer {
+  width: 0sp auto;
+  vertical-align: center;
+  margin-right: 4sp;
+}
+.State {
+  height: 4sp;
+}
+.TargetDescription {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  white-space: normal;
+  width: 10sp auto;
+  vertical-align: center;
+  text-align: left;
+  margin-top: 2sp;
+  margin-bottom: 2sp;
+}
+.InternalScreenLayout {
+  height: 0sp auto;
+  width: 100%;
+}
 /* Settings style */
 .MainInfoContainer {
-  height: 100%;
+  height: 100% auto;
   width: 100%;
 }
 .MainPartContainer {
