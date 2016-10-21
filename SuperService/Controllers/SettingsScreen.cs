@@ -18,6 +18,8 @@ namespace Test
         {
             DConsole.WriteLine("SettingsScreen init");
             _tabBarComponent = new TabBarComponent(this);
+
+            Utils.TraceMessage($"Enable Push {Settings.EnablePush}");
         }
 
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
@@ -181,6 +183,37 @@ namespace Test
 
         internal void SendLog_OnClick(object sender, EventArgs e)
         {
+        }
+
+        internal bool IsPushEnable()
+            => Settings.EnablePush;
+
+        internal void ChangePushStatus_OnClick(object sender, EventArgs e)
+        {
+            var layout = (HorizontalLayout)sender;
+            var textview = (TextView)layout.GetControl("TaskFinishedButtonTextView", true);
+            var image = (Image)layout.GetControl("TaskFinishedButtonImage", true);
+
+            if (Settings.EnablePush)
+            {
+                var user = Settings.UserDetailedInfo;
+                user.EnablePush = !user.EnablePush;
+                DBHelper.SaveEntity(user, false);
+                layout.CssClass = "RefuseButton";
+                textview.CssClass = "RefuseButtonText";
+                image.Source = ResourceManager.GetImage("tasklist_notdone");
+                layout.Refresh();
+            }
+            else
+            {
+                var user = Settings.UserDetailedInfo;
+                user.EnablePush = !user.EnablePush;
+                DBHelper.SaveEntity(user, false);
+                layout.CssClass = "FinishedButtonPressed";
+                textview.CssClass = "FinishedButtonPressedText";
+                image.Source = ResourceManager.GetImage("tasklist_done");
+                layout.Refresh();
+            }
         }
     }
 }
