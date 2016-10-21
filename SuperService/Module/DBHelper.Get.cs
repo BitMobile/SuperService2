@@ -1,6 +1,7 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.DbEngine;
 using System;
+using Test.Catalog;
 using Test.Document;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
@@ -19,6 +20,26 @@ namespace Test
             return GetEvents(DateTime.MinValue);
         }
 
+        public static bool CheckRole(String RoleDesc)
+        {
+            var RecSetUser = GetUserInfoByUserName(Settings.User);
+            var role = (((User) ((DbRef) RecSetUser["Id"])?.GetObject())?.Role);
+            //Utils.TraceMessage($"{}");
+            //DConsole.WriteLine();
+            var queryString = @"Select CR.Id,CR.Description, EW.Name 
+                            from Catalog_Roles as CR 
+                            Left Join Catalog_RoleWebactions as CRW
+                            On CR.Id = CRW.Role 
+                            Left Join Enum_Webactions as EW
+                            On EW.Id = CRW.WebAction
+                            Where CR.Id = @RoleId And EW.Name = @WebActionRoleName ";
+            var query = new Query(queryString);
+            query.AddParameter("RoleId",$"{role}");
+            query.AddParameter("WebActionRoleName", RoleDesc);
+            int count = query.ExecuteCount();
+            if (count > 0) return true;
+            return false;
+        }
         /// <summary>
         ///     Method returns list of events which plan start date biger then param
         ///     Получает список событий плановая дата начала которых больше передаваемого параметра
@@ -26,6 +47,7 @@ namespace Test
         /// <param name="eventSinceDate"> Дата начания с которой необходимо получить события</param>
         public static DbRecordset GetEvents(DateTime eventSinceDate)
         {
+            bool EventsShowSubordinate = CheckRole("EventsShowSubordinate");
             var queryString = @"select
                                  event.Id,
                                  event.StartDatePlan,
@@ -45,6 +67,8 @@ namespace Test
                                  Document_Event as event
                                    left join Catalog_Client as client
                                    on event.client = client.Id
+                                    left join Catalog_User as CU
+                                        ON CU.Id = event.UserMA
                                      left join
                                         (select
                                             t1.Ref,
@@ -70,8 +94,19 @@ namespace Test
 
                                 left join Enum_StatusyEvents
                                     on event.status = Enum_StatusyEvents.Id
-                                where
-                                    event.DeletionMark = 0
+                                where ";
+            var RecSetUser = GetUserInfoByUserName(Settings.User);
+            String refUser = $"{(DbRef)RecSetUser["Id"]}";
+            queryString += @"event.UserMA = '" + refUser +"'";
+            if (EventsShowSubordinate)
+            {
+                queryString += @" OR CU.Manager = '" + refUser + "' AND";
+            }
+            else
+            {
+                queryString += @" AND ";
+            }
+            queryString += @" event.DeletionMark = 0
                                     AND (event.StartDatePlan >= @eventDate
                                               OR (event.ActualEndDate > date('now','start of day') and Enum_StatusyEvents.Name IN (@statusDone, @statusCancel))
                                               OR (Enum_StatusyEvents.Name IN (@statusAppointed, @statusInWork)))
@@ -80,13 +115,11 @@ namespace Test
                                 event.StartDatePlan";
 
             var query = new Query(queryString);
-
             query.AddParameter("eventDate", eventSinceDate);
             query.AddParameter("statusDone", EventStatusDoneName);
             query.AddParameter("statusCancel", EventStatusCancelName);
             query.AddParameter("statusAppointed", EventStatusAppointed);
             query.AddParameter("statusInWork", EventStatusInWork);
-
             return query.Execute();
         }
 
