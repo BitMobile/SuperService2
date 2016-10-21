@@ -96,6 +96,7 @@
                 </c:VerticalLayout>
               </c:HorizontalLayout>
             </c:VerticalLayout>
+            <c:Button Id="DelegateButton" Text="#delegate#" CssClass="RefuseButton" />
           </c:HorizontalLayout>
         </c:VerticalLayout>
       </c:VerticalLayout>
