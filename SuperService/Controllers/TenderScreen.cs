@@ -194,7 +194,8 @@ namespace Test
             => $"{currency:C2}";
 
         internal void AddTask_OnClick(object sender, EventArgs e)
-            => Toast.MakeToast("Тут будет экран добавления задачи");
+            => Navigation.Move(nameof(AddTaskScreen), new Dictionary<string, object>
+            { {Parameters.IdTenderId, Variables.GetValueOrDefault(Parameters.IdTenderId)} });
 
         internal void OpenMarketplace_OnClick(object sender, EventArgs e)
         {

@@ -52,9 +52,9 @@ namespace Test
             get
             {
                 return _userId?.Length == 0 ?
-                  $"{((DbRef)DBHelper.GetUserInfoByUserName(User)["Id"]).Guid}" : _userId;
+                  _userId = $"{UserDetailedInfo.Id.Guid}" : _userId;
             }
-            set { _userId = value; }
+            private set { _userId = value; }
         }
 
         public static string PushServer { get; set; }
