@@ -27,18 +27,17 @@ namespace Test
                 ArrowVisible = false,
                 ArrowActive = false,
                 Header = Translator.Translate("delegate"),
-                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") }
+                LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_back")}
             };
 
-            _isAsTask = (bool)Variables.GetValueOrDefault(Parameters.IsAsTask, false);
-
-            _topInfoComponent.ActivateBackButton();
+           _isAsTask = (bool) Variables.GetValueOrDefault(Parameters.IsAsTask, false);
+  
+           _topInfoComponent.ActivateBackButton();
         }
 
 
         private void LoadControls()
         {
-            
         }
 
 
@@ -52,13 +51,23 @@ namespace Test
         {
             return findText;
         }
+
         internal void BtnSearch_Click(object sender, EventArgs eventArgs)
         {
 
-            findText = ((EditText)GetControl("position", true)).Text;
-            var eventId = (string)Variables[Parameters.IdCurrentEventId];
-            Navigation.ModalMove(nameof(DelegateScreen),new Dictionary<string, object>
-            { {Parameters.IdCurrentEventId, eventId},{Parameters.IsAsTask,_isAsTask} },null,ShowAnimationType.Refresh);
+            findText = ((EditText) GetControl("position", true)).Text;
+            if (_isAsTask)
+            {
+                Navigation.ModalMove(nameof(DelegateScreen), null, null, ShowAnimationType.Refresh);
+            }
+            else
+            {
+                var eventId = (string)Variables[Parameters.IdCurrentEventId];
+                Navigation.ModalMove(nameof(DelegateScreen), new Dictionary<string, object>
+            { {Parameters.IdCurrentEventId, eventId},{Parameters.IsAsTask,_isAsTask} }, null, ShowAnimationType.Refresh);
+
+            }
+
         }
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
