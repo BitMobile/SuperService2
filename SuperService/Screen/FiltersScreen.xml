@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:DockLayout Id="9d68303696d7440ba9d7dc098be3ebd1" CssClass="RootLayout">
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <c:ScrollView Id="c9c77e671ef64d128a4ecfea7cdf5bbf"
+                  CssClass="RootLayout">
+      <c:VerticalLayout>
+        <s:Iterator Id="filters" Value="$GetFilters()">
+          <c:HorizontalLine CssClass="Line" />
+          <c:HorizontalLayout Id="$filters.Id" CssClass="ClientListItemVL" OnClick="SelectFilter_OnClick">
+            <c:Image Id="Img{$filters.Id}" Source="$GetCurrentStatus($filters.Id)" CssClass="State" />
+            <c:VerticalLayout Id="3b4ad009eabb400ca0fc2372a3f2033a" CssClass="VerticalLine" />
+            <c:TextView Text="$filters.Description" CssClass="ClientListNameTV" />
+          </c:HorizontalLayout>
+          <c:HorizontalLine CssClass="Line" />
+        </s:Iterator>
+      </c:VerticalLayout>
+    </c:ScrollView>
+  </c:DockLayout>
+</c:Screen>

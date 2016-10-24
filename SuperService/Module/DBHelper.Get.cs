@@ -96,6 +96,16 @@ namespace Test
                                     on event.status = Enum_StatusyEvents.Id
                                 where ";
             var RecSetUser = GetUserInfoByUserName(Settings.User);
+            if (Filter.SelectedFilterId != null)
+            {
+                String idFilterSql = GetFiltersSql();
+                Utils.TraceMessage(idFilterSql);
+                if (idFilterSql.Trim()!="")
+                {
+                    queryString += @"" + idFilterSql + " AND ";
+                }
+            }
+
             String refUser = $"{(DbRef)RecSetUser["Id"]}";
             queryString += @"event.UserMA = '" + refUser +"'";
             if (EventsShowSubordinate)
@@ -128,6 +138,15 @@ namespace Test
         ///     закрытых
         ///     нарядов за день, количество нарядов с начала месяца, количество закрытых нарядов с начала месяца
         /// </summary>
+        public static String GetFiltersSql()
+        {
+            var query = new Query(@"SELECT
+                                    Query
+                                    FROM Catalog_MobileTaskFilters
+                                    Where Id = '" + Filter.SelectedFilterId+"'");
+            //Utils.TraceMessage(query.ExecuteScalar().ToString());
+            return query.ExecuteScalar().ToString();
+        }
         public static EventsStatistic GetEventsStatistic()
         {
             var statistic = new EventsStatistic();
@@ -1453,6 +1472,16 @@ namespace Test
             return query.Execute();
         }
 
+        public static DbRecordset GetFilters(String filter = "")
+        {
+            var query = new Query(@"SELECT
+                          Id,
+                          Description
+                        FROM Catalog_MobileTaskFilters");
+
+            return query.Execute();
+
+        }
         public static DbRecordset GetUsers(String filter ="")
         {
             var query = new Query(@"SELECT

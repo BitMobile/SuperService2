@@ -46,7 +46,7 @@ namespace Test
                 ((string)_currentEventRecordset["Client_Address"]).CutForUIOutput(17, 2)));
 
             _topInfoComponent.LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") };
-            _topInfoComponent.RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_info") };
+            _topInfoComponent.RightButtonControl = new Image { Source = ResourceManager.GetImage("tender_chat") };
 
             _taskCommentTextView = (TextView)GetControl("EventCommentTextView", true);
             _wrapUnwrapImage = (Image)GetControl("WrapUnwrapImage", true);

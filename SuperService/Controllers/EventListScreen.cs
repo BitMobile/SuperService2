@@ -23,7 +23,7 @@ namespace Test
             _tabBarComponent = new TabBarComponent(this);
             _topInfoComponent = new TopInfoComponent(this)
             {
-                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_sync") },
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_filter") },
                 RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_map") },
                 Header = Translator.Translate("tasks")
             };
@@ -225,8 +225,9 @@ namespace Test
         // TopInfo parts
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            Toast.MakeToast(Translator.Translate("start_sync"));
-            DBHelper.SyncAsync();
+            Navigation.Move(nameof(FiltersScreen));
+            //Toast.MakeToast(Translator.Translate("start_sync"));
+            //DBHelper.SyncAsync();
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)

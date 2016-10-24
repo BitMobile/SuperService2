@@ -114,6 +114,8 @@ namespace Test
             //TaskScreen
             {"task_target_done", @"Image\TaskScreen\done.png" },
             {"task_target_not_done", @"Image\TaskScreen\not_done.png" },
+            //TenderScreen
+            {"tender_chat", @"Image\TenderScreen\chart.png" },
         };
 
         public static string GetImage(string tag)
