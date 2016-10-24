@@ -113,7 +113,7 @@ namespace Test
 
         internal void AddService_OnClick(object sender, EventArgs e)
         {
-            if(_isReadOnly) return;
+            if (_isReadOnly) return;
 
             var eventStatus = (string)_currentEventDbRecordset["statusName"];
             if (eventStatus.Equals(EventStatus.Appointed))
@@ -218,30 +218,30 @@ namespace Test
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
         {
             var vl = (VerticalLayout)sender;
-            var hl = (IHorizontalLayout3)vl.Parent;
-            var shl = (ISwipeHorizontalLayout3)hl.Parent;
+            var hl = (HorizontalLayout)vl.Parent;
+            var shl = (SwipeHorizontalLayout)hl.Parent;
             ++shl.Index;
         }
 
         internal void DeleteButton_OnClick(object sender, EventArgs e)
         {
-            if(_isReadOnly) return;
+            if (_isReadOnly) return;
 
             var vl = (HorizontalLayout)sender;
             var deleted = CheckAndMaybeDelete(vl.Id);
             if (deleted)
             {
-                var shl = (ISwipeHorizontalLayout3)vl.Parent;
-                var outerVl = (IVerticalLayout3)shl.Parent;
+                var shl = (SwipeHorizontalLayout)vl.Parent;
+                var outerVl = (VerticalLayout)shl.Parent;
                 outerVl.CssClass = "NoHeight";
                 outerVl.Refresh();
             }
             else
             {
-                var shl = (ISwipeHorizontalLayout3)vl.Parent;
-                var hl = (IHorizontalLayout3)shl.Controls[0];
-                var priceContainer = (IVerticalLayout3)hl.Controls[1];
-                var priceTv = (ITextView3)priceContainer.Controls[1];
+                var shl = (SwipeHorizontalLayout)vl.Parent;
+                var hl = (HorizontalLayout)shl.Controls[0];
+                var priceContainer = (VerticalLayout)hl.Controls[1];
+                var priceTv = (TextView)priceContainer.Controls[1];
                 var sm = (Event_ServicesMaterials)DBHelper.LoadEntity(vl.Id);
                 var sku = (RIM)sm.SKU.GetObject();
                 priceTv.Text =
