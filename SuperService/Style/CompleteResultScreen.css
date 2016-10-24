@@ -254,97 +254,53 @@ HorizontalLine {
   horizontal-align: right;
   margin-right: 5sp;
 }
-.RootLayout {
-  background-color: #4a4b5e;
-  height: 100%;
-  width: 100%;
-}
-/* CloseEvent Screen */
-.TopLayout {
+.ClientListItemVL {
   height: 5sp auto;
-  padding-top: 1sp;
-  width: 100%;
-}
-.TopButton {
-  color: #fd724c;
-  font: 3sp arial;
-  height: 0% auto;
-  text-align: center;
-  vertical-align: center;
-  width: 33%;
-}
-.TopHeading {
-  color: #ffffff;
-  font: 3sp arial;
-  height: 0% auto;
-  text-align: center;
-  vertical-align: center;
-  width: 33%;
-}
-.EmptySpace4sp {
-  height: 4sp;
-  width: 100%;
-}
-.CommentLayout {
-  height: 4sp auto;
   horizontal-align: center;
+  width: 100%;
+}
+.ClientListNameTV {
+  color: #51595b;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  horizontal-align: left;
+  margin-left: 5.5sp;
   margin-top: 3sp;
+  margin-bottom: 3sp;
+  text-align: left;
+  width: 90%;
+  white-space: nowrap;
+}
+.ClientListBreaker {
   width: 90%;
 }
-.Comment {
-  background-color: #4a4b5e;
-  color: #ffffff;
-  height: 9.375sp auto;
-  margin-bottom: 0.5sp;
-  padding-left: 3sp;
-  padding-right: 3sp;
-  placeholder-color: #a2a2aa;
+.FindTextDL {
+  margin-top: 3sp;
   width: 100%;
+  height: 5sp;
 }
-.CommentEndLine {
-  background-color: #777886;
-  height: 2px;
-  width: 100%;
-}
-.BigButton {
-  background-color: #4a4b5e;
-  border-color: #ffffff;
+Button {
+  background-color: #fd724c;
+  border-color: #fd724c;
   border-style: solid;
   border-width: 2px;
-  height: 12sp;
-  horizontal-align: center;
-  margin-top: 2sp;
-  width: 90%;
-}
-.BigButtonPressed {
-  background-color: #fd724c;
-  border-style: solid;
-  height: 12sp;
-  horizontal-align: center;
-  /*border-width: 2px;
-    border-color: #732611;*/
-  margin-top: 2sp;
-  width: 90%;
-}
-.BigButtonImage {
-  height: 6sp;
-  margin-left: 5sp;
-  vertical-align: center;
-}
-.BigButtonTextView {
   color: #ffffff;
-  font: 3sp arial;
-  margin-left: 2sp;
-  text-align: left;
-  vertical-align: center;
-  width: 60% auto;
+  horizontal-align: right;
+  selected-background: #fdb29e;
 }
-.BigButtonTextViewEnd {
-  color: #ffffff;
-  font: 3sp arial;
-  margin-left: 5sp;
-  text-align: left;
-  vertical-align: center;
-  width: 40%;
-  white-space: normal;
+.findButton {
+  background-color: ff7c4a;
+  width: 25%;
+  height: 100%;
+  margin-bottom: 15%;
+  margin-right: 5%;
+}
+.FindText {
+  margin-left: 5%;
+  width: 70%;
+  height: 100%;
+  color: #51595b;
+}
+.LineUnderSearch {
+  width: 100%;
 }

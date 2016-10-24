@@ -23,23 +23,24 @@ namespace Test
         public static bool CheckRole(String RoleDesc)
         {
             var RecSetUser = GetUserInfoByUserName(Settings.User);
-            var role = (((User) ((DbRef) RecSetUser["Id"])?.GetObject())?.Role);
+            var role = (((User)((DbRef)RecSetUser["Id"])?.GetObject())?.Role);
             //Utils.TraceMessage($"{}");
             //DConsole.WriteLine();
-            var queryString = @"Select CR.Id,CR.Description, EW.Name 
-                            from Catalog_Roles as CR 
+            var queryString = @"Select CR.Id,CR.Description, EW.Name
+                            from Catalog_Roles as CR
                             Left Join Catalog_RoleWebactions as CRW
-                            On CR.Id = CRW.Role 
+                            On CR.Id = CRW.Role
                             Left Join Enum_Webactions as EW
                             On EW.Id = CRW.WebAction
                             Where CR.Id = @RoleId And EW.Name = @WebActionRoleName ";
             var query = new Query(queryString);
-            query.AddParameter("RoleId",$"{role}");
+            query.AddParameter("RoleId", $"{role}");
             query.AddParameter("WebActionRoleName", RoleDesc);
             int count = query.ExecuteCount();
             if (count > 0) return true;
             return false;
         }
+
         /// <summary>
         ///     Method returns list of events which plan start date biger then param
         ///     Получает список событий плановая дата начала которых больше передаваемого параметра
@@ -97,7 +98,7 @@ namespace Test
                                 where ";
             var RecSetUser = GetUserInfoByUserName(Settings.User);
             String refUser = $"{(DbRef)RecSetUser["Id"]}";
-            queryString += @"event.UserMA = '" + refUser +"'";
+            queryString += @"event.UserMA = '" + refUser + "'";
             if (EventsShowSubordinate)
             {
                 queryString += @" OR CU.Manager = '" + refUser + "' AND";
@@ -418,7 +419,7 @@ namespace Test
         /// <summary>
         ///     Возвращает список всех клиентов
         /// </summary>
-        public static DbRecordset GetClients(String filter="")
+        public static DbRecordset GetClients(String filter = "")
         {
             var query = new Query(@"select
                                         Catalog_Client.Id,
@@ -1364,7 +1365,7 @@ namespace Test
             return query.Execute();
         }
 
-  public static DbRecordset GetTenderList(object userId)
+        public static DbRecordset GetTenderList(object userId)
         {
             var query = new Query(@"SELECT
                                       Tender.Id                AS Id,
@@ -1382,7 +1383,7 @@ namespace Test
                                       LEFT JOIN
                                       _Catalog_ActivityTypes As ActivityTypeC
                                         ON ActivityTypes.ActivityType = ActivityTypeC.Id
-                                      LEFT JOIN 
+                                      LEFT JOIN
                                         _Catalog_ActivityTypes_Users AS ActivityTypeUser
                                         ON ActivityTypeUser.Ref = ActivityTypeC.Id
                                       LEFT JOIN
@@ -1453,7 +1454,7 @@ namespace Test
             return query.Execute();
         }
 
-        public static DbRecordset GetUsers(String filter ="")
+        public static DbRecordset GetUsers(String filter = "")
         {
             var query = new Query(@"SELECT
                           Id,
@@ -1464,8 +1465,7 @@ namespace Test
                 query.Text += $@" Where Contains(Description,'{filter}')";
             }
             return query.Execute();
-
-        } 
+        }
 
         public static DbRecordset GetTaskTypes()
             => new Query(@"SELECT
@@ -1478,5 +1478,11 @@ namespace Test
                           Id,
                           Description
                         FROM Enum_StatusImportance").Execute();
+
+        public static DbRecordset GetEventResults()
+            => new Query(@"SELECT
+                          Id,
+                          Description
+                        FROM _Catalog_EventResults").Execute();
     }
 }

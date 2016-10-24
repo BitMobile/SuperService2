@@ -124,5 +124,10 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
+
+        internal void CloseEvent_OnClick(object sender, EventArgs e)
+        {
+            Navigation.ModalMove(nameof(CompleteResultScreen));
+        }
     }
 }

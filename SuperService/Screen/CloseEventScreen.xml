@@ -8,6 +8,10 @@
       <c:Button Text="#send#" Id="FinishButton" OnClick="FinishButton_OnClick" CssClass="TopButton" />
     </c:HorizontalLayout>
     <c:HorizontalLayout CssClass="EmptySpace4sp" />
+    <c:HorizontalLayout Id="WantToBuyButton" CssClass="BigButton" OnClick="CloseEvent_OnClick">
+      <c:TextView Text="#complete_results#" CssClass="BigButtonTextViewEnd" />
+    </c:HorizontalLayout>
+    <c:HorizontalLayout CssClass="EmptySpace4sp" />
     <c:VerticalLayout CssClass="CommentLayout">
       <c:MemoEdit Placeholder="#comment...#" Id="CommentaryMemoEdit" CssClass="Comment" />
       <c:HorizontalLine CssClass="CommentEndLine" />

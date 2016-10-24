@@ -234,5 +234,12 @@
     "minify": {
       "enabled": false
     }
+  },
+   {  
+    "outputFile": "Style/CompleteResultScreen.css",
+    "inputFile": "Style/Less/CompleteResultScreen.less",
+    "minify": {
+      "enabled": false
+    }
   }
 ]

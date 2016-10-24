@@ -174,3 +174,4 @@ new_task		Вам назначена новая задача
 title		Название
 Search		Найти
 push_message		Push сообщения
+complete_results		Результат завершения
