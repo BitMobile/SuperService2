@@ -53,7 +53,7 @@ namespace Test
                                  event.StartDatePlan,
                                  date(event.StartDatePlan) as startDatePlanDate, --date only
                                  event.EndDatePlan,
-                                 ifnull(TypeDeparturesTable.description, '') as TypeDeparture,
+                                 ifnull(ETE.description, '') as TypeDeparture,
                                  event.ActualStartDate as ActualStartDate, --4
                                  ifnull(Enum_StatusImportance.Description, '') as Importance,
                                  ifnull(Enum_StatusImportance.Name, '') as ImportanceName,
@@ -69,6 +69,9 @@ namespace Test
                                    on event.client = client.Id
                                     left join Catalog_User as CU
                                         ON CU.Id = event.UserMA
+                                  LEFT JOIN Enum_TypesEvents AS ETE
+                                    ON ETE.Id = event.KindEvent
+
                                      left join
                                         (select
                                             t1.Ref,
@@ -200,7 +203,7 @@ namespace Test
                                   --плановая дата начала
                                   Date(event.StartDatePlan)         AS StartDatePlanDate,
                                   Time(event.StartDatePlan)         AS StartDatePlanTime,
-                                  TypeDeparturesTable.description   AS TypeDeparture,
+                                  ETE.description   AS TypeDeparture,
                                   --вид работ - выбирается одна из табличной части
                                   event.ActualStartDate,
                                   --фактическая дата начала
@@ -246,7 +249,8 @@ namespace Test
                                   Document_Event AS event
                                   LEFT JOIN Catalog_Client AS client
                                     ON event.id = @id AND event.client = client.Id
-
+                                  LEFT JOIN Enum_TypesEvents AS ETE
+                                    ON ETE.Id = event.KindEvent
                                   LEFT JOIN
                                   (SELECT
                                      t1.Ref,

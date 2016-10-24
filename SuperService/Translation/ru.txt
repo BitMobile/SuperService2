@@ -9,7 +9,7 @@ tasks		Задачи
 coc		АВР
 clist		Чек-лист
 time		Время
-workType		Тип Работ
+workType		Тип Задачи
 comment		Описание
 onmap		Посмотреть на карте
 closeeventquestion		Закрыть наряд?
