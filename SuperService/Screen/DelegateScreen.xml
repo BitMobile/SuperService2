@@ -8,8 +8,8 @@
     <c:HorizontalLayout Id="9d68303696d7440ba9d7dc098be3ebd1" CssClass="FindTextDL">
       <c:EditText Id="position" Text="$GetFindText()" CssClass="FindText"/>
       <c:Button Id="finButton" Text="#Search#" OnClick="BtnSearch_Click" CssClass="findButton"/>
-    </c:HorizontalLayout>
-    <c:HorizontalLine/>
+    </c:HorizontalLayout >
+    <c:HorizontalLine CssClass="LineUnderSearch"/>
     <c:ScrollView Id="c9c77e671ef64d128a4ecfea7cdf5bbf"
                   CssClass="RootLayout">
       <s:Iterator Id="users" Value="$GetUsers()">

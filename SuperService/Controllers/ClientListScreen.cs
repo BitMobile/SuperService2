@@ -3,6 +3,7 @@ using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BitMobile.Common.Controls;
 using Test.Components;
 
 namespace Test
@@ -12,6 +13,7 @@ namespace Test
         private TabBarComponent _tabBarComponent;
         private TopInfoComponent _topInfoComponent;
         private bool _isAddTask;
+        private static string findText;
 
         public override void OnLoading()
         {
@@ -37,6 +39,25 @@ namespace Test
             GpsTracking.Start();
         }
 
+        internal String GetFindText()
+        {
+            return findText;
+        }
+
+        internal void BtnSearch_Click(object sender, EventArgs eventArgs)
+        {
+            findText = ((EditText)GetControl("position", true)).Text;
+            if (_isAddTask)
+            {
+
+                Navigation.ModalMove(nameof(ClientListScreen), new Dictionary<string, object>
+                    { {Parameters.IsAsTask, _isAddTask} }, null, ShowAnimationType.Refresh);
+            }
+            else
+            {
+                Navigation.ModalMove(nameof(ClientListScreen), null, null, ShowAnimationType.Refresh);
+            }
+        }
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
         {
             _tabBarComponent?.Events_OnClick(sender, eventArgs);
@@ -98,7 +119,7 @@ namespace Test
         internal IEnumerable GetClients()
         {
             DConsole.WriteLine("получение клиентов");
-            var result = DBHelper.GetClients();
+            var result = DBHelper.GetClients(findText);
             DConsole.WriteLine("Получили клиентов");
 
             //var result2 = DBHelper.GetClients();

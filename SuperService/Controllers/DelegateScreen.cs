@@ -58,7 +58,8 @@ namespace Test
             findText = ((EditText) GetControl("position", true)).Text;
             if (_isAsTask)
             {
-                Navigation.ModalMove(nameof(DelegateScreen), null, null, ShowAnimationType.Refresh);
+                Navigation.ModalMove(nameof(DelegateScreen), new Dictionary<string, object>
+                { {Parameters.IsAsTask,_isAsTask} }, null, ShowAnimationType.Refresh);
             }
             else
             {

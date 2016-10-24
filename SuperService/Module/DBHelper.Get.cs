@@ -418,7 +418,7 @@ namespace Test
         /// <summary>
         ///     Возвращает список всех клиентов
         /// </summary>
-        public static DbRecordset GetClients()
+        public static DbRecordset GetClients(String filter="")
         {
             var query = new Query(@"select
                                         Catalog_Client.Id,
@@ -431,7 +431,10 @@ namespace Test
 
                                   where
                                       Catalog_Client.DeletionMark = 0");
-
+            if (!String.IsNullOrEmpty(filter))
+            {
+                query.Text += $@" AND (Contains(Description,'{filter}') OR Contains(Address,'{filter}'))";
+            }
             return query.Execute();
         }
 

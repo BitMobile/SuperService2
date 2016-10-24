@@ -292,6 +292,7 @@ Button {
   background-color: ff7c4a;
   width: 20%;
   height: 100%;
+  margin-bottom: 15%;
   margin-right: 5%;
 }
 .FindText {
@@ -299,4 +300,7 @@ Button {
   width: 75%;
   height: 100%;
   color: #51595b;
+}
+.LineUnderSearch {
+  width: 100%;
 }

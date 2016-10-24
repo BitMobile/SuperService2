@@ -11,6 +11,11 @@
       <!-- Tab Bar-->
       <s:Include File="Components\TabBarСomponent.xml" />
     </s:If>
+    <c:HorizontalLayout Id="9d68303696d7440ba9d7dc098be3ebd1" CssClass="FindTextDL">
+      <c:EditText Id="position" Text="$GetFindText()" CssClass="FindText"/>
+      <c:Button Id="finButton" Text="#Search#" OnClick="BtnSearch_Click" CssClass="findButton"/>
+    </c:HorizontalLayout >
+    <c:HorizontalLine CssClass="LineUnderSearch"/>
     <!-- Список контактов -->
     <c:ScrollView CssClass="ClientListMainSVL">
       <c:VerticalLayout CssClass="VerticalLayoutForScroll">
