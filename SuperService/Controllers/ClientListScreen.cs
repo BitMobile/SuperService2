@@ -60,12 +60,14 @@ namespace Test
         }
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
         {
+            findText = null;
             _tabBarComponent?.Events_OnClick(sender, eventArgs);
             DConsole.WriteLine("Clients Events");
         }
 
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
         {
+            findText = null;
             _tabBarComponent?.TendersListScreen_OnClick(sender, eventArgs);
             DConsole.WriteLine("Clients Bag");
         }
@@ -78,12 +80,14 @@ namespace Test
 
         internal void TabBarFourthButton_OnClick(object sender, EventArgs eventArgs)
         {
+            findText = null;
             _tabBarComponent?.Settings_OnClick(sender, eventArgs);
             DConsole.WriteLine("Clients Settings");
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
+            findText = null;
             if (_isAddTask)
                 Navigation.ModalMove(nameof(AddTaskScreen));
         }
@@ -104,6 +108,7 @@ namespace Test
 
         internal void ClientLayout_OnClick(object sender, EventArgs eventArgs)
         {
+            findText = null;
             if (!_isAddTask)
             {
                 DConsole.WriteLine("ClientLayout_OnClick " + ((VerticalLayout)sender).Id);
