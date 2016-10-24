@@ -4,6 +4,7 @@ using BitMobile.DbEngine;
 using ClientModel3.MD;
 using System;
 using System.Collections.Generic;
+using BitMobile.Common.Controls;
 using Test.Catalog;
 using Test.Components;
 using Test.Document;
@@ -15,6 +16,7 @@ namespace Test
     {
         private bool _isAsTask;
         private TopInfoComponent _topInfoComponent;
+        private static String findText;
 
         public override void OnLoading()
         {
@@ -31,12 +33,33 @@ namespace Test
             _topInfoComponent.ActivateBackButton();
         }
 
-        public override void OnShow()
+
+        private void LoadControls()
         {
+            
         }
 
+
+        public override void OnShow()
+        {
+            LoadControls();
+        }
+
+        internal String GetFindText()
+        {
+            return findText;
+        }
+        internal void BtnSearch_Click(object sender, EventArgs eventArgs)
+        {
+
+            findText = ((EditText)GetControl("position", true)).Text;
+            var eventId = (string)Variables[Parameters.IdCurrentEventId];
+            Navigation.ModalMove(nameof(DelegateScreen),new Dictionary<string, object>
+            { {Parameters.IdCurrentEventId, eventId},{Parameters.IsAsTask,_isAsTask} },null,ShowAnimationType.Refresh);
+        }
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
+            findText = null;
             if (_isAsTask)
                 Navigation.ModalMove(nameof(AddTaskScreen));
             else
@@ -55,26 +78,30 @@ namespace Test
             => ResourceManager.GetImage($"{tag}");
 
         internal DbRecordset GetUsers()
-            => DBHelper.GetUsers();
+            => DBHelper.GetUsers(findText);
 
         internal bool GetCurUserOrNO(DbRef UsId)
         {
-            return Settings.UserId != $"{UsId.Guid}";
+            if (_isAsTask) return true;
+
+            return !String.Equals(Settings.UserId, $"{UsId.Guid}", StringComparison.CurrentCultureIgnoreCase);
         }
 
         internal void SelectUser_OnClick(object sender, EventArgs e)
         {
             if (_isAsTask)
             {
+                findText = null;
                 Navigation.ModalMove(nameof(AddTaskScreen),
                     new Dictionary<string, object>
                     { {Parameters.IdUserId, ((VerticalLayout) sender).Id} });
             }
             else
             {
-                var eventId = (string)Variables[Parameters.IdCurrentEventId];
+                
                 try
                 {
+                    var eventId = (string)Variables[Parameters.IdCurrentEventId];
                     Utils.TraceMessage($"{eventId.GetType()}");
                     var currentEvent = (Event)DBHelper.LoadEntity(eventId.ToString());
                     var user = (User)DBHelper.LoadEntity(((VerticalLayout)sender).Id);
@@ -97,6 +124,7 @@ namespace Test
                         }
                         finally
                         {
+                            findText = null;
                             Navigation.CleanStack();
                             Navigation.ModalMove(nameof(EventListScreen));
                         }

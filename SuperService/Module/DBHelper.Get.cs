@@ -1450,11 +1450,19 @@ namespace Test
             return query.Execute();
         }
 
-        public static DbRecordset GetUsers()
-            => new Query(@"SELECT
+        public static DbRecordset GetUsers(String filter ="")
+        {
+            var query = new Query(@"SELECT
                           Id,
                           Description
-                        FROM _Catalog_User").Execute();
+                        FROM _Catalog_User");
+            if (!String.IsNullOrEmpty(filter))
+            {
+                query.Text += $@" Where Contains(Description,'{filter}')";
+            }
+            return query.Execute();
+
+        } 
 
         public static DbRecordset GetTaskTypes()
             => new Query(@"SELECT

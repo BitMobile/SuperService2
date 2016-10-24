@@ -3,6 +3,7 @@ using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BitMobile.Common.Controls;
 using Stack = BitMobile.ClientModel3.Stack;
 
 namespace Test
@@ -121,10 +122,10 @@ namespace Test
         /// <param name="name">Имя экрана</param>
         /// <param name="args">Словарь аргументов</param>
         /// <param name="css">Путь к файлу стилей</param>
-        public static void ModalMove(string name, IDictionary<string, object> args = null, string css = null)
+        public static void ModalMove(string name, IDictionary<string, object> args = null, string css = null, ShowAnimationType AnimationType = ShowAnimationType.GoNext)
         {
             var screenInfo = CreateScreenInfoFromName(name, css);
-            ModalMove(screenInfo, args);
+            ModalMove(screenInfo, args,null ,AnimationType);
         }
 
         /// <summary>
@@ -134,7 +135,7 @@ namespace Test
         /// <param name="args">Словарь аргументов</param>
         /// <param name="screen">Ссылка на целевой экран</param>
         public static void ModalMove(ScreenInfo screenInfo, IDictionary<string, object> args = null,
-            Screen screen = null)
+            Screen screen = null,ShowAnimationType AnimationType = ShowAnimationType.GoNext)
         {
             try
             {
@@ -171,7 +172,7 @@ namespace Test
                 }
                 CurrentScreenInfo = screenInfo;
                 CurrentScreen = screen;
-                screen.Show();
+                screen.Show(AnimationType);
                 _nonModalMove = false;
             }
             catch (Exception e)

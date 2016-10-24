@@ -5,6 +5,11 @@
           xmlns:s="clr-namespace:BitMobile.ValueStack;assembly=Common.W">-->
   <c:DockLayout Id="9d68303696d7440ba9d7dc098be3ebd1" CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
+    <c:HorizontalLayout Id="9d68303696d7440ba9d7dc098be3ebd1" CssClass="FindTextDL">
+      <c:EditText Id="position" Text="$GetFindText()" CssClass="FindText"/>
+      <c:Button Id="finButton" Text="#Search#" OnClick="BtnSearch_Click" CssClass="findButton"/>
+    </c:HorizontalLayout>
+    <c:HorizontalLine/>
     <c:ScrollView Id="c9c77e671ef64d128a4ecfea7cdf5bbf"
                   CssClass="RootLayout">
       <s:Iterator Id="users" Value="$GetUsers()">
