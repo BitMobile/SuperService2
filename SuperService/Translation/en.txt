@@ -173,3 +173,4 @@ assign_on		Assign on user
 new_task		A new task is assigned to you
 title		Title
 Search		Search
+push_message		Push message

@@ -3,6 +3,7 @@ using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using Test.Components;
 using Test.Module;
 
@@ -105,7 +106,8 @@ namespace Test
 
         internal string GetDateNowEventList()
         {
-            return DateTime.Now.ToString("dd-MM-yyyy");
+            //return DateTime.Now.ToString("dd-MM-yyyy");
+            return DateTime.Now.ToString("g");
         }
 
         internal string DateTimeToDateWithWeekCheck(string datetime)
@@ -165,17 +167,25 @@ namespace Test
         }
 
         internal bool IsDateEquals(string lastdate, string nowdate)
-        {
-            if (DateTime.Parse(lastdate).Date == DateTime.Parse(nowdate).Date)
-            {
-                return true;
-            }
-            return false;
-        }
+            => DateTime.Parse(lastdate).Date == DateTime.Parse(nowdate).Date;
 
         internal bool IsDateEqualsOrLess(string lastdate, string nowdate)
         {
-            return DateTime.Parse(lastdate).Date >= DateTime.Parse(nowdate).Date;
+            //return DateTime.Parse(lastdate).Date >= DateTime.Parse(nowdate).Date;
+            DateTime lastDate, nowDate;
+
+            if (!DateTime.TryParse(lastdate, out lastDate))
+            {
+                Utils.TraceMessage($"LastDate: {lastdate}{Environment.NewLine}" +
+                                   $"NowDate: {nowdate}");
+            }
+
+            if (!DateTime.TryParse(nowdate, out nowDate))
+            {
+                Utils.TraceMessage($"NowDate: {nowdate}");
+            }
+
+            return lastDate.Date >= nowDate.Date;
         }
 
         internal bool IsDateChanged(string lastdate, string nowdate)

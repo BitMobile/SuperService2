@@ -14,9 +14,11 @@ namespace Test
 {
     public class DelegateScreen : Screen
     {
+        private bool _init = default(bool);
         private bool _isAsTask;
         private TopInfoComponent _topInfoComponent;
         private static String findText;
+        private Guid _userId;
 
         public override void OnLoading()
         {
@@ -42,6 +44,7 @@ namespace Test
 
         public override void OnShow()
         {
+            Utils.TraceMessage($"{nameof(_isAsTask)}: {_isAsTask}");
             LoadControls();
         }
 
@@ -82,9 +85,19 @@ namespace Test
 
         internal bool GetCurUserOrNO(DbRef UsId)
         {
+            if (!_init)
+            {
+                _isAsTask = (bool)BusinessProcess.GlobalVariables.GetValueOrDefault(Parameters.IsAsTask, false);
+                BusinessProcess.GlobalVariables.Remove(Parameters.IsAsTask);
+                _init = true;
+            }
+
             if (_isAsTask) return true;
 
-            return !String.Equals(Settings.UserId, $"{UsId.Guid}", StringComparison.CurrentCultureIgnoreCase);
+            if (_userId == Guid.Empty)
+                _userId = Settings.UserDetailedInfo.Id.Guid;
+
+            return _userId != UsId.Guid;
         }
 
         internal void SelectUser_OnClick(object sender, EventArgs e)
@@ -94,7 +107,7 @@ namespace Test
                 findText = null;
                 Navigation.ModalMove(nameof(AddTaskScreen),
                     new Dictionary<string, object>
-                    { {Parameters.IdUserId, ((VerticalLayout) sender).Id} });
+                    {{Parameters.IdUserId, ((VerticalLayout) sender).Id}});
             }
             else
             {
@@ -103,7 +116,7 @@ namespace Test
                 {
                     var eventId = (string)Variables[Parameters.IdCurrentEventId];
                     Utils.TraceMessage($"{eventId.GetType()}");
-                    var currentEvent = (Event)DBHelper.LoadEntity(eventId.ToString());
+                    var currentEvent = (Event)DBHelper.LoadEntity(eventId);
                     var user = (User)DBHelper.LoadEntity(((VerticalLayout)sender).Id);
 
                     Dialog.Ask(Translator.Translate("assign_on") + " " + user.Description + "?", (o, args) =>

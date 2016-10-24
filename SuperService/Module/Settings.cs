@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
+using Test.Catalog;
 using Test.Module;
 using XmlDocument = BitMobile.ClientModel3.XmlDocument;
 
@@ -51,9 +52,9 @@ namespace Test
             get
             {
                 return _userId?.Length == 0 ?
-                  $"{((DbRef)DBHelper.GetUserInfoByUserName(User)["Id"]).Guid}" : _userId;
+                  _userId = $"{UserDetailedInfo.Id.Guid}" : _userId;
             }
-            set { _userId = value; }
+            private set { _userId = value; }
         }
 
         public static string PushServer { get; set; }
@@ -69,6 +70,11 @@ namespace Test
         public static bool BagEnabled => GetLogicValue(Parameters.BagEnabled);
         public static bool ShowServicePrice => GetLogicValue(Parameters.ShowServicePrice);
         public static bool ShowMaterialPrice => GetLogicValue(Parameters.ShowMaterialPrice);
+
+        public static User UserDetailedInfo =>
+            (User)((DbRef)DBHelper.GetUserInfoByUserName(User)?["Id"])?.GetObject();
+
+        public static bool EnablePush => UserDetailedInfo.EnablePush;
 
         public static void Init()
         {
@@ -144,7 +150,6 @@ namespace Test
 
             PushServer = server;
 
-            
             Utils.TraceMessage($"{nameof(PushNotification)}.{nameof(PushNotification.IsInitialized)} " +
                                $"is {PushNotification.IsInitialized}{Environment.NewLine}" +
                                $"server = {server} userID = {server} password {Password}");

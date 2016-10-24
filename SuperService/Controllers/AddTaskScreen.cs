@@ -30,6 +30,9 @@ namespace Test
 
             _event = _event ?? new Event();
 
+            if (_event.Tender == null && Variables.GetValueOrDefault(Parameters.IdTenderId) != null)
+                _event.Tender = DbRef.FromString($"{Variables[Parameters.IdTenderId]}");
+
             _topInfoComponent.ActivateBackButton();
 
             InitControls();
@@ -191,12 +194,15 @@ namespace Test
                 {{Parameters.IsAsTask, true}});
 
         internal void AddUser_OnClick(object sender, EventArgs e)
-            => Navigation.ModalMove(nameof(DelegateScreen),
+        {
+            BusinessProcess.GlobalVariables[Parameters.IsAsTask] = true;
+            Navigation.ModalMove(nameof(DelegateScreen),
                 new Dictionary<string, object>
                 {{Parameters.IsAsTask, true}});
+        }
 
         internal void SaveDescription_OnChange(object sender, EventArgs e)
-            => _event.Comment = ((MemoEdit)sender).Text;
+            => _event.DetailedDescription = ((MemoEdit)sender).Text;
 
         private bool CheckAllEventData()
         {
@@ -227,23 +233,21 @@ namespace Test
             return CheckDescription() && CheckDate();
         }
 
-        private bool CheckDescription()
+        private static bool CheckDescription()
         {
-            var memoEdit = (MemoEdit)GetControl("2776dd7e8c604323a293635d9a0e6c09", true);
-
-            if (memoEdit.Text.Length > 1000)
+            if (_event.DetailedDescription.Length > 1000)
             {
                 Toast.MakeToast("Превышен размер описания");
                 return false;
             }
 
-            if (!string.IsNullOrEmpty(memoEdit.Text)) return true;
+            if (!string.IsNullOrEmpty(_event.DetailedDescription)) return true;
 
             Toast.MakeToast("Поле описание не может быть пустым");
             return false;
         }
 
-        private bool CheckDate()
+        private static bool CheckDate()
         {
             if (_event.StartDatePlan == DateTime.MinValue)
             {
