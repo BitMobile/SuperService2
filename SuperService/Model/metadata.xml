@@ -344,7 +344,7 @@
 				</TabularSection>
 			</TabularSections>
 		</Entity>
-		<Entity DeleteFilter="" Name="Client" Schema="Catalog" SyncDownload="True" SyncFilter="t.Id IN (SELECT DE.Client FROM [Document].[Event] DE WHERE DE.UserMA = @UserId) OR @UserId IN (SELECT US.[id] FROM [Catalog].[User] US WHERE US.[UserName]='Exchange')" SyncUpload="True">
+		<Entity DeleteFilter="" Name="Client" Schema="Catalog" SyncDownload="True" SyncFilter="" SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
 				<Field KeyField="true" Name="Id" Type="Guid"/>
