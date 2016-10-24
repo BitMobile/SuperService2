@@ -187,8 +187,8 @@ namespace Test
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
         {
             var vl = (VerticalLayout)sender;
-            var hl = (IHorizontalLayout3)vl.Parent;
-            var shl = (ISwipeHorizontalLayout3)hl.Parent;
+            var hl = (HorizontalLayout)vl.Parent;
+            var shl = (SwipeHorizontalLayout)hl.Parent;
             ++shl.Index;
         }
 
@@ -196,11 +196,11 @@ namespace Test
         {
             var btn = (Button)sender;
             DConsole.WriteLine($"{nameof(btn.Id)} = {btn.Id}");
-            var shl = (ISwipeHorizontalLayout3)btn.Parent;
+            var shl = (SwipeHorizontalLayout)btn.Parent;
             DeleteElement(btn.Id);
             PrintMaterialsData();
             shl.CssClass = "NoHeight";
-            ((IVerticalLayout3)shl.Parent).Refresh();
+            ((VerticalLayout)shl.Parent).Refresh();
         }
 
         internal ArrayList GetData()
