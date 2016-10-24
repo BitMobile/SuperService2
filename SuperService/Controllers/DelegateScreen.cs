@@ -19,14 +19,16 @@ namespace Test
         private TopInfoComponent _topInfoComponent;
         private static String findText;
         private Guid _userId;
+        private string header;
 
         public override void OnLoading()
         {
+            header = _isAsTask ? "userPick" : "delegate";
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ArrowVisible = false,
                 ArrowActive = false,
-                Header = Translator.Translate("delegate"),
+                Header = Translator.Translate(header),
                 LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_back")}
             };
 

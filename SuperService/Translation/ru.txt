@@ -175,3 +175,4 @@ title		Название
 Search		Найти
 push_message		Push сообщения
 FilteList		Список фильтров
+userPick		Выбор сотрудника

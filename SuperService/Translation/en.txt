@@ -174,4 +174,5 @@ new_task		A new task is assigned to you
 title		Title
 Search		Search
 push_message		Push message
-FilteList		Список фильтров
+FilteList		Filters list
+userPick		Selection of personnel
