@@ -94,9 +94,8 @@ namespace Test
                     ? Translator.Translate("not_choosed")
                     : $"{_event.EndDatePlan:g}";
 
-            ((MemoEdit)GetControl("2776dd7e8c604323a293635d9a0e6c09", true)).Text = _event.Comment;
+            ((MemoEdit)GetControl("2776dd7e8c604323a293635d9a0e6c09", true)).Text = _event.DetailedDescription;
         }
-
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
             _event = null;
@@ -204,7 +203,7 @@ namespace Test
         internal void SaveDescription_OnChange(object sender, EventArgs e)
             => _event.DetailedDescription = ((MemoEdit)sender).Text;
 
-        private bool CheckAllEventData()
+        private static bool CheckAllEventData()
         {
             if (_event.UserMA == null)
             {
@@ -230,12 +229,12 @@ namespace Test
                 return false;
             }
 
-            return CheckDescription() && CheckDate();
+            return CheckDate() && CheckDescription();
         }
 
         private static bool CheckDescription()
         {
-            if (_event.DetailedDescription.Length > 1000)
+            if (_event.DetailedDescription?.Length > 1000)
             {
                 Toast.MakeToast("Превышен размер описания");
                 return false;
@@ -263,7 +262,7 @@ namespace Test
 
             if (_event.StartDatePlan > _event.EndDatePlan && (_event.EndDatePlan != DateTime.MinValue))
             {
-                Toast.MakeToast("Дата начала задачи не может быть больше даты завершения");
+                Toast.MakeToast("Дата начала не может быть больше даты завершeния");
                 return false;
             }
             return true;
