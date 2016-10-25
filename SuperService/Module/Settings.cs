@@ -15,6 +15,7 @@ namespace Test
 {
     public static class Settings
     {
+        public static bool _enablePush;
         private static Dictionary<string, object> _settings;
         private static bool _initialized;
         private static string _userId;
@@ -51,8 +52,9 @@ namespace Test
         {
             get
             {
-                return _userId?.Length == 0 ?
-                  _userId = $"{UserDetailedInfo.Id.Guid}" : _userId;
+                return _userId?.Length == 0
+                    ? _userId = $"{UserDetailedInfo.Id.Guid}"
+                    : _userId;
             }
             private set { _userId = value; }
         }
@@ -72,9 +74,9 @@ namespace Test
         public static bool ShowMaterialPrice => GetLogicValue(Parameters.ShowMaterialPrice);
 
         public static User UserDetailedInfo =>
-            (User)((DbRef)DBHelper.GetUserInfoByUserName(User)?["Id"])?.GetObject();
+            (User) ((DbRef) DBHelper.GetUserInfoByUserName(User)?["Id"])?.GetObject();
 
-        public static bool EnablePush => UserDetailedInfo.EnablePush;
+        public static bool EnablePush => _enablePush;
 
         public static void Init()
         {
@@ -95,7 +97,7 @@ namespace Test
                     {Parameters.NumericValue, settings[Parameters.NumericValue]}
                 };
 
-                _settings[(string)settings["Description"]] = dictionary;
+                _settings[(string) settings["Description"]] = dictionary;
             }
 
 #if DEBUG
@@ -103,9 +105,9 @@ namespace Test
             DConsole.WriteLine($"Настройки в БД.{Environment.NewLine}");
             foreach (var item in _settings)
             {
-                var element = (Dictionary<string, object>)item.Value;
-                DConsole.WriteLine($"Description: {item.Key} LogicValue: {(bool)element[Parameters.LogicValue]}" +
-                                   $" NumericValue: {(int)element[Parameters.NumericValue]}");
+                var element = (Dictionary<string, object>) item.Value;
+                DConsole.WriteLine($"Description: {item.Key} LogicValue: {(bool) element[Parameters.LogicValue]}" +
+                                   $" NumericValue: {(int) element[Parameters.NumericValue]}");
             }
             DConsole.WriteLine($"{Parameters.Splitter}{Environment.NewLine}");
 #endif
@@ -145,6 +147,20 @@ namespace Test
             AuthUrl = Server + @"/GetUserId";
             GPSSyncUrl = server;
 
+            try
+            {
+                _enablePush = UserDetailedInfo.EnablePush;
+            }
+            catch (Exception e)
+            {
+                Utils.TraceMessage($"{e.Message} {Environment.NewLine}" +
+                                   $"{e.StackTrace}");
+            }
+            finally
+            {
+                _enablePush = true;
+            }
+ 
             DConsole.WriteLine($"Host = {Host}");
             DConsole.WriteLine($"Server = {Server}");
 

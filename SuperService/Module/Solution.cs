@@ -54,6 +54,7 @@ namespace Test
 
         public override void OnPushMessage(string message)
         {
+            Utils.TraceMessage($"{Settings.EnablePush}");
             if (Settings.EnablePush)
                 InvokeOnMainThread(() => LocalNotification.Notify(Translator.Translate("notification"), message));
 
