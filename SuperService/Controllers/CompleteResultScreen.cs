@@ -1,6 +1,7 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using System;
+using System.Collections.Generic;
 using Test.Components;
 
 namespace Test
@@ -26,6 +27,7 @@ namespace Test
         {
             Navigation.ModalMove(nameof(CloseEventScreen));
         }
+
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
         {
         }
@@ -41,7 +43,12 @@ namespace Test
             => DBHelper.GetEventResults();
 
         internal void SelectedEventResult_OnClick(object sender, EventArgs e)
-        {
-        }
+        => Navigation.ModalMove(nameof(CloseEventScreen),
+            new Dictionary<string, object>
+            {
+                {
+                    Parameters.IdResultEventId ,((VerticalLayout) sender).Id
+                }
+            });
     }
 }

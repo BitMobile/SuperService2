@@ -10,10 +10,11 @@
     <c:HorizontalLayout CssClass="EmptySpace4sp" />
     <c:HorizontalLayout Id="WantToBuyButton" CssClass="BigButton" OnClick="CloseEvent_OnClick">
       <c:TextView Text="#complete_results#" CssClass="BigButtonTextViewEnd" />
+      <c:TextView Id="75097b50211a453883f5e31f4e878c2c" Text="#not_choosed#" CssClass="BigButtonTextViewEnd" />
     </c:HorizontalLayout>
     <c:HorizontalLayout CssClass="EmptySpace4sp" />
     <c:VerticalLayout CssClass="CommentLayout">
-      <c:MemoEdit Placeholder="#comment...#" Id="CommentaryMemoEdit" CssClass="Comment" />
+      <c:MemoEdit Placeholder="#comment...#" Id="CommentaryMemoEdit" CssClass="Comment" OnChange="Comment_OnChange" />
       <c:HorizontalLine CssClass="CommentEndLine" />
     </c:VerticalLayout>
     <c:HorizontalLayout CssClass="EmptySpace4sp" />
@@ -22,7 +23,7 @@
       <c:TextView Text="#wanttobuy#" CssClass="BigButtonTextView" />
     </c:HorizontalLayout>
     <c:VerticalLayout Id="WantToBuyCommentLayout" CssClass="NoHeight">
-      <c:MemoEdit Placeholder="#comment...#" Id="WantToBuyCommentMemoEdit" CssClass="Comment" />
+      <c:MemoEdit Placeholder="#comment...#" Id="WantToBuyCommentMemoEdit" CssClass="Comment" OnChange="WantToBuy_OnChange" />
       <c:HorizontalLine CssClass="CommentEndLine" />
     </c:VerticalLayout>
     <c:HorizontalLayout Id="ProblemButton" CssClass="BigButton" OnClick="ProblemButton_OnClick">
@@ -30,7 +31,7 @@
       <c:TextView Text="#thereisaproblem#" CssClass="BigButtonTextView" />
     </c:HorizontalLayout>
     <c:VerticalLayout Id="ProblemCommentLayout" CssClass="NoHeight">
-      <c:MemoEdit Placeholder="#comment...#" Id="ProblemCommentMemoEdit" CssClass="Comment" />
+      <c:MemoEdit Placeholder="#comment...#" Id="ProblemCommentMemoEdit" CssClass="Comment" OnChange="ProblemComment_OnChange" />
       <c:HorizontalLine CssClass="CommentEndLine" />
     </c:VerticalLayout>
   </c:VerticalLayout>
