@@ -329,3 +329,16 @@ Button {
   margin-right: 1sp;
   background-color: #f4f4f5;
 }
+.FinishButton {
+  dock-align: bottom;
+  background-color: #ff7c4a;
+  height: 10sp;
+  white-space: normal;
+  width: 100%;
+}
+.FinishButton TextView {
+  vertical-align: center;
+  color: #f4f4f5;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+}
