@@ -10,6 +10,7 @@ namespace Test
     {
         private ScrollView _grScrollView;
         private TopInfoComponent _topInfoComponent;
+        private String startFilterId;
         public override void OnLoading()
         {
             _topInfoComponent = new TopInfoComponent(this)
@@ -20,10 +21,12 @@ namespace Test
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") }
             };
             _grScrollView = (ScrollView)Variables["c9c77e671ef64d128a4ecfea7cdf5bbf"];
+            startFilterId = Filter.SelectedFilterId;
             _topInfoComponent.ActivateBackButton();
         }
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
+            Filter.SelectedFilterId = startFilterId;
             Navigation.Back();
         }
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
@@ -63,6 +66,11 @@ namespace Test
             var tragetStatus = (Image)hl.GetControl("Img" + Filter.SelectedFilterId);
             tragetStatus.Source = GetResourceImage("task_target_done");
             tragetStatus.Refresh();
+        }
+
+        internal void SetButton_OnClick(object sender, EventArgs e)
+        {
+            Navigation.Back();
         }
 
     }

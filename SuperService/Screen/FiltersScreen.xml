@@ -2,6 +2,11 @@
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:DockLayout Id="9d68303696d7440ba9d7dc098be3ebd1" CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
+    <c:HorizontalLayout Id="StartFinishButton"
+                    CssClass="FinishButton"
+                    OnClick="SetButton_OnClick">
+      <c:TextView Text="#set#" />
+    </c:HorizontalLayout>
     <c:ScrollView Id="c9c77e671ef64d128a4ecfea7cdf5bbf"
                   CssClass="RootLayout">
       <c:VerticalLayout>

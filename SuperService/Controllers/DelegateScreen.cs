@@ -25,7 +25,7 @@ namespace Test
             {
                 ArrowVisible = false,
                 ArrowActive = false,
-                Header = Translator.Translate("delegate"),
+                Header = Translator.Translate("userPick"),
                 LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_back")}
             };
 

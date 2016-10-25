@@ -82,3 +82,18 @@ Button {
     margin-right: @verticalLine-margin;
     background-color: @line-color;
 }
+@info-font-size: @default-font-size * sqrt(3/2);
+
+.FinishButton {
+    dock-align: bottom;
+    background-color: #ff7c4a;
+    TextView {
+        vertical-align: center;
+        color: #f4f4f5;
+        .text-view-style(@info-font-size);
+    }
+
+    height: 10sp;
+    white-space: normal;
+    width: 100%;
+}
