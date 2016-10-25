@@ -55,7 +55,7 @@ namespace Test
         public override void OnPushMessage(string message)
         {
             if (Settings.EnablePush)
-                LocalNotification.Notify(Translator.Translate("notification"), message);
+                InvokeOnMainThread(() => LocalNotification.Notify(Translator.Translate("notification"), message));
 
             DBHelper.SyncAsync();
         }
