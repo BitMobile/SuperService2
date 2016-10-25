@@ -207,19 +207,31 @@ namespace Test
 
         internal void Comment_OnChange(object sender, EventArgs e)
         {
-            _commentaryString = ((MemoEdit)sender).Text;
+
+            
+            if (!String.IsNullOrEmpty(((MemoEdit) sender).Text))
+            {
+                _commentaryString = ((MemoEdit)sender).Text;
+            }
+            
             Utils.TraceMessage($"{_commentaryString}");
         }
 
         internal void WantToBuy_OnChange(object sender, EventArgs e)
         {
-            _wantToBuyString = ((MemoEdit)sender).Text;
+            if (!String.IsNullOrEmpty(((MemoEdit) sender).Text))
+            {
+                _wantToBuyString = ((MemoEdit) sender).Text;
+            }
             Utils.TraceMessage($"{_wantToBuyString}");
         }
 
         internal void ProblemComment_OnChange(object sender, EventArgs e)
         {
-            _problemCommentString = ((MemoEdit)sender).Text;
+            if (!String.IsNullOrEmpty(((MemoEdit) sender).Text))
+            {
+                _problemCommentString = ((MemoEdit) sender).Text;
+            }
             Utils.TraceMessage($"{_problemCommentString}");
         }
     }
