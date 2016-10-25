@@ -51,6 +51,8 @@
 
         public const string WebUri = "WebUri";
 
+        public static readonly string IdResultEventId = "IdResultEventId";
+
         /// <summary>
         ///     Представляет разделитель строк для режима DEBUG
         /// </summary>

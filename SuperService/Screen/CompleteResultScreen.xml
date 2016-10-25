@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <!--<c:Screen xmlns:c="clr-namespace:BitMobile.ClientModel3.UI;assembly=ClientModel3.W"
+          xmlns:s="clr-namespace:BitMobile.ValueStack;assembly=Common.W">-->
+  <c:DockLayout Id="672898dc633041e8b2d83393d21f000c" CssClass="RootLayout">
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <c:ScrollView Id="0cb291b41f134a02904c9b8759244aa8"
+                  CssClass="RootLayout">
+      <s:Iterator Id="EventResult" Value="$GetEventResult()">
+        <c:VerticalLayout Id="$EventResult.Id" CssClass="ClientListItemVL"
+                          OnClick="SelectedEventResult_OnClick">
+          <c:TextView Text="$EventResult.Description" CssClass="ClientListNameTV" />
+          <c:HorizontalLine CssClass="ClientListBreaker" />
+        </c:VerticalLayout>
+      </s:Iterator>
+    </c:ScrollView>
+  </c:DockLayout>
+</c:Screen>

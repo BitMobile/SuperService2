@@ -177,3 +177,4 @@ push_message		Push сообщения
 FilteList		Список фильтров
 userPick		Выбор сотрудника
 set		Применить
+complete_results		Результат завершения
