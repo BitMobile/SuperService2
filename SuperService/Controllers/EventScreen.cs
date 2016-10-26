@@ -123,7 +123,7 @@ namespace Test
             _startButton = (Button)Variables.GetValueOrDefault("StartButton");
             _refuseButton = (Button)Variables.GetValueOrDefault("RefuseButton");
             _statusImage = (Image)Variables.GetValueOrDefault("StatusImage");
-            _DelegateButton = (Button) Variables.GetValueOrDefault("DelegateButton");
+            _DelegateButton = (Button)Variables.GetValueOrDefault("DelegateButton");
         }
 
         internal void ClientInfoButton_OnClick(object sender, EventArgs eventArgs)
@@ -471,6 +471,8 @@ namespace Test
 
         internal void ChangeStartDatePlan_OnClick(object sender, EventArgs e)
         {
+            if (_readonly) return;
+
             DateTime currentStartDate;
 
             if (!DateTime.TryParse($"{_currentEventRecordset["StartDatePlan"]}",
@@ -485,7 +487,8 @@ namespace Test
                 {
                     _startDatePlanTextView.Text = args.Result.ToString("HH:mm");
                     var @event = (Event)DBHelper.LoadEntity($"{_currentEventRecordset["Id"]}");
-                    @event.EndDatePlan = args.Result + (@event.EndDatePlan - @event.StartDatePlan);
+                    if (@event.EndDatePlan != DateTime.MinValue)
+                        @event.EndDatePlan = args.Result + (@event.EndDatePlan - @event.StartDatePlan);
                     @event.StartDatePlan = args.Result;
                     DBHelper.SaveEntity(@event);
                 });
