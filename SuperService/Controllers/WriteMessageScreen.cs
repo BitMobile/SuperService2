@@ -31,8 +31,6 @@ namespace Test
 
         public override void OnShow()
         {
-            _memoEdit.AutoFocus = true;
-            _memoEdit.SetFocus();
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
