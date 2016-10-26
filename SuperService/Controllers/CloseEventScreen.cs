@@ -141,6 +141,12 @@ namespace Test
 
         internal void FinishButton_OnClick(object sender, EventArgs eventArgs)
         {
+            if (_eventResults.Id == null)
+            {
+                Toast.MakeToast("Результат завершения не может быть пустым");
+                return;
+            }
+
             Utils.TraceMessage($"_eventResult.Id.Empty: {_eventResults.Id.EmptyRef()} not {!_eventResults.Id.EmptyRef()}{Environment.NewLine}" +
                                $"_evenResult.Negative {_eventResults.Negative} {Environment.NewLine}" +
                                $"string.IsNullOrEmpty(_commentaryMemoEdit.Text) {string.IsNullOrEmpty(_commentaryMemoEdit.Text)}{Environment.NewLine}" +
@@ -207,30 +213,28 @@ namespace Test
 
         internal void Comment_OnChange(object sender, EventArgs e)
         {
-
-            
-            if (!String.IsNullOrEmpty(((MemoEdit) sender).Text))
+            if (!String.IsNullOrEmpty(((MemoEdit)sender).Text))
             {
                 _commentaryString = ((MemoEdit)sender).Text;
             }
-            
+
             Utils.TraceMessage($"{_commentaryString}");
         }
 
         internal void WantToBuy_OnChange(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(((MemoEdit) sender).Text))
+            if (!String.IsNullOrEmpty(((MemoEdit)sender).Text))
             {
-                _wantToBuyString = ((MemoEdit) sender).Text;
+                _wantToBuyString = ((MemoEdit)sender).Text;
             }
             Utils.TraceMessage($"{_wantToBuyString}");
         }
 
         internal void ProblemComment_OnChange(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(((MemoEdit) sender).Text))
+            if (!String.IsNullOrEmpty(((MemoEdit)sender).Text))
             {
-                _problemCommentString = ((MemoEdit) sender).Text;
+                _problemCommentString = ((MemoEdit)sender).Text;
             }
             Utils.TraceMessage($"{_problemCommentString}");
         }
