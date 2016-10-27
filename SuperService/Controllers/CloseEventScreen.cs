@@ -209,34 +209,23 @@ namespace Test
         }
 
         internal void CloseEvent_OnClick(object sender, EventArgs e)
-          => Navigation.ModalMove(nameof(CompleteResultScreen));
+        {
+            _commentaryString = _commentaryMemoEdit.Text;
+            _wantToBuyString = _wantToBuyCommentMemoEdit.Text;
+            _problemCommentString = _problemCommentMemoEdit.Text;
+            Navigation.ModalMove(nameof(CompleteResultScreen));
+        }
 
         internal void Comment_OnChange(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(((MemoEdit)sender).Text))
-            {
-                _commentaryString = ((MemoEdit)sender).Text;
-            }
-
-            Utils.TraceMessage($"{_commentaryString}");
         }
 
         internal void WantToBuy_OnChange(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(((MemoEdit)sender).Text))
-            {
-                _wantToBuyString = ((MemoEdit)sender).Text;
-            }
-            Utils.TraceMessage($"{_wantToBuyString}");
         }
 
         internal void ProblemComment_OnChange(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(((MemoEdit)sender).Text))
-            {
-                _problemCommentString = ((MemoEdit)sender).Text;
-            }
-            Utils.TraceMessage($"{_problemCommentString}");
         }
     }
 }
