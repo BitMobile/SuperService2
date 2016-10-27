@@ -74,9 +74,19 @@ namespace Test
         public static bool ShowMaterialPrice => GetLogicValue(Parameters.ShowMaterialPrice);
 
         public static User UserDetailedInfo =>
-            (User) ((DbRef) DBHelper.GetUserInfoByUserName(User)?["Id"])?.GetObject();
+            (User)((DbRef)DBHelper.GetUserInfoByUserName(User)?["Id"])?.GetObject();
 
-        public static bool EnablePush => _enablePush;
+        public static bool EnablePush
+        {
+            get { return _enablePush; }
+            set
+            {
+                _enablePush = value;
+                var entity = UserDetailedInfo;
+                entity.EnablePush = value;
+                DBHelper.SaveEntity(entity, false);
+            }
+        }
 
         public static void Init()
         {
@@ -97,7 +107,7 @@ namespace Test
                     {Parameters.NumericValue, settings[Parameters.NumericValue]}
                 };
 
-                _settings[(string) settings["Description"]] = dictionary;
+                _settings[(string)settings["Description"]] = dictionary;
             }
 
 #if DEBUG
@@ -105,9 +115,9 @@ namespace Test
             DConsole.WriteLine($"Настройки в БД.{Environment.NewLine}");
             foreach (var item in _settings)
             {
-                var element = (Dictionary<string, object>) item.Value;
-                DConsole.WriteLine($"Description: {item.Key} LogicValue: {(bool) element[Parameters.LogicValue]}" +
-                                   $" NumericValue: {(int) element[Parameters.NumericValue]}");
+                var element = (Dictionary<string, object>)item.Value;
+                DConsole.WriteLine($"Description: {item.Key} LogicValue: {(bool)element[Parameters.LogicValue]}" +
+                                   $" NumericValue: {(int)element[Parameters.NumericValue]}");
             }
             DConsole.WriteLine($"{Parameters.Splitter}{Environment.NewLine}");
 #endif
@@ -147,6 +157,11 @@ namespace Test
             AuthUrl = Server + @"/GetUserId";
             GPSSyncUrl = server;
 
+            DConsole.WriteLine($"Host = {Host}");
+            DConsole.WriteLine($"Server = {Server}");
+
+            PushServer = server;
+
             try
             {
                 _enablePush = UserDetailedInfo.EnablePush;
@@ -155,20 +170,9 @@ namespace Test
             {
                 Utils.TraceMessage($"{e.Message} {Environment.NewLine}" +
                                    $"{e.StackTrace}");
-            }
-            finally
-            {
                 _enablePush = true;
             }
- 
-            DConsole.WriteLine($"Host = {Host}");
-            DConsole.WriteLine($"Server = {Server}");
 
-            PushServer = server;
-
-            Utils.TraceMessage($"{nameof(PushNotification)}.{nameof(PushNotification.IsInitialized)} " +
-                               $"is {PushNotification.IsInitialized}{Environment.NewLine}" +
-                               $"server = {server} userID = {server} password {Password}");
             _initialized = true;
 
             GpsTrackingInit();

@@ -196,9 +196,7 @@ namespace Test
 
             if (Settings.EnablePush)
             {
-                var user = Settings.UserDetailedInfo;
-                user.EnablePush = !user.EnablePush;
-                DBHelper.SaveEntity(user, false);
+                Settings.EnablePush = !Settings.EnablePush;
                 layout.CssClass = "RefuseButton";
                 textview.CssClass = "RefuseButtonText";
                 image.Source = ResourceManager.GetImage("tasklist_notdone");
@@ -206,9 +204,7 @@ namespace Test
             }
             else
             {
-                var user = Settings.UserDetailedInfo;
-                user.EnablePush = !user.EnablePush;
-                DBHelper.SaveEntity(user, false);
+                Settings.EnablePush = !Settings.EnablePush;
                 layout.CssClass = "FinishedButtonPressed";
                 textview.CssClass = "FinishedButtonPressedText";
                 image.Source = ResourceManager.GetImage("tasklist_done");
