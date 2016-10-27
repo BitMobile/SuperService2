@@ -104,7 +104,7 @@ namespace Test
             {
                 String idFilterSql = GetFiltersSql();
                 Utils.TraceMessage(idFilterSql);
-                if (idFilterSql.Trim()!="")
+                if (idFilterSql.Trim() != "")
                 {
                     queryString += @"" + idFilterSql + " AND ";
                 }
@@ -147,10 +147,11 @@ namespace Test
             var query = new Query(@"SELECT
                                     Query
                                     FROM Catalog_MobileTaskFilters
-                                    Where Id = '" + Filter.SelectedFilterId+"'");
+                                    Where Id = '" + Filter.SelectedFilterId + "'");
             //Utils.TraceMessage(query.ExecuteScalar().ToString());
             return query.ExecuteScalar().ToString();
         }
+
         public static EventsStatistic GetEventsStatistic()
         {
             var statistic = new EventsStatistic();
@@ -1485,9 +1486,9 @@ namespace Test
                         FROM Catalog_MobileTaskFilters");
 
             return query.Execute();
-
         }
-        public static DbRecordset GetUsers(String filter ="")
+
+        public static DbRecordset GetUsers(String filter = "")
         {
             var query = new Query(@"SELECT
                           Id,
@@ -1516,6 +1517,7 @@ namespace Test
             => new Query(@"SELECT
                           Id,
                           Description
-                        FROM _Catalog_EventResults").Execute();
+                        FROM _Catalog_EventResults
+                        WHERE DeletionMark = 0").Execute();
     }
 }
