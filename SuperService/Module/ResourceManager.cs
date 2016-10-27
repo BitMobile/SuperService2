@@ -114,6 +114,7 @@ namespace Test
             //TaskScreen
             {"task_target_done", @"Image\TaskScreen\done.png" },
             {"task_target_not_done", @"Image\TaskScreen\not_done.png" },
+            {"task_new", @"Image\TaskScreen\add.png" },
             //TenderScreen
             {"tender_chat", @"Image\TenderScreen\chart.png" },
         };

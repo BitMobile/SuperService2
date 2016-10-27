@@ -31,6 +31,7 @@ namespace Test
 
            _isAsTask = (bool) Variables.GetValueOrDefault(Parameters.IsAsTask, false);
   
+            Utils.TraceMessage($"{_isAsTask}");
            _topInfoComponent.ActivateBackButton();
         }
 
@@ -55,6 +56,7 @@ namespace Test
         {
 
             findText = ((EditText) GetControl("position", true)).Text;
+            Utils.TraceMessage($"{_isAsTask}");
             if (_isAsTask)
             {
                 Navigation.ModalMove(nameof(DelegateScreen), new Dictionary<string, object>
@@ -69,13 +71,17 @@ namespace Test
             }
 
         }
+
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
             findText = null;
             if (_isAsTask)
+            {
+                BusinessProcess.GlobalVariables.Remove(Parameters.IsAsTask);            
                 Navigation.ModalMove(nameof(AddTaskScreen));
-            else
-                Navigation.Back();
+        }
+        else
+        Navigation.Back();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
@@ -97,7 +103,7 @@ namespace Test
             if (!_init)
             {
                 _isAsTask = (bool)BusinessProcess.GlobalVariables.GetValueOrDefault(Parameters.IsAsTask, false);
-                BusinessProcess.GlobalVariables.Remove(Parameters.IsAsTask);
+                //BusinessProcess.GlobalVariables.Remove(Parameters.IsAsTask);
                 _init = true;
             }
 
@@ -114,6 +120,7 @@ namespace Test
             if (_isAsTask)
             {
                 findText = null;
+                BusinessProcess.GlobalVariables.Remove(Parameters.IsAsTask);
                 Navigation.ModalMove(nameof(AddTaskScreen),
                     new Dictionary<string, object>
                     {{Parameters.IdUserId, ((VerticalLayout) sender).Id}});

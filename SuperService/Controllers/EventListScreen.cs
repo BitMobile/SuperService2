@@ -24,7 +24,7 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_filter") },
-                RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_map") },
+                RightButtonControl = new Image { Source = ResourceManager.GetImage("task_new") },
                 Header = Translator.Translate("tasks")
             };
 
