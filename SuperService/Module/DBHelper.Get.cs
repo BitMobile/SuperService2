@@ -455,11 +455,13 @@ namespace Test
                                         Catalog_Client
 
                                   where
-                                      Catalog_Client.DeletionMark = 0");
+                                      Catalog_Client.DeletionMark = 0
+                                    ");
             if (!String.IsNullOrEmpty(filter))
             {
                 query.Text += $@" AND (Contains(Description,'{filter}') OR Contains(Address,'{filter}'))";
             }
+            query.Text += $@" LIMIT 100";
             return query.Execute();
         }
 
