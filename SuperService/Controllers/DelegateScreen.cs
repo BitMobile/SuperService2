@@ -1,10 +1,10 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.Common.Controls;
 using BitMobile.DbEngine;
 using ClientModel3.MD;
 using System;
 using System.Collections.Generic;
-using BitMobile.Common.Controls;
 using Test.Catalog;
 using Test.Components;
 using Test.Document;
@@ -19,6 +19,7 @@ namespace Test
         private TopInfoComponent _topInfoComponent;
         private static String findText;
         private Guid _userId;
+
         public override void OnLoading()
         {
             _topInfoComponent = new TopInfoComponent(this)
@@ -26,20 +27,18 @@ namespace Test
                 ArrowVisible = false,
                 ArrowActive = false,
                 Header = Translator.Translate("userPick"),
-                LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_back")}
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") }
             };
 
-           _isAsTask = (bool) Variables.GetValueOrDefault(Parameters.IsAsTask, false);
-  
-            Utils.TraceMessage($"{_isAsTask}");
-           _topInfoComponent.ActivateBackButton();
-        }
+            _isAsTask = (bool)Variables.GetValueOrDefault(Parameters.IsAsTask, false);
 
+            Utils.TraceMessage($"{_isAsTask}");
+            _topInfoComponent.ActivateBackButton();
+        }
 
         private void LoadControls()
         {
         }
-
 
         public override void OnShow()
         {
@@ -54,8 +53,7 @@ namespace Test
 
         internal void BtnSearch_Click(object sender, EventArgs eventArgs)
         {
-
-            findText = ((EditText) GetControl("position", true)).Text;
+            findText = ((EditText)GetControl("position", true)).Text;
             Utils.TraceMessage($"{_isAsTask}");
             if (_isAsTask)
             {
@@ -67,9 +65,7 @@ namespace Test
                 var eventId = (string)Variables[Parameters.IdCurrentEventId];
                 Navigation.ModalMove(nameof(DelegateScreen), new Dictionary<string, object>
             { {Parameters.IdCurrentEventId, eventId},{Parameters.IsAsTask,_isAsTask} }, null, ShowAnimationType.Refresh);
-
             }
-
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
@@ -77,11 +73,11 @@ namespace Test
             findText = null;
             if (_isAsTask)
             {
-                BusinessProcess.GlobalVariables.Remove(Parameters.IsAsTask);            
+                BusinessProcess.GlobalVariables.Remove(Parameters.IsAsTask);
                 Navigation.ModalMove(nameof(AddTaskScreen));
-        }
-        else
-        Navigation.Back();
+            }
+            else
+                Navigation.Back();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
@@ -127,7 +123,6 @@ namespace Test
             }
             else
             {
-                
                 try
                 {
                     var eventId = (string)Variables[Parameters.IdCurrentEventId];
@@ -144,7 +139,7 @@ namespace Test
 
                         try
                         {
-                            PushNotification.PushMessage(Translator.Translate("assign_user"), new[] { $"{user.Id.Guid}" });
+                            PushNotification.PushMessage(Translator.Translate("assign_task"), new[] { $"{user.Id.Guid}" });
                         }
                         catch (Exception exception)
                         {
