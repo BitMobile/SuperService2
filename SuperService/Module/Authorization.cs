@@ -1,4 +1,5 @@
 ﻿using BitMobile.ClientModel3;
+using ClientModel3.MD;
 using System;
 
 namespace Test
@@ -49,7 +50,7 @@ namespace Test
                 DConsole.WriteLine("Авторизация успешна");
                 DConsole.WriteLine($"UserId - {Settings.UserId} Web Request Result - {args.Result.Result}");
 #endif
-
+                Utils.TraceMessage($"{nameof(PushNotification)}.{nameof(PushNotification.IsInitialized)} -> {PushNotification.IsInitialized}");
                 //Проверяем, если пользователь уже сохранен, то делаем частичную синхронизацию, иначе полную.
                 // ReSharper disable once StringCompareIsCultureSpecific.3
                 if (string.Compare(Settings.User, _webRequest.UserName, true) == 0)
@@ -65,6 +66,7 @@ namespace Test
                     DConsole.WriteLine($"Запустили частичную синхронизацию. From class {nameof(Authorization)}");
 #endif
                     DBHelper.SyncAsync();
+                    Utils.TraceMessage($"{nameof(PushNotification)}.{nameof(PushNotification.IsInitialized)} -> {PushNotification.IsInitialized}");
                     DConsole.WriteLine("Loading first screen...");
                     Navigation.ModalMove("EventListScreen");
                 }
@@ -79,6 +81,7 @@ namespace Test
 #if DEBUG
                     DConsole.WriteLine($"Запустили полную синхронизацию. From class {nameof(Authorization)}");
 #endif
+                    Utils.TraceMessage($"{nameof(PushNotification)}.{nameof(PushNotification.IsInitialized)} -> {PushNotification.IsInitialized}");
                     DBHelper.FullSync(ResultEventHandler);
                 }
             }

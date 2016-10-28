@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Test.Components;
+using Test.Module;
 
 namespace Test
 {
@@ -150,6 +151,7 @@ namespace Test
 
         private static void Logout()
         {
+            PushServerServices.Unregister();
             DBHelper.Sync();
             FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password);
             Settings.Password = "";

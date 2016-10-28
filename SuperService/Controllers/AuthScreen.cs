@@ -1,5 +1,6 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using ClientModel3.MD;
 using System;
 using Test.Module;
 
@@ -22,6 +23,7 @@ namespace Test
         {
             _loginEditText.Text = Settings.User;
             _passwordEditText.Text = Settings.Password;
+            Utils.TraceMessage($"{nameof(PushNotification)}.{nameof(PushNotification.IsInitialized)} -> {PushNotification.IsInitialized}");
         }
 
         //TODO: Кнопка временно отключена, так как пока невозможно реализовать её функционал.
@@ -31,6 +33,7 @@ namespace Test
 
         internal void СonnectButton_OnClick(object sender, EventArgs e)
         {
+            Utils.TraceMessage($"{nameof(PushNotification)}.{nameof(PushNotification.IsInitialized)} -> {PushNotification.IsInitialized}");
             if (string.IsNullOrEmpty(_loginEditText.Text)
                 && string.IsNullOrEmpty(_passwordEditText.Text))
             {
