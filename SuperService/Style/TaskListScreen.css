@@ -303,12 +303,14 @@ HorizontalLine {
   font: 3sp arial;
   margin-top: 2sp;
   text-align: left;
+  white-space: nowrap;
 }
 .TaskDescription {
   color: #4a4b5e;
   font: 2sp arial;
   margin-top: 1sp;
   text-align: left;
+  white-space: nowrap;
 }
 .TaskBreaker {
   background-color: #f3f3f4;
@@ -327,6 +329,6 @@ HorizontalLine {
   vertical-align: center;
 }
 .TaskDoneImage {
-  height: 7.5sp;
+  height: 5.5sp;
   horizontal-align: center;
 }

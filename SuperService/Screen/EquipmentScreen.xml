@@ -3,29 +3,151 @@
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
   <c:VerticalLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
-    <c:ScrollView CssClass="RootLayout">
+    <s:Push Id="void" Value="$InitClassFields()" />
+    <s:Push Id="emptyParameters" Value="true" />
+    <c:ScrollView CssClass="CheckListMainSVL">
       <c:VerticalLayout>
-        <s:Push Id="void_ crutch" Value="$InitClassFields()" />
+
         <c:TextView Text="$GetEquipmentDescription()" CssClass="HeadingTextView" />
-        <c:TextView Text="" CssClass="EquipDescTextView" />
         <c:HorizontalLine CssClass="HeadingBreaker" />
         <c:HorizontalLayout CssClass="EmptySpace2sp" />
         <c:TextView Text="#PARAMETERS#" CssClass="SubHeading" />
         <c:HorizontalLayout CssClass="EmptySpace2sp" />
-        <s:Iterator Id="parameter" Value="$GetParameters()">
-          <c:HorizontalLine />
-          <c:HorizontalLayout CssClass="ListElement">
-            <c:TextView Text="$parameter.Parameter" CssClass="ParameterNameView" />
-            <c:TextView Text="$parameter.Value" CssClass="ParameterValueView" />
+        <c:HorizontalLine CssClass="EndLine" />
+
+        <s:Iterator Id="Parameter" Value="$GetParameters()">
+          <s:Push Id="emptyParameters" Value="false" />
+          <c:HorizontalLayout Id="$Parameter.Id" CssClass="CheckListItemHL"
+                              OnClick="CheckListElementLayout_OnClick">
+
+            <!--Индикатор обязательности-->
+            <c:VerticalLayout CssClass="CheckListNotRequiredVL" />
+
+            <!--ФОТО-->
+            <s:If Test="$Parameter.TypeName == Snapshot">
+              <c:VerticalLayout CssClass="CheckListQuestionVL">
+                <c:TextView Text="$Parameter.Description" CssClass="CheckListDescriptionTV" />
+              </c:VerticalLayout>
+
+              <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$Parameter.Id"
+                                OnClick="CheckListSnapshot_OnClick">
+                <c:Image Source="$GetResultImage($Parameter.Result)" Id="$CheckList.CheckListId"
+                         CssClass="CheckListAnswerImage" />
+              </c:VerticalLayout>
+            </s:If>
+
+            <!--СПИСОК-->
+            <s:If Test="$Parameter.TypeName == ValList">
+              <c:VerticalLayout CssClass="CheckListQuestionVL">
+                <c:TextView Text="$Parameter.Description" CssClass="CheckListDescriptionTV" />
+              </c:VerticalLayout>
+
+              <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$Parameter.Id"
+                                OnClick="CheckListValList_OnClick">
+                <s:If Test="$IsNotEmptyString($Parameter.Result)">
+                  <c:TextView Text="$Parameter.Result" Id="$Parameter.OptionId"
+                              CssClass="CheckListAnswerElement" />
+                </s:If>
+                <s:Else>
+                  <c:TextView Text="#not_choosed#" Id="$Parameter.OptionId"
+                              CssClass="CheckListAnswerElement" />
+                </s:Else>
+              </c:VerticalLayout>
+            </s:If>
+
+            <!--ДАТА-->
+            <s:If Test="$Parameter.TypeName == DateTime">
+              <c:VerticalLayout CssClass="CheckListQuestionVL">
+                <c:TextView Text="$Parameter.Description" CssClass="CheckListDescriptionTV" />
+              </c:VerticalLayout>
+
+              <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$Parameter.Id"
+                                OnClick="CheckListDateTime_OnClick">
+                <s:If Test="$IsNotEmptyString($Parameter.Result)">
+                  <c:TextView Text="$ToDate($Parameter.Result)" CssClass="CheckListAnswerElement" />
+                </s:If>
+                <s:Else>
+                  <c:TextView Text="#not_specified#" CssClass="CheckListAnswerElement" />
+                </s:Else>
+              </c:VerticalLayout>
+            </s:If>
+
+            <!--БУЛЕВО-->
+            <s:If Test="$Parameter.TypeName == Boolean">
+              <c:VerticalLayout CssClass="CheckListQuestionVL">
+                <c:TextView Text="$Parameter.Description" CssClass="CheckListDescriptionTV" />
+              </c:VerticalLayout>
+
+              <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$Parameter.Id"
+                                OnClick="CheckListBoolean_OnClick">
+
+                <s:If Test="$IsEmptyString($Parameter.Result)">
+                  <c:TextView Text="#not_choosed#" Id="$Parameter.OptionId"
+                              CssClass="CheckListAnswerElement" />
+                </s:If>
+                <s:Else>
+                  <s:If Test="$Parameter.Result == #yes#">
+                    <c:TextView Text="#yes#" Id="$Parameter.OptionId"
+                                CssClass="CheckListAnswerElement" />
+                  </s:If>
+                  <s:Else>
+                    <c:TextView Text="#no#" Id="$Parameter.OptionId"
+                                CssClass="CheckListAnswerElement" />
+                  </s:Else>
+                </s:Else>
+              </c:VerticalLayout>
+            </s:If>
+
+            <!--С ТОЧКОЙ-->
+            <s:If Test="$Parameter.TypeName == Decimal">
+              <c:VerticalLayout CssClass="CheckListQuestionVL">
+                <c:TextView Text="$Parameter.Description" CssClass="CheckListDescriptionTV" />
+              </c:VerticalLayout>
+
+              <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$Parameter.Id">
+                <c:EditText Enabled="$IsNotReadonly()" Text="$Parameter.Result" Keyboard="numeric"
+                            Mask="^(\d*)(\.\d+)?$"
+                            OnLostFocus="CheckListDecimal_OnLostFocus" Id="$Parameter.Id"
+                            Placeholder="#not_specified#" CssClass="CheckListAnswerElementTV"
+                            OnGetFocus="CheckListDecimal_OnGetFocus" />
+              </c:VerticalLayout>
+            </s:If>
+
+            <!--ЦЕЛОЕ-->
+            <s:If Test="$Parameter.TypeName == Integer">
+              <c:VerticalLayout CssClass="CheckListQuestionVL">
+                <c:TextView Text="$Parameter.Description" CssClass="CheckListDescriptionTV" />
+              </c:VerticalLayout>
+
+              <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$Parameter.Id">
+                <c:EditText Enabled="$IsNotReadonly()" Text="$Parameter.Result" Keyboard="numeric" Mask="^\d*$"
+                            OnLostFocus="CheckListInteger_OnLostFocus" Id="$Parameter.Id"
+                            Placeholder="#not_specified#" CssClass="CheckListAnswerElementTV"
+                            OnGetFocus="CheckListInteger_OnGetFocus" />
+              </c:VerticalLayout>
+            </s:If>
+
+            <!--СТРОКА-->
+            <s:If Test="$Parameter.TypeName == String">
+              <c:VerticalLayout CssClass="CheckListStringVL" Id="$Parameter.Id">
+                <c:TextView Text="$Parameter.Description" CssClass="CheckListDescriptionTV" />
+                <c:EditText Enabled="$IsNotReadonly()" Text="$Parameter.Result" Placeholder="#text#"
+                            CssClass="CheckListStringET"
+                            OnLostFocus="CheckListString_OnLostFocus" Id="$Parameter.Id"
+                            OnGetFocus="CheckListString_OnGetFocus" />
+              </c:VerticalLayout>
+            </s:If>
           </c:HorizontalLayout>
+          <c:HorizontalLine CssClass="CheckListBreaker" />
         </s:Iterator>
-        <c:HorizontalLine />
+
         <c:HorizontalLayout CssClass="EmptySpace2sp" />
         <c:HorizontalLayout CssClass="EmptySpace2sp" />
         <c:TextView Text="#SERVICEHISTORY#" CssClass="SubHeading" />
         <c:HorizontalLayout CssClass="EmptySpace2sp" />
+        <c:HorizontalLine CssClass="EndLine" />
         <s:Iterator Id="history" Value="$GetHistory()">
-          <c:HorizontalLine />
+
 
           <c:VerticalLayout CssClass="ListElement">
             <c:HorizontalLayout CssClass="EmptySpace2sp" />
@@ -43,9 +165,9 @@
             </c:HorizontalLayout>
             <c:HorizontalLayout CssClass="EmptySpace2sp" />
           </c:VerticalLayout>
+          <c:HorizontalLine />
         </s:Iterator>
-        <c:HorizontalLine />
-        <c:HorizontalLine />
+
       </c:VerticalLayout>
     </c:ScrollView>
   </c:VerticalLayout>

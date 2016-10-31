@@ -2,6 +2,7 @@
 using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Test.Components;
 
 namespace Test
@@ -36,8 +37,14 @@ namespace Test
 
         internal void TaskLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            BusinessProcess.GlobalVariables["currentTaskId"] = ((HorizontalLayout)sender).Id;
-            Navigation.Move("TaskScreen");
+            var dictionary = new Dictionary<string, object>()
+            {
+                {Parameters.IdTaskId, ((HorizontalLayout)sender).Id},
+                {Parameters.IdCurrentEventId, $"{Variables[Parameters.IdCurrentEventId]}" },
+                {Parameters.IdClientId, $"{Variables[Parameters.IdClientId]}" },
+                {Parameters.IdIsReadonly, Variables[Parameters.IdIsReadonly] }
+            };
+            Navigation.Move("TaskScreen", dictionary);
         }
 
         internal void TopInfo_Arrow_OnClick(object sernder, EventArgs eventArgs)
@@ -51,40 +58,8 @@ namespace Test
         }
 
         internal IEnumerable GetTasks()
-        {
-            //            return new ArrayList
-            //            {
-            //                new Dictionary<string, object>
-            //                {
-            //                    {"Id", "1"},
-            //                    {"Name", "Ремонт"},
-            //                    {"Comment", "Маршрутизатор"},
-            //                    {"Done", false}
-            //                },
-            //                new Dictionary<string, object>
-            //                {
-            //                    {"Id", "2"},
-            //                    {"Name", "Монтаж"},
-            //                    {"Comment", "Сервер"},
-            //                    {"Done", false}
-            //                },
-            //                new Dictionary<string, object>
-            //                {
-            //                    {"Id", "3"},
-            //                    {"Name", "Настройка"},
-            //                    {"Comment", "Роутер"},
-            //                    {"Done", true}
-            //                },
-            //                new Dictionary<string, object>
-            //                {
-            //                    {"Id", "4"},
-            //                    {"Name", "Монтаж"},
-            //                    {"Comment", "Сервер"},
-            //                    {"Done", false}
-            //                }
-            //            };
-            return DBHelper.GetTasksByEventID((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
-        }
+           => DBHelper.GetTaskList($"{Variables[Parameters.IdCurrentEventId]}",
+                $"{Variables[Parameters.IdClientId]}");
 
         internal string GetResourceImage(string tag)
         {

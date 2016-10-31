@@ -132,3 +132,4 @@ upload_failed		Отправка неудачна
 photo		Фото
 delete		Удалить
 retake_photo		Переснять
+targets		Цели

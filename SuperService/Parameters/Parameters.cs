@@ -41,13 +41,14 @@
         public const string LogicValue = "LogicValue";
         public const string NumericValue = "NumericValue";
 
-#if DEBUG
+        /// <summary>
+        /// Индетефикатор задачи
+        /// </summary>
+        public const string IdTaskId = "TaskId";
 
         /// <summary>
         ///     Представляет разделитель строк для режима DEBUG
         /// </summary>
         public const string Splitter = "-----------------------------------------------";
-
-#endif
     }
 }

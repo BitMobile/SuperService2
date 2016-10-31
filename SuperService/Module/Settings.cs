@@ -2,6 +2,7 @@
 using BitMobile.ClientModel3;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Xml;
 using XmlDocument = BitMobile.ClientModel3.XmlDocument;
@@ -121,8 +122,8 @@ namespace Test
                 stream?.Close();
             }
 
-            Host = serverNode?.Attributes?["url"]?.Value ?? "https://sstest.superagent.ru";
-            var server = Host + (solutionPathNode?.Attributes?["url"]?.Value ?? "/bitmobile3/superservice3demo");
+            Host = serverNode?.Attributes?["url"]?.Value ?? @"https://sstest.superagent.ru";
+            var server = Host + (solutionPathNode?.Attributes?["url"]?.Value ?? @"/bitmobile3/superservice3test");
 
             Server = server + "/device";
             ImageServer = server + "/";
@@ -135,10 +136,8 @@ namespace Test
             _initialized = true;
 
             GpsTrackingInit();
-            //TODO: В релизе удалить. Это отлаточный вызов метода.
-#if DEBUG
+
             CheckAllProperty();
-#endif
         }
 
         private static bool GetLogicValue(string setupName, bool @default = false)
@@ -185,9 +184,7 @@ namespace Test
             return (int)dictionary.GetValueOrDefault(Parameters.NumericValue, @default);
         }
 
-        //TODO: В релизе удалить. Это отладочный метод.
-#if DEBUG
-
+        [Conditional("DEBUG")]
         private static void CheckAllProperty()
         {
             DConsole.WriteLine(Parameters.Splitter);
@@ -210,8 +207,6 @@ namespace Test
             DConsole.WriteLine($"GPSTracking.{nameof(GpsTracking.UserId)}: {GpsTracking.UserId}");
             DConsole.WriteLine($"{Parameters.Splitter}{Environment.NewLine}");
         }
-
-#endif
 
         private static void GpsTrackingInit()
         {

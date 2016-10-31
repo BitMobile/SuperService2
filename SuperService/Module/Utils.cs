@@ -3,6 +3,9 @@ using BitMobile.Common.Controls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Runtime.CompilerServices;
 using static System.String;
 
 // ReSharper disable LoopCanBeConvertedToQuery
@@ -215,6 +218,26 @@ namespace Test
         {
             var thursday = date + new TimeSpan(3 - ((int)date.DayOfWeek + 6) % 7, 0, 0, 0);
             return 1 + (thursday.DayOfYear - 1) / 7;
+        }
+
+        /// <summary>
+        /// Метод, позволяет получить сведения о вызывающем объекте и подставляющий
+        /// их в необязательные параметры
+        /// </summary>
+        /// <param name="message">Сообщение которое необходимо вывести.</param>
+        /// <param name="memberName">авто параметер</param>
+        /// <param name="filePath">авто параметер</param>
+        /// <param name="sourceLineNumber">авто параметер</param>
+        [Conditional("DEBUG")]
+        public static void TraceMessage(string message = "",
+            [CallerMemberName] string memberName = "",
+            [CallerFilePath] string filePath = "",
+            [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            DConsole.WriteLine($"{Environment.NewLine}Message: {message} ");
+            DConsole.WriteLine($"Member Name: {memberName} ");
+            DConsole.WriteLine($"Source file path: {filePath} ");
+            DConsole.WriteLine($"Source line number: {sourceLineNumber} {Environment.NewLine}");
         }
     }
 }

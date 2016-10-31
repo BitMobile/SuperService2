@@ -132,3 +132,4 @@ upload_failed		Upload failed
 photo		Photo
 delete		Delete
 retake_photo		Retake
+targets		Targets

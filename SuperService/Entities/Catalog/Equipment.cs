@@ -12,29 +12,29 @@ namespace Test.Catalog
         public string Code { get; set; }
         public DbRef SKU { get; set; }
 }
-    public class Equipment_Equiements : DbEntity
+    public class Equipment_Equipments : DbEntity
     {
         public DbRef Id { get; set; }
         public int LineNumber { get; set; }
         public DateTime Period { get; set; }
         public DbRef Clients { get; set; }
         public DbRef Ref { get; set; }
-        public DbRef StatusEquiement { get; set; }
+        public DbRef StatusEquipment { get; set; }
         public DbRef ContractSale { get; set; }
         public DbRef CantractService { get; set; }
-        public string ContactForEquiemnt { get; set; }
+        public string ContactForEquipment { get; set; }
         public string Info { get; set; }
-        public DbRef Equiement { get; set; }
+        public DbRef Equipment { get; set; }
 
    }
-    public class Equipment_EquiementsHistory : DbEntity
+    public class Equipment_EquipmentsHistory : DbEntity
     {
         public DbRef Id { get; set; }
         public int LineNumber { get; set; }
         public DateTime Period { get; set; }
         public DbRef Client { get; set; }
         public DbRef Ref { get; set; }
-        public DbRef Equiements { get; set; }
+        public DbRef Equipments { get; set; }
         public string Target { get; set; }
         public DbRef Result { get; set; }
         public string ObjectGet { get; set; }

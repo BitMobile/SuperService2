@@ -7,20 +7,20 @@
       <c:VerticalLayout>
         <s:Iterator Id="task" Value="$GetTasks()">
           <c:HorizontalLayout Id="$task.Id" CssClass="TaskLayout" OnClick="TaskLayout_OnClick">
+            <c:VerticalLayout CssClass="TaskInfoLayout">
+              <c:TextView Text="$task.TaskType" CssClass="TaskName" />
+              <c:TextView Text="$task.Description" CssClass="TaskDescription" />
+            </c:VerticalLayout>
             <c:VerticalLayout CssClass="TaskDoneImageContainer">
-              <s:If Test="$task.ResultEventName == Done">
+              <s:If Test="$task.StatusName == Done">
                 <c:Image Source="$GetResourceImage(tasklist_done)" CssClass="TaskDoneImage" />
               </s:If>
-              <s:If Test="$task.ResultEventName == NotDone">
+              <s:If Test="$task.StatusName == Rejected">
                 <c:Image Source="$GetResourceImage(tasklist_specdone)" CssClass="TaskDoneImage" />
               </s:If>
-              <s:If Test="$task.ResultEventName == New">
+              <s:If Test="$task.StatusName == New">
                 <c:Image Source="$GetResourceImage(tasklist_notdone)" CssClass="TaskDoneImage" />
               </s:If>
-            </c:VerticalLayout>
-            <c:VerticalLayout CssClass="TaskInfoLayout">
-              <c:TextView Text="$task.equipmentDescription" CssClass="TaskName" />
-              <c:TextView Text="" CssClass="TaskDescription" />
             </c:VerticalLayout>
           </c:HorizontalLayout>
           <c:HorizontalLine CssClass="TaskBreaker" />

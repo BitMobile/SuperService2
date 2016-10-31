@@ -306,7 +306,15 @@ namespace Test
         internal void TaskCounterLayout_OnClick(object sender, EventArgs eventArgs)
         {
             if (CheckBigButtonActive(sender))
-                Navigation.Move("TaskListScreen");
+            {
+                var dictionary = new Dictionary<string, object>
+                {
+                    {Parameters.IdClientId, _currentEventRecordset[Parameters.IdClientId]},
+                    {Parameters.IdCurrentEventId, _currentEventRecordset["Id"]},
+                    {Parameters.IdIsReadonly, _readonly }
+                };
+                Navigation.Move("TaskListScreen", dictionary);
+            }
         }
 
         private bool CheckBigButtonActive(object sender)
@@ -371,9 +379,21 @@ namespace Test
             return _currentEventRecordset;
         }
 
-        internal string GetStringPartOfTotal(long part, long total)
+        internal string GetStringPartOfTotal(object part, object total)
+         => !part.Equals(0) ? $"{part}/{total}" : $"{total}";
+
+        internal string GetPrice(DbRecordset eventRecordset)
         {
-            return Converter.ToDecimal(part) != 0 ? $"{part}/{total}" : $"{total}";
+            var status = (string)eventRecordset["statusName"];
+            var sums = DBHelper.GetCocSumsByEventId(eventRecordset["Id"].ToString(),
+                status != "Done" && status != "InWork");
+            var total = (double)sums["Sum"];
+            var services = (double)sums["SumServices"];
+            var materials = (double)sums["SumMaterials"];
+            if (!Settings.ShowMaterialPrice) return $"{services:N2} {Translator.Translate("currency")}";
+            return Settings.ShowServicePrice
+                ? $"{total:N2} {Translator.Translate("currency")}"
+                : $"{materials:N2} {Translator.Translate("currency")}";
         }
 
         internal string GetPrice(DbRecordset eventRecordset)
@@ -423,9 +443,7 @@ namespace Test
         }
 
         internal bool IsNotZero(long count)
-        {
-            return Convert.ToInt64(count) != Convert.ToInt64(0L);
-        }
+            => Convert.ToInt64(count) != Convert.ToInt64(0L);
 
         internal string FormatTimer(string date)
         {
@@ -446,5 +464,11 @@ namespace Test
                 total += (decimal)services;
             return $"{total:N2} {Translator.Translate("currency")}";
         }
+
+        internal long GetTotalTask(object eventId, object clientId)
+            => DBHelper.GetTotalTaskByEventIdOrClientId(eventId, clientId);
+
+        internal long GetTotalAnsweredTask(object eventId, object clientId)
+            => DBHelper.GetTotalTaskAnsweredByEventIdOrClientId(eventId, clientId);
     }
 }

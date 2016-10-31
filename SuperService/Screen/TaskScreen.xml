@@ -5,28 +5,59 @@
     <s:Push Id="task" Value="$GetTask()" />
     <s:Include File="Components\TopInfoComponent.xml" />
     <c:ScrollView CssClass="RootLayout">
-      <c:VerticalLayout CssClass="RootLayout">
-        <c:VerticalLayout Id="$task.EquipmentId" OnClick="EquipmentDescriptionLayout_OnClick">
-          <c:TextView Text="$task.EquipmentDescription" CssClass="TargetTextView" />
-          <c:TextView Text="" CssClass="EquipDescTextView" />
-        </c:VerticalLayout>
+      <c:VerticalLayout CssClass="InternalScreenLayout">
+
+        <c:HorizontalLayout CssClass="EmptySpace2sp" />
+        <c:TextView Text="$UpperCaseString($task.TaskType)" CssClass="SubHeading" />
         <c:HorizontalLayout CssClass="EmptySpace2sp" />
         <c:HorizontalLine />
-        <c:TextView Text="$task.TypeDepartures" CssClass="SubHeading" />
-        <c:TextView Id="TaskCommentTextView" Text="$task.Target" CssClass="SubComment" />
+        <c:TextView Id="TaskCommentTextView" Text="$task.Description" CssClass="SubComment" />
         <c:HorizontalLayout Id="WrapUnwrapButton" CssClass="WrapUnwrapLayout" OnClick="WrapUnwrapButton_OnClick">
           <c:HorizontalLine CssClass="WrapUnwrapLine" />
           <c:Image Id="WrapUnwrapImage" Source="$GetResourceImage(longtext_expand)" CssClass="WrapUnwrapImage" />
           <c:HorizontalLine CssClass="WrapUnwrapLine" />
         </c:HorizontalLayout>
+
+        <s:If Test="$IsThereAnyEquipment($task.Equipment)">
+          <c:HorizontalLayout CssClass="EmptySpace2sp" />
+          <c:TextView Text="$UpperCaseString(#equipment#)" CssClass="SubHeading" />
+          <c:HorizontalLayout CssClass="EmptySpace2sp" />
+          <c:HorizontalLine />
+
+          <c:VerticalLayout CssClass="EquipmentDescriptionLayout">
+            <c:HorizontalLayout CssClass="DescriptionHorizontalCenterAlign">
+              <c:VerticalLayout Id="$task.EquipmentId" CssClass="DescriptionVerticalAlign" OnClick="Equipment_OnClick">
+                <c:TextView Text="$task.Equipment" CssClass="EquipmentDescription" />
+              </c:VerticalLayout>
+            </c:HorizontalLayout>
+          </c:VerticalLayout>
+          <c:HorizontalLine />
+        </s:If>
+
+        <c:HorizontalLayout CssClass="EmptySpace2sp" />
+        <c:TextView Text="$UpperCaseString(#targets#)" CssClass="SubHeading" />
+        <c:HorizontalLayout CssClass="EmptySpace2sp" />
+        <c:HorizontalLine CssClass="CommentEndLine" />
+
+        <s:Iterator Id="targets" Value="$GetTaskTargets()">
+          <c:HorizontalLayout Id="$targets.Id" CssClass="TargetContainer">
+            <c:HorizontalLayout Id="$targets.Id" CssClass="StateContainer" OnClick="ChangeTaskTargetStatus_OnClick">
+              <c:Image Id="targetStatus" Source="$GetCurrentStatus($targets.IsDone)"
+                       CssClass="State" />
+            </c:HorizontalLayout>
+            <c:TextView Id="GetText" Text="$targets.Description" CssClass="TargetDescription" />
+          </c:HorizontalLayout>
+          <c:HorizontalLine />
+        </s:Iterator>
+
         <c:VerticalLayout CssClass="CommentLayout">
           <c:MemoEdit Text="$task.Comment" Id="TaskCommentEditText" Placeholder="#comment...#"
-                      CssClass="Comment" OnChange="TaskCommentEditText_OnChange" />
+                      CssClass="Comment" OnChange="TaskCommentEditText_OnChange" OnGetFocus="CheckStartEvent_OnGetFocus" />
           <c:HorizontalLine CssClass="CommentEndLine" />
         </c:VerticalLayout>
 
-        <s:Push Id="void" Value="$SetResultName($task.resultName)" />
-        <s:If Test="$task.resultName == Done">
+        <s:Push Id="void" Value="$SetResultName($task.Status)" />
+        <s:If Test="$task.Status == Done">
           <c:HorizontalLayout Id="TaskFinishedButton" CssClass="FinishedButtonPressed"
                               OnClick="TaskFinishedButton_OnClick">
             <c:TextView Id="TaskFinishedButtonTextView" Text="#task_finished#" CssClass="FinishedButtonPressedText" />
@@ -43,7 +74,7 @@
             </c:VerticalLayout>
           </c:HorizontalLayout>
         </s:If>
-        <s:If Test="$task.resultName == New">
+        <s:If Test="$task.Status == New">
           <c:HorizontalLayout Id="TaskFinishedButton" CssClass="FinishedButtonActive"
                               OnClick="TaskFinishedButton_OnClick">
             <c:TextView Id="TaskFinishedButtonTextView" Text="#task_finished#" CssClass="FinishedButtonActiveText" />
@@ -60,7 +91,7 @@
             </c:VerticalLayout>
           </c:HorizontalLayout>
         </s:If>
-        <s:If Test="$task.resultName == NotDone">
+        <s:If Test="$task.Status == Rejected">
           <c:HorizontalLayout Id="TaskFinishedButton" CssClass="FinishedButtonActive"
                               OnClick="TaskFinishedButton_OnClick">
             <c:TextView Id="TaskFinishedButtonTextView" Text="#task_finished#" CssClass="FinishedButtonActiveText" />
@@ -78,34 +109,8 @@
           </c:HorizontalLayout>
         </s:If>
 
-        <!--      <c:HorizontalLayout CssClass="FinishedButtonInactive">-->
-        <!--        <c:TextView Text="#task_finished#" CssClass="FinishedButtonInactiveText" />-->
-        <!--        <c:VerticalLayout CssClass="FinishedRefuseButtonImageWrapper">-->
-        <!--          <c:Image Source="$GetResourceImage(tasklist_notdone)" CssClass="FinishedRefuseButtonImage" />-->
-        <!--        </c:VerticalLayout>-->
-        <!--      </c:HorizontalLayout>-->
-        <!--      <c:HorizontalLayout CssClass="FinishedButtonActive">-->
-        <!--        <c:TextView Text="#task_finished#" CssClass="FinishedButtonActiveText" />-->
-        <!--        <c:VerticalLayout CssClass="FinishedRefuseButtonImageWrapper">-->
-        <!--          <c:Image Source="$GetResourceImage(tasklist_notdone)" CssClass="FinishedRefuseButtonImage" />-->
-        <!--        </c:VerticalLayout>-->
-        <!--      </c:HorizontalLayout>-->
-        <!--      <c:HorizontalLayout CssClass="RefuseButton">-->
-        <!--        <c:TextView Text="#task_refused#" CssClass="RefuseButtonText" />-->
-        <!--        <c:VerticalLayout CssClass="FinishedRefuseButtonImageWrapper">-->
-        <!--          <c:Image Source="$GetResourceImage(tasklist_notdone)" CssClass="FinishedRefuseButtonImage" />-->
-        <!--        </c:VerticalLayout>-->
-        <!--      </c:HorizontalLayout>-->
-        <!--      <c:HorizontalLayout CssClass="RefuseButtonPressed">-->
-        <!--        <c:TextView Text="#task_refused#" CssClass="RefuseButtonPressedText" />-->
-        <!--        <c:VerticalLayout CssClass="FinishedRefuseButtonImageWrapper">-->
-        <!--          <c:Image Source="$GetResourceImage(tasklist_specdone)" CssClass="FinishedRefuseButtonImage" />-->
-        <!--        </c:VerticalLayout>-->
-        <!--      </c:HorizontalLayout>-->
         <c:HorizontalLayout CssClass="EmptySpace6sp" />
       </c:VerticalLayout>
-      <!--      <c:Button Id="TaskFinishedButton" Text="#task_finished#" OnClick="TaskFinishedButton_OnClick" />-->
-      <!--      <c:Button Id="TaskRefuseButton" Text="#task_refused#" OnClick="TaskRefuseButton_OnClick" />-->
     </c:ScrollView>
   </c:DockLayout>
 </c:Screen>
