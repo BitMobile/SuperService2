@@ -396,20 +396,6 @@ namespace Test
                 : $"{materials:N2} {Translator.Translate("currency")}";
         }
 
-        internal string GetPrice(DbRecordset eventRecordset)
-        {
-            var status = (string)eventRecordset["statusName"];
-            var sums = DBHelper.GetCocSumsByEventId(eventRecordset["Id"].ToString(),
-                status != "Done" && status != "InWork");
-            var total = (double)sums["Sum"];
-            var services = (double)sums["SumServices"];
-            var materials = (double)sums["SumMaterials"];
-            if (!Settings.ShowMaterialPrice) return $"{services:N2} {Translator.Translate("currency")}";
-            return Settings.ShowServicePrice
-                ? $"{total:N2} {Translator.Translate("currency")}"
-                : $"{materials:N2} {Translator.Translate("currency")}";
-        }
-
         internal bool IsEmptyDateTime(string dateTime)
         {
             return dateTime == "0001-01-01 00:00:00";
