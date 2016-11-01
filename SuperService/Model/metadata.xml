@@ -639,7 +639,7 @@
 				<Field AllowNull="false" Name="Client" Type="Catalog.Client"/>
 				<Field AllowNull="true" Name="DueDateTime" Type="DateTime2"/>
 				<Field AllowNull="false" Length="1000" Name="Description" Type="String"/>
-				<Field AllowNull="true" Name="DeliveryDateTime" Type="DateTime2"/>
+				<Field AllowNull="true" Name="DeliveryDateTime" Type="String" Length="100"/>
 				<Field AllowNull="true" Length="1000" Name="Marketplace" Type="String"/>
 				<Field AllowNull="false" Name="Sum" Precision="15" Scale="2" Type="Decimal"/>
 				<Field AllowNull="false" Name="Closed" Type="Boolean"/>

@@ -12,7 +12,7 @@ namespace Test.Catalog
         public DbRef Client { get; set; }
         public DateTime DueDateTime { get; set; }
         public string Description { get; set; }
-        public DateTime DeliveryDateTime { get; set; }
+        public string DeliveryDateTime { get; set; }
         public string Marketplace { get; set; }
         public decimal Sum { get; set; }
         public bool Closed { get; set; }
