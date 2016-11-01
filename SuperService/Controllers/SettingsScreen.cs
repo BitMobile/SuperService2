@@ -171,15 +171,18 @@ namespace Test
         internal void SendErrorReport_OnClick(object sender, EventArgs e)
         {
             Toast.MakeToast(Translator.Translate("start_sync"));
-            FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password, (o, args) =>
+            DBHelper.SyncAsync((obj, eventArgs) =>
             {
-                DConsole.WriteLine("Sync succesful? = " + args.Result);
-                Toast.MakeToast(Translator.Translate(args.Result ? "upload_finished" : "upload_failed"));
-                if (args.Result)
-                    FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password, (o1, args1) =>
-                    {
-                        Toast.MakeToast(Translator.Translate(args1.Result ? "sync_success" : "sync_fail"));
-                    });
+                FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password, (o, args) =>
+                {
+                    DConsole.WriteLine("Sync succesful? = " + args.Result);
+                    Toast.MakeToast(Translator.Translate(args.Result ? "upload_finished" : "upload_failed"));
+                    if (args.Result)
+                        FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password, (o1, args1) =>
+                        {
+                            Toast.MakeToast(Translator.Translate(args1.Result ? "sync_success" : "sync_fail"));
+                        });
+                });
             });
         }
 

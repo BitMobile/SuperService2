@@ -150,7 +150,7 @@
 				</TabularSection>
 			</TabularSections>
 		</Entity>
-		<Entity DeleteFilter="" Name="Event" Schema="Document" SyncDownload="True" SyncFilter="t.[Id] IN(SELECT EV.[Id] FROM [Document].[Event] EV JOIN [Enum].[StatusyEvents] SE ON EV.[Status] = SE.[Id] WHERE EV.[UserMA] = @UserId AND EV.[Date] &gt;(getDate() - 31) AND NOT (SE.[Name] = 'Done')) OR @UserId IN (SELECT US.[id] FROM [Catalog].[User] US WHERE US.[UserName]='Exchange')" SyncUpload="True">
+		<Entity DeleteFilter="" Name="Event" Schema="Document" SyncDownload="True" SyncFilter="t.[Id] IN(SELECT EV.[Id] FROM [Document].[Event] EV JOIN [Enum].[StatusyEvents] SE ON EV.[Status] = SE.[Id] WHERE (EV.[UserMA] = @UserId OR EV.[UserMA] IN (SELECT CU.Id From [Catalog].[User] CU Where CU.[Manager] = @UserId)) AND EV.[Date] &gt;(getDate() - 31)) OR @UserId IN (SELECT US.[id] FROM [Catalog].[User] US WHERE US.[UserName]='Exchange')" SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Posted" Type="Boolean"/>
 				<Field KeyField="true" Name="Id" Type="Guid"/>
@@ -688,7 +688,7 @@
 			<Row Description="НеАктивен" Id="ab0acbab-556c-7058-4ba9-e4cd72c2958d" Name="Disactive" _RS="0"/>
 		</Entity>
 		<Entity Name="Enum.TypesEvents">
-			<Row Description="Визит" Id="83c0e4e3-0164-81bf-4804-a18e953859f5" Name="Visit" _RS="0"/>
+			<Row Description="Встреча" Id="83c0e4e3-0164-81bf-4804-a18e953859f5" Name="Visit" _RS="0"/>
 			<Row Description="Задача" Id="be62d056-4a2d-3ff4-45bf-b48e8f3b30fb" Name="Task" _RS="0"/>
 			<Row Description="Звонок" Id="ad7e2b2c-b856-ed78-4d06-4b44a4a4cd57" Name="Call" _RS="0"/>
 			<Row Description="Письмо" Id="8824e263-6025-070c-4ea0-55807f97b5e3" Name="Letter" _RS="0"/>
