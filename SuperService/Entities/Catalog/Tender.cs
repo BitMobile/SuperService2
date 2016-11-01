@@ -16,6 +16,8 @@ namespace Test.Catalog
         public string Marketplace { get; set; }
         public decimal Sum { get; set; }
         public bool Closed { get; set; }
+        public DbRef Responsible { get; set; }
+        public DbRef Manager { get; set; }
 }
     public class Tender_ActivityTypes : DbEntity
     {

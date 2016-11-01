@@ -643,6 +643,8 @@
 				<Field AllowNull="true" Length="1000" Name="Marketplace" Type="String"/>
 				<Field AllowNull="false" Name="Sum" Precision="15" Scale="2" Type="Decimal"/>
 				<Field AllowNull="false" Name="Closed" Type="Boolean"/>
+				<Field AllowNull="true" Name="Responsible" Type="Catalog.User"/>
+				<Field AllowNull="true" Name="Manager" Type="Catalog.User"/>
 			</Fields>
 			<TabularSections>
 				<TabularSection DeleteFilter="" Key="ActivityType" Name="ActivityTypes" SyncFilter="">
