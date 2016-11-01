@@ -49,8 +49,8 @@
         <c:TextView Visible="False" />
         <c:HorizontalLayout CssClass="InfoLayout">
           <c:TextView Text="#delivery_date#" Id="TaskCounterNameTextView" CssClass="InfoTitle" />
-          <c:TextView Text="$GetFormatDate($tender.DeliveryDate)"
-                      Id="TaskCounterTextView" CssClass="InfoContent" />
+          <c:TextView Text="$tender.DeliveryDate"
+                      Id="TaskCounterTextView" CssClass="InfoContentForDeliveryDate" />
           <c:HorizontalLine />
         </c:HorizontalLayout>
         <c:HorizontalLine />

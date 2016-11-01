@@ -425,3 +425,13 @@ HorizontalLine {
 .Line {
   margin-bottom: 0.5sp;
 }
+.InfoContentForDeliveryDate {
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  color: #a4a8a9;
+  margin-right: 3%;
+  text-align: right;
+  width: 57%;
+  vertical-align: center;
+  white-space: nowrap;
+}
