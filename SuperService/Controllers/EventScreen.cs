@@ -409,6 +409,11 @@ namespace Test
             return dateTime == "0001-01-01 00:00:00";
         }
 
+        internal bool IsNotCurrUser(DbRef UserIn)
+        {
+            if (Settings.UserDetailedInfo.Id.Guid == UserIn.Guid) return false;
+            return true;
+        }
         internal bool IsNotEmptyDateTime(string dateTime)
         {
             return dateTime != "0001-01-01 00:00:00";

@@ -215,6 +215,7 @@ namespace Test
                                   --важность
                                   Enum_StatusImportance.Name        AS ImportanceName,
                                   --важность
+                                  event.UserMA                      AS Resp,
                                   event.Comment,
                                   docSUm.sumFact,
                                   docSUm.sumMaterials,

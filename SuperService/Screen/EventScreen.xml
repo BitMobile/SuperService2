@@ -85,7 +85,14 @@
                         Id="CheckListCounterTextView" CssClass="InfoContent" />
           </c:HorizontalLayout>
         </s:If>
-
+        <s:If Test="$IsNotCurrUser($event.Resp)">
+          <c:HorizontalLayout CssClass="InfoLayout">
+            <c:TextView Text="#Responsible#" Id="SrOfTask" CssClass="InfoTitle1" />
+            <c:TextView Text="$event.Resp.Description"
+                        Id="SrOfTaskTextView" CssClass="InfoContent" />
+          </c:HorizontalLayout>
+        </s:If>
+        
         <s:If Test="$event.statusName == Appointed">
           <c:HorizontalLayout CssClass="EmptySpace2sp" />
           <c:Button Id="StartButton" Text="#start#" CssClass="StartButton" OnClick="StartButton_OnClick" />

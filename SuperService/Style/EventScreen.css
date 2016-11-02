@@ -349,6 +349,14 @@ HorizontalLine {
   width: 35%;
   vertical-align: center;
 }
+.InfoTitle1 {
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  margin-left: 3%;
+  text-align: left;
+  width: 40%;
+  vertical-align: center;
+}
 .InfoContent {
   font: 3.06186218sp arial;
   height: 3.39866702sp auto;
