@@ -1420,9 +1420,25 @@ namespace Test
                                     WHERE
                                       (ActivityTypeUser.User = @userId
                                         OR
+                                        ActivityTypeUser.User IN 
+                                        (Select CUPodch.ID From Catalog_User CUPodch 
+                                            LEFT JOIN Catalog_User AS CUNach 
+                                            ON CUNach.ID = CUPodch.Manager WHERE CUNach.ID = @userId)
+                                        OR
                                         Tender.Responsible = @userId
                                         OR
-                                        Tender.Manager = @userId)
+                                        Tender.Responsible IN 
+                                        (Select CUPodch.ID From Catalog_User CUPodch 
+                                            LEFT JOIN Catalog_User AS CUNach 
+                                            ON CUNach.ID = CUPodch.Manager WHERE CUNach.ID = @userId)
+                                        OR
+                                        Tender.Manager = @userId
+                                        OR
+                                        Tender.Manager IN 
+                                        (Select CUPodch.ID From Catalog_User CUPodch 
+                                            LEFT JOIN Catalog_User AS CUNach 
+                                            ON CUNach.ID = CUPodch.Manager WHERE CUNach.ID = @userId)
+                                        )
                                       AND Tender.DeletionMark = 0
                                       AND Tender.Closed = 0
                                     ORDER BY Tender.DueDateTime ASC");
