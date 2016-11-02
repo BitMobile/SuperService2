@@ -179,4 +179,5 @@ userPick		Выбор сотрудника
 set		Применить
 complete_results		Результат завершения
 sync		Синхронизация
-	
+Manager		Менеджер
+Responsible		Ответственный

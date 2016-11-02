@@ -1394,12 +1394,14 @@ namespace Test
         public static DbRecordset GetTenderList(object userId)
         {
             var query = new Query(@"SELECT
-                                      Tender.Id                AS Id,
-                                      Tender.Number            AS TenderNumber,
-                                      Tender.DueDateTime       AS DueDateTime,
-                                      Tender.Sum               AS TotalSum,
-                                      Client.Description       AS ClientDescription,
-                                      ActivityTypeC.Description AS ActivityType,
+                                      Tender.Id                    AS Id,
+                                      Tender.Number                AS TenderNumber,
+                                      Tender.DueDateTime           AS DueDateTime,
+                                      Tender.Sum                   AS TotalSum,
+                                      Tender.Responsible           AS Responsible,
+                                      Tender.Manager               AS Manager,
+                                      Client.Description           AS ClientDescription,
+                                      ActivityTypeC.Description    AS ActivityType,
                                       ActivityTypeUser.User        AS UserId
                                     FROM
                                       _Catalog_Tender AS Tender
@@ -1416,7 +1418,11 @@ namespace Test
                                       _Catalog_Client AS Client
                                         ON Tender.Client = Client.Id
                                     WHERE
-                                      ActivityTypeUser.User = @userId
+                                      (ActivityTypeUser.User = @userId
+                                        OR
+                                        Tender.Responsible = @userId
+                                        OR
+                                        Tender.Manager = @userId)
                                       AND Tender.DeletionMark = 0
                                       AND Tender.Closed = 0
                                     ORDER BY Tender.DueDateTime ASC");
@@ -1435,6 +1441,8 @@ namespace Test
                                       Tender.DeliveryDateTime   AS DeliveryDate,
                                       Tender.Marketplace        AS Marketplace,
                                       Tender.Sum                AS Sum,
+                                      Tender.Responsible           AS Responsible,
+                                      Tender.Manager               AS Manager,
                                       Client.Address            AS Client_Address,
                                       Client.Description        AS Client_Description,
                                       ActivityTypes.Description AS ActivityType

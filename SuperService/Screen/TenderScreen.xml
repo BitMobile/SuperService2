@@ -61,6 +61,18 @@
         </c:HorizontalLayout>
         <c:HorizontalLine />
         <c:HorizontalLayout CssClass="InfoLayout">
+          <c:TextView Text="#Responsible#" Id="TenderResponsible" CssClass="InfoTitle" />
+          <c:TextView Text="$tender.Responsible.Description"
+                      Id="Responsible" CssClass="InfoContent" />
+        </c:HorizontalLayout>
+        <c:HorizontalLine />
+        <c:HorizontalLayout CssClass="InfoLayout">
+          <c:TextView Text="#Manager#" Id="TenderManager" CssClass="InfoTitle" />
+          <c:TextView Text="$tender.Manager.Description"
+                      Id="Manager" CssClass="InfoContent" />
+        </c:HorizontalLayout>
+        <c:HorizontalLine />
+        <c:HorizontalLayout CssClass="InfoLayout">
           <c:TextView Text="#sum#" Id="CheckListCounterNameTextView" CssClass="InfoTitle" />
           <c:TextView Text="$FormatCurrency($tender.Sum)"
                       Id="CheckListCounterTextView" CssClass="InfoContent" />
