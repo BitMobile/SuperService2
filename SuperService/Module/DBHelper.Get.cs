@@ -111,14 +111,14 @@ namespace Test
             }
 
             String refUser = $"{(DbRef)RecSetUser["Id"]}";
-            queryString += @"event.UserMA = '" + refUser + "'";
+            queryString += @"(event.UserMA = '" + refUser + "'";
             if (EventsShowSubordinate)
             {
-                queryString += @" OR CU.Manager = '" + refUser + "' AND";
+                queryString += @" OR CU.Manager = '" + refUser + "') AND";
             }
             else
             {
-                queryString += @" AND ";
+                queryString += @") AND ";
             }
             queryString += @" event.DeletionMark = 0
                                     AND (event.StartDatePlan >= @eventDate
@@ -134,6 +134,7 @@ namespace Test
             query.AddParameter("statusCancel", EventStatusCancelName);
             query.AddParameter("statusAppointed", EventStatusAppointed);
             query.AddParameter("statusInWork", EventStatusInWork);
+            Utils.TraceMessage(query.Text);
             return query.Execute();
         }
 
