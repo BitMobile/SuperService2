@@ -134,7 +134,6 @@ namespace Test
             query.AddParameter("statusCancel", EventStatusCancelName);
             query.AddParameter("statusAppointed", EventStatusAppointed);
             query.AddParameter("statusInWork", EventStatusInWork);
-            Utils.TraceMessage(query.Text);
             return query.Execute();
         }
 
@@ -1422,23 +1421,23 @@ namespace Test
                                     WHERE
                                       (ActivityTypeUser.User = @userId
                                         OR
-                                        ActivityTypeUser.User IN 
-                                        (Select CUPodch.ID From Catalog_User CUPodch 
-                                            LEFT JOIN Catalog_User AS CUNach 
+                                        ActivityTypeUser.User IN
+                                        (Select CUPodch.ID From Catalog_User CUPodch
+                                            LEFT JOIN Catalog_User AS CUNach
                                             ON CUNach.ID = CUPodch.Manager WHERE CUNach.ID = @userId)
                                         OR
                                         Tender.Responsible = @userId
                                         OR
-                                        Tender.Responsible IN 
-                                        (Select CUPodch.ID From Catalog_User CUPodch 
-                                            LEFT JOIN Catalog_User AS CUNach 
+                                        Tender.Responsible IN
+                                        (Select CUPodch.ID From Catalog_User CUPodch
+                                            LEFT JOIN Catalog_User AS CUNach
                                             ON CUNach.ID = CUPodch.Manager WHERE CUNach.ID = @userId)
                                         OR
                                         Tender.Manager = @userId
                                         OR
-                                        Tender.Manager IN 
-                                        (Select CUPodch.ID From Catalog_User CUPodch 
-                                            LEFT JOIN Catalog_User AS CUNach 
+                                        Tender.Manager IN
+                                        (Select CUPodch.ID From Catalog_User CUPodch
+                                            LEFT JOIN Catalog_User AS CUNach
                                             ON CUNach.ID = CUPodch.Manager WHERE CUNach.ID = @userId)
                                         )
                                       AND Tender.DeletionMark = 0
