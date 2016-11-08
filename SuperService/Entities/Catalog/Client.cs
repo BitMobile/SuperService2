@@ -40,6 +40,7 @@ namespace Test.Catalog
         public DbRef Ref { get; set; }
         public DbRef Parameter { get; set; }
         public string Val { get; set; }
+        public DbRef Profile { get; set; }
 
    }
 

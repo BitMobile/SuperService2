@@ -344,6 +344,13 @@
 				</TabularSection>
 			</TabularSections>
 		</Entity>
+		<Entity DeleteFilter="" Name="Profile" Schema="Catalog" SyncDownload="True" SyncFilter="" SyncUpload="True">
+			<Fields>
+				<Field KeyField="true" Name="Id" Type="Guid"/>
+				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>		
+			</Fields>
+		</Entity>
 		<Entity DeleteFilter="" Name="Client" Schema="Catalog" SyncDownload="True" SyncFilter="" SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
@@ -377,6 +384,7 @@
 					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
 					<Field AllowNull="true" Name="Parameter" Type="Catalog.ClientOptions"/>
 					<Field AllowNull="true" Length="100" Name="Val" Type="String"/>
+					<Field AllowNull="true" Name="Profile" Type="Catalog.Profile"/>
 				</TabularSection>
 			</TabularSections>
 		</Entity>
