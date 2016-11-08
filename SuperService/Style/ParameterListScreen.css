@@ -1,0 +1,485 @@
+﻿/* ReSharper disable CssNotResolved */
+/* ReSharper disable Html.TagNotResolved */
+/* ReSharper disable InvalidValue */
+/* ReSharper disable RedundantUnits */
+/* ReSharper disable UnexpectedValue */
+body {
+  background-color: #ffffff;
+  height: 100%;
+  width: 100%;
+}
+vl {
+  height: 0sp auto;
+  width: 100%;
+}
+hl {
+  height: 0sp auto;
+  width: 100%;
+}
+DockLayout {
+  height: 0sp auto;
+  width: 100%;
+}
+TextView {
+  color: #51595b;
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  horizontal-align: center;
+  text-align: center;
+  vertical-align: center;
+  white-space: normal;
+  width: 100%;
+}
+HorizontalLine {
+  background-color: #f4f4f5;
+  height: 0.15sp;
+  horizontal-align: center;
+  width: 90%;
+}
+.NoHeight {
+  height: 0%;
+}
+.RootLayout {
+  background-color: #ffffff;
+  height: 100%;
+  width: 100%;
+}
+.EmptySpace3-2sp {
+  height: 1.5sp;
+  width: 100%;
+}
+.EmptySpace8sp {
+  height: 8sp;
+  width: 100%;
+}
+.EmptySpace7sp {
+  height: 7sp;
+  width: 100%;
+}
+.EmptySpace6sp {
+  height: 6sp;
+  width: 100%;
+}
+.EmptySpace5sp {
+  height: 5sp;
+  width: 100%;
+}
+.EmptySpace4sp {
+  height: 4sp;
+  width: 100%;
+}
+.EmptySpace3sp {
+  height: 3sp;
+  width: 100%;
+}
+.EmptySpace2sp {
+  height: 2sp;
+  width: 100%;
+}
+.EmptySpace1sp {
+  height: 1sp;
+  width: 100%;
+}
+.TopInfoLayout {
+  dock-align: top;
+  padding-top: 0.75sp;
+  background-color: #4a4b5e;
+}
+.TopInfoHeadingLayout {
+  margin-top: 0.75sp;
+  height: 4.28553391sp auto;
+  width: 100%;
+}
+.TopInfoHeadingTextLayout {
+  height: 100% auto;
+  width: 45%;
+  vertical-align: center;
+}
+.TopInfoHeading {
+  color: #ffffff;
+  font: 3.08558441sp arial;
+  height: 3.4249987sp auto;
+  padding-top: 0.28703111sp;
+}
+.TopInfoSubHeading {
+  color: #d4d4d7;
+  font: 1.78146299sp arial;
+  height: 1.97742392sp auto;
+}
+.TopInfoButtonLeft {
+  width: 27.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+.TopInfoButtonLeft Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonLeft TextView {
+  color: #fd724c;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonLeft Image {
+  horizontal-align: left;
+  margin-left: 5sp;
+}
+.TopInfoButtonRight {
+  width: 27.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+.TopInfoButtonRight Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonRight TextView {
+  color: #fd724c;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonRight Image {
+  horizontal-align: right;
+  margin-right: 5sp;
+}
+.TopInfoEmptySpace8sp {
+  height: 8sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace7sp {
+  height: 7sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace6sp {
+  height: 6sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace5sp {
+  height: 5sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace4sp {
+  height: 4sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace3sp {
+  height: 3sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace2sp {
+  height: 2sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace1sp {
+  height: 1sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoArrowDown {
+  width: 100%;
+}
+.TopInfoCommentLayout {
+  width: 80%;
+  horizontal-align: center;
+  margin-top: 1.2sp;
+  margin-bottom: 0.5sp;
+}
+.TopInfoCommentLayout TextView {
+  margin-top: 0.5sp;
+  font: 2.05705627sp arial;
+  height: 2.28333247sp auto;
+  color: #d4d4d7;
+}
+.TopInfoExtraLayout {
+  height: 0sp auto;
+  width: 100%;
+  width: 80%;
+  horizontal-align: center;
+}
+.TopInfoExtraLayout TextView {
+  color: #ffffff;
+}
+.TopInfoHeadingTextLayoutWithPicOnly {
+  height: 100% auto;
+  width: 45%;
+  vertical-align: center;
+  width: 70%;
+}
+.TopInfoButtonLeftWithPicOnly {
+  width: 15%;
+  height: 3.85698052sp;
+  vertical-align: center;
+  dock-align: left;
+}
+.TopInfoButtonLeftWithPicOnly Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonLeftWithPicOnly TextView {
+  color: #fd724c;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonLeftWithPicOnly Image {
+  horizontal-align: left;
+  margin-left: 5sp;
+}
+.TopInfoButtonRightWithPicOnly {
+  width: 15%;
+  height: 3.85698052sp;
+  vertical-align: center;
+  dock-align: right;
+}
+.TopInfoButtonRightWithPicOnly Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonRightWithPicOnly TextView {
+  color: #fd724c;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonRightWithPicOnly Image {
+  horizontal-align: right;
+  margin-right: 5sp;
+}
+.ClientListItemVL {
+  height: 5sp auto;
+  horizontal-align: center;
+  width: 100%;
+}
+.ClientListNameTV {
+  color: #51595b;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  horizontal-align: left;
+  margin-left: 5.5sp;
+  margin-top: 3sp;
+  margin-bottom: 3sp;
+  text-align: left;
+  width: 90%;
+  white-space: nowrap;
+}
+.ClientListBreaker {
+  width: 90%;
+}
+.FindTextDL {
+  margin-top: 3sp;
+  width: 100%;
+  height: 5sp;
+}
+Button {
+  background-color: #fd724c;
+  border-color: #fd724c;
+  border-style: solid;
+  border-width: 2px;
+  color: #ffffff;
+  horizontal-align: right;
+  selected-background: #fdb29e;
+}
+.findButton {
+  background-color: ff7c4a;
+  width: 25%;
+  height: 100%;
+  margin-bottom: 15%;
+  margin-right: 5%;
+}
+.FindText {
+  margin-left: 5%;
+  width: 70%;
+  height: 100%;
+  color: #51595b;
+}
+.LineUnderSearch {
+  width: 100%;
+}
+.ExtraHorizontalLayout {
+  margin-top: 2.5sp;
+}
+.ExtraVerticalLayout {
+  width: 50%;
+}
+.TopInfoSideImage {
+  horizontal-align: center;
+  height: 7.5sp;
+}
+.TopInfoSideText {
+  horizontal-align: center;
+  width: 80%;
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  color: #ffffff;
+}
+.EventScreenMainLayout {
+  dock-align: top;
+  height: auto;
+  width: 100%;
+}
+.LightInfoLayout {
+  height: 6sp auto;
+  horizontal-align: center;
+  width: 90%;
+}
+.LightInfoBox {
+  height: 4sp auto;
+  width: 49.5%;
+}
+.LightInfoBoxBreaker {
+  margin-top: 0.625sp;
+  width: 3px;
+  height: auto;
+  background-color: #f4f4f5;
+}
+.LightInfoImage {
+  width: 2.5sp;
+  margin-left: 2sp;
+  margin-right: 2sp;
+  vertical-align: center;
+}
+.LightInfoTitle {
+  color: #a4a8a9;
+  font: 2sp arial;
+  height: 3sp;
+}
+.LightInfoContentWithImage {
+  width: 20% auto;
+  height: 2.775sp auto;
+  horizontal-align: center;
+}
+.LightInfoContent {
+  width: 0sp auto;
+  horizontal-align: center;
+}
+.LayoutBreaker {
+  background-color: #a4a8a9;
+  height: 0.1sp;
+  horizontal-align: center;
+  width: 90%;
+}
+.CommentLayout {
+  height: 10sp auto;
+  horizontal-align: center;
+  margin-bottom: 3sp;
+  margin-top: 2sp;
+  width: 80%;
+}
+.Comment {
+  height: 7.5sp auto;
+}
+.InfoLayout {
+  border-color: #f4f4f5;
+  border-style: solid;
+  border-width: 3px;
+  height: 9.18558654sp;
+  horizontal-align: center;
+  margin-bottom: 2sp;
+  width: 90%;
+}
+.InfoImage {
+  height: 4.59279327sp;
+  margin-left: 3%;
+  vertical-align: center;
+}
+.InfoTitle {
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  margin-left: 2%;
+  text-align: left;
+  width: 35%;
+  vertical-align: center;
+}
+.InfoTitle1 {
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  margin-left: 3%;
+  text-align: left;
+  width: 45%;
+  vertical-align: center;
+}
+.InfoContent {
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  color: #a4a8a9;
+  margin-right: 3%;
+  text-align: right;
+  width: 57%;
+  vertical-align: center;
+}
+.StartButton {
+  background-color: #fd724c;
+  border-color: #fd724c;
+  border-style: solid;
+  border-width: 2px;
+  color: #ffffff;
+  font: 4sp arial;
+  height: 10sp;
+  horizontal-align: center;
+  margin-top: 2sp;
+  width: 90%;
+}
+.RefuseButton {
+  background-color: #ffffff;
+  border-color: #a4a8a9;
+  border-style: solid;
+  border-width: 2px;
+  color: #fd724c;
+  font: 4sp arial;
+  height: 10sp;
+  horizontal-align: center;
+  margin-top: 2sp;
+  width: 90%;
+}
+.FinishButton {
+  dock-align: bottom;
+  background-color: #fe9c81;
+  height: 10sp;
+  white-space: normal;
+  width: 100%;
+}
+.FinishButton TextView {
+  margin-top: 1.53093109sp;
+  color: #fecbc0;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+}
+.FinishTimer {
+  margin-top: 0.5sp;
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  color: #ffffff;
+}
+.SubComment {
+  height: 9sp;
+  margin-top: 1.5sp;
+  width: 87%;
+}
+.SubCommentExpanded {
+  height: 9sp auto;
+  margin-top: 1.5sp;
+  width: 90%;
+}
+.WrapUnwrapLayout {
+  height: 6sp;
+  horizontal-align: center;
+  margin-top: 1sp;
+  width: 90%;
+}
+.WrapUnwrapLine {
+  vertical-align: center;
+  width: 45%;
+}
+.WrapUnwrapImage {
+  vertical-align: center;
+  width: 10%;
+}

@@ -45,6 +45,10 @@ namespace Test
             _topInfoComponent.ActivateBackButton();
         }
 
+        public override void OnShow()
+        {
+        }
+
         private static void UpdateChecklist(string id, string result)
         {
             var clientParameters = (Client_Parameters)DBHelper.LoadEntity(id);
@@ -253,8 +257,16 @@ namespace Test
         }
 
         internal IEnumerable GetParameters()
+        //          => DBHelper.GetClientParametersByClientId(
+        //                $"{BusinessProcess.GlobalVariables[Parameters.IdClientId]}",
+        //                $"{BusinessProcess.GlobalVariables[Parameters.IdProfileId]}");
         {
-            return DBHelper.GetClientParametersByClientId(Variables[Parameters.IdClientId].ToString());
+            Utils.TraceMessage($"{BusinessProcess.GlobalVariables[Parameters.IdClientId]}{Environment.NewLine}" +
+                               $"{BusinessProcess.GlobalVariables[Parameters.IdProfileId]}");
+
+            return DBHelper.GetClientParametersByClientId(
+                $"{BusinessProcess.GlobalVariables[Parameters.IdClientId]}",
+                $"{BusinessProcess.GlobalVariables[Parameters.IdProfileId]}");
         }
 
         internal bool IsNotEmptyString(string item)

@@ -16,7 +16,6 @@ namespace Test
     {
         private DbRecordset _currentEventRecordset;
         private bool _readonly;
-        private Button _refuseButton;
         private DockLayout _rootLayout;
         private Button _startButton;
         private Button _DelegateButton;
@@ -121,7 +120,6 @@ namespace Test
             _rootLayout = (DockLayout)Variables["RootLayout"];
             _startFinishButton = (VerticalLayout)Variables.GetValueOrDefault("StartFinishButton");
             _startButton = (Button)Variables.GetValueOrDefault("StartButton");
-            _refuseButton = (Button)Variables.GetValueOrDefault("RefuseButton");
             _statusImage = (Image)Variables.GetValueOrDefault("StatusImage");
             _DelegateButton = (Button)Variables.GetValueOrDefault("DelegateButton");
         }
@@ -178,9 +176,6 @@ namespace Test
             _DelegateButton.CssClass = "NoHeight";
             _DelegateButton.Visible = false;
             _DelegateButton.Refresh();
-            _refuseButton.CssClass = "NoHeight";
-            _refuseButton.Visible = false;
-            _refuseButton.Refresh();
             _startFinishButton.CssClass = "FinishButton";
             _startFinishButton.Refresh();
             _statusImage.Source = GetStatusPicture((string)_currentEventRecordset["ImportanceName"], "InWork");
@@ -414,6 +409,7 @@ namespace Test
             if (Settings.UserDetailedInfo.Id.Guid == UserIn.Guid) return false;
             return true;
         }
+
         internal bool IsNotEmptyDateTime(string dateTime)
         {
             return dateTime != "0001-01-01 00:00:00";

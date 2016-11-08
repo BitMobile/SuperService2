@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:DockLayout Id="ab77e2bc59fd47c6ba70d01b64738fe7" CssClass="RootLayout">
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <c:ScrollView Id="b35e6d3c099642389d916bc98fa23231" CssClass="RootLayout">
+      <c:VerticalLayout Id="9dd02b5f7b684d32b3b018677d0239ed">
+        <s:Iterator Id="category" Value="$GetGroupParameters()">
+          <c:Button Id="$category.Id" Text="$category.Description" CssClass="RefuseButton" OnClick="ParametersButton_OnClick" />
+        </s:Iterator>
+      </c:VerticalLayout>
+    </c:ScrollView>
+  </c:DockLayout>
+</c:Screen>
