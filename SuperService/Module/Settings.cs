@@ -41,8 +41,9 @@ namespace Test
             }
         }
 
-        // TODO: Хранить сервер
         public static string Server { get; set; }
+
+        public static string SolutionUrl { get; set; }
 
         public static string ImageServer { get; set; }
 
@@ -155,6 +156,7 @@ namespace Test
             Server = server + "/device";
             ImageServer = server + "/";
             AuthUrl = Server + @"/GetUserId";
+            SolutionUrl = server;
             GPSSyncUrl = server;
 
             DConsole.WriteLine($"Host = {Host}");
