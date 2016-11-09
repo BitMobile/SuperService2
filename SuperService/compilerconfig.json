@@ -247,5 +247,11 @@
     "minify": {
       "enabled": false
     }
+  },  {  
+    "outputFile": "Style/ParameterListScreen.css",
+    "inputFile": "Style/Less/ParameterListScreen.less",
+    "minify": {
+      "enabled": false
+    }
   }
 ]

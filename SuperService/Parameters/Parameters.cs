@@ -19,6 +19,7 @@
         public const string IdTenderId = "tenderId";
         public const string IsAsTask = "IsAsTask";
         public const string IdUserId = "userId";
+        public const string IdProfileId = "IdProfileId";
 
         /// <summary>
         /// Используется для передачи параметров на экран EditServiceOrMaterials,

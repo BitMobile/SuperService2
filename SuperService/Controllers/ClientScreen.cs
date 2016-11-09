@@ -47,6 +47,8 @@ namespace Test
         public override void OnShow()
         {
             GpsTracking.Start();
+            BusinessProcess.GlobalVariables.Remove(Parameters.IdClientId);
+            BusinessProcess.GlobalVariables.Remove(Parameters.IdProfileId);
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
@@ -56,10 +58,8 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            Navigation.Move(nameof(ClientParametersScreen), new Dictionary<string, object>
-            {
-                [Parameters.IdClientId] = _clientId
-            });
+            BusinessProcess.GlobalVariables[Parameters.IdClientId] = _clientId;
+            Navigation.Move(nameof(ParameterListScreen));
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)

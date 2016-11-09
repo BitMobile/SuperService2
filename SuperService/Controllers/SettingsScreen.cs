@@ -188,6 +188,7 @@ namespace Test
 
         internal void SendLog_OnClick(object sender, EventArgs e)
         {
+            Utils.SendDatabase();
         }
 
         internal bool IsPushEnable()

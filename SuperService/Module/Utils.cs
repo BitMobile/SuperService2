@@ -239,5 +239,9 @@ namespace Test
             DConsole.WriteLine($"Source file path: {filePath} ");
             DConsole.WriteLine($"Source line number: {sourceLineNumber} {Environment.NewLine}");
         }
+
+        [Conditional("DEBUG")]
+        public static void SendDatabase()
+            => Application.SendDatabase(Settings.SolutionUrl, Settings.User, Settings.Password);
     }
 }

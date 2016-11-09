@@ -34,15 +34,21 @@ namespace Test
 
         public override void OnLoading()
         {
+            var parameter = (Profile)
+                DBHelper.LoadEntity($"{BusinessProcess.GlobalVariables[Parameters.IdProfileId]}");
             _topInfoComponent = new TopInfoComponent(this)
             {
-                Header = Translator.Translate("client_parameters"),
+                Header = parameter == null ? "Общие" : parameter.Description,
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
                 ArrowVisible = false,
             };
             _topInfoComponent.ActivateBackButton();
             _readonly = (bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
             _topInfoComponent.ActivateBackButton();
+        }
+
+        public override void OnShow()
+        {
         }
 
         private static void UpdateChecklist(string id, string result)
@@ -253,8 +259,16 @@ namespace Test
         }
 
         internal IEnumerable GetParameters()
+        //          => DBHelper.GetClientParametersByClientId(
+        //                $"{BusinessProcess.GlobalVariables[Parameters.IdClientId]}",
+        //                $"{BusinessProcess.GlobalVariables[Parameters.IdProfileId]}");
         {
-            return DBHelper.GetClientParametersByClientId(Variables[Parameters.IdClientId].ToString());
+            Utils.TraceMessage($"{BusinessProcess.GlobalVariables[Parameters.IdClientId]}{Environment.NewLine}" +
+                               $"{BusinessProcess.GlobalVariables[Parameters.IdProfileId]}");
+
+            return DBHelper.GetClientParametersByClientId(
+                $"{BusinessProcess.GlobalVariables[Parameters.IdClientId]}",
+                $"{BusinessProcess.GlobalVariables[Parameters.IdProfileId]}");
         }
 
         internal bool IsNotEmptyString(string item)

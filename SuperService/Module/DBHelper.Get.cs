@@ -521,29 +521,29 @@ namespace Test
             return query.Execute();
         }
 
-        public static DbRecordset GetClientParametersByClientId(string clientId)
+        public static DbRecordset GetClientParametersByClientId(string clientId, string profileId)
         {
-            var query = new Query("select " +
-                                  "   parameters.Id as Id, " +
-                                  "   parameters.Ref as ClientId, " +
-                                  "   parameters.Val as Result, " +
-                                  "   options.Id as OptionId, " + //значение результата
-                                  "   options.Description as Description, " +
-                                  "   typesDataParameters.Name as TypeName " +
-                                  "from " +
-                                  "   Catalog_Client_Parameters as parameters " +
-                                  "   left join Catalog_ClientOptions as options " +
-                                  "     ON parameters.Ref = @clientId " +
-                                  "       AND parameters.Parameter = options.Id " +
-                                  "    " +
-                                  "   left join Enum_TypesDataParameters as typesDataParameters " +
-                                  "     ON options.DataTypeParameter = TypesDataParameters.Id " +
-                                  "    " +
-                                  "where " +
-                                  "    parameters.Ref = @clientId " +
-                                  "order by parameters.LineNumber asc");
+            var query = new Query(@"SELECT
+                                  parameters.Id            AS Id,
+                                  parameters.Ref           AS ClientId,
+                                  parameters.Val           AS Result,
+                                  options.Id               AS OptionId,
+                                  options.Description      AS Description,
+                                  typesDataParameters.Name AS TypeName,
+                                  parameters.Profile       AS Profile
+                                FROM
+                                  Catalog_Client_Parameters AS parameters
+                                  LEFT JOIN Catalog_ClientOptions AS options
+                                    ON parameters.Parameter = options.Id
+                                  LEFT JOIN Enum_TypesDataParameters AS typesDataParameters
+                                    ON options.DataTypeParameter = TypesDataParameters.Id
+                                WHERE
+                                  parameters.Ref = @clientId AND ifnull(parameters.Profile,'@ref[Catalog_Profile]:00000000-0000-0000-0000-000000000000') = @profile
+                                ORDER BY parameters.LineNumber
+                                  ASC");
 
             query.AddParameter("clientId", clientId);
+            query.AddParameter("profile", profileId);
             return query.Execute();
         }
 
@@ -1546,5 +1546,11 @@ namespace Test
                           Description
                         FROM _Catalog_EventResults
                         WHERE DeletionMark = 0").Execute();
+
+        public static DbRecordset GetClientProfile()
+            => new Query(@"SELECT
+                              Id,
+                              Description
+                            FROM _Catalog_Profile").Execute();
     }
 }
