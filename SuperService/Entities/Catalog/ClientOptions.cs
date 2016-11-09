@@ -13,6 +13,7 @@ namespace Test.Catalog
         public DbRef DataTypeParameter { get; set; }
         public bool DisplayingBMA { get; set; }
         public bool EditingBMA { get; set; }
+        public DbRef Profile { get; set; }
 }
     public class ClientOptions_ListValues : DbEntity
     {

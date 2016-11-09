@@ -384,7 +384,6 @@
 					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
 					<Field AllowNull="true" Name="Parameter" Type="Catalog.ClientOptions"/>
 					<Field AllowNull="true" Length="100" Name="Val" Type="String"/>
-					<Field AllowNull="true" Name="Profile" Type="Catalog.Profile"/>
 				</TabularSection>
 			</TabularSections>
 		</Entity>
@@ -458,6 +457,7 @@
 				<Field AllowNull="false" Name="DataTypeParameter" Type="Enum.TypesDataParameters"/>
 				<Field AllowNull="true" Name="DisplayingBMA" Type="Boolean"/>
 				<Field AllowNull="true" Name="EditingBMA" Type="Boolean"/>
+				<Field AllowNull="true" Name="Profile" Type="Catalog.Profile"/>
 			</Fields>
 			<TabularSections>
 				<TabularSection DeleteFilter="" Key="Val" Name="ListValues" SyncFilter="">

@@ -530,7 +530,7 @@ namespace Test
                                   options.Id               AS OptionId,
                                   options.Description      AS Description,
                                   typesDataParameters.Name AS TypeName,
-                                  parameters.Profile       AS Profile
+                                  options.Profile       AS Profile
                                 FROM
                                   Catalog_Client_Parameters AS parameters
                                   LEFT JOIN Catalog_ClientOptions AS options
@@ -538,7 +538,7 @@ namespace Test
                                   LEFT JOIN Enum_TypesDataParameters AS typesDataParameters
                                     ON options.DataTypeParameter = TypesDataParameters.Id
                                 WHERE
-                                  parameters.Ref = @clientId AND ifnull(parameters.Profile,'@ref[Catalog_Profile]:00000000-0000-0000-0000-000000000000') = @profile
+                                  parameters.Ref = @clientId AND ifnull(options.Profile,'@ref[Catalog_Profile]:00000000-0000-0000-0000-000000000000') = @profile
                                 ORDER BY parameters.LineNumber
                                   ASC");
 
