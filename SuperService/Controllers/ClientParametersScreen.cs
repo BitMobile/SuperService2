@@ -34,9 +34,11 @@ namespace Test
 
         public override void OnLoading()
         {
+            var parameter = (Profile)
+                DBHelper.LoadEntity($"{BusinessProcess.GlobalVariables[Parameters.IdProfileId]}");
             _topInfoComponent = new TopInfoComponent(this)
             {
-                Header = Translator.Translate("client_parameters"),
+                Header = parameter == null ? "Общие" : parameter.Description,
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
                 ArrowVisible = false,
             };

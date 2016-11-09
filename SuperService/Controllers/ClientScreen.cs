@@ -47,6 +47,8 @@ namespace Test
         public override void OnShow()
         {
             GpsTracking.Start();
+            BusinessProcess.GlobalVariables.Remove(Parameters.IdClientId);
+            BusinessProcess.GlobalVariables.Remove(Parameters.IdProfileId);
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)

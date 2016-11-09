@@ -20,14 +20,12 @@ namespace Test.Module
 
         public static void Unregister()
         {
-            Utils.TraceMessage($"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
             var userId = Settings.UserDetailedInfo.Id.Guid;
             if (!string.IsNullOrEmpty(Settings.User) && !string.IsNullOrEmpty(Settings.Password) &&
                !string.IsNullOrEmpty(Settings.PushServer) && (userId != Guid.Empty))
             {
                 Utils.TraceMessage($"In Unregister");
                 PushNotification.Unregister(Settings.PushServer, userId.ToString(), Settings.Password);
-                Utils.TraceMessage($"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
             }
         }
     }

@@ -15,7 +15,7 @@ namespace Test
             {
                 ArrowActive = false,
                 ArrowVisible = false,
-                Header = "Параметры клиентов",
+                Header = "Профили",
                 LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") }
             };
             _topInfoComponent.ActivateBackButton();
@@ -47,5 +47,8 @@ namespace Test
 
         public DbRecordset GetGroupParameters()
             => DBHelper.GetClientProfile();
+
+        public static string GetNullReference()
+            => "@ref[Catalog_Profile]:00000000-0000-0000-0000-000000000000";
     }
 }

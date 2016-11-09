@@ -5,6 +5,8 @@
     <s:Include File="Components\TopInfoComponent.xml" />
     <c:ScrollView Id="b35e6d3c099642389d916bc98fa23231" CssClass="RootLayout">
       <c:VerticalLayout Id="9dd02b5f7b684d32b3b018677d0239ed">
+        <c:Button Id="$GetNullReference()"
+                  Text="Общие" CssClass="RefuseButton" OnClick="ParametersButton_OnClick" />
         <s:Iterator Id="category" Value="$GetGroupParameters()">
           <c:Button Id="$category.Id" Text="$category.Description" CssClass="RefuseButton" OnClick="ParametersButton_OnClick" />
         </s:Iterator>
