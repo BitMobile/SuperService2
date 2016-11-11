@@ -86,7 +86,7 @@ namespace Test
 
             try
             {
-                _db.PerformFullSyncAsync(Settings.Server, Settings.User, Settings.Password,
+                _db.PerformFullSyncAsync(Settings.Server, Settings.User, Settings.Password, Settings.DefaultSyncTimeOut,
                     SyncHandler + resultEventHandler,
                     "Full");
             }
@@ -117,7 +117,7 @@ namespace Test
 
             try
             {
-                _db.PerformSyncAsync(Settings.Server, Settings.User, Settings.Password,
+                _db.PerformSyncAsync(Settings.Server, Settings.User, Settings.Password, Settings.DefaultSyncTimeOut,
                     SyncHandler + resultEventHandler,
                     "Partial");
             }
@@ -148,7 +148,7 @@ namespace Test
 
             try
             {
-                _db.PerformSync(Settings.Server, Settings.User, Settings.Password,
+                _db.PerformSync(Settings.Server, Settings.User, Settings.Password, Settings.DefaultSyncTimeOut,
                     SyncHandler + resultEventHandler,
                     "Partial");
             }
@@ -220,7 +220,7 @@ namespace Test
 
             try
             {
-                _db.PerformFullSync(Settings.Server, Settings.User, Settings.Password,
+                _db.PerformFullSync(Settings.Server, Settings.User, Settings.Password, Settings.DefaultSyncTimeOut,
                     SyncHandler + resultEventHandler,
                     "Full");
             }
