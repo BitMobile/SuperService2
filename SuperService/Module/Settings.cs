@@ -54,7 +54,7 @@ namespace Test
             get
             {
                 return _userId?.Length == 0
-                    ? _userId = $"{UserDetailedInfo.Id.Guid}"
+                    ? _userId = $"{UserDetailedInfo?.Id?.Guid ?? Guid.Empty}"
                     : _userId;
             }
             private set { _userId = value; }
@@ -255,7 +255,7 @@ namespace Test
 
         private static void GpsTrackingInit()
         {
-            GpsTracking.UserId = UserId;
+            GpsTracking.UserId = $"{Guid.Empty}";
             GpsTracking.SendUrl = GPSSyncUrl;
             GpsTracking.IsBestAccuracy = GetLogicValue(nameof(GpsTracking.IsBestAccuracy), DefaultGpsTrackingParameters.IsBestAccuracy);
             GpsTracking.MinInterval = SetGpsTrackingParameter(nameof(GpsTracking.MinInterval),
