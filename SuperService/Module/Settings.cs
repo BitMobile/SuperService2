@@ -1,10 +1,12 @@
 ﻿using BitMobile.Application;
 using BitMobile.ClientModel3;
+using BitMobile.DbEngine;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
+using Test.Catalog;
 using XmlDocument = BitMobile.ClientModel3.XmlDocument;
 
 namespace Test
@@ -45,11 +47,17 @@ namespace Test
 
         public static string UserId
         {
-            get { return _userId ?? DBHelper.GetUserId(); }
+            get
+            {
+                return _userId?.Length == 0
+                    ? _userId = $"{UserDetailedInfo.Id.Guid}"
+                    : _userId;
+            }
             set { _userId = value; }
         }
 
         public static string AuthUrl { get; set; }
+        public static string SolutionUrl { get; set; }
 
         public static string GPSSyncUrl { get; set; }
         public static bool AllowGallery => GetLogicValue(Parameters.AllowGallery);
@@ -60,6 +68,9 @@ namespace Test
         public static bool BagEnabled => GetLogicValue(Parameters.BagEnabled);
         public static bool ShowServicePrice => GetLogicValue(Parameters.ShowServicePrice);
         public static bool ShowMaterialPrice => GetLogicValue(Parameters.ShowMaterialPrice);
+
+        public static User UserDetailedInfo =>
+           (User)((DbRef)DBHelper.GetUserInfoByUserName(User)?["Id"])?.GetObject();
 
         public static void Init()
         {
@@ -129,6 +140,7 @@ namespace Test
             ImageServer = server + "/";
             AuthUrl = Server + @"/GetUserId";
             GPSSyncUrl = server;
+            SolutionUrl = server;
 
             DConsole.WriteLine($"Host = {Host}");
             DConsole.WriteLine($"Server = {Server}");
@@ -210,7 +222,7 @@ namespace Test
 
         private static void GpsTrackingInit()
         {
-            GpsTracking.UserId = UserId;
+            GpsTracking.UserId = $"{Guid.Empty}";
             GpsTracking.SendUrl = GPSSyncUrl;
             GpsTracking.IsBestAccuracy = GetLogicValue(nameof(GpsTracking.IsBestAccuracy), DefaultGpsTrackingParameters.IsBestAccuracy);
             GpsTracking.MinInterval = SetGpsTrackingParameter(nameof(GpsTracking.MinInterval),

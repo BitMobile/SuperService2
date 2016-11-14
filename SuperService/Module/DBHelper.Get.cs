@@ -17,7 +17,7 @@ namespace Test
         /// </summary>
         public static DbRecordset GetEvents()
         {
-            return GetEvents(DateTime.MinValue);
+            return GetEvents(DateTime.MinValue, DateTime.MinValue);
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Test
         ///     Получает список событий плановая дата начала которых больше передаваемого параметра
         /// </summary>
         /// <param name="eventSinceDate"> Дата начания с которой необходимо получить события</param>
-        public static DbRecordset GetEvents(DateTime eventSinceDate)
+        public static DbRecordset GetEvents(DateTime eventSinceDate,DateTime eventToDate)
         {
             var queryString = @"select
                                  event.Id,
@@ -72,14 +72,16 @@ namespace Test
                                 left join Enum_StatusyEvents
                                     on event.status = Enum_StatusyEvents.Id
                                 where
-                                    event.DeletionMark = 0
-                                    AND (event.StartDatePlan >= @eventDate OR (event.ActualEndDate > date('now','start of day') and Enum_StatusyEvents.Name IN (@statusDone, @statusCancel)))
+                                    (event.StartDatePlan<=date('now','start of day','+1 day') OR NOT(Enum_StatusyEvents.Name IN (@statusDone,@statusCancel)))
+                                    AND event.DeletionMark = 0
+                                    AND (event.StartDatePlan BETWEEN @eventDate AND @EVD OR (event.ActualEndDate > date('now','start of day') and Enum_StatusyEvents.Name IN (@statusDone, @statusCancel)))
                                order by
                                 event.StartDatePlan";
 
             var query = new Query(queryString);
 
             query.AddParameter("eventDate", eventSinceDate);
+            query.AddParameter("EVD", eventToDate);
             query.AddParameter("statusDone", EventStatusDoneName);
             query.AddParameter("statusCancel", EventStatusCancelName);
 

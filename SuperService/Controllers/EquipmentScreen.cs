@@ -1,10 +1,10 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.Common.Controls;
+using BitMobile.DbEngine;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using BitMobile.Common.Controls;
-using BitMobile.DbEngine;
 using Test.Catalog;
 using Test.Components;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
@@ -123,8 +123,6 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
-
-
 
         private static void UpdateChecklist(string id, string result)
         {
@@ -246,11 +244,11 @@ namespace Test
             Dialog.Choose(tv.Text, items, startKey, BooleanCallback);
         }
 
-        private ITextView3 GetTextView(object sender)
+        private TextView GetTextView(object sender)
         {
-            var hl = (IHorizontalLayout3)((VerticalLayout)sender).Parent;
-            var vl = (IVerticalLayout3)hl.Controls[hl.Controls.Length < 3 ? 0 : 1];
-            var tv = (ITextView3)vl.Controls[0];
+            var hl = (HorizontalLayout)((VerticalLayout)sender).Parent;
+            var vl = (VerticalLayout)hl.Controls[hl.Controls.Length < 3 ? 0 : 1];
+            var tv = (TextView)vl.Controls[0];
             return tv;
         }
 
@@ -318,7 +316,6 @@ namespace Test
                         ? $@"~\shared\{guid}.jpg"
                         : ResourceManager.GetImage("checklistscreen_nophoto");
         }
-
 
         internal bool IsNotEmptyString(string item)
         {

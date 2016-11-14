@@ -9,7 +9,7 @@ tasks		Tasks
 coc		Certificate of Complition
 clist		Check-list
 time		Time
-workType		Type of Work
+workType		Type of Task
 comment		Commentary
 onmap		View on map
 closeeventquestion		Are you sure you want to close this order?
@@ -133,3 +133,6 @@ photo		Photo
 delete		Delete
 retake_photo		Retake
 targets		Targets
+yesterdayToUpper		YESTERDAY
+tomorrowToUpper		TOMORROW
+notification		Notification

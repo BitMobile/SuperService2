@@ -1,4 +1,5 @@
 ﻿using BitMobile.ClientModel3;
+using ClientModel3.MD;
 using System;
 
 namespace Test
@@ -49,6 +50,13 @@ namespace Test
 #if DEBUG
             DConsole.WriteLine($"Развернули приложение.GpsTracking is start: result = {result}");
 #endif
+        }
+
+        public override void OnPushMessage(string message)
+        {
+            LocalNotification.Notify(Translator.Translate("notification"),
+                message);
+            DBHelper.SyncAsync();
         }
     }
 }

@@ -24,15 +24,11 @@
 
             <!-- Проверка на необходимость плашки "Сегодня" -->
             <s:If Test="$IsTodayLayoutNeed()">
-              <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $StartPlanDate)">
-                <c:TextView Text="#todayUpper#" CssClass="EventListDateTV" />
-                <c:HorizontalLine CssClass="EventListLongBreaker" />
-              </s:If>
-              <s:Else>
+              
                 <c:TextView Text="$DateTimeToDateWithWeekCheck($StartPlanDate)"
                             CssClass="EventListDateTV" />
                 <c:HorizontalLine CssClass="EventListLongBreaker" />
-              </s:Else>
+              
               <s:Push Id="void" Value="$SetTodayLayoutToFalse()" />
               <s:Push Id="void" Value="$SetTodayBreakerToFalse()" />
             </s:If>
@@ -72,9 +68,7 @@
             </c:HorizontalLayout>
 
             <!-- Проверка на необходимость плашки с датой-->
-            <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $EventList.startDatePlanDate)">
-            </s:If>
-            <s:Else>
+            
               <s:If Test="$IsDateChanged($StartPlanDate, $EventList.startDatePlanDate)">
                 <c:HorizontalLine CssClass="EventListLongBreaker" />
                 <c:TextView Text="$DateTimeToDateWithWeekCheck($EventList.startDatePlanDate)"
@@ -83,7 +77,7 @@
               </s:If>
             </s:Else>
             <!-- Конец проверки на необходимость плашки с датой-->
-          </s:Else>
+          
 
           <s:Push Id="EventID" Value="$EventList.Id" />
           <s:Push Id="StartPlan" Value="$EventList.StartDatePlan" />

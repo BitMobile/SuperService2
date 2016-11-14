@@ -170,7 +170,7 @@ namespace Test
 
         internal void ContactContainerLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            var id = ((IHorizontalLayout3)((VerticalLayout)sender).Parent).Id;
+            var id = ((HorizontalLayout)((VerticalLayout)sender).Parent).Id;
             var contacts = (Contacts)DbRef.FromString(id).GetObject();
 
             Navigation.Move("ContactScreen", new Dictionary<string, object>

@@ -9,7 +9,7 @@ tasks		Задачи
 coc		АВР
 clist		Чек-лист
 time		Время
-workType		Тип Работ
+workType		Тип Задачи
 comment		Описание
 onmap		Посмотреть на карте
 closeeventquestion		Закрыть наряд?
@@ -133,3 +133,6 @@ photo		Фото
 delete		Удалить
 retake_photo		Переснять
 targets		Цели
+yesterdayToUpper		ВЧЕРА
+tomorrowToUpper		ЗАВТРА
+notification		Уведомление
