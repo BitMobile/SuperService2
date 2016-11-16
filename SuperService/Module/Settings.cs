@@ -61,7 +61,7 @@ namespace Test
         }
 
         public static TimeSpan DefaultSyncTimeOut
-        { get; } = new TimeSpan(0, 0, 5, 0);
+        { get; } = new TimeSpan(1, 0, 0, 0);
 
         public static string PushServer { get; set; }
 
