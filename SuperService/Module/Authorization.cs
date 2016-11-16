@@ -33,12 +33,12 @@ namespace Test
             return !string.IsNullOrEmpty(Settings.User) && !string.IsNullOrEmpty(Settings.Password);
         }
 
-        public static void StartAuthorization(string userName, string password, AuthScreen screen)
+        public static void StartAuthorization(string userName, string password)
         {
             _webRequest.UserName = userName;
             _webRequest.Password = password;
-            _screen = screen;
 
+            Application.InvokeOnMainThread(() => AuthScreen.EditableVisualElements(false));
             _webRequest.Get(Settings.AuthUrl, Callback);
         }
 
@@ -82,7 +82,8 @@ namespace Test
                     DConsole.WriteLine($"Запустили полную синхронизацию. From class {nameof(Authorization)}");
 #endif
                     Utils.TraceMessage($"{nameof(PushNotification)}.{nameof(PushNotification.IsInitialized)} -> {PushNotification.IsInitialized}");
-                    DBHelper.FullSync(ResultEventHandler);
+                    Application.InvokeOnMainThread(() => AuthScreen.EditableVisualElements(false));
+                    DBHelper.FullSyncAsync(ResultEventHandler);
                 }
             }
             else
@@ -91,9 +92,10 @@ namespace Test
                 DConsole.WriteLine($"Авторизация не удалась. Сбрасываем пароль.");
 #endif
                 Settings.Password = "";
-                _screen.ClearPassword();
+                Application.InvokeOnMainThread(AuthScreen.ClearPassword);
 
                 ErrorMessageWithToast(args);
+                Application.InvokeOnMainThread(() => AuthScreen.EditableVisualElements(true));
             }
         }
 
@@ -103,7 +105,8 @@ namespace Test
             {
                 Settings.User = "";
                 Settings.Password = "";
-                _screen.ClearPassword();
+                Application.InvokeOnMainThread(AuthScreen.ClearPassword);
+                Application.InvokeOnMainThread(() => AuthScreen.EditableVisualElements(true));
                 return;
             }
 #if DEBUG
@@ -117,7 +120,7 @@ namespace Test
             FileSystem.ClearPrivate();
             FileSystem.ClearShared();
             FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password);
-            Navigation.ModalMove("EventListScreen");
+            Application.InvokeOnMainThread(() => Navigation.ModalMove(nameof(EventListScreen)));
         }
 
         private static void ErrorMessageWithToast(ResultEventArgs<WebRequest.WebRequestResult> args)
