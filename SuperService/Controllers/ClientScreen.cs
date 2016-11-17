@@ -46,19 +46,16 @@ namespace Test
 
         public override void OnShow()
         {
-            GpsTracking.Start();
             BusinessProcess.GlobalVariables.Remove(Parameters.IdProfileId);
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            GpsTracking.Stop();
             Navigation.Back();
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            GpsTracking.Stop();
             BusinessProcess.GlobalVariables[Parameters.IdClientId] = _clientId;
             Navigation.Move(nameof(ParameterListScreen));
         }
@@ -75,7 +72,6 @@ namespace Test
 
         internal void GoToAddContact_OnClick(object sender, EventArgs e)
         {
-            GpsTracking.Stop();
             Navigation.Move("EditContactScreen", new Dictionary<string, object>
             {
                 [Parameters.Contact] = new Contacts
@@ -88,7 +84,6 @@ namespace Test
 
         internal void EquipmentLayout_OnClick(object sender, EventArgs e)
         {
-            GpsTracking.Stop();
             var layout = (VerticalLayout)sender;
             var dictionary = new Dictionary<string, object>()
             {
@@ -167,7 +162,6 @@ namespace Test
             BusinessProcess.GlobalVariables[Parameters.IdScreenStateId] = MapScreenStates.ClientScreen;
             BusinessProcess.GlobalVariables[Parameters.IdClientId] = _clientId;
 
-            GpsTracking.Stop();
             DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} end");
             Navigation.Move("MapScreen", dictionary);
         }
@@ -177,7 +171,6 @@ namespace Test
             var id = ((HorizontalLayout)((VerticalLayout)sender).Parent).Id;
             var contacts = (Contacts)DbRef.FromString(id).GetObject();
 
-            GpsTracking.Stop();
             Navigation.Move("ContactScreen", new Dictionary<string, object>
             {
                 [Parameters.Contact] = contacts

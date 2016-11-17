@@ -61,6 +61,7 @@ namespace Test
 
         public override void OnShow()
         {
+            GpsTracking.Start();
             PushServerServices.Init();
         }
 
@@ -224,6 +225,7 @@ namespace Test
         // TopInfo parts
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
+            Application.InvokeOnMainThread(() => GpsTracking.Stop());
             Navigation.Move(nameof(FiltersScreen));
             //Toast.MakeToast(Translator.Translate("start_sync"));
             //DBHelper.SyncAsync();
@@ -236,11 +238,13 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
+            Application.InvokeOnMainThread(() => GpsTracking.Stop());
             Navigation.Move(nameof(AddTaskScreen));
         }
 
         internal void EventListItemHL_OnClick(object sender, EventArgs e)
         {
+            Application.InvokeOnMainThread(() => GpsTracking.Stop());
             DConsole.WriteLine("Go To View Event");
             var currentEvent = (HorizontalLayout)sender;
             BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId] = currentEvent.Id;

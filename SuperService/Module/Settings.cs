@@ -49,16 +49,9 @@ namespace Test
 
         public static string Host { get; set; }
 
-        public static string UserId
-        {
-            get
-            {
-                return _userId?.Length == 0
-                    ? _userId = $"{UserDetailedInfo?.Id?.Guid ?? Guid.Empty}"
-                    : _userId;
-            }
-            private set { _userId = value; }
-        }
+        public static string UserId => string.IsNullOrEmpty(_userId)
+            ? _userId = UserDetailedInfo?.Id?.Guid.ToString()
+            : _userId;
 
         public static TimeSpan DefaultSyncTimeOut
         { get; } = new TimeSpan(1, 0, 0, 0);
