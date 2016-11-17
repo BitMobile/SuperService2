@@ -102,7 +102,6 @@ namespace Test
 
         public override void OnShow()
         {
-            GpsTracking.Start();
             if ((string)_currentEventRecordset["statusName"] == "Done")
             {
                 Toast.MakeToast(Translator.Translate("task_finished_ro"));

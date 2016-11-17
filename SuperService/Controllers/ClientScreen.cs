@@ -46,8 +46,6 @@ namespace Test
 
         public override void OnShow()
         {
-            GpsTracking.Start();
-            BusinessProcess.GlobalVariables.Remove(Parameters.IdClientId);
             BusinessProcess.GlobalVariables.Remove(Parameters.IdProfileId);
         }
 
