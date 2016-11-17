@@ -38,18 +38,10 @@ namespace Test
 
         public override void OnBackground()
         {
-            var result = GpsTracking.Stop();
-#if DEBUG
-            DConsole.WriteLine($"Свернули приложение. GpsTracking is stop: result = {result}");
-#endif
         }
 
         public override void OnRestore()
         {
-            var result = GpsTracking.Start();
-#if DEBUG
-            DConsole.WriteLine($"Развернули приложение.GpsTracking is start: result = {result}");
-#endif
         }
 
         public override void OnPushMessage(string message)

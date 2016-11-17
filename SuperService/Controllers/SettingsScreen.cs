@@ -155,7 +155,6 @@ namespace Test
             DBHelper.Sync();
             FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password);
             Settings.Password = "";
-            GpsTracking.Stop();
             Navigation.CleanStack();
             Navigation.ModalMove("AuthScreen");
         }
