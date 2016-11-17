@@ -259,16 +259,19 @@ namespace Test
 
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
         {
+            Application.InvokeOnMainThread(() => GpsTracking.Stop());
             _tabBarComponent.TendersListScreen_OnClick(sender, eventArgs);
         }
 
         internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
         {
+            Application.InvokeOnMainThread(() => GpsTracking.Stop());
             _tabBarComponent.Clients_OnClick(sender, eventArgs);
         }
 
         internal void TabBarFourthButton_OnClick(object sender, EventArgs eventArgs)
         {
+            Application.InvokeOnMainThread(() => GpsTracking.Stop());
             _tabBarComponent.Settings_OnClick(sender, eventArgs);
         }
     }
