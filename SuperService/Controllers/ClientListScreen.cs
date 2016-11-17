@@ -1,9 +1,9 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.Common.Controls;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using BitMobile.Common.Controls;
 using Test.Components;
 
 namespace Test
@@ -36,7 +36,6 @@ namespace Test
 
         public override void OnShow()
         {
-            GpsTracking.Start();
         }
 
         internal String GetFindText()
@@ -49,7 +48,6 @@ namespace Test
             findText = ((EditText)GetControl("position", true)).Text;
             if (_isAddTask)
             {
-
                 Navigation.ModalMove(nameof(ClientListScreen), new Dictionary<string, object>
                     { {Parameters.IsAsTask, _isAddTask} }, null, ShowAnimationType.Refresh);
             }
@@ -58,6 +56,7 @@ namespace Test
                 Navigation.ModalMove(nameof(ClientListScreen), null, null, ShowAnimationType.Refresh);
             }
         }
+
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
         {
             findText = null;

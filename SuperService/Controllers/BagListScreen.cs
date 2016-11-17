@@ -30,7 +30,6 @@ namespace Test
 
         public override void OnShow()
         {
-            GpsTracking.Start();
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
