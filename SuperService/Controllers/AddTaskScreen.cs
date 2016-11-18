@@ -96,6 +96,7 @@ namespace Test
 
             ((MemoEdit)GetControl("2776dd7e8c604323a293635d9a0e6c09", true)).Text = _event.DetailedDescription;
         }
+
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
             _event = null;
@@ -120,6 +121,7 @@ namespace Test
             _event.Id = DbRef.CreateInstance("Document_Event", Guid.NewGuid());
             _event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Appointed);
             _event.Date = DateTime.Now;
+            _event.Author = Settings.UserDetailedInfo.Id;
 
             DBHelper.SaveEntity(_event);
             PushNotification.PushMessage(Translator.Translate("new_task"),
