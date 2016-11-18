@@ -491,6 +491,7 @@ namespace Test
                         @event.EndDatePlan = args.Result + (@event.EndDatePlan - @event.StartDatePlan);
                     @event.StartDatePlan = args.Result;
                     DBHelper.SaveEntity(@event);
+                    _currentEventRecordset = GetCurrentEvent();
                 });
         }
     }
