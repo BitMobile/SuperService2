@@ -495,27 +495,28 @@ namespace Test
         /// <param name="eventID"> Идентификатор события</param>
         public static DbRecordset GetCheckListByEventID(string eventID)
         {
-            var query = new Query("select " +
-                                  "   checkList.Id as CheckListId, " +
-                                  "   checkList.Ref as EventId, " +
-                                  "   checkList.Required as Required, " + //признак обязательности
-                                  "   checkList.Result as Result, " + //значение результата
-                                  "   checkList.Action as ActionId, " +
-                                  "   actions.Description as Description, " + //название пункта чек-листа
-                                  "   typesDataParameters.Name as TypeName " +
-                                  //Тип значения чек-листа: ValList - выбор из списка значений; Snapshot - фото; остальное понятно из названий
-                                  "from " +
-                                  "   Document_Event_CheckList as checkList " +
-                                  "   left join Catalog_Actions as actions " +
-                                  "     ON checkList.Ref = @eventId " +
-                                  "       AND checkList.Action = actions.Id " +
-                                  "    " +
-                                  "   left join Enum_TypesDataParameters as typesDataParameters " +
-                                  "     ON checkList.ActionType = TypesDataParameters.Id " +
-                                  "    " +
-                                  "where " +
-                                  "    checkList.Ref = @eventId " +
-                                  "order by checkList.LineNumber asc");
+            var query = new Query(@"SELECT
+                                      checkList.Id             AS CheckListId,
+                                      checkList.Ref            AS EventId,
+                                      checkList.Required       AS Required,
+                                      checkList.Result         AS Result,
+                                      checkList.Action         AS ActionId,
+                                      actions.Description      AS Description,
+                                      typesDataParameters.Name AS TypeName
+
+                                    FROM
+                                      Document_Event_CheckList AS checkList
+                                      LEFT JOIN Catalog_Actions AS actions
+                                        ON checkList.Ref = @eventId
+                                           AND checkList.Action = actions.Id
+
+                                      LEFT JOIN Enum_TypesDataParameters AS typesDataParameters
+                                        ON checkList.ActionType = TypesDataParameters.Id
+
+                                    WHERE
+                                      checkList.Ref = @eventId AND actions.DeletionMark = 0
+                                    ORDER BY checkList.LineNumber
+                                      ASC");
 
             query.AddParameter("eventId", eventID);
             return query.Execute();
@@ -524,23 +525,25 @@ namespace Test
         public static DbRecordset GetClientParametersByClientId(string clientId, string profileId)
         {
             var query = new Query(@"SELECT
-                                  parameters.Id            AS Id,
-                                  parameters.Ref           AS ClientId,
-                                  parameters.Val           AS Result,
-                                  options.Id               AS OptionId,
-                                  options.Description      AS Description,
-                                  typesDataParameters.Name AS TypeName,
-                                  options.Profile       AS Profile
-                                FROM
-                                  Catalog_Client_Parameters AS parameters
-                                  LEFT JOIN Catalog_ClientOptions AS options
-                                    ON parameters.Parameter = options.Id
-                                  LEFT JOIN Enum_TypesDataParameters AS typesDataParameters
-                                    ON options.DataTypeParameter = TypesDataParameters.Id
-                                WHERE
-                                  parameters.Ref = @clientId AND ifnull(options.Profile,'@ref[Catalog_Profile]:00000000-0000-0000-0000-000000000000') = @profile
-                                ORDER BY parameters.LineNumber
-                                  ASC");
+                                      parameters.Id            AS Id,
+                                      parameters.Ref           AS ClientId,
+                                      parameters.Val           AS Result,
+                                      options.Id               AS OptionId,
+                                      options.Description      AS Description,
+                                      typesDataParameters.Name AS TypeName,
+                                      options.Profile          AS Profile
+                                    FROM
+                                      Catalog_Client_Parameters AS parameters
+                                      LEFT JOIN Catalog_ClientOptions AS options
+                                        ON parameters.Parameter = options.Id
+                                      LEFT JOIN Enum_TypesDataParameters AS typesDataParameters
+                                        ON options.DataTypeParameter = TypesDataParameters.Id
+                                    WHERE
+                                      parameters.Ref = @clientId AND
+                                      ifnull(options.Profile, '@ref[Catalog_Profile]:00000000-0000-0000-0000-000000000000') = @profile
+                                      AND options.DeletionMark = 0
+                                    ORDER BY parameters.LineNumber
+                                      ASC");
 
             query.AddParameter("clientId", clientId);
             query.AddParameter("profile", profileId);
@@ -1399,9 +1402,10 @@ namespace Test
                                           LEFT JOIN _Catalog_Tender_ActivityTypes AS CTA ON CT.Id = CTA.Ref
                                           LEFT JOIN _Catalog_ActivityTypes AS CA ON CA.Id = CTA.ActivityType
                                         WHERE CT.Id = @tender");
-            query.AddParameter("tender",Tender);
+            query.AddParameter("tender", Tender);
             return query.Execute();
         }
+
         public static DbRecordset GetTenderList(object userId)
         {
             var query = new Query(@"SELECT DISTINCT
