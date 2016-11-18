@@ -256,7 +256,22 @@ namespace Test
             return extractDate.ToString("dd.MM");
         }
 
-        internal string ConcatCurrencyString(object activityTypeDescription, object totalSum)
-            => $"{activityTypeDescription} - {totalSum:C2}";
+        internal string ConcatCurrencyString(object TenderID, object Sum)
+        {
+            string activStr = "";
+            var ActivityTender = DBHelper.GetActivitiByTender(TenderID);
+
+            while (ActivityTender.Next())
+            {
+                /*activStr += act.Description*/;
+                activStr += $",{ActivityTender["Description"]}";
+            }
+            if (activStr.Length > 0)
+            {
+                activStr = activStr.Substring(1);
+                //activStr.Remove(1);
+            }
+            return $"{activStr} - {Sum}";
+        }
     }
 }

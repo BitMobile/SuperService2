@@ -1392,18 +1392,26 @@ namespace Test
             return query.Execute();
         }
 
+        public static DbRecordset GetActivitiByTender(object Tender)
+        {
+            var query = new Query(@"SELECT CA.Description
+                                        FROM _Catalog_Tender AS CT
+                                          LEFT JOIN _Catalog_Tender_ActivityTypes AS CTA ON CT.Id = CTA.Ref
+                                          LEFT JOIN _Catalog_ActivityTypes AS CA ON CA.Id = CTA.ActivityType
+                                        WHERE CT.Id = @tender");
+            query.AddParameter("tender",Tender);
+            return query.Execute();
+        }
         public static DbRecordset GetTenderList(object userId)
         {
-            var query = new Query(@"SELECT
+            var query = new Query(@"SELECT DISTINCT
                                       Tender.Id                    AS Id,
                                       Tender.Number                AS TenderNumber,
                                       Tender.DueDateTime           AS DueDateTime,
                                       Tender.Sum                   AS TotalSum,
                                       Tender.Responsible           AS Responsible,
                                       Tender.Manager               AS Manager,
-                                      Client.Description           AS ClientDescription,
-                                      ActivityTypeC.Description    AS ActivityType,
-                                      ActivityTypeUser.User        AS UserId
+                                      Client.Description           AS ClientDescription
                                     FROM
                                       _Catalog_Tender AS Tender
                                       LEFT JOIN

@@ -34,7 +34,7 @@
             <c:VerticalLayout CssClass="EventListDescriptionVL">
               <c:TextView Text="$tenderList.TenderNumber" CssClass="EventListItemName" />
               <c:TextView Text="$tenderList.ClientDescription" CssClass="EventListItemAddress" />
-              <c:TextView Text="$ConcatCurrencyString($tenderList.ActivityType, $tenderList.TotalSum)"
+              <c:TextView Text="$ConcatCurrencyString($tenderList.Id,$tenderList.TotalSum)"
                           CssClass="EventListItemType" />
 
               <!-- Проверка на необходимость брейкера-->
