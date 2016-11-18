@@ -122,8 +122,8 @@ namespace Test
             }
             queryString += @" event.DeletionMark = 0
                                     AND (event.StartDatePlan >= @eventDate
-                                              OR (event.ActualEndDate > date('now','start of day') and Enum_StatusyEvents.Name IN (@statusDone, @statusCancel))
-                                              OR (Enum_StatusyEvents.Name IN (@statusAppointed, @statusInWork)))
+                                              AND ((event.ActualEndDate > date('now','start of day') and Enum_StatusyEvents.Name IN (@statusDone, @statusCancel))
+                                              OR (Enum_StatusyEvents.Name IN (@statusAppointed, @statusInWork))))
 
                                order by
                                 event.StartDatePlan";
