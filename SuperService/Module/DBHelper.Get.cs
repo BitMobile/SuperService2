@@ -1564,5 +1564,16 @@ namespace Test
                               Id,
                               Description
                             FROM _Catalog_Profile").Execute();
+
+        public static int GetActivitiCountByTender(object tender)
+        {
+            var query = new Query(@"SELECT CA.Description
+                                        FROM _Catalog_Tender AS CT
+                                          LEFT JOIN _Catalog_Tender_ActivityTypes AS CTA ON CT.Id = CTA.Ref
+                                          LEFT JOIN _Catalog_ActivityTypes AS CA ON CA.Id = CTA.ActivityType
+                                        WHERE CT.Id = @tender");
+            query.AddParameter("tender", tender);
+            return query.ExecuteCount();
+        }
     }
 }

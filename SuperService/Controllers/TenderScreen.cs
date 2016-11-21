@@ -222,5 +222,15 @@ namespace Test
                     {Parameters.WebUri, textView?.Text}
                 });
         }
+
+        internal string ActivityCount()
+        {
+            var totalCount = DBHelper.GetActivitiCountByTender
+                (Variables.GetValueOrDefault(Parameters.IdTenderId, string.Empty));
+
+            return totalCount < 2
+                ? Translator.Translate("activity")
+                : $"{Translator.Translate("activity")} +{totalCount - 1}";
+        }
     }
 }
