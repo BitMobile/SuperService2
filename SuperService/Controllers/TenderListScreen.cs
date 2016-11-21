@@ -256,22 +256,32 @@ namespace Test
             return extractDate.ToString("dd.MM");
         }
 
-        internal string ConcatCurrencyString(object TenderID, object Sum)
+        internal string ConcatCurrencyString(object tenderId, object sum)
         {
-            string activStr = "";
-            var ActivityTender = DBHelper.GetActivitiByTender(TenderID);
+            var activStr = "";
+            var activityTender = DBHelper.GetActivitiByTender(tenderId);
 
-            while (ActivityTender.Next())
+            while (activityTender.Next())
             {
-                /*activStr += act.Description*/;
-                activStr += $",{ActivityTender["Description"]}";
+                /*activStr += act.Description*/
+                activStr += $",{activityTender["Description"]}";
             }
             if (activStr.Length > 0)
             {
                 activStr = activStr.Substring(1);
                 //activStr.Remove(1);
             }
-            return $"{activStr} - {Sum}";
+            return $"{activStr}";
+        }
+
+        internal string FormatSum(object sum)
+        {
+            decimal formatSum;
+
+            if (decimal.TryParse($"{sum}", out formatSum)) return $"{formatSum:C2}";
+
+            Utils.TraceMessage($"Error Parsing string {sum}");
+            return $"{sum} {Translator.Translate("currency")}";
         }
     }
 }
