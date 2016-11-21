@@ -47,10 +47,10 @@
         </c:HorizontalLayout>
 
         <c:TextView Visible="False" />
-        <c:HorizontalLayout CssClass="InfoLayout">
+        <c:HorizontalLayout CssClass="InfoLayout" OnClick="DeliveryDate_OnClick">
           <c:TextView Text="#delivery_date#" Id="TaskCounterNameTextView" CssClass="InfoTitle" />
           <c:TextView Text="$tender.DeliveryDate"
-                      Id="TaskCounterTextView" CssClass="InfoContentForDeliveryDate" />
+                      Id="90c45940df684ba3a7df7357874daf85" CssClass="InfoContentForDeliveryDate" />
           <c:HorizontalLine />
         </c:HorizontalLayout>
         <c:HorizontalLine />

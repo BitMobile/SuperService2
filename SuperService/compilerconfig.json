@@ -247,9 +247,10 @@
     "minify": {
       "enabled": false
     }
-  },  {  
-    "outputFile": "Style/ParameterListScreen.css",
-    "inputFile": "Style/Less/ParameterListScreen.less",
+  }, 
+  {  
+    "outputFile": "Style/DeliveryDateDescriptionScreen.css",
+    "inputFile": "Style/Less/DeliveryDateDescriptionScreen.less",
     "minify": {
       "enabled": false
     }
