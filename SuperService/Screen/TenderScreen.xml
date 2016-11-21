@@ -27,7 +27,7 @@
             </c:HorizontalLayout>
           </c:VerticalLayout>
           <c:VerticalLayout CssClass="LightInfoBoxBreaker" />
-          <c:VerticalLayout CssClass="LightInfoBox">
+          <c:VerticalLayout CssClass="LightInfoBox" OnClick="ActivityList_OnClick">
             <c:TextView Text="$ActivityCount()" CssClass="LightInfoTitle" />
             <c:TextView Text="$tender.ActivityType" Id="DepartureTypeTextView" CssClass="LightInfoContent" />
           </c:VerticalLayout>

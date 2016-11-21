@@ -14,8 +14,8 @@
     }
   },
   {
-    "outputFile": "Style/BagListScreen.css",
-    "inputFile": "Style/Less/BagListScreen.less",
+    "outputFile": "Style/ListScreen.css",
+    "inputFile": "Style/Less/ListScreen.less",
     "minify": {
       "enabled": false
     }

@@ -232,5 +232,9 @@ namespace Test
                 ? Translator.Translate("activity")
                 : $"{Translator.Translate("activity")} +{totalCount - 1}";
         }
+
+        internal void ActivityList_OnClick(object sender, EventArgs e)
+            => Navigation.Move(nameof(ListScreen), new Dictionary<string, object>
+            { {Parameters.IdTenderId, Variables[Parameters.IdTenderId]} });
     }
 }
