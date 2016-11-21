@@ -222,5 +222,28 @@ namespace Test
                     {Parameters.WebUri, textView?.Text}
                 });
         }
+
+        internal string ActivityCount()
+        {
+            var totalCount = DBHelper.GetActivitiCountByTender
+                (Variables.GetValueOrDefault(Parameters.IdTenderId, string.Empty));
+
+            return totalCount < 2
+                ? Translator.Translate("activity")
+                : $"{Translator.Translate("activity")} +{totalCount - 1}";
+        }
+
+        internal void ActivityList_OnClick(object sender, EventArgs e)
+            => Navigation.Move(nameof(ListScreen), new Dictionary<string, object>
+            { {Parameters.IdTenderId, Variables[Parameters.IdTenderId]} });
+
+        internal void DeliveryDate_OnClick(object sender, EventArgs e)
+        {
+            var hl = (HorizontalLayout)sender;
+            var textView = (TextView)hl.GetControl("90c45940df684ba3a7df7357874daf85", true);
+            Navigation.Move(nameof(DeliveryDateDescriptionScreen),
+                new Dictionary<string, object>
+                { { Parameters.DeliveryDateDescription, textView?.Text } });
+        }
     }
 }

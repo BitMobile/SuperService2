@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:DockLayout Id="848041a67f6f49928e0b3c335b594b77" CssClass="RootLayout">
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <c:TextView Id="50a4f5b5286d4f50890bf61ea4292c16" CssClass="MainTextView" />
+  </c:DockLayout>
+</c:Screen>

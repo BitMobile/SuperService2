@@ -34,6 +34,8 @@
             <c:VerticalLayout CssClass="EventListDescriptionVL">
               <c:TextView Text="$tenderList.TenderNumber" CssClass="EventListItemName" />
               <c:TextView Text="$tenderList.ClientDescription" CssClass="EventListItemAddress" />
+              <c:TextView Text="$FormatSum($tenderList.TotalSum)"
+                          CssClass="EventListItemType" />
               <c:TextView Text="$ConcatCurrencyString($tenderList.Id,$tenderList.TotalSum)"
                           CssClass="EventListItemType" />
 

@@ -7,22 +7,19 @@
     <!-- Добавление верхней панели -->
     <s:Include File="Components\TopInfoComponent.xml" />
 
-    <!-- Tab Bar-->
-    <s:Include File="Components\TabBarСomponent.xml" />
-
     <c:ScrollView CssClass="BagListMainSVL">
       <c:VerticalLayout>
-        <s:Iterator Id="UserBag" Value="$GetUserBag()">
+        <s:Iterator Id="tender" Value="$GetTenderActivity()">
 
           <c:HorizontalLayout CssClass ="BagListItemHL">
             <c:VerticalLayout CssClass="BagListNameVL">
-              <c:TextView Text="$UserBag.Description" CssClass="BagListNameTV" />
+              <c:TextView Text="$tender.Description" CssClass="BagListNameTV" />
             </c:VerticalLayout>
-            <c:VerticalLayout CssClass="BagListAmountVL">
+            <!--<c:VerticalLayout CssClass="BagListAmountVL">
               <s:If Test="$ShowCount()">
                 <c:TextView Text="$ConcatCountUnit($UserBag.Count, $UserBag.Unit)" CssClass="BagListAmountTV" />
               </s:If>
-            </c:VerticalLayout>
+            </c:VerticalLayout>-->
           </c:HorizontalLayout>
           <c:HorizontalLine CssClass="BagListBreaker" />
         </s:Iterator>

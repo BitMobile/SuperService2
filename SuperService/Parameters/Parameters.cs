@@ -44,6 +44,7 @@
         public const string ShowMaterialPrice = "UsedCalculateMaterials";
         public const string LogicValue = "LogicValue";
         public const string NumericValue = "NumericValue";
+        public const string DeliveryDateDescription = "EF8CB679-26C5-4BE8-B0E0-57B3E99426A2";
 
         /// <summary>
         /// Индетефикатор задачи
