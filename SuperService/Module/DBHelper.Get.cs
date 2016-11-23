@@ -155,30 +155,51 @@ namespace Test
         public static EventsStatistic GetEventsStatistic()
         {
             var statistic = new EventsStatistic();
-            var query = new Query(@"select
+            var query = new Query(@"SELECT
                                       TOTAL(CASE
-                                           when StartDatePlan >= date('now','start of day') and StartDatePlan < date('now','start of day', '+1 day') then 1
-                                           else 0
-                                      End) as DayTotalAmount,
-                                       TOTAL(CASE
-                                           when Enum_StatusyEvents.name like 'Done' and StartDatePlan >= date('now','start of day') and StartDatePlan < date('now','start of day', '+1 day') then 1
-                                           else 0
-                                      End) as DayCompleteAmout,
+                                            WHEN event.StartDatePlan < date('now', 'start of day', '+1 day')
+                                                 AND event.UserMA = @userId
+                                              AND (event.ActualStartDate
+                                                 BETWEEN date('now', 'start of day', '-1 day')
+                                                 AND date('now', 'start of day', '+1 day')
+                                                 OR statusEvents.Name IN ('Appointed','InWork'))
+                                              THEN 1
+                                            ELSE 0
+                                            END) AS DayTotalAmount,
                                       TOTAL(CASE
-                                           when StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1
-                                           else 0
-                                      End) as MonthCompleteAmout,
+                                            WHEN statusEvents.name LIKE 'Done'
+                                                 AND event.StartDatePlan < date('now', 'start of day', '+1 day')
+                                                 AND event.UserMA = @userId
+                                                 AND event.ActualStartDate
+                                                 BETWEEN date('now', 'start of day', '-1 day')
+                                                 AND date('now', 'start of day', '+1 day')
+                                              THEN 1
+                                            ELSE 0
+                                            END) AS DayCompleteAmout,
                                       TOTAL(CASE
-                                           when Enum_StatusyEvents.name like 'Done' and StartDatePlan > date('now', 'start of month') and StartDatePlan < date('now', 'start of month', '+1 month') then 1
-                                           else 0
-                                      End) as MonthTotalAmount
-                                     from
-                                         Document_Event as event
-                                          left join Enum_StatusyEvents
-                                            on event.Status = Enum_StatusyEvents.Id
+                                            WHEN event.StartDatePlan > date('now', 'start of month')
+                                                 AND event.StartDatePlan < date('now', 'start of month', '+1 month')
+                                                 AND event.UserMA = @userId
+                                              THEN 1
+                                            ELSE 0
+                                            END) AS MonthCompleteAmout,
+                                      TOTAL(CASE
+                                            WHEN statusEvents.name LIKE 'Done'
+                                                 AND event.StartDatePlan > date('now', 'start of month')
+                                                 AND event.StartDatePlan < date('now', 'start of month', '+1 month')
+                                                 AND event.UserMA = @userId
+                                              THEN 1
+                                            ELSE 0
+                                            END) AS MonthTotalAmount
+                                    FROM
+                                      Document_Event AS event
+                                      LEFT JOIN Enum_StatusyEvents AS statusEvents
+                                        ON event.Status = statusEvents.Id
 
-                                   where
-                                        event.DeletionMark = 0");
+                                    WHERE
+                                      event.DeletionMark = 0");
+
+            query.AddParameter("userId", Settings.UserDetailedInfo.Id);
             var result = query.Execute();
 
             if (result.Next())
