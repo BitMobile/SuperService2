@@ -26,8 +26,10 @@ namespace Test
         {
             foreach (var s in _refreshingScreen)
             {
-                if (string.Compare(s, Navigation.CurrentScreenInfo.Name, StringComparison.OrdinalIgnoreCase) == 0)
-                    Application.InvokeOnMainThread(() => Navigation.ModalMove(s, animation: ShowAnimationType.Refresh));
+                if (string.Compare(s, Navigation.CurrentScreenInfo.Name, StringComparison.OrdinalIgnoreCase) != 0)
+                    continue;
+                Application.InvokeOnMainThread(() => Navigation.ModalMove(s, animation: ShowAnimationType.Refresh));
+                break; ;
             }
         }
     }

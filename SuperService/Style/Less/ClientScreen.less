@@ -146,12 +146,11 @@
 
 .EquipmentsTV {
     color: #a4a8a9;
-    font: 3sp arial;
-    height: 8sp;
-    margin-left: 11%;
-    padding-top: 25%;
+    font: @default-font-size * 1.2 arial;
+    .height-of-TextView(@default-font-size * 1.2);
+    vertical-align: center;
     text-align: center;
-    width: 100%;
+    width: 0sp auto;
 }
 
 .EquipmentVL {
@@ -160,7 +159,7 @@
 }
 
 .EquipmentContainerVL {
-    height: 10sp;
+    height: 0sp auto;
     width: 100%;
 }
 
@@ -177,9 +176,10 @@
 .EquipmentNameTV {
     color: #a6a9aa;
     font: 2.5sp arial;
-    height: 50%;
+    .height-of-TextView(@default-font-size);
     padding-left: 5sp;
-    padding-top: 5%;
+    padding-top: 2sp;
+    padding-bottom: 2sp;
     text-align: left;
     width: 100%;
 }
@@ -235,5 +235,16 @@
     text-align: left;
     vertical-align: center;
     width: 40% auto;
+}
+
+.MainAlignContainer {
+    height: 8sp;
+    width: 100%;
+}
+
+.InerAlignContainer {
+    height: 100%;
+    width: 0sp auto;
+    horizontal-align: center;
 }
 /* ------------------------------------ */

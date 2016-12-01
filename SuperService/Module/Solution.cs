@@ -13,6 +13,7 @@ namespace Test
             DConsole.WriteLine("Settings init...");
             Settings.Init();
             DConsole.WriteLine("Authorization init...");
+            DynamicScreenRefreshService.Init();
             Authorization.Init();
             if (Authorization.FastAuthorization())
             {

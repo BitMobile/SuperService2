@@ -111,7 +111,15 @@ namespace Test
 
         internal string DateTimeToDateWithWeekCheck(string datetime)
         {
-            var workDate = DateTime.Parse(datetime).Date;
+            DateTime workDate;
+            var Wecan = DateTime.TryParse(datetime,out workDate);
+            if (Wecan) {
+                workDate = workDate.Date;
+            }
+            else {
+                workDate = DateTime.MinValue.Date;
+                return datetime;
+            }
             var currentDate = DateTime.Now.Date;
 
             DConsole.WriteLine($"week = {currentDate.GetWeekNumber()}");
@@ -136,15 +144,21 @@ namespace Test
 
             if (workDateWeekNumber == currentDateWeekNumber)
             {
-                return DateTime.Parse(datetime).ToString("dddd, dd MMMM").ToUpper();
+                return workDate.ToString("dddd, dd MMMM").ToUpper();
             }
-            return DateTime.Parse(datetime).ToString("dd MMMM yyyy").ToUpper();
+            return workDate.ToString("dd MMMM yyyy").ToUpper();
         }
 
         internal string GetStartDate(string startPlan, string endPlan)
         {
-            var startTime = DateTime.Parse(startPlan); //DateTime.Parse(startPlan).ToString("HH:mm:ss");
-            var endTime = DateTime.Parse(endPlan); // .ToString("HH:mm");
+            DateTime startTime;
+            var WeCanStart = DateTime.TryParse(startPlan,out startTime); //DateTime.Parse(startPlan).ToString("HH:mm:ss");
+            DateTime endTime;
+            var WeCanEnd = DateTime.TryParse(endPlan,out endTime); // .ToString("HH:mm");
+            if(!WeCanEnd || !WeCanStart)
+            {
+                return startPlan;
+            }
             if (endTime - startTime > new TimeSpan(23, 59, 00))
             {
                 return Translator.Translate("allday");
@@ -154,8 +168,13 @@ namespace Test
 
         internal string GetTimeCounter(string actualStartDate, string statusName)
         {
-            var actualTime = DateTime.Parse(actualStartDate);
+            DateTime actualTime; 
+            var WeCan = DateTime.TryParse(actualStartDate,out actualTime);
 
+            if (!WeCan)
+            {
+                return "";
+            }
             if ((actualTime == default(DateTime)) || statusName != "InWork")
                 return "";
 
@@ -182,7 +201,14 @@ namespace Test
 
         internal bool IsDateEquals(string lastdate, string nowdate)
         {
-            if (DateTime.Parse(lastdate).Date == DateTime.Parse(nowdate).Date)
+            DateTime lastdateDate;
+            var WeCanlastDate = DateTime.TryParse(lastdate,out lastdateDate);
+            DateTime nowdateDate;
+            var WeCabNowDate = DateTime.TryParse(nowdate,out nowdateDate);
+            if (!WeCanlastDate || !WeCabNowDate) {
+                return lastdate.Equals(nowdate);
+            }
+            if (lastdateDate == nowdateDate)
             {
                 return true;
             }
@@ -191,12 +217,26 @@ namespace Test
 
         internal bool IsDateEqualsOrLess(string lastdate, string nowdate)
         {
-            return DateTime.Parse(lastdate).Date >= DateTime.Parse(nowdate).Date;
+            DateTime date1;
+            DateTime date2;
+            if (DateTime.TryParse(nowdate, out date2) && DateTime.TryParse(lastdate, out date1))
+            {
+                return date1.Date >= date2.Date;
+            }
+            else {
+                return lastdate.Equals(nowdate);
+            };
+            //return DateTime.Parse(lastdate).Date >= DateTime.Parse(nowdate).Date;
         }
 
         internal bool IsDateChanged(string lastdate, string nowdate)
         {
-            if (DateTime.Parse(lastdate).Date < DateTime.Parse(nowdate).Date)
+            DateTime lastdateDate;
+            var WeCanLastDate = DateTime.TryParse(lastdate,out lastdateDate);
+            DateTime nowdateDate;
+            var WeCanNow = DateTime.TryParse(nowdate, out nowdateDate);
+            if (!WeCanLastDate || !WeCanNow) return lastdate.Equals(nowdate);
+            if (lastdateDate < nowdateDate)
             {
                 return true;
             }

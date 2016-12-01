@@ -140,7 +140,7 @@ EditText {
   padding-top: 0.3sp;
   text-align: right;
   vertical-align: center;
-  width: 39%;
+  width: 34%;
 }
 .PriceCurrency {
   color: #9fa3a4;
@@ -148,7 +148,7 @@ EditText {
   margin-left: 1%;
   text-align: right;
   vertical-align: center;
-  width: 5%;
+  width: 10%;
 }
 .TotalPrice {
   color: #8ec15d;
@@ -156,7 +156,7 @@ EditText {
   height: 3.4sp;
   text-align: right;
   vertical-align: center;
-  width: 38%;
+  width: 33%;
 }
 .TotalPriceCurrency {
   color: #8ec15d;
@@ -165,7 +165,7 @@ EditText {
   margin-left: 2%;
   text-align: right;
   vertical-align: center;
-  width: 5%;
+  width: 10%;
 }
 .AddButton {
   background-color: #fd724c;

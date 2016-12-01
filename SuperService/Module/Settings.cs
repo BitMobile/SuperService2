@@ -45,16 +45,12 @@ namespace Test
 
         public static string Host { get; set; }
 
-        public static string UserId
-        {
-            get
-            {
-                return _userId?.Length == 0
-                    ? _userId = $"{UserDetailedInfo.Id.Guid}"
-                    : _userId;
-            }
-            set { _userId = value; }
-        }
+        public static string UserId => string.IsNullOrEmpty(_userId)
+           ? _userId = UserDetailedInfo?.Id?.Guid.ToString()
+           : _userId;
+
+        public static TimeSpan DefaultSyncTimeOut
+        { get; } = new TimeSpan(0, 0, 5, 0);
 
         public static string AuthUrl { get; set; }
         public static string SolutionUrl { get; set; }

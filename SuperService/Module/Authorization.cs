@@ -45,7 +45,6 @@ namespace Test
         {
             if (args.Result.Success)
             {
-                Settings.UserId = args.Result.Result;
 #if DEBUG
                 DConsole.WriteLine("Авторизация успешна");
                 DConsole.WriteLine($"UserId - {Settings.UserId} Web Request Result - {args.Result.Result}");

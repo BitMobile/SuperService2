@@ -204,5 +204,8 @@ namespace Test
         }
 
         internal bool ShowEquipment() => Settings.EquipmentEnabled;
+
+        internal string FormatAddContactText()
+            => $"+ {Translator.Translate("add_contact")}";
     }
 }

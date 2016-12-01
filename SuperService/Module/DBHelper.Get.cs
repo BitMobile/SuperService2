@@ -72,9 +72,11 @@ namespace Test
                                 left join Enum_StatusyEvents
                                     on event.status = Enum_StatusyEvents.Id
                                 where
-                                    (event.StartDatePlan<=date('now','start of day','+1 day') OR NOT(Enum_StatusyEvents.Name IN (@statusDone,@statusCancel)))
-                                    AND event.DeletionMark = 0
-                                    AND (event.StartDatePlan BETWEEN @eventDate AND @EVD OR (event.ActualEndDate > date('now','start of day') and Enum_StatusyEvents.Name IN (@statusDone, @statusCancel)))
+                                    event.DeletionMark = 0
+                                    AND (event.StartDatePlan BETWEEN @eventDate AND @EVD 
+                                        AND (Datetime(event.ActualEndDate) 
+                                            BETWEEN datetime ('now', 'start of day') AND date('now','start of day','+1 day')  
+                                                OR NOT(Enum_StatusyEvents.Name IN (@statusDone, @statusCancel))))
                                order by
                                 event.StartDatePlan";
 

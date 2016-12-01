@@ -146,6 +146,7 @@ namespace Test
 
         private static void Logout()
         {
+            PushService.Unregister();
             DBHelper.Sync();
             FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password);
             Settings.Password = "";

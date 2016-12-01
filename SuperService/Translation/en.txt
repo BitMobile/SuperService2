@@ -1,27 +1,27 @@
-﻿about		MORE ABOUT THE APPLICATION
+about		MORE ABOUT THE APPLICATION
 test		THIS IS TEST
-greeting		Welcome To Bitmobile!
+greeting		Welcome!
 back		Back
 refuse		Refuse
 start		Start
 finish		Finish
 tasks		Tasks
-coc		Certificate of Complition
+coc		CoC
 clist		Check-list
 time		Time
-workType		Type of Task
+workType		Type of Work
 comment		Commentary
 onmap		View on map
 closeeventquestion		Are you sure you want to close this order?
 yes		Yes
 no		No
-finishing		Finishing
-comment...		Commentary...
-wanttobuy		Want to buy
-thereisaproblem		I have a problem
+finishing		Finish
+comment...		Comment...
+wanttobuy		Need a proposal
+thereisaproblem		Have a problem 
 send		Send
 orders		Orders
-bag		Bag
+bag		SPTA
 clients		Clients
 settings		Settings
 areYouSure		Are you sure?
@@ -33,32 +33,32 @@ clients		Clients
 contacts		CONTACTS
 add_contact		Add Contact
 equipments		EQUIPMENTS
-task_finished		Task finished
+task_finished		Task completed
 task_refused		Can't complete
 task		Task
 services		Services
 materials		Materials
 add_service		Add service
-add_materials	Add saterials
+add_materials		Add materials
 do_not_have_enough_material		Do not have enough material?
 delete_question		Delete
-currency		₽
+currency		$
 total		Total
 not_choosedwpoints		Not choosed..
 not_choosed		Not choosed
 not_specified		Not specified
 text		Text..
 description_materialrequest_screen		Please add materials
-add_material	Add material
+add_material		Add material
 request		Request
-count		
+count		Count
 price		Price
 add		Add
 select_answer		Select value
 requests		Requests
 confirm		Confirm
 add_contact_enter_name		Enter name
-add_contact_enter_position		Enter position		    
+add_contact_enter_position		Enter position
 add_contact_enter_tel		Enter phone number
 add_contact_enter_email		Enter e-mail
 add_contact_add_button		Add contact
@@ -74,7 +74,7 @@ login		Login
 password		Password
 log_in		Log In
 cant_signing		Can't signing?
-bag_empty		No materials are listed in the bag
+bag_empty		No materials are listed in the SPTA
 contact		Contact
 phone		Phone number
 email		E-mail
@@ -95,24 +95,24 @@ position		Position
 save		Save
 add_phone		Add phone
 add_email		Add e-mail
-forgot_name		You forgot to enter a name
+forgot_name		You forgot to enter the name
 cancel		Cancel
 developer		DEVELOPER
 report_an_error		Report an error
 send_log		Send Log
-company_web_site		www.1cbit.ru
+company_web_site		www.superagent.ru
 mandatory_questions_0_1		{0}/{1} mandatory questions
 sync_success		Sync successful
 sync_fail		Sync failed
-start_event		Event will be launched. Continue?
+start_event		Order start. Continue?
 successful_auth		You have successfully logged in.
 unsuccessful_auth		Unable to login.
-start_sync		Start synchronization.
+start_sync		Sync started
 exit		Exit?
 uncorrect_login_or_pass		Uncorrect loging or password.
-сonnection_error		Connection error.
+connection_error		Connection error.
 unexpected_error		Unexpected error.
-contact_not_present		Contact not present
+contact_not_present		no contact
 event_finished_ro		Order finished. Read-only mode.
 event_canceled_ro		Order canceled. Read-only mode.
 unfinished_business		There are unfinished mandatory actions in check-list

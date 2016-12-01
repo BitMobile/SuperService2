@@ -71,17 +71,23 @@
           </s:Iterator>
         </c:VerticalLayout>
 
-        <c:VerticalLayout CssClass="AddButtonVl" OnClick="GoToAddContact_OnClick">
-          <c:HorizontalLayout CssClass="AddContainerHL">
-            <c:Image CssClass="AddImg" Source="$GetResourceImage(cocscreen_plus)" />
-            <c:TextView CssClass="AddTV" Text="#add_contact#" />
+        <c:VerticalLayout CssClass="MainAlignContainer" OnClick="GoToAddContact_OnClick">
+          <c:HorizontalLayout CssClass="InerAlignContainer">
+            <!--<c:Image CssClass="AddImg" Source="$GetResourceImage(cocscreen_plus)" />-->
+            <c:TextView CssClass="AddTV" Text="$FormatAddContactText()" />
           </c:HorizontalLayout>
         </c:VerticalLayout>
 
         <s:If Test="$ShowEquipment()">
           <c:HorizontalLine CssClass="WideLineHL" />
 
-          <c:TextView CssClass="EquipmentsTV" Text="#equipments#" />
+          <c:VerticalLayout Id="d76ccaf0fa7f4b59a02031ba4685f555"
+                            CssClass="MainAlignContainer">
+            <c:HorizontalLayout Id="ebbd55edbc284d98b1626cad8f106c8d"
+                                CssClass="InerAlignContainer">
+              <c:TextView CssClass="EquipmentsTV" Text="#equipments#" />
+            </c:HorizontalLayout>
+          </c:VerticalLayout>
           <c:VerticalLayout CssClass="FatLineContainerVL">
             <c:HorizontalLine CssClass="FatLineHL" />
           </c:VerticalLayout>
@@ -91,7 +97,7 @@
 
               <c:VerticalLayout Id="$equipments.equipmentID" CssClass="EquipmentContainerVL"
                                 OnClick="EquipmentLayout_OnClick">
-                <c:TextView CssClass="EquipmentTypeTV" Text="Тип оборудования" />
+                <!--<c:TextView CssClass="EquipmentTypeTV" Text="Тип оборудования" />-->
                 <c:TextView CssClass="EquipmentNameTV" Text="$equipments.Description" />
               </c:VerticalLayout>
 

@@ -36,6 +36,7 @@ namespace Test
             var commentMemoEdit = (MemoEdit)Variables["CommentaryMemoEdit"];
             @event.CommentContractor = commentMemoEdit.Text;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Cancel);
+            @event.ActualEndDate = DateTime.Now;
             DBHelper.SaveEntity(@event);
             Navigation.CleanStack();
             Navigation.ModalMove("EventListScreen");
