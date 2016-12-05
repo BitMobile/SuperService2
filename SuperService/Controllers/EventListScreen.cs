@@ -14,6 +14,7 @@ namespace Test
         private bool _needTodayLayout = true;
         private TabBarComponent _tabBarComponent;
         private TopInfoComponent _topInfoComponent;
+        private static TimeSpan _totalGetStatusImage;
 
         public override void OnLoading()
         {
@@ -27,7 +28,9 @@ namespace Test
                 Header = Translator.Translate("orders")
             };
 
+            var currentDate = DateTime.Now;
             var statistic = DBHelper.GetEventsStatistic();
+            Utils.TraceMessage($"Запрос EventStatistic, время выполнения: {DateTime.Now - currentDate}");
 
             var extraHorizontalLayout = new HorizontalLayout { CssClass = "ExtraHorizontalLayout" };
             var leftExtraLayout = new VerticalLayout { CssClass = "ExtraLeftLayoutCss" };
@@ -63,10 +66,12 @@ namespace Test
             GpsTracking.Start();
             PushService.Init();
             DynamicScreenRefreshService.Init();
+            Utils.TraceMessage($"Всего потрачено время на метод {nameof(GetStatusPicture)} : {_totalGetStatusImage}");
         }
 
         internal string GetStatusPicture(string importance, string status)
         {
+            var startStatusPicture = DateTime.Now;
             var pictureTag = @"eventlistscreen_";
             switch (importance)
             {
@@ -103,6 +108,10 @@ namespace Test
                     pictureTag += "circle";
                     break;
             }
+            var endStatusPicture = DateTime.Now;
+            //            Utils.TraceMessage($"Потрачено на одно изображение в GetStatusPicture: {endStatusPicture - startStatusPicture}");
+            var result = endStatusPicture - startStatusPicture;
+            _totalGetStatusImage = _totalGetStatusImage + result;
             return ResourceManager.GetImage(pictureTag);
         }
 
@@ -114,11 +123,13 @@ namespace Test
         internal string DateTimeToDateWithWeekCheck(string datetime)
         {
             DateTime workDate;
-            var Wecan = DateTime.TryParse(datetime,out workDate);
-            if (Wecan) {
+            var Wecan = DateTime.TryParse(datetime, out workDate);
+            if (Wecan)
+            {
                 workDate = workDate.Date;
             }
-            else {
+            else
+            {
                 workDate = DateTime.MinValue.Date;
                 return datetime;
             }
@@ -154,10 +165,10 @@ namespace Test
         internal string GetStartDate(string startPlan, string endPlan)
         {
             DateTime startTime;
-            var WeCanStart = DateTime.TryParse(startPlan,out startTime); //DateTime.Parse(startPlan).ToString("HH:mm:ss");
+            var WeCanStart = DateTime.TryParse(startPlan, out startTime); //DateTime.Parse(startPlan).ToString("HH:mm:ss");
             DateTime endTime;
-            var WeCanEnd = DateTime.TryParse(endPlan,out endTime); // .ToString("HH:mm");
-            if(!WeCanEnd || !WeCanStart)
+            var WeCanEnd = DateTime.TryParse(endPlan, out endTime); // .ToString("HH:mm");
+            if (!WeCanEnd || !WeCanStart)
             {
                 return startPlan;
             }
@@ -170,8 +181,8 @@ namespace Test
 
         internal string GetTimeCounter(string actualStartDate, string statusName)
         {
-            DateTime actualTime; 
-            var WeCan = DateTime.TryParse(actualStartDate,out actualTime);
+            DateTime actualTime;
+            var WeCan = DateTime.TryParse(actualStartDate, out actualTime);
 
             if (!WeCan)
             {
@@ -204,10 +215,11 @@ namespace Test
         internal bool IsDateEquals(string lastdate, string nowdate)
         {
             DateTime lastdateDate;
-            var WeCanlastDate = DateTime.TryParse(lastdate,out lastdateDate);
+            var WeCanlastDate = DateTime.TryParse(lastdate, out lastdateDate);
             DateTime nowdateDate;
-            var WeCabNowDate = DateTime.TryParse(nowdate,out nowdateDate);
-            if (!WeCanlastDate || !WeCabNowDate) {
+            var WeCabNowDate = DateTime.TryParse(nowdate, out nowdateDate);
+            if (!WeCanlastDate || !WeCabNowDate)
+            {
                 return lastdate.Equals(nowdate);
             }
             if (lastdateDate == nowdateDate)
@@ -225,7 +237,8 @@ namespace Test
             {
                 return date1.Date >= date2.Date;
             }
-            else {
+            else
+            {
                 return lastdate.Equals(nowdate);
             };
             //return DateTime.Parse(lastdate).Date >= DateTime.Parse(nowdate).Date;
@@ -234,7 +247,7 @@ namespace Test
         internal bool IsDateChanged(string lastdate, string nowdate)
         {
             DateTime lastdateDate;
-            var WeCanLastDate = DateTime.TryParse(lastdate,out lastdateDate);
+            var WeCanLastDate = DateTime.TryParse(lastdate, out lastdateDate);
             DateTime nowdateDate;
             var WeCanNow = DateTime.TryParse(nowdate, out nowdateDate);
             if (!WeCanLastDate || !WeCanNow) return lastdate.Equals(nowdate);
@@ -262,7 +275,10 @@ namespace Test
 
         internal IEnumerable GetEvents()
         {
-            return DBHelper.GetEvents(DateTime.Now.Date.AddDays(-31),DateTime.Now.Date.AddDays(31));
+            var currentDate = DateTime.Now;
+            var recordSet = DBHelper.GetEvents(DateTime.Now.Date.AddDays(-31), DateTime.Now.Date.AddDays(31));
+            Utils.TraceMessage($"Запрос GetEvents, время запроса: {DateTime.Now - currentDate}");
+            return recordSet;
         }
 
         internal string GetResourceImage(string tag)
