@@ -14,6 +14,8 @@ namespace Test
         private bool _needTodayLayout = true;
         private TabBarComponent _tabBarComponent;
         private TopInfoComponent _topInfoComponent;
+        private static DateTime _firstMethodStart;
+        private static DateTime _stopInOnShow;
         private static TimeSpan _totalGetStatusImage;
 
         public override void OnLoading()
@@ -63,10 +65,14 @@ namespace Test
 
         public override void OnShow()
         {
+            Utils.TraceMessage($"Зашли в OnShow");
             GpsTracking.Start();
             PushService.Init();
             DynamicScreenRefreshService.Init();
             Utils.TraceMessage($"Всего потрачено время на метод {nameof(GetStatusPicture)} : {_totalGetStatusImage}");
+            Utils.TraceMessage($"Завершили все в OnShow, теперь берём DateTime");
+            _stopInOnShow = DateTime.Now;
+            Utils.TraceMessage($"Всего на загрузку экрана: {_stopInOnShow - _firstMethodStart}");
         }
 
         internal string GetStatusPicture(string importance, string status)
@@ -275,6 +281,7 @@ namespace Test
 
         internal IEnumerable GetEvents()
         {
+            _firstMethodStart = DateTime.Now;
             var currentDate = DateTime.Now;
             var recordSet = DBHelper.GetEvents(DateTime.Now.Date.AddDays(-31), DateTime.Now.Date.AddDays(31));
             Utils.TraceMessage($"Запрос GetEvents, время запроса: {DateTime.Now - currentDate}");
