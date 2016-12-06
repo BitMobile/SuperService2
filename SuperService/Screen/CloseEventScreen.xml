@@ -17,22 +17,5 @@
       <c:MemoEdit Placeholder="#comment...#" Id="CommentaryMemoEdit" CssClass="Comment" />
       <c:HorizontalLine CssClass="CommentEndLine" />
     </c:VerticalLayout>
-    <c:HorizontalLayout CssClass="EmptySpace4sp" />
-    <c:HorizontalLayout Id="WantToBuyButton" CssClass="BigButton" OnClick="WantToBuyButton_OnClick">
-      <c:Image Id="WantToBuyImage" Source="$GetResourceImage(closeevent_wtb)" CssClass="BigButtonImage" />
-      <c:TextView Text="#wanttobuy#" CssClass="BigButtonTextView" />
-    </c:HorizontalLayout>
-    <c:VerticalLayout Id="WantToBuyCommentLayout" CssClass="NoHeight">
-      <c:MemoEdit Placeholder="#comment...#" Id="WantToBuyCommentMemoEdit" CssClass="Comment" />
-      <c:HorizontalLine CssClass="CommentEndLine" />
-    </c:VerticalLayout>
-    <c:HorizontalLayout Id="ProblemButton" CssClass="BigButton" OnClick="ProblemButton_OnClick">
-      <c:Image Id="ProblemImage" Source="$GetResourceImage(closeevent_problem)" CssClass="BigButtonImage" />
-      <c:TextView Text="#thereisaproblem#" CssClass="BigButtonTextView" />
-    </c:HorizontalLayout>
-    <c:VerticalLayout Id="ProblemCommentLayout" CssClass="NoHeight">
-      <c:MemoEdit Placeholder="#comment...#" Id="ProblemCommentMemoEdit" CssClass="Comment" />
-      <c:HorizontalLine CssClass="CommentEndLine" />
-    </c:VerticalLayout>
   </c:VerticalLayout>
 </c:Screen>
