@@ -2,6 +2,7 @@
 using BitMobile.ClientModel3.UI;
 using BitMobile.DbEngine;
 using System;
+using ClientModel3.MD;
 using Test.Catalog;
 using Test.Components;
 using Test.Document;
@@ -63,6 +64,7 @@ namespace Test
             };
 
             DBHelper.SaveEntity(entity);
+            SendMessage();
 
             Navigation.Back();
         }
@@ -73,5 +75,42 @@ namespace Test
 
         internal string GetResourceImage(object tag)
             => ResourceManager.GetImage($"{tag}");
+
+        private string[] GetRecipiences()
+        {
+            var totalRecipience = DBHelper.GetTenderMessageRecipiencesCount(Variables[Parameters.IdTenderId],
+                Settings.UserDetailedInfo.Id);
+            Utils.TraceMessage($"TotalRecipiences: {totalRecipience}");
+            if (totalRecipience < 1)
+                return null;
+
+            var result = new string[totalRecipience];
+
+            var recipiences = DBHelper.GetTenderMessageRecipiences(Variables[Parameters.IdTenderId],
+                Settings.UserDetailedInfo.Id);
+
+            for (int i = 0; (i < result.Length) && recipiences.Next(); i++)
+            {
+                var buf = (DbRef) recipiences["UserId"];
+                result[i] = buf.Id.ToString();
+            }
+
+            return result;
+        }
+
+        private void SendMessage()
+        {
+            var recipiences = GetRecipiences();
+
+            if (recipiences == null)
+            {
+                Utils.TraceMessage($"Не нашлось пользователей, которым нужно отправлять сообщения.");
+                return;
+            }
+
+            var currenTender = (Tender) DBHelper.LoadEntity($"{Variables[Parameters.IdTenderId]}");
+
+            PushNotification.PushMessage($"Новое сообщение по тендеру {currenTender.Number}", recipiences);
+        }
     }
 }

@@ -1596,5 +1596,61 @@ namespace Test
             query.AddParameter("tender", tender);
             return query.ExecuteCount();
         }
+
+        public static DbRecordset GetTenderMessageRecipiences(object tenderId, object currentUserId)
+        {
+            var query = new Query(@"SELECT User.Id AS UserId
+                                        FROM
+                                          _Catalog_Tender AS Tender
+                                          INNER JOIN
+                                          _Catalog_Tender_ActivityTypes AS Tender_Activity_Types
+                                            ON Tender.Id = Tender_Activity_Types.Ref
+                                          INNER JOIN
+                                          _Catalog_ActivityTypes AS ActivityTypes
+                                            ON Tender_Activity_Types.ActivityType = ActivityTypes.Id
+                                          INNER JOIN
+                                          _Catalog_ActivityTypes_Users AS ActivityTypes_Users
+                                            ON ActivityTypes.Id = ActivityTypes_Users.Ref
+                                          INNER JOIN
+                                          _Catalog_User AS User
+                                            ON ActivityTypes_Users.User = User.Id
+                                        WHERE
+                                          Tender.Id = @tenderId
+                                          AND User.DeletionMark = 0
+                                          AND User.Id <> @currentUserId");
+
+            query.AddParameter("tenderId", tenderId);
+            query.AddParameter("currentUserId", currentUserId);
+
+            return query.Execute();
+        }
+
+        public static int GetTenderMessageRecipiencesCount(object tenderId, object currentUserId)
+        {
+            var query = new Query(@"SELECT User.Id AS UserId
+                                        FROM
+                                          _Catalog_Tender AS Tender
+                                          INNER JOIN
+                                          _Catalog_Tender_ActivityTypes AS Tender_Activity_Types
+                                            ON Tender.Id = Tender_Activity_Types.Ref
+                                          INNER JOIN
+                                          _Catalog_ActivityTypes AS ActivityTypes
+                                            ON Tender_Activity_Types.ActivityType = ActivityTypes.Id
+                                          INNER JOIN
+                                          _Catalog_ActivityTypes_Users AS ActivityTypes_Users
+                                            ON ActivityTypes.Id = ActivityTypes_Users.Ref
+                                          INNER JOIN
+                                          _Catalog_User AS User
+                                            ON ActivityTypes_Users.User = User.Id
+                                        WHERE
+                                          Tender.Id = @tenderId
+                                          AND User.DeletionMark = 0
+                                          AND User.Id <> @currentUserId");
+
+            query.AddParameter("tenderId", tenderId);
+            query.AddParameter("currentUserId", currentUserId);
+
+            return query.ExecuteCount();
+        }
     }
 }
