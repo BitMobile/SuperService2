@@ -1599,25 +1599,110 @@ namespace Test
 
         public static DbRecordset GetTenderMessageRecipiences(object tenderId, object currentUserId)
         {
-            var query = new Query(@"SELECT User.Id AS UserId
-                                        FROM
-                                          _Catalog_Tender AS Tender
-                                          INNER JOIN
-                                          _Catalog_Tender_ActivityTypes AS Tender_Activity_Types
-                                            ON Tender.Id = Tender_Activity_Types.Ref
-                                          INNER JOIN
-                                          _Catalog_ActivityTypes AS ActivityTypes
-                                            ON Tender_Activity_Types.ActivityType = ActivityTypes.Id
-                                          INNER JOIN
-                                          _Catalog_ActivityTypes_Users AS ActivityTypes_Users
-                                            ON ActivityTypes.Id = ActivityTypes_Users.Ref
-                                          INNER JOIN
-                                          _Catalog_User AS User
-                                            ON ActivityTypes_Users.User = User.Id
-                                        WHERE
-                                          Tender.Id = @tenderId
-                                          AND User.DeletionMark = 0
-                                          AND User.Id <> @currentUserId");
+            var query = new Query(@"SELECT DISTINCT Konch.UserID
+                                    FROM (
+                                           SELECT User.Id AS UserId
+                                           FROM
+                                             _Catalog_Tender AS Tender
+                                             LEFT JOIN
+                                             _Catalog_Tender_ActivityTypes AS Tender_Activity_Types
+                                               ON Tender.Id = Tender_Activity_Types.Ref
+                                             INNER JOIN
+                                             _Catalog_ActivityTypes AS ActivityTypes
+                                               ON Tender_Activity_Types.ActivityType = ActivityTypes.Id
+                                             INNER JOIN
+                                             _Catalog_ActivityTypes_Users AS ActivityTypes_Users
+                                               ON ActivityTypes.Id = ActivityTypes_Users.Ref
+                                             INNER JOIN
+                                             _Catalog_User AS User
+                                               ON ActivityTypes_Users.User = User.Id
+                                           WHERE
+                                             Tender.Id = @tenderId
+                                             AND User.DeletionMark = 0
+                                           --пользавтели по всем активитям
+                                           UNION
+                                           SELECT Tender.Responsible AS UserId
+                                           FROM
+                                             _Catalog_Tender AS Tender
+                                             LEFT JOIN
+                                             _Catalog_Tender_ActivityTypes AS Tender_Activity_Types
+                                               ON Tender.Id = Tender_Activity_Types.Ref
+                                             INNER JOIN
+                                             _Catalog_ActivityTypes AS ActivityTypes
+                                               ON Tender_Activity_Types.ActivityType = ActivityTypes.Id
+                                             INNER JOIN
+                                             _Catalog_ActivityTypes_Users AS ActivityTypes_Users
+                                               ON ActivityTypes.Id = ActivityTypes_Users.Ref
+                                             INNER JOIN
+                                             _Catalog_User AS User
+                                               ON ActivityTypes_Users.User = User.Id
+                                           WHERE
+                                             Tender.Id = @tenderId
+                                             AND User.DeletionMark = 0
+                                           --ответственны по тендеру
+                                           UNION
+                                           SELECT Nach.Manager AS UserId
+                                           FROM
+                                             _Catalog_Tender AS Tender
+                                             LEFT JOIN _Catalog_User AS Nach
+                                               ON Tender.Responsible = Nach.Id
+                                             LEFT JOIN
+                                             _Catalog_Tender_ActivityTypes AS Tender_Activity_Types
+                                               ON Tender.Id = Tender_Activity_Types.Ref
+                                             INNER JOIN
+                                             _Catalog_ActivityTypes AS ActivityTypes
+                                               ON Tender_Activity_Types.ActivityType = ActivityTypes.Id
+                                             INNER JOIN
+                                             _Catalog_ActivityTypes_Users AS ActivityTypes_Users
+                                               ON ActivityTypes.Id = ActivityTypes_Users.Ref
+                                             INNER JOIN
+                                             _Catalog_User AS User
+                                               ON ActivityTypes_Users.User = User.Id
+                                           WHERE
+                                             Tender.Id = @tenderId
+                                             AND User.DeletionMark = 0
+                                           --начальники ответственных за тендер
+                                           UNION
+                                           SELECT User.Manager AS UserId
+                                           FROM
+                                             _Catalog_Tender AS Tender
+                                             LEFT JOIN
+                                             _Catalog_Tender_ActivityTypes AS Tender_Activity_Types
+                                               ON Tender.Id = Tender_Activity_Types.Ref
+                                             INNER JOIN
+                                             _Catalog_ActivityTypes AS ActivityTypes
+                                               ON Tender_Activity_Types.ActivityType = ActivityTypes.Id
+                                             INNER JOIN
+                                             _Catalog_ActivityTypes_Users AS ActivityTypes_Users
+                                               ON ActivityTypes.Id = ActivityTypes_Users.Ref
+                                             INNER JOIN
+                                             _Catalog_User AS User
+                                               ON ActivityTypes_Users.User = User.Id
+                                           WHERE
+                                             Tender.Id = @tenderId
+                                             AND User.DeletionMark = 0
+                                           --начальники активити
+                                           UNION
+                                           SELECT Tender.Manager AS UserId
+                                           FROM
+                                             _Catalog_Tender AS Tender
+                                           WHERE
+                                             Tender.Id = @tenderId
+
+                                           --манагеры тендера
+                                           UNION
+                                           SELECT Nach.Manager AS UserId
+                                           FROM
+                                             _Catalog_Tender AS Tender
+                                             LEFT JOIN _Catalog_User AS Nach
+                                               ON Tender.Manager = Nach.Id
+                                           WHERE
+                                             Tender.Id = @tenderId
+                                         ) AS Konch
+                                    WHERE
+                                      Konch.UserId <> '@ref[Catalog_User]:00000000-0000-0000-0000-000000000000'
+                                      AND Konch.UserId <> @currentUserId
+                                    ");
 
             query.AddParameter("tenderId", tenderId);
             query.AddParameter("currentUserId", currentUserId);
@@ -1627,25 +1712,110 @@ namespace Test
 
         public static int GetTenderMessageRecipiencesCount(object tenderId, object currentUserId)
         {
-            var query = new Query(@"SELECT User.Id AS UserId
-                                        FROM
-                                          _Catalog_Tender AS Tender
-                                          INNER JOIN
-                                          _Catalog_Tender_ActivityTypes AS Tender_Activity_Types
-                                            ON Tender.Id = Tender_Activity_Types.Ref
-                                          INNER JOIN
-                                          _Catalog_ActivityTypes AS ActivityTypes
-                                            ON Tender_Activity_Types.ActivityType = ActivityTypes.Id
-                                          INNER JOIN
-                                          _Catalog_ActivityTypes_Users AS ActivityTypes_Users
-                                            ON ActivityTypes.Id = ActivityTypes_Users.Ref
-                                          INNER JOIN
-                                          _Catalog_User AS User
-                                            ON ActivityTypes_Users.User = User.Id
-                                        WHERE
-                                          Tender.Id = @tenderId
-                                          AND User.DeletionMark = 0
-                                          AND User.Id <> @currentUserId");
+            var query = new Query(@"SELECT DISTINCT Konch.UserID
+                                    FROM (
+                                           SELECT User.Id AS UserId
+                                           FROM
+                                             _Catalog_Tender AS Tender
+                                             LEFT JOIN
+                                             _Catalog_Tender_ActivityTypes AS Tender_Activity_Types
+                                               ON Tender.Id = Tender_Activity_Types.Ref
+                                             INNER JOIN
+                                             _Catalog_ActivityTypes AS ActivityTypes
+                                               ON Tender_Activity_Types.ActivityType = ActivityTypes.Id
+                                             INNER JOIN
+                                             _Catalog_ActivityTypes_Users AS ActivityTypes_Users
+                                               ON ActivityTypes.Id = ActivityTypes_Users.Ref
+                                             INNER JOIN
+                                             _Catalog_User AS User
+                                               ON ActivityTypes_Users.User = User.Id
+                                           WHERE
+                                             Tender.Id = @tenderId
+                                             AND User.DeletionMark = 0
+                                           --пользавтели по всем активитям
+                                           UNION
+                                           SELECT Tender.Responsible AS UserId
+                                           FROM
+                                             _Catalog_Tender AS Tender
+                                             LEFT JOIN
+                                             _Catalog_Tender_ActivityTypes AS Tender_Activity_Types
+                                               ON Tender.Id = Tender_Activity_Types.Ref
+                                             INNER JOIN
+                                             _Catalog_ActivityTypes AS ActivityTypes
+                                               ON Tender_Activity_Types.ActivityType = ActivityTypes.Id
+                                             INNER JOIN
+                                             _Catalog_ActivityTypes_Users AS ActivityTypes_Users
+                                               ON ActivityTypes.Id = ActivityTypes_Users.Ref
+                                             INNER JOIN
+                                             _Catalog_User AS User
+                                               ON ActivityTypes_Users.User = User.Id
+                                           WHERE
+                                             Tender.Id = @tenderId
+                                             AND User.DeletionMark = 0
+                                           --ответственны по тендеру
+                                           UNION
+                                           SELECT Nach.Manager AS UserId
+                                           FROM
+                                             _Catalog_Tender AS Tender
+                                             LEFT JOIN _Catalog_User AS Nach
+                                               ON Tender.Responsible = Nach.Id
+                                             LEFT JOIN
+                                             _Catalog_Tender_ActivityTypes AS Tender_Activity_Types
+                                               ON Tender.Id = Tender_Activity_Types.Ref
+                                             INNER JOIN
+                                             _Catalog_ActivityTypes AS ActivityTypes
+                                               ON Tender_Activity_Types.ActivityType = ActivityTypes.Id
+                                             INNER JOIN
+                                             _Catalog_ActivityTypes_Users AS ActivityTypes_Users
+                                               ON ActivityTypes.Id = ActivityTypes_Users.Ref
+                                             INNER JOIN
+                                             _Catalog_User AS User
+                                               ON ActivityTypes_Users.User = User.Id
+                                           WHERE
+                                             Tender.Id = @tenderId
+                                             AND User.DeletionMark = 0
+                                           --начальники ответственных за тендер
+                                           UNION
+                                           SELECT User.Manager AS UserId
+                                           FROM
+                                             _Catalog_Tender AS Tender
+                                             LEFT JOIN
+                                             _Catalog_Tender_ActivityTypes AS Tender_Activity_Types
+                                               ON Tender.Id = Tender_Activity_Types.Ref
+                                             INNER JOIN
+                                             _Catalog_ActivityTypes AS ActivityTypes
+                                               ON Tender_Activity_Types.ActivityType = ActivityTypes.Id
+                                             INNER JOIN
+                                             _Catalog_ActivityTypes_Users AS ActivityTypes_Users
+                                               ON ActivityTypes.Id = ActivityTypes_Users.Ref
+                                             INNER JOIN
+                                             _Catalog_User AS User
+                                               ON ActivityTypes_Users.User = User.Id
+                                           WHERE
+                                             Tender.Id = @tenderId
+                                             AND User.DeletionMark = 0
+                                           --начальники активити
+                                           UNION
+                                           SELECT Tender.Manager AS UserId
+                                           FROM
+                                             _Catalog_Tender AS Tender
+                                           WHERE
+                                             Tender.Id = @tenderId
+
+                                           --манагеры тендера
+                                           UNION
+                                           SELECT Nach.Manager AS UserId
+                                           FROM
+                                             _Catalog_Tender AS Tender
+                                             LEFT JOIN _Catalog_User AS Nach
+                                               ON Tender.Manager = Nach.Id
+                                           WHERE
+                                             Tender.Id = @tenderId
+                                         ) AS Konch
+                                    WHERE
+                                      Konch.UserId <> '@ref[Catalog_User]:00000000-0000-0000-0000-000000000000'
+                                      AND Konch.UserId <> @currentUserId
+                                    ");
 
             query.AddParameter("tenderId", tenderId);
             query.AddParameter("currentUserId", currentUserId);
