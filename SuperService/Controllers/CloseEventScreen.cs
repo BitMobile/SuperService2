@@ -111,6 +111,7 @@ namespace Test
             DBHelper.SaveEntities(entitiesList);
 
             _eventResults = null;
+            _commentaryString = null;
 
             Navigation.CleanStack();
             Navigation.ModalMove("EventListScreen");
