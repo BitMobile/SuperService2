@@ -61,8 +61,8 @@ namespace Test
 
         public override void OnShow()
         {
-            GpsTracking.Start();
-            PushServerServices.Init();
+            //GpsTracking.Start();
+            //PushServerServices.Init();
         }
 
         internal string GetStatusPicture(string importance, string status)

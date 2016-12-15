@@ -11,7 +11,7 @@
 
   <server>
     <supportedMeta version="3.0.0.0" />
-    <host url="http://PC093005" />
-    <solutionPath url="/bitmobile/mobileserver" />
+    <host url="http://10.5.195.222" />
+    <solutionPath url="/bitmobile/biovitrum" />
   </server>
 </configuration>

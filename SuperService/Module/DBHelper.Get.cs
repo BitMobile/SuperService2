@@ -100,8 +100,10 @@ namespace Test
                                     on event.status = Enum_StatusyEvents.Id
                                 where ";
             var RecSetUser = GetUserInfoByUserName(Settings.User);
+            
             if (Filter.SelectedFilterId != null)
             {
+                Utils.TraceMessage();
                 String idFilterSql = GetFiltersSql();
                 Utils.TraceMessage(idFilterSql);
                 if (idFilterSql.Trim() != "")
@@ -111,10 +113,27 @@ namespace Test
             }
 
             String refUser = $"{(DbRef)RecSetUser["Id"]}";
-            queryString += @"(event.UserMA = '" + refUser + "'";
+            if (Filter.SelectedFilterId != "NotOurTask")
+            {
+                queryString += @"(event.UserMA = '" + refUser + "'";
+            }
             if (EventsShowSubordinate)
             {
-                queryString += @" OR CU.Manager = '" + refUser + "') AND";
+                if (Filter.SelectedFilterId != "NotOurTask")
+                {
+                    if (Filter.SelectedFilterId == "OurTask")
+                    {
+                        queryString += @") AND";
+                    }
+                    else
+                    {
+                        queryString += @" OR CU.Manager = '" + refUser + "') AND";
+                    }
+                }
+                else
+                {
+                    queryString += @" (CU.Manager = '" + refUser + "') AND";
+                }
             }
             else
             {
@@ -124,10 +143,8 @@ namespace Test
                                     AND (event.StartDatePlan >= @eventDate
                                               AND ((event.ActualEndDate > date('now','start of day') and Enum_StatusyEvents.Name IN (@statusDone, @statusCancel))
                                               OR (Enum_StatusyEvents.Name IN (@statusAppointed, @statusInWork))))
-
                                order by
                                 event.StartDatePlan";
-
             var query = new Query(queryString);
             query.AddParameter("eventDate", eventSinceDate);
             query.AddParameter("statusDone", EventStatusDoneName);
@@ -144,12 +161,20 @@ namespace Test
         /// </summary>
         public static String GetFiltersSql()
         {
-            var query = new Query(@"SELECT
+            Utils.TraceMessage(Filter.SelectedFilterId);
+            if (Filter.SelectedFilterId == "OurTask" || Filter.SelectedFilterId == "NotOurTask")
+            {
+                return "";
+            }
+            else
+            {
+                var query = new Query($@"SELECT
                                     Query
                                     FROM Catalog_MobileTaskFilters
-                                    Where Id = '" + Filter.SelectedFilterId + "'");
-            //Utils.TraceMessage(query.ExecuteScalar().ToString());
-            return query.ExecuteScalar().ToString();
+                                    Where Id = '{Filter.SelectedFilterId}'");
+                Utils.TraceMessage(query.ExecuteScalar().ToString());
+                return query.ExecuteScalar().ToString();
+            }
         }
 
         public static EventsStatistic GetEventsStatistic()

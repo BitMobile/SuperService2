@@ -9,7 +9,27 @@
     </c:HorizontalLayout>
     <c:ScrollView Id="c9c77e671ef64d128a4ecfea7cdf5bbf"
                   CssClass="RootLayout">
+
+      <c:HorizontalLine CssClass="Line" />
       <c:VerticalLayout>
+        <s:If Test="$ShowAdditionFilter()">
+          <!-- Our Task -->
+          <c:HorizontalLine CssClass="Line" />
+          <c:HorizontalLayout Id="OurTask" CssClass="ClientListItemVL" OnClick="SelectFilter_OnClick">
+            <c:Image Id="ImgOurTask" Source="$GetCurrentStatusForOur('OurTask')" CssClass="State" />
+            <c:VerticalLayout CssClass="VerticalLine" />
+            <c:TextView Text="Мои задачи" CssClass="ClientListNameTV" />
+          </c:HorizontalLayout>
+          <c:HorizontalLine CssClass="Line" />
+          <!-- Not our Task -->
+          <c:HorizontalLine CssClass="Line" />
+          <c:HorizontalLayout Id="NotOurTask" CssClass="ClientListItemVL" OnClick="SelectFilter_OnClick">
+            <c:Image Id="ImgNotOurTask" Source="$GetCurrentStatusForOur('NotOurTask')" CssClass="State" />
+            <c:VerticalLayout CssClass="VerticalLine" />
+            <c:TextView Text="Задачи подчиненных" CssClass="ClientListNameTV" />
+          </c:HorizontalLayout>
+        </s:If>
+        <!--All another filter-->
         <s:Iterator Id="filters" Value="$GetFilters()">
           <c:HorizontalLine CssClass="Line" />
           <c:HorizontalLayout Id="$filters.Id" CssClass="ClientListItemVL" OnClick="SelectFilter_OnClick">
