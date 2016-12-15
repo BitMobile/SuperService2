@@ -107,7 +107,7 @@ namespace Test
 
         internal void ClientLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            findText = null;
+            //findText = null;
             if (!_isAddTask)
             {
                 DConsole.WriteLine("ClientLayout_OnClick " + ((VerticalLayout)sender).Id);
