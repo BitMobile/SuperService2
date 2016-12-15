@@ -68,6 +68,9 @@ namespace Test
         public static User UserDetailedInfo =>
            (User)((DbRef)DBHelper.GetUserInfoByUserName(User)?["Id"])?.GetObject();
 
+        public static bool SendDatabase()
+            => Application.SendDatabase(SolutionUrl, User, Password);
+
         public static void Init()
         {
             if (!_initialized)

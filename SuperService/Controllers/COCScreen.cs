@@ -116,7 +116,8 @@ namespace Test
             if (_isReadOnly) return;
 
             var eventStatus = (string)_currentEventDbRecordset["statusName"];
-            if (eventStatus.Equals(EventStatus.Appointed))
+            if (eventStatus.Equals(EventStatus.Agreed, StringComparison.OrdinalIgnoreCase) 
+                || eventStatus.Equals(EventStatus.Accepted, StringComparison.OrdinalIgnoreCase))
             {
                 Dialog.Ask(Translator.Translate("start_event"), (innerSender, args) =>
                 {
@@ -147,7 +148,8 @@ namespace Test
             if (_isReadOnly) return;
 
             var eventStatus = (string)_currentEventDbRecordset["statusName"];
-            if (eventStatus.Equals(EventStatus.Appointed))
+            if (eventStatus.Equals(EventStatus.Agreed, StringComparison.OrdinalIgnoreCase)
+                || eventStatus.Equals(EventStatus.Accepted, StringComparison.OrdinalIgnoreCase))
             {
                 Dialog.Ask(Translator.Translate("start_event"), (innerSender, args) =>
                 {
@@ -180,7 +182,8 @@ namespace Test
             var eventStatus = (string)_currentEventDbRecordset["statusName"];
             var vl = (VerticalLayout)sender;
 
-            if (eventStatus.Equals(EventStatus.Appointed))
+            if (eventStatus.Equals(EventStatus.Agreed, StringComparison.OrdinalIgnoreCase)
+                || eventStatus.Equals(EventStatus.Accepted, StringComparison.OrdinalIgnoreCase))
             {
                 Dialog.Ask(Translator.Translate("start_event"), (innerSender, args) =>
                 {

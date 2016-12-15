@@ -27,6 +27,7 @@ namespace Test
 
         private TopInfoComponent _topInfoComponent;
         private Image _wrapUnwrapImage;
+        private bool _needSync;
 
         public override void OnLoading()
         {
@@ -36,8 +37,29 @@ namespace Test
             FillControls();
 
             IsEmptyDateTime((string)_currentEventRecordset["ActualStartDate"]);
+            _needSync = ReadEvent();
+            
         }
 
+        private bool ReadEvent()
+        {
+            var currentEventId = (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId];
+            var @event = (Event)DBHelper.LoadEntity(currentEventId);
+            if (@event.Status.Equals(StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Agreed)))
+            {
+                @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Accepted);
+                var entitesList = new ArrayList();
+                entitesList.Add(@event);
+                entitesList.Add(DBHelper.CreateHistory(@event));
+                DBHelper.SaveEntities(entitesList,false);
+                //DBHelper.SaveEntity(,false);
+                GetCurrentEvent();
+                return true;
+            }
+            return false;
+        }
+
+       
         private void FillControls()
         {
             _topInfoComponent.Header =
@@ -100,7 +122,8 @@ namespace Test
         public override void OnShow()
         {
             GpsTracking.Start();
-            if ((string)_currentEventRecordset["statusName"] == "Done")
+            if ((string)_currentEventRecordset["statusName"] == EventStatus.Done
+                || (string)_currentEventRecordset["statusName"] == EventStatus.DoneWithTrouble)
             {
                 Toast.MakeToast(Translator.Translate("event_finished_ro"));
                 _readonly = true;
@@ -110,6 +133,7 @@ namespace Test
                 Toast.MakeToast(Translator.Translate("event_canceled_ro"));
                 _readonly = true;
             }
+            
         }
 
         private void LoadControls()
@@ -196,9 +220,11 @@ namespace Test
                         (Event)
                             DBHelper.LoadEntity(
                                 (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
-                    @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Done);
-                    @event.ActualEndDate = DateTime.Now;
-                    DBHelper.SaveEntity(@event);
+                    //@event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Done);
+                    //@event.ActualEndDate = DateTime.Now;
+                    //DBHelper.SaveEntity(@event);
+                    //DBHelper.CreateHistory(@event);
+                    BusinessProcess.GlobalVariables[Parameters.DateEnd] = DateTime.Now;
                     Navigation.Move("CloseEventScreen");
                 }, null,
                     Translator.Translate("yes"), Translator.Translate("no"));
@@ -227,23 +253,22 @@ namespace Test
                     break;
             }
 
-            switch (status)
+            if (status == EventStatus.Agreed || status == EventStatus.Accepted)
             {
-                case "Appointed":
-                    pictureTag += "border";
-                    break;
-
-                case "Cancel":
-                    pictureTag += "cancel";
-                    break;
-
-                case "Done":
-                    pictureTag += "done";
-                    break;
-
-                case "InWork":
-                    pictureTag += "circle";
-                    break;
+                pictureTag += "border";
+            }
+            else if (status == EventStatus.Cancel || status == EventStatus.NotDone)
+            {
+                pictureTag += "cancel";
+            }
+            else if (status == EventStatus.DoneWithTrouble || status == EventStatus.Done ||
+                     status == EventStatus.OnTheApprovalOf || status == EventStatus.Close)
+            {
+                pictureTag += "done";
+            }
+            else if (status == EventStatus.InWork)
+            {
+                pictureTag += "circle";
             }
             return ResourceManager.GetImage(pictureTag);
         }
@@ -272,7 +297,13 @@ namespace Test
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
             @event.Latitude = Converter.ToDecimal(latitude);
             @event.Longitude = Converter.ToDecimal(longitude);
-            DBHelper.SaveEntity(@event);
+            var enitylist = new ArrayList();
+            enitylist.Add(@event);
+            enitylist.Add(DBHelper.CreateHistory(@event));
+            DBHelper.SaveEntities(enitylist);
+            //DBHelper.SaveEntity(@event);
+            //DBHelper.CreateHistory(@event);
+            _needSync = false;
             var rimList = DBHelper.GetServicesAndMaterialsByEventId(currentEventId);
             var rimArrayList = new ArrayList();
             while (rimList.Next())
@@ -287,6 +318,10 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
+            if (_needSync)
+            {
+                DBHelper.SyncAsync();
+            }
             Navigation.Back();
         }
 
@@ -331,10 +366,10 @@ namespace Test
             {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             }
-
             var @event = (Event)DBHelper.LoadEntity(_currentEventRecordset["Id"].ToString());
-            var status = ((StatusyEvents)@event.Status.GetObject()).GetEnum();
-            var wasStarted = status == StatusyEventsEnum.InWork || status == StatusyEventsEnum.Done;
+            var status = ((StatusyEvents)@event.Status.GetObject()).Name;
+            var wasStarted = status == EventStatus.InWork || status == EventStatus.Done;
+
             var dictinory = new Dictionary<string, object>
             {
                 {Parameters.IdCurrentEventId, (string) eventId},
@@ -347,7 +382,8 @@ namespace Test
         internal void CheckListCounterLayout_OnClick(object sender, EventArgs eventArgs)
         {
             var statusName = (string)_currentEventRecordset["statusName"];
-            if (statusName.Equals(EventStatus.Appointed))
+            if (statusName.Equals(EventStatus.Agreed, StringComparison.OrdinalIgnoreCase)
+                || statusName.Equals(EventStatus.Accepted, StringComparison.OrdinalIgnoreCase))
             {
                 Dialog.Ask(Translator.Translate("start_event"), (o, args) =>
                 {
@@ -386,7 +422,7 @@ namespace Test
         {
             var status = (string)eventRecordset["statusName"];
             var sums = DBHelper.GetCocSumsByEventId(eventRecordset["Id"].ToString(),
-                status != "Done" && status != "InWork");
+                status != EventStatus.Done && status != EventStatus.InWork);
             var total = (double)sums["Sum"];
             var services = (double)sums["SumServices"];
             var materials = (double)sums["SumMaterials"];

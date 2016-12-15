@@ -2,6 +2,7 @@
 using BitMobile.DbEngine;
 using System;
 using System.Collections;
+using Test.Document;
 using Database = BitMobile.ClientModel3.Database;
 
 namespace Test
@@ -13,9 +14,6 @@ namespace Test
     /// </remarks>
     public static partial class DBHelper
     {
-        private const string EventStatusDoneName = "Done";
-        private const string EventStatusCancelName = "Cancel";
-
         private static Database _db;
 
         public static string LastError => _db.LastError;
@@ -37,6 +35,19 @@ namespace Test
             _db.Commit();
             if (doSync)
                 SyncAsync();
+        }
+        public static EventHistory CreateHistory(Event @event)
+        {
+            return new EventHistory
+            {
+                Author = Settings.UserDetailedInfo.Id,
+                DeletionMark = false,
+                Date = DateTime.Now,
+                Event = @event.Id,
+                Id = DbRef.CreateInstance("Document_EventHistory", Guid.NewGuid()),
+                Status = @event.Status,
+                UserMA = @event.UserMA
+            };
         }
 
         public static void SaveEntities(IEnumerable entities, bool doSync = true)

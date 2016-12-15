@@ -2,6 +2,7 @@
 using BitMobile.ClientModel3.UI;
 using BitMobile.DbEngine;
 using System;
+using System.Collections;
 using Test.Components;
 using Test.Enum;
 
@@ -37,7 +38,10 @@ namespace Test
             @event.CommentContractor = commentMemoEdit.Text;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Cancel);
             @event.ActualEndDate = DateTime.Now;
-            DBHelper.SaveEntity(@event);
+            var entitiesList = new ArrayList();
+            entitiesList.Add(@event);
+            entitiesList.Add(DBHelper.CreateHistory(@event));
+            DBHelper.SaveEntities(entitiesList);
             Navigation.CleanStack();
             Navigation.ModalMove("EventListScreen");
         }

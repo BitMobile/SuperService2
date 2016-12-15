@@ -12,7 +12,7 @@
         <c:TextView Text="$FormatTimer($event.ActualStartDate)" CssClass="FinishTimer" />
       </c:VerticalLayout>
     </s:If>
-    <s:If Test="$event.statusName == Appointed">
+    <s:If Test="$event.statusName == Accepted || $event.statusName == Agreed">
       <c:VerticalLayout Id="StartFinishButton"
                         CssClass="NoHeight"
                         OnClick="StartFinishButton_OnClick">
@@ -20,9 +20,7 @@
         <c:TextView Text="00:00" CssClass="FinishTimer" />
       </c:VerticalLayout>
     </s:If>
-    <s:If Test="$event.statusName == Cancel" />
-    <s:If Test="$event.statusName == Done">
-    </s:If>
+
     <c:ScrollView CssClass="EventScreenMainLayout">
       <c:VerticalLayout>
         <c:VerticalLayout CssClass="EmptySpace2sp" />
@@ -85,7 +83,7 @@
           </c:HorizontalLayout>
         </s:If>
 
-        <s:If Test="$event.statusName == Appointed">
+        <s:If Test="$event.statusName == Accepted || $event.statusName == Agreed">
           <c:HorizontalLayout CssClass="EmptySpace2sp" />
           <c:Button Id="StartButton" Text="#start#" CssClass="StartButton" OnClick="StartButton_OnClick" />
           <c:Button Id="RefuseButton" Text="#refuse#" CssClass="RefuseButton" OnClick="RefuseButton_OnClick" />

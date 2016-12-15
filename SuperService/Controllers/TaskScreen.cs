@@ -75,7 +75,9 @@ namespace Test
             if (_isReadOnly)
                 _taskCommentEditText.Enabled = !_isReadOnly;
             else
-                _taskCommentEditText.Enabled = !eventStatus.Equals(EventStatus.Appointed);
+                _taskCommentEditText.Enabled =
+                    !(eventStatus.Equals(EventStatus.Agreed, StringComparison.OrdinalIgnoreCase)
+                      || eventStatus.Equals(EventStatus.Accepted, StringComparison.OrdinalIgnoreCase));
         }
 
         internal void TaskFinishedButton_OnClick(object sender, EventArgs eventArgs)
@@ -83,7 +85,8 @@ namespace Test
             if (_isReadOnly) return;
             var eventStatus = (string)_currentEvent["statusName"];
 
-            if (eventStatus.Equals(EventStatus.Appointed))
+            if (eventStatus.Equals(EventStatus.Agreed, StringComparison.OrdinalIgnoreCase)
+                || eventStatus.Equals(EventStatus.Accepted, StringComparison.OrdinalIgnoreCase))
             {
                 Dialog.Ask(Translator.Translate("start_event"), (o, args) =>
                 {
@@ -154,7 +157,8 @@ namespace Test
             if (_isReadOnly) return;
             var eventStatus = (string)_currentEvent["statusName"];
 
-            if (eventStatus.Equals(EventStatus.Appointed))
+            if (eventStatus.Equals(EventStatus.Agreed, StringComparison.OrdinalIgnoreCase)
+                || eventStatus.Equals(EventStatus.Accepted, StringComparison.OrdinalIgnoreCase))
             {
                 Dialog.Ask(Translator.Translate("start_event"), (o, args) =>
                 {
@@ -316,7 +320,8 @@ namespace Test
             if (_isReadOnly) return;
             var eventStatus = (string)_currentEvent["statusName"];
 
-            if (eventStatus.Equals(EventStatus.Appointed))
+            if (eventStatus.Equals(EventStatus.Agreed, StringComparison.OrdinalIgnoreCase)
+                || eventStatus.Equals(EventStatus.Accepted, StringComparison.OrdinalIgnoreCase))
             {
                 Dialog.Ask(Translator.Translate("start_event"), (o, args) =>
                 {

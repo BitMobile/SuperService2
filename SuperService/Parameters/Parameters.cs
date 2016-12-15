@@ -49,6 +49,12 @@
         /// <summary>
         ///     Представляет разделитель строк для режима DEBUG
         /// </summary>
+        public const string DateEnd = "DateEnd";
+
+
+        /// <summary>
+        ///     Представляет разделитель строк для режима DEBUG
+        /// </summary>
         public const string Splitter = "-----------------------------------------------";
     }
 }
