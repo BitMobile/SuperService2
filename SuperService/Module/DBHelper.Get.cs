@@ -661,8 +661,8 @@ namespace Test
                 ResultList.Add(new CheckItem
                 {
                     Name = (string)queryResult["Description"],
-                    Price = 1,//(double)queryResult["Price"],
-                    Quantity = 1
+                    Price =  double.Parse((string)queryResult["Price"]),
+                    Quantity = double.Parse((string)queryResult["AmountFact"])
                     });
             }
 
