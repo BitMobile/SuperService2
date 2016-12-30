@@ -660,9 +660,10 @@ namespace Test
             {
                 ResultList.Add(new CheckItem
                 {
-                    Name = ((RIM)((DbRef)queryResult["Id"]).GetObject()).Description,
-                    Price = (double)((RIM)((DbRef)queryResult["Id"]).GetObject()).Price 
-                });
+                    Name = (string)queryResult["Description"],
+                    Price = (double)queryResult["Price"],
+                    Quantity = (double)queryResult["AmountFact"]
+                    });
             }
 
 
