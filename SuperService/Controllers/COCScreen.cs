@@ -5,6 +5,7 @@ using BitMobile.DbEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ClientModel3.MD;
 using Test.Catalog;
 using Test.Components;
 using Test.Document;
@@ -362,8 +363,8 @@ namespace Test
 
 
         internal void Print_OnClick(object sender, EventArgs e)
-        {
-            
-        }
+        =>
+            FiscalRegistrator.PrintCheck(DBHelper.GetCheckByIdEvent(_currentEventId));
+        
     }
 }
