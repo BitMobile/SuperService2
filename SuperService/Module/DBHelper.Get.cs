@@ -1,7 +1,10 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.DbEngine;
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
+using BitMobile.Common.FiscalRegistrator;
+using Test.Catalog;
 using Test.Document;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
@@ -626,6 +629,44 @@ namespace Test
                                   "    Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
+        }
+
+        public static List<CheckItem> GetCheckByIdEvent(string eventId)
+        {
+            // TODO: Написать запрос
+
+            var query = new Query("select " +
+                                  "    Document_Event_ServicesMaterials.Id," +
+                                  "    Document_Event_ServicesMaterials.SKU," +
+                                  "    Document_Event_ServicesMaterials.Price," +
+                                  "    AmountPlan," +
+                                  "    SumPlan," +
+                                  "    AmountFact," +
+                                  "    SumFact," +
+                                  "    Description," +
+                                  "    Code," +
+                                  "    Unit " +
+                                  "from" +
+                                  "    Document_Event_ServicesMaterials " +
+                                  "    join Catalog_RIM " +
+                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  " where " +
+                                  " (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and" +
+                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+            query.AddParameter("eventId", eventId);
+            var queryResult = query.Execute();
+            var ResultList = new List<CheckItem>();
+            while (queryResult.Next())
+            {
+                ResultList.Add(new CheckItem
+                {
+                    Name = ((RIM)((DbRef)queryResult["Id"]).GetObject()).Description,
+                    Price = double.Parse(((RIM)((DbRef)queryResult["Id"]).GetObject()).Price.ToString()) 
+                });
+            }
+
+
+            return ResultList;
         }
 
         /// <summary>
