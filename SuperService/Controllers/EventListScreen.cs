@@ -87,12 +87,12 @@ namespace Test
             {
                 pictureTag += "border";
             }
-            else if (status == EventStatus.Cancel || status == EventStatus.NotDone)
+            else if (status == EventStatus.Cancel)
             {
                 pictureTag += "cancel";
             }
             else if (status == EventStatus.DoneWithTrouble || status == EventStatus.Done ||
-                     status == EventStatus.OnTheApprovalOf || status == EventStatus.Close)
+                     status == EventStatus.OnTheApprovalOf || status == EventStatus.Close || status == EventStatus.NotDone)
             {
                 pictureTag += "done";
             }

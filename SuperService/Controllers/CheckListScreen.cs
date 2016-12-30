@@ -186,7 +186,7 @@ namespace Test
         internal void DateCallback(object state, ResultEventArgs<DateTime> args)
         {
             _textView.Text = args.Result.Date.ToString("dd MMMM yyyy");
-            UpdateChecklist(_currentCheckListItemID, _textView.Text);
+            UpdateChecklist(_currentCheckListItemID, args.Result.ToString("yyyy-MM-dd HH:mm:ss"));
             //ChangeRequiredIndicator(_lastClickedRequiredIndicatior, true);
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов ChangeRequiredIndicator(_lastClickedRequiredIndicatior, true);
             ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
@@ -205,7 +205,7 @@ namespace Test
             {
                 {"true", Translator.Translate("yes")},
                 {"false", Translator.Translate("no")},
-                {"", Translator.Translate("not_choosed")}
+                {"not_choosed", Translator.Translate("not_choosed")}
             };
             var startKey = _textView.Text == Translator.Translate("not_choosed")
                 ? ""
@@ -227,8 +227,8 @@ namespace Test
         {
             _textView.Text = args.Result.Value;
             UpdateChecklist(_currentCheckListItemID,
-                args.Result.Value == Translator.Translate("not_choosed") ? "" : _textView.Text);
-
+                ((string) args.Result.Key) == "not_choosed" ? "" : (string) args.Result.Key);
+            Utils.TraceMessage($"Boleean choose: Key {args.Result.Key} Value: {args.Result.Value}");
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов ChangeRequiredIndicator(_lastClickedRequiredIndicatior, args.Result.Value != Translator.Translate("not_choosed"));
             if (args.Result.Value != Translator.Translate("not_choosed"))
                 ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
