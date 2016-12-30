@@ -661,7 +661,7 @@ namespace Test
                 ResultList.Add(new CheckItem
                 {
                     Name = ((RIM)((DbRef)queryResult["Id"]).GetObject()).Description,
-                    Price = double.Parse(((RIM)((DbRef)queryResult["Id"]).GetObject()).Price.ToString()) 
+                    Price = (double)((RIM)((DbRef)queryResult["Id"]).GetObject()).Price 
                 });
             }
 
