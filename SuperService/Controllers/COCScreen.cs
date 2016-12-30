@@ -359,5 +359,11 @@ namespace Test
         }
 
         internal bool ShowNotEnoughMaterials() => Settings.BagEnabled;
+
+
+        internal void Print_OnClick(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

@@ -392,3 +392,9 @@ HorizontalLine {
   height: 3.39866702sp auto;
   color: #8abf57;
 }
+.Button1 {
+  height: 10sp;
+  width: 100%;
+  background-color: #fd724c;
+  color: #ffffff;
+}

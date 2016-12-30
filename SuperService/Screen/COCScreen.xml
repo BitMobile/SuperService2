@@ -5,9 +5,11 @@
     <s:Include File="Components\TopInfoComponent.xml" />
 
     <s:Push Id="void_crutch" Value="$InitClassFields()" />
-
+   
     <c:ScrollView CssClass="RootLayout">
 
+      <c:Button Text="Печать чека" OnClick="Print_OnClick" CssClass="Button1"/>
+      
       <c:VerticalLayout Id="ServicesInfoVL" CssClass="TotalPriceInfoVL">
         <c:HorizontalLayout Id="ServicesInfoHL" CssClass="TotalPriceInfoHL">
           <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#SERVICES#" />
@@ -16,7 +18,7 @@
       </c:VerticalLayout>
 
       <c:HorizontalLine CssClass="WideHL" />
-
+      
       <c:VerticalLayout CssClass="VLForSView">
         <!-- Итератор по услугам будет здесь-->
         <s:Iterator Id="services" Value="$GetServices()">
@@ -67,7 +69,7 @@
             <c:TextView Id="RightInfoMaterialsTV" CssClass="RightInfoTV" Text="$GetFormatStringForMaterialSums()" />
           </c:HorizontalLayout>
         </c:VerticalLayout>
-
+        
         <c:HorizontalLine CssClass="WideHL" />
 
         <s:Iterator Id="materials" Value="$GetMaterials()">
