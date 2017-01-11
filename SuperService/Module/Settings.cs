@@ -245,18 +245,18 @@ namespace Test
     public static class DefaultGpsTrackingParameters
     {
         public const bool IsBestAccuracy = true;
-        public const int MinInterval = 5;
-        public const int MinDistance = 10;
-        public const int DistanceFilter = 5;
+        public const int MinInterval = 180;
+        public const int MinDistance = 100;
+        public const int DistanceFilter = 90;
         public const int SendInterval = int.MaxValue;
     }
 
     public static class MinGpsTrackingParameters
     {
-        public const int MinInterval = 10;
-        public const int MinDistance = 8;
-        public const int DistanceFilter = 4;
-        public const int SendInterval = 15;
+        public const int MinInterval = 60;
+        public const int MinDistance = 50;
+        public const int DistanceFilter = 40;
+        public const int SendInterval = 60;
     }
 
     public static class TimeRangeCoordinate
