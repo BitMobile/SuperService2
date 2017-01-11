@@ -194,7 +194,7 @@ namespace Test
 
         internal void AddTask_OnClick(object sender, EventArgs e)
             => Navigation.Move(nameof(AddTaskScreen), new Dictionary<string, object>
-            { {Parameters.IdTenderId, Variables.GetValueOrDefault(Parameters.IdTenderId)} });
+            { {Parameters.IdTenderId, Variables.GetValueOrDefault(Parameters.IdTenderId)}, {Parameters.IdClientId,_currentEventRecordset["Client_Id"]} });
 
         internal void OpenMarketplace_OnClick(object sender, EventArgs e)
         {

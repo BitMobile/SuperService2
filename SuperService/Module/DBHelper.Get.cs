@@ -1520,6 +1520,7 @@ namespace Test
                                       Tender.Manager               AS Manager,
                                       Client.Address            AS Client_Address,
                                       Client.Description        AS Client_Description,
+                                      Client.Id                 AS Client_Id,
                                       ActivityTypes.Description AS ActivityType
                                     FROM
                                       _Catalog_Tender AS Tender

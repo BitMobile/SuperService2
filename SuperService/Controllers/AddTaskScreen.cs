@@ -29,7 +29,7 @@ namespace Test
             };
 
             _event = _event ?? new Event();
-
+            Utils.TraceMessage((string)Variables.GetValueOrDefault(Parameters.IdClientId));
             if (_event.Tender == null && Variables.GetValueOrDefault(Parameters.IdTenderId) != null)
                 _event.Tender = DbRef.FromString($"{Variables[Parameters.IdTenderId]}");
 
@@ -99,6 +99,7 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
+            Variables[Parameters.IdClientId] = null;
             _event = null;
             Navigation.Back();
         }
@@ -127,7 +128,7 @@ namespace Test
             PushNotification.PushMessage(Translator.Translate("new_task"),
                 new[] { $"{_event.UserMA.Guid}" });
             _event = null;
-
+            Variables[Parameters.IdClientId] = null;
             Navigation.Back();
         }
 
