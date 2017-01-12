@@ -335,7 +335,7 @@ HorizontalLine {
   width: auto;
 }
 .EventListItemHL {
-  height: 13.1680484sp auto;
+  height: 17.1680484sp auto;
   width: 100%;
 }
 .EventListTimeVL {
@@ -379,7 +379,7 @@ HorizontalLine {
 }
 .EventListDescriptionVL {
   margin-left: 2sp;
-  height: 11.1680484sp auto;
+  height: 17.1680484sp auto;
   width: 77sp;
 }
 .EventListDescriptionVL TextView {
@@ -399,6 +399,12 @@ HorizontalLine {
   height: 2.22sp auto;
 }
 .EventListItemType {
+  color: #9b9fa0;
+  margin-top: 1.3sp;
+  font: 2sp arial;
+  height: 2.22sp auto;
+}
+.EventListThemeType {
   color: #9b9fa0;
   margin-top: 1.3sp;
   font: 2sp arial;

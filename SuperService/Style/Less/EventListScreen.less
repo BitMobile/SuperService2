@@ -38,7 +38,7 @@
 @listitem-height: (@listitem-margin - 0.2) * 2 + (@big-title-font-size * 1.1) + 0.8sp + 1.3sp + (@little-title-font-size * 1.1) + (@little-title-font-size * 1.1) + 0.7sp;
 
 .EventListItemHL {
-    height: @listitem-height auto;
+    height: @listitem-height + 4sp auto;
     width: 100%;
 }
 
@@ -97,7 +97,7 @@
 
 .EventListDescriptionVL {
     margin-left: @listitem-description-margin;
-    height: (@listitem-height - @listitem-description-margin) auto;
+    height: (@listitem-height) + 4sp auto;
     width: @listitem-part-info;
 
     TextView {
@@ -119,6 +119,11 @@
 }
 
 .EventListItemType {
+    color: #9b9fa0;
+    margin-top: 1.3sp;
+    .text-view-style(@little-title-font-size);
+}
+.EventListThemeType {
     color: #9b9fa0;
     margin-top: 1.3sp;
     .text-view-style(@little-title-font-size);

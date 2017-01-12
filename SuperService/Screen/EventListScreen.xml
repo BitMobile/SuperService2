@@ -55,7 +55,8 @@
                 <c:TextView Text="$Description" CssClass="EventListItemName" />
                 <c:TextView Text="$Address" CssClass="EventListItemAddress" />
                 <c:TextView Text="$TypeDeparture" CssClass="EventListItemType" />
-
+                <c:TextView Text="$Theme" CssClass="EventListItemType" />
+                
                 <!-- Проверка на необходимость брейкера-->
                 <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $EventList.startDatePlanDate)">
                   <c:HorizontalLine CssClass="EventListShortBreaker" />
@@ -90,6 +91,7 @@
           <s:Push Id="StartPlanDate" Value="$EventList.startDatePlanDate" />
           <s:Push Id="EndPlan" Value="$EventList.EndDatePlan" />
           <s:Push Id="TypeDeparture" Value="$EventList.TypeDeparture" />
+          <s:Push Id="Theme" Value="$EventList.Theme" />
           <s:Push Id="ActualStartDate" Value="$EventList.ActualStartDate" />
           <s:Push Id="StatusName" Value="$EventList.statusName" />
           <s:Push Id="ImportanceName" Value="$EventList.ImportanceName" />
@@ -132,6 +134,7 @@
               <c:TextView Text="$Description" CssClass="EventListItemName" />
               <c:TextView Text="$Address" CssClass="EventListItemAddress" />
               <c:TextView Text="$TypeDeparture" CssClass="EventListItemType" />
+              <c:TextView Text="$Theme" CssClass="EventListItemType" />
             </c:VerticalLayout>
           </c:HorizontalLayout>
         </s:If>
