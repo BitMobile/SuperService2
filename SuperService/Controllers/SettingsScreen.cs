@@ -157,10 +157,17 @@ namespace Test
 
         internal void Twitter_OnClick(object sender, EventArgs e)
         {
+            var fptr = FptrInstance.Instance;
+
+            fptr.PutDeviceSettings(fptr.Settings);
+            fptr.PutDeviceEnabled(true);
+            FptrInstance.Instance.Beep();
         }
 
         internal void Facebook_OnClick(object sender, EventArgs e)
         {
+            FptrInstance.Instance.Beep();
+            FptrInstance.Instance.PrintZ();
         }
 
         internal void SendErrorReport_OnClick(object sender, EventArgs e)
@@ -179,6 +186,6 @@ namespace Test
         }
 
         internal void SendLog_OnClick(object sender, EventArgs e)
-            => ClientModel3.MD.FiscalRegistrator.OpenSettings();
+            => FptrInstance.Instance.OpenSettings();
     }
 }

@@ -5,6 +5,8 @@ using BitMobile.DbEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using BitMobile.Common.Device.Providers;
+using BitMobile.Common.FiscalRegistrator;
 using ClientModel3.MD;
 using Test.Catalog;
 using Test.Components;
@@ -30,9 +32,10 @@ namespace Test
         private bool _usedCalculateMaterials;
         private bool _usedCalculateService;
         private bool _isReadOnly;
-
         public override void OnLoading()
         {
+            
+            
             InitClassFields();
             string totalSum;
 
@@ -363,8 +366,28 @@ namespace Test
 
 
         internal void Print_OnClick(object sender, EventArgs e)
-        =>
-            FiscalRegistrator.PrintCheck(DBHelper.GetCheckByIdEvent(_currentEventId));
+        {
+            var items = DBHelper.GetCheckByIdEvent(_currentEventId);
+            var fptr = FptrInstance.Instance;
+
+//            fptr.PutDeviceSettings(fptr.Settings);
+//            fptr.PutDeviceEnabled(true);
+//            fptr.Beep();
+
+            double sum = 0;
+            fptr.OpenCheck(FiscalRegistratorConsts.ChequeTypeSell);
+
+            while (items.Next())
+            {
+                fptr.RegistrationFz54((string)items["Description"]
+                    , double.Parse(items["Price"].ToString()),
+                    double.Parse(items["AmountFact"].ToString()), 1, 0, 1);
+                sum += double.Parse(items["Price"].ToString()) * double.Parse(items["AmountFact"].ToString());
+            }
+              
+            fptr.Payment(sum, 0);
+            fptr.CloseCheck(0);
+        }
         
     }
 }

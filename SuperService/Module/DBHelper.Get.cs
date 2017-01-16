@@ -631,7 +631,7 @@ namespace Test
             return query.Execute();
         }
 
-        public static List<CheckItem> GetCheckByIdEvent(string eventId)
+        public static DbRecordset GetCheckByIdEvent(string eventId)
         {
             // TODO: Написать запрос
 
@@ -654,20 +654,19 @@ namespace Test
                                   " (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and" +
                                   "    Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
-            var queryResult = query.Execute();
-            var ResultList = new List<CheckItem>();
-            while (queryResult.Next())
-            {
-                ResultList.Add(new CheckItem
-                {
-                    Name = (string)queryResult["Description"],
-                    Price =  double.Parse(queryResult["Price"].ToString()),
-                    Quantity = double.Parse(queryResult["AmountFact"].ToString())
-                    });
-            }
+//            var queryResult = query.Execute();
+//            while (queryResult.Next())
+//            {
+//                ResultList.Add(new CheckItem
+//                {
+//                    Name = (string)queryResult["Description"],
+//                    Price =  double.Parse(queryResult["Price"].ToString()),
+//                    Quantity = double.Parse(queryResult["AmountFact"].ToString())
+//                    });
+//            }
 
 
-            return ResultList;
+            return query.Execute();
         }
 
         /// <summary>
