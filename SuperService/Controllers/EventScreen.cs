@@ -200,7 +200,7 @@ namespace Test
                                 (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
                     @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Done);
                     @event.ActualEndDate = DateTime.Now;
-                    DBHelper.SaveEntity(@event);
+                    DBHelper.SaveEntity(@event,false);
                     Navigation.Move("CloseEventScreen");
                 }, null,
                     Translator.Translate("yes"), Translator.Translate("no"));
@@ -264,16 +264,16 @@ namespace Test
 
         private void ChangeEventStatus()
         {
-            var result = DBHelper.GetCoordinate(TimeRangeCoordinate.DefaultTimeRange);
-            var latitude = Converter.ToDouble(result["Latitude"]);
-            var longitude = Converter.ToDouble(result["Longitude"]);
+            //var result = DBHelper.GetCoordinate(TimeRangeCoordinate.DefaultTimeRange);
+            //var latitude = Converter.ToDouble(result["Latitude"]);
+            //var longitude = Converter.ToDouble(result["Longitude"]);
 
             var currentEventId = (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId];
             var @event = (Event)DBHelper.LoadEntity(currentEventId);
             @event.ActualStartDate = DateTime.Now;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
-            @event.Latitude = Converter.ToDecimal(latitude);
-            @event.Longitude = Converter.ToDecimal(longitude);
+            //@event.Latitude = Converter.ToDecimal(latitude);
+            //@event.Longitude = Converter.ToDecimal(longitude);
             DBHelper.SaveEntity(@event);
             var rimList = DBHelper.GetServicesAndMaterialsByEventId(currentEventId);
             var rimArrayList = new ArrayList();

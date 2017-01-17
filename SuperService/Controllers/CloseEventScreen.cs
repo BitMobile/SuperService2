@@ -82,6 +82,7 @@ namespace Test
                 Toast.MakeToast("Результат завершения не может быть пустым");
                 return;
             }
+            
 
             Utils.TraceMessage($"_eventResult.Id.Empty: {_eventResults.Id.EmptyRef()} not {!_eventResults.Id.EmptyRef()}{Environment.NewLine}" +
                                $"_evenResult.Negative {_eventResults.Negative} {Environment.NewLine}" +
@@ -96,8 +97,27 @@ namespace Test
             var eventRef = DbRef.FromString((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
             var entitiesList = new ArrayList();
             var @event = (Event)eventRef.GetObject();
+            if (((TypesEvents)@event.KindEvent.GetObject()).Name == "Visit")
+            {
+                var result = DBHelper.GetCoordinate(TimeRangeCoordinate.DefaultTimeRange);
+                var latitude = Converter.ToDouble(result["Latitude"]);
+                var longitude = Converter.ToDouble(result["Longitude"]);
+                @event.Latitude = Converter.ToDecimal(latitude);
+                @event.Longitude = Converter.ToDecimal(longitude);
+                var text = "";
+                Utils.TraceMessage($"lat:{latitude} long:{longitude}" );
+                if (latitude.Equals(0) & longitude.Equals(0))
+                {
+                    text += "Не удалось сохранить координаты встречи";
+                }
+                else
+                {
+                    text += "Координаты встречи успешно сохранены";
+                }
+                Toast.MakeToast(text);
+            }
+            
 
-          
 
             if (!string.IsNullOrEmpty(_commentaryMemoEdit.Text))
                 @event.CommentContractor = _commentaryMemoEdit.Text;
@@ -112,7 +132,6 @@ namespace Test
 
             _eventResults = null;
             _commentaryString = null;
-
             Navigation.CleanStack();
             Navigation.ModalMove("EventListScreen");
         }

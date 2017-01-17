@@ -288,6 +288,6 @@ namespace Test
 
     public static class TimeRangeCoordinate
     {
-        public const uint DefaultTimeRange = 30U;
+        public const uint DefaultTimeRange = 10U;
     }
 }
