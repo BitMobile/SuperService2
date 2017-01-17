@@ -136,3 +136,7 @@ write_letter		Odeslat zprávu
 yes		Ano
 yesterdayToUpper		VČERA
 сonnection_error		Chyba připojení
+ask_send_log		Zaslat chybovou zprávu pro vývojáře?
+send_log_ok		Chyba Zpráva byla odeslána!
+send_log_fail		Nelze odeslat zprávu
+NewEventAssigh		Přidělen jste novou objednávku.

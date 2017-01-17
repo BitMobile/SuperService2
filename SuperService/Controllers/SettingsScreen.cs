@@ -179,7 +179,17 @@ namespace Test
         }
 
         internal void SendLog_OnClick(object sender, EventArgs e)
-        {
-        }
+            => Dialog.Ask(Translator.Translate("ask_send_log"),
+                (o, args) =>
+                {
+                    if (args.Result == Dialog.Result.No) return;
+
+                    var isLogSend = Settings.SendDatabase();
+                    Utils.TraceMessage($"Log is send. Result of sending: {isLogSend}");
+
+                    Toast.MakeToast(isLogSend
+                        ? Translator.Translate("send_log_ok")
+                        : Translator.Translate("send_log_fail"));
+                });
     }
 }

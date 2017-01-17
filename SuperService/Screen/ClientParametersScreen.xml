@@ -77,7 +77,7 @@
                               CssClass="CheckListAnswerElement" />
                 </s:If>
                 <s:Else>
-                  <s:If Test="$Parameter.Result == #yes#">
+                  <s:If Test="$Parameter.Result == 'true'">
                     <c:TextView Text="#yes#" Id="$Parameter.OptionId"
                                 CssClass="CheckListAnswerElement" />
                   </s:If>

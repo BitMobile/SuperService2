@@ -90,12 +90,12 @@
                             CssClass="CheckListAnswerElement" />
               </s:If>
               <s:Else>
-                <s:If Test="$CheckList.Result == #yes#">
+                <s:If Test="$CheckList.Result == 'true'">
                   <c:TextView Text="#yes#" Id="$CheckList.ActionId"
                               CssClass="CheckListAnswerElement" />
                 </s:If>
                 <s:Else>
-                  <s:If Test="$CheckList.Result == #no#">
+                  <s:If Test="$CheckList.Result == 'false'">
                     <c:TextView Text="#no#" Id="$CheckList.ActionId"
                                 CssClass="CheckListAnswerElement" />
                   </s:If>

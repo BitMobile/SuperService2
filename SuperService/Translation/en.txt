@@ -136,3 +136,7 @@ targets		Targets
 yesterdayToUpper		YESTERDAY
 tomorrowToUpper		TOMORROW
 notification		Notification
+ask_send_log		Send an error report to developers?
+send_log_ok		Error Report has been sent!
+send_log_fail		Unable to send report
+NewEventAssigh		You assigned a new order.

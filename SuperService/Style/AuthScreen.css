@@ -131,7 +131,7 @@ EditText {
 .ImgContainerVL {
   dock-align: top;
   height: 30sp;
-  margin-bottom: 25sp;
+  margin-bottom: 5sp;
   width: 100%;
 }
 .ImgContainerHL {
@@ -167,4 +167,20 @@ EditText {
   height: 100%;
   horizontal-align: center;
   width: 90%;
+}
+.Indicator {
+  height: 15sp;
+  width: 15sp;
+  color: #fd724c;
+  vertical-align: center;
+}
+.IndicatorHorizontalAlign {
+  height: 0sp auto;
+  width: 100%;
+  margin-bottom: 5sp;
+}
+.IndicatorVerticalAlign {
+  height: 15sp;
+  width: 0sp auto;
+  horizontal-align: center;
 }

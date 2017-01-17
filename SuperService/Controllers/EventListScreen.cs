@@ -83,23 +83,22 @@ namespace Test
                     break;
             }
 
-            switch (status)
+            if (status == EventStatus.Agreed || status == EventStatus.Accepted)
             {
-                case "Appointed":
-                    pictureTag += "border";
-                    break;
-
-                case "Cancel":
-                    pictureTag += "cancel";
-                    break;
-
-                case "Done":
-                    pictureTag += "done";
-                    break;
-
-                case "InWork":
-                    pictureTag += "circle";
-                    break;
+                pictureTag += "border";
+            }
+            else if (status == EventStatus.Cancel)
+            {
+                pictureTag += "cancel";
+            }
+            else if (status == EventStatus.DoneWithTrouble || status == EventStatus.Done ||
+                     status == EventStatus.OnTheApprovalOf || status == EventStatus.Close || status == EventStatus.NotDone)
+            {
+                pictureTag += "done";
+            }
+            else if (status == EventStatus.InWork)
+            {
+                pictureTag += "circle";
             }
             return ResourceManager.GetImage(pictureTag);
         }

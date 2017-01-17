@@ -158,7 +158,7 @@ namespace Test
         internal void DateCallback(object state, ResultEventArgs<DateTime> args)
         {
             _textView.Text = args.Result.Date.ToString("dd MMMM yyyy");
-            UpdateChecklist(_currentCheckListItemID, _textView.Text);
+            UpdateChecklist(_currentCheckListItemID, args.Result.ToString("yyyy-MM-dd HH:mm:ss"));
         }
 
         // Булево
@@ -191,7 +191,7 @@ namespace Test
         {
             _textView.Text = args.Result.Value;
             UpdateChecklist(_currentCheckListItemID,
-                args.Result.Value == Translator.Translate("not_choosed") ? "" : _textView.Text);
+                (string)args.Result.Key);
             _textView.Refresh();
         }
 
