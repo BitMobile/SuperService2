@@ -1455,7 +1455,9 @@ namespace Test
 
         public static DbRecordset GetTenderList(object userId)
         {
-            var query = new Query(@"SELECT DISTINCT
+            var query = new Query(@"SELECT z.*, GROUP_CONCAT(p.Description, ', ') AS Description FROM
+                                  (
+                                  SELECT DISTINCT
                                       Tender.Id                    AS Id,
                                       Tender.Number                AS TenderNumber,
                                       Tender.DueDateTime           AS DueDateTime,
@@ -1501,7 +1503,11 @@ namespace Test
                                         )
                                       AND Tender.DeletionMark = 0
                                       AND Tender.Closed = 0
-                                    ORDER BY Tender.DueDateTime ASC");
+                                  ) z
+                                  LEFT JOIN _Catalog_Tender_ActivityTypes AS CTA ON z.Id = CTA.Ref
+                                  LEFT JOIN _Catalog_ActivityTypes AS p ON p.Id = CTA.ActivityType
+                                  GROUP BY z.Id, z.TenderNumber, z.DueDateTime, z.TotalSum, z.Responsible, z.Manager, z.ClientDescription
+                                  ORDER BY z.DueDateTime ASC");
 
             query.AddParameter("userId", userId);
 

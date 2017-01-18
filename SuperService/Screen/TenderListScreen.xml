@@ -36,7 +36,7 @@
               <c:TextView Text="$tenderList.ClientDescription" CssClass="EventListItemAddress" />
               <c:TextView Text="$FormatSum($tenderList.TotalSum)"
                           CssClass="EventListItemType" />
-              <c:TextView Text="$ConcatCurrencyString($tenderList.Id,$tenderList.TotalSum)"
+              <c:TextView Text="$tenderList.Description"
                           CssClass="EventListItemType" />
 
               <!-- Проверка на необходимость брейкера-->
