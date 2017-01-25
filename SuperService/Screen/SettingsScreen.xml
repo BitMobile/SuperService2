@@ -92,7 +92,7 @@
               <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
                 <c:VerticalLayout Id="SendLog" CssClass="ButtonContainerVerticalAlign" OnClick="SendLog_OnClick">
                   <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_send_log)" />
-                  <c:TextView CssClass="ReportTextActive" Text="#send_log#" />
+                  <c:TextView CssClass="ReportTextActive" Text="Настройки ФР" />
                 </c:VerticalLayout>
               </c:HorizontalLayout>
             </c:VerticalLayout>

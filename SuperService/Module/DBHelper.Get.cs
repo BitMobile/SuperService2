@@ -1,7 +1,10 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.DbEngine;
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
+using BitMobile.Common.FiscalRegistrator;
+using Test.Catalog;
 using Test.Document;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
@@ -625,6 +628,44 @@ namespace Test
                                   " (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and" +
                                   "    Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
+            return query.Execute();
+        }
+
+        public static DbRecordset GetCheckByIdEvent(string eventId)
+        {
+            // TODO: Написать запрос
+
+            var query = new Query("select " +
+                                  "    Document_Event_ServicesMaterials.Id," +
+                                  "    Document_Event_ServicesMaterials.SKU," +
+                                  "    Document_Event_ServicesMaterials.Price," +
+                                  "    AmountPlan," +
+                                  "    SumPlan," +
+                                  "    AmountFact," +
+                                  "    SumFact," +
+                                  "    Description," +
+                                  "    Code," +
+                                  "    Unit " +
+                                  "from" +
+                                  "    Document_Event_ServicesMaterials " +
+                                  "    join Catalog_RIM " +
+                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  " where " +
+                                  " (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and" +
+                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+            query.AddParameter("eventId", eventId);
+//            var queryResult = query.Execute();
+//            while (queryResult.Next())
+//            {
+//                ResultList.Add(new CheckItem
+//                {
+//                    Name = (string)queryResult["Description"],
+//                    Price =  double.Parse(queryResult["Price"].ToString()),
+//                    Quantity = double.Parse(queryResult["AmountFact"].ToString())
+//                    });
+//            }
+
+
             return query.Execute();
         }
 
