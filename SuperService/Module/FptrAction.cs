@@ -85,5 +85,17 @@ namespace Test
             if (fptr.Report() < 0)
                 fptr.CheckError();
         }
+
+        public static void PrintX(this IFiscalRegistratorProvider fptr)
+        {
+            if (fptr.PutMode(FiscalRegistratorConsts.ModeReportNoClear) < 0)
+                fptr.CheckError();
+            if (fptr.SetMode() < 0)
+                fptr.CheckError();
+            if (fptr.PutReportType(FiscalRegistratorConsts.ReportX) < 0)
+                fptr.CheckError();
+            if (fptr.Report() < 0)
+                fptr.CheckError();
+        }
     }
 }
