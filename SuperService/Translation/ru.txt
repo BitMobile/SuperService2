@@ -140,3 +140,5 @@ ask_send_log		Отправить отчет об ошибке разработч
 send_log_ok		Отчет об ошибках отправлен!
 send_log_fail		Не удалось отправить отчет
 NewEventAssigh		Вам назначен новый наряд.
+x_report		X-отчет
+fpt_settings		Настройки ФР

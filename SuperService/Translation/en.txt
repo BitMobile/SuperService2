@@ -140,3 +140,5 @@ ask_send_log		Send an error report to developers?
 send_log_ok		Error Report has been sent!
 send_log_fail		Unable to send report
 NewEventAssigh		You assigned a new order.
+x_report		X-report
+fpt_settings		Settings FR

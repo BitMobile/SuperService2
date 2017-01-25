@@ -187,5 +187,8 @@ namespace Test
 
         internal void SendLog_OnClick(object sender, EventArgs e)
             => FptrInstance.Instance.OpenSettings();
+
+        internal void PrintX_OnClick(object sender, EventArgs e)
+            => FptrInstance.Instance.PrintX();
     }
 }

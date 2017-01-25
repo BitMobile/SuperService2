@@ -111,6 +111,7 @@ namespace Test
             {"settingsscreen_send_log_disable",@"Image\SettingsScreen\Log_Disable.png" },
             {"settingsscreen_userpic",@"Image\SettingsScreen\Userpic_blank.png" },
             {"settingsscreen_upload",@"Image\SettingsScreen\upload.png" },
+            { "settingsscreen_printx", @"Image\SettingsScreen\X-check.png"},
             //TaskScreen
             {"task_target_done", @"Image\TaskScreen\done.png" },
             {"task_target_not_done", @"Image\TaskScreen\not_done.png" },
