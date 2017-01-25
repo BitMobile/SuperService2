@@ -2,6 +2,13 @@
 <Configuration Name="SuperService" Version="1.3.1.327">
 	<GlobalParameters/>
 	<Entities>
+		<Entity Name="VATS" Schema="Enum">
+			<Fields>
+				<Field KeyField="true" Name="Id" Type="Guid"/>
+				<Field AllowNull="false" Length="100" Name="Name" Type="String"/>
+				<Field AllowNull="false" Name="NumberFR" Type="Integer"/>
+			</Fields>
+		</Entity>
 		<Entity Name="TypesDataParameters" Schema="Enum">
 			<Fields>
 				<Field KeyField="true" Name="Id" Type="Guid"/>
@@ -103,6 +110,7 @@
 				<Field AllowNull="true" Name="Service" Type="Boolean"/>
 				<Field AllowNull="true" Name="SKU" Type="Catalog.SKU"/>
 				<Field AllowNull="true" Length="5" Name="Unit" Type="String"/>
+				<Field AllowNull="true" Length="5" Name="VAT" Type="Enum.VATS"/>
 			</Fields>
 			<TabularSections/>
 		</Entity>
@@ -126,7 +134,7 @@
 				</TabularSection>
 			</TabularSections>
 		</Entity>
-		<Entity Name="Event" Schema="Document" SyncDownload="True" DeleteFilter="" SyncFilter="t.[Id] IN(SELECT EV.[Id] FROM [Document].[Event] EV JOIN [Enum].[StatusyEvents] SE ON EV.[Status] = SE.[Id] WHERE EV.[UserMA] = @UserId AND EV.[StartDatePlan] &gt;(getDate() - 31) AND NOT (SE.[Name] = 'Done')) " SyncUpload="True">
+		<Entity Name="Event" Schema="Document" SyncDownload="True" DeleteFilter="" SyncFilter="t.[Id] IN(SELECT DISTINCT EV.[Id] FROM [Document].[Event] EV JOIN [Enum].[StatusyEvents] SE ON EV.[Status] = SE.[Id] LEFT JOIN [Document].[EventHistory] EH ON EH.Event = EV.Id WHERE (EV.[UserMA] = @UserId OR (EH.UserMA = @UserId AND EH.Date &gt;(getDate()-30))) AND EV.[StartDatePlan] &gt;(getDate() - 31) AND (NOT (SE.[Name] = 'New')) AND (NOT (SE.[Name] = 'Done' OR SE.[Name] = 'Cancel' OR SE.[Name] = 'DoneWithTrouble' OR SE.[Name] = 'Close' OR SE.[Name] = 'NotDone' OR SE.[Name] = 'OnTheApprovalOf') OR ((SE.[Name] = 'Done' OR SE.[Name] = 'Cancel' OR SE.[Name] = 'DoneWithTrouble' OR SE.[Name] = 'Close' OR SE.[Name] = 'NotDone' OR SE.[Name] = 'OnTheApprovalOf') AND EV.[ActualEndDate] &gt;(getDate() - 1)))) " SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Posted" Type="Boolean"/>
 				<Field KeyField="true" Name="Id" Type="Guid"/>
@@ -218,20 +226,32 @@
 					<Field AllowNull="true" Name="AmountFact" Precision="10" Scale="3" Type="Decimal"/>
 					<Field AllowNull="true" Name="SumFact" Precision="15" Scale="2" Type="Decimal"/>
 				</TabularSection>
+				<TabularSection Key="User" Name="EventFiskalProperties" DeleteFilter="" SyncFilter="">
+					<Field KeyField="true" Name="Id" Type="Guid"/>
+					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+					<Field KeyField="false" Length="100" Name="CheckNumber" Type="String" />
+					<Field AllowNull="false" Name="Date" Type="DateTime2" />
+					<Field AllowNull="false" Name="ShiftNumber" Type="DateTime2" />
+					<Field AllowNull="false" Length="100" Name="NumberFtpr" Type="String" />
+					<Field AllowNull="false" Name="PaymentType" Type="Integer" />
+					<Field AllowNull="false" Name="PaymentAmount" Precision="15" Scale="2" Type="Decimal" />
+					<Field AllowNull="false" Name="User" Type="Catalog.User" />
+				</TabularSection>
 			</TabularSections>
 		</Entity>
-    <Entity Name="EventHistory" Schema="Document" SyncDownload="True" DeleteFilter="" SyncFilter="" SyncUpload="True">
-      <Fields>
-        <Field KeyField="true" Name="Id" Type="Guid" />
-        <Field AllowNull="false" Name="Date" Type="DateTime2" />
-        <Field AllowNull="false" Name="DeletionMark" Type="Boolean" />
-        <Field AllowNull="false" Name="Status" Type="Enum.StatusyEvents" />
-        <Field AllowNull="false" Name="Event" Type="Document.Event" />
-        <Field AllowNull="true" Name="Author" Type="Catalog.User" />
-        <Field AllowNull="true" Name="UserMA" Type="Catalog.User" />
-      </Fields>
-      <TabularSections />
-    </Entity>
+	    <Entity Name="EventHistory" Schema="Document" SyncDownload="True" DeleteFilter="" SyncFilter="" SyncUpload="True">
+	      <Fields>
+	        <Field KeyField="true" Name="Id" Type="Guid" />
+	        <Field AllowNull="false" Name="Date" Type="DateTime2" />
+	        <Field AllowNull="false" Name="DeletionMark" Type="Boolean" />
+	        <Field AllowNull="false" Name="Status" Type="Enum.StatusyEvents" />
+	        <Field AllowNull="false" Name="Event" Type="Document.Event" />
+	        <Field AllowNull="true" Name="Author" Type="Catalog.User" />
+	        <Field AllowNull="true" Name="UserMA" Type="Catalog.User" />
+	      </Fields>
+	      <TabularSections />
+	    </Entity>
 		<Entity Name="SKU" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="t.Id IN (SELECT DE.SKU FROM [Document].[Event_ServicesMaterials] DE WHERE DE.Ref IN (SELECT SE.Id FROM [Document].[Event] SE WHERE SE.UserMA = @UserId))" SyncUpload="True">
 			<Fields>
 				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
@@ -630,22 +650,22 @@
 		</Entity>
 		<Entity Name="Enum.StatusyEvents">
 		
-			<Row Description="Новый" Id="5f99e04e-10a8-4224-949a-7ed7863e1fb9" Name="New" _RS="0"/>
+			<Row Description="Создан" Id="5f99e04e-10a8-4224-949a-7ed7863e1fb9" Name="New" _RS="0"/>
 
 			<Row Description="На согласовании" Id="e97536d7-061f-4b9a-9257-871ed9ad9229" Name="OnHarmonization" _RS="0"/>
 			<Row Description="Согласован" Id="46428625-7b29-41dc-a2a2-9c07cfbd85b2" Name="Agreed" _RS="0"/>
-			<Row Description="Принят" Id="dfbe38ad-0b3b-462c-b4fe-e026b4701604" Name="Accepted" _RS="0"/>
+			<Row Description="Просмотрен" Id="dfbe38ad-0b3b-462c-b4fe-e026b4701604" Name="Accepted" _RS="0"/>
 			<Row Description="Отклонен" Id="57e71cfb-3d2e-4f57-9764-8f1a8a41d387" Name="Cancel" _RS="0"/>
 			
 	<!---	<Row Description="Назначено" Id="8d300e1c-3261-e745-4046-0ae57541898b" Name="Appointed" _RS="0"/>
 			<Row Description="Выполнено" Id="81998d6c-e971-8f4d-4fbb-bd4d3b61e737" Name="Done" _RS="0"/>
 			<Row Description="Отменено" Id="81ec69ec-e546-b95d-4879-1cb04ea0a1e6" Name="Cancel" _RS="0"/>-->
-			<Row Description="ВРаботе" Id="a00d846a-3d09-46c0-4a19-b6a10e055c9e" Name="InWork" _RS="0"/>
+			<Row Description="В работе" Id="a00d846a-3d09-46c0-4a19-b6a10e055c9e" Name="InWork" _RS="0"/>
 			<Row Description="Выполнен" Id="3943413c-cf47-4f3b-8795-b93c9f78d1c6" Name="Done" _RS="0"/>
 			<Row Description="Выполнен с проблемой" Id="1220b261-dbcf-4df5-aec1-6630c250d643" Name="DoneWithTrouble" _RS="0"/>
 			<Row Description="На утверждении" Id="be45c12b-267a-4c59-89b1-ac06af6dbc86" Name="OnTheApprovalOf" _RS="0"/>
 			<Row Description="Закрыт" Id="c36d3c89-3dbb-4b12-aef0-c970347e3961" Name="Close" _RS="0"/>
-			<Row Description="Не справился" Id="7ecb70fa-fc91-49f0-a7fd-b905bd994a02" Name="NotDone" _RS="0"/>
+			<Row Description="Не справились" Id="7ecb70fa-fc91-49f0-a7fd-b905bd994a02" Name="NotDone" _RS="0"/>
 		
 		</Entity>
 		<Entity Name="Enum.ResultEvent">
