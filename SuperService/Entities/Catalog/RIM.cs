@@ -16,6 +16,7 @@ namespace Test.Catalog
         public bool Service { get; set; }
         public DbRef SKU { get; set; }
         public string Unit { get; set; }
+        public DbRef VAT { get; set; }
 }
 
 
