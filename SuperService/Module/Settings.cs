@@ -64,6 +64,7 @@ namespace Test
         public static bool BagEnabled => GetLogicValue(Parameters.BagEnabled);
         public static bool ShowServicePrice => GetLogicValue(Parameters.ShowServicePrice);
         public static bool ShowMaterialPrice => GetLogicValue(Parameters.ShowMaterialPrice);
+        public static bool EnableFPTR => GetLogicValue(Parameters.EnableFPTR);
 
         public static User UserDetailedInfo =>
            (User)((DbRef)DBHelper.GetUserInfoByUserName(User)?["Id"])?.GetObject();
@@ -210,6 +211,7 @@ namespace Test
             DConsole.WriteLine($"{nameof(ShowMaterialPrice)}: {ShowMaterialPrice}");
             DConsole.WriteLine($"{Parameters.Splitter}{Environment.NewLine}");
             DConsole.WriteLine($"{nameof(UserId)}: {UserId}");
+            DConsole.WriteLine($"{Parameters.EnableFPTR}: {EnableFPTR}");
             DConsole.WriteLine($"GPSTracking.{nameof(GpsTracking.IsBestAccuracy)}: {GpsTracking.IsBestAccuracy}");
             DConsole.WriteLine($"GPSTracking.{nameof(GpsTracking.MinInterval)}: {GpsTracking.MinInterval}");
             DConsole.WriteLine($"GPSTracking.{nameof(GpsTracking.DistanceFilter)}: {GpsTracking.DistanceFilter}");
