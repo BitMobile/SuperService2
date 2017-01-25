@@ -618,9 +618,9 @@
   <Constants>
     <Entity Name="Enum.VATS">
       <Row Id="7cb0603a-e767-4e13-b86b-882242e9e05f" Name="Percent18" NumberFR="1" _RS="0"/>
-      <Row Id="7cb0603a-e767-4e13-b86b-882242e9e05f" Name="Percent0" NumberFR="2" _RS="0"/>
-      <Row Id="7cb0603a-e767-4e13-b86b-882242e9e05f" Name="PercentWithoOut" NumberFR="3" _RS="0"/>
-      <Row Id="7cb0603a-e767-4e13-b86b-882242e9e05f" Name="Percent10" NumberFR="4" _RS="0"/>
+      <Row Id="7a3bfd88-68bd-44e3-87b0-51a844828792" Name="Percent0" NumberFR="2" _RS="0"/>
+      <Row Id="123f1daf-215e-417e-b975-223089e9f0d0" Name="PercentWithoOut" NumberFR="3" _RS="0"/>
+      <Row Id="a100a27f-7f2f-488b-aab8-573db25f83c1" Name="Percent10" NumberFR="4" _RS="0"/>
     </Entity>
     <Entity Name="Enum.TypesDataParameters">
       <Row Description="Текст" Id="8404c846-e63b-425c-40fb-e3081e1b97c0" Name="String" _RS="0"/>
