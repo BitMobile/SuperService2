@@ -78,7 +78,7 @@
               <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
                 <c:VerticalLayout Id="SendErrorReport" CssClass="ButtonContainerVerticalAlign"
                                   OnClick="SendErrorReport_OnClick">
-                  <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_upload)" />
+                  <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_printx)" />
                   <c:TextView CssClass="ReportTextActive" Text="#x_report#" />
                 </c:VerticalLayout>
               </c:HorizontalLayout>
@@ -92,7 +92,7 @@
               <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
                 <c:VerticalLayout Id="SendLog" CssClass="ButtonContainerVerticalAlign" OnClick="SendLog_OnClick">
                   <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_send_log)" />
-                  <c:TextView CssClass="ReportTextActive" Text="Настройки ФР" />
+                  <c:TextView CssClass="ReportTextActive" Text="#fpt_settings#" />
                 </c:VerticalLayout>
               </c:HorizontalLayout>
             </c:VerticalLayout>
