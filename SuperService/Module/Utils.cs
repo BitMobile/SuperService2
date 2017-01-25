@@ -240,4 +240,11 @@ namespace Test
             DConsole.WriteLine($"Source line number: {sourceLineNumber} {Environment.NewLine}");
         }
     }
+
+    public class CheckItem
+    {
+       public string Name { get; set; }
+       public double Price { get; set; }
+        public double Quantity { get; set; }
+    }
 }
