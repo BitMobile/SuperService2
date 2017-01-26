@@ -123,7 +123,10 @@ namespace Test
         {
             GpsTracking.Start();
             if ((string)_currentEventRecordset["statusName"] == EventStatus.Done
-                || (string)_currentEventRecordset["statusName"] == EventStatus.DoneWithTrouble)
+                || (string)_currentEventRecordset["statusName"] == EventStatus.DoneWithTrouble
+                || (string)_currentEventRecordset["statusName"] == EventStatus.OnTheApprovalOf
+                || (string)_currentEventRecordset["statusName"] == EventStatus.Close
+                || (string)_currentEventRecordset["statusName"] == EventStatus.NotDone)
             {
                 Toast.MakeToast(Translator.Translate("event_finished_ro"));
                 _readonly = true;
