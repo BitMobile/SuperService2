@@ -8,7 +8,6 @@ namespace Test.Enum
         public DbRef Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int NumberFR { get; set; }
         public static DbRef GetDbRefFromEnum(VATSEnum @enum)
         {
             string res = null;

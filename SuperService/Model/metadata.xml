@@ -7,7 +7,6 @@
 				<Field KeyField="true" Name="Id" Type="Guid"/>
 				<Field AllowNull="false" Length="100" Name="Name" Type="String"/>
 				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="false" Name="NumberFR" Type="Integer"/>
 			</Fields>
 		</Entity>
 		<Entity Name="TypesDataParameters" Schema="Enum">
@@ -618,10 +617,10 @@
 	
 	<Constants>
 		<Entity Name="Enum.VATS">
-			<Row Description="NEVER" Id="7cb0603a-e767-4e13-b86b-882242e9e05f" Name="Percent18" NumberFR="1" _RS="0"/>
-			<Row Description="GONNA" Id="7a3bfd88-68bd-44e3-87b0-51a844828792" Name="Percent0" NumberFR="2" _RS="0"/>
-			<Row Description="GIVE U" Id="123f1daf-215e-417e-b975-223089e9f0d0" Name="PercentWithoOut" NumberFR="3" _RS="0"/>
-			<Row Description="UP" Id="a100a27f-7f2f-488b-aab8-573db25f83c1" Name="Percent10" NumberFR="4" _RS="0"/>
+			<Row Description="1" Id="7cb0603a-e767-4e13-b86b-882242e9e05f" Name="Percent18" RS="0"/>
+			<Row Description="2" Id="7a3bfd88-68bd-44e3-87b0-51a844828792" Name="Percent0" _RS="0"/>
+			<Row Description="3" Id="123f1daf-215e-417e-b975-223089e9f0d0" Name="PercentWithoOut" _RS="0"/>
+			<Row Description="4" Id="a100a27f-7f2f-488b-aab8-573db25f83c1" Name="Percent10" _RS="0"/>
 		</Entity>	
 		<Entity Name="Enum.TypesDataParameters">
 			<Row Description="Текст" Id="8404c846-e63b-425c-40fb-e3081e1b97c0" Name="String" _RS="0"/>
