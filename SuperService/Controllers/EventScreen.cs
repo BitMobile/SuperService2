@@ -1,9 +1,9 @@
-﻿using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
-using BitMobile.DbEngine;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
+using BitMobile.DbEngine;
 using Test.Catalog;
 using Test.Components;
 using Test.Document;
@@ -15,6 +15,7 @@ namespace Test
     public class EventScreen : Screen
     {
         private DbRecordset _currentEventRecordset;
+        private bool _needSync;
         private bool _readonly;
         private Button _refuseButton;
         private DockLayout _rootLayout;
@@ -27,7 +28,6 @@ namespace Test
 
         private TopInfoComponent _topInfoComponent;
         private Image _wrapUnwrapImage;
-        private bool _needSync;
 
         public override void OnLoading()
         {
@@ -36,46 +36,44 @@ namespace Test
             LoadControls();
             FillControls();
 
-            IsEmptyDateTime((string)_currentEventRecordset["ActualStartDate"]);
+            IsEmptyDateTime((string) _currentEventRecordset["ActualStartDate"]);
             _needSync = ReadEvent();
-            
         }
 
         private bool ReadEvent()
         {
-            var currentEventId = (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId];
-            var @event = (Event)DBHelper.LoadEntity(currentEventId);
+            var currentEventId = (string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId];
+            var @event = (Event) DBHelper.LoadEntity(currentEventId);
             if (@event.Status.Equals(StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Agreed)))
             {
                 @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Accepted);
                 var entitesList = new ArrayList();
                 entitesList.Add(@event);
                 entitesList.Add(DBHelper.CreateHistory(@event));
-                DBHelper.SaveEntities(entitesList,false);
-                //DBHelper.SaveEntity(,false);
+                DBHelper.SaveEntities(entitesList, false);
                 GetCurrentEvent();
                 return true;
             }
             return false;
         }
 
-       
+
         private void FillControls()
         {
             _topInfoComponent.Header =
-                ((string)_currentEventRecordset["clientDescription"]).CutForUIOutput(13, 2);
+                ((string) _currentEventRecordset["clientDescription"]).CutForUIOutput(13, 2);
             _topInfoComponent.CommentLayout.AddChild(new TextView(
-                ((string)_currentEventRecordset["clientAddress"]).CutForUIOutput(17, 2)));
+                ((string) _currentEventRecordset["clientAddress"]).CutForUIOutput(17, 2)));
 
-            _topInfoComponent.LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") };
-            _topInfoComponent.RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_info") };
+            _topInfoComponent.LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_back")};
+            _topInfoComponent.RightButtonControl = new Image {Source = ResourceManager.GetImage("topheading_info")};
 
-            _taskCommentTextView = (TextView)GetControl("EventCommentTextView", true);
-            _wrapUnwrapImage = (Image)GetControl("WrapUnwrapImage", true);
+            _taskCommentTextView = (TextView) GetControl("EventCommentTextView", true);
+            _wrapUnwrapImage = (Image) GetControl("WrapUnwrapImage", true);
 
-            var extraHorizontalLayout = new HorizontalLayout { CssClass = "ExtraHorizontalLayout" };
-            var leftExtraLayout = new VerticalLayout { CssClass = "ExtraVerticalLayout" };
-            var rightExtraLayout = new VerticalLayout { CssClass = "ExtraVerticalLayout" };
+            var extraHorizontalLayout = new HorizontalLayout {CssClass = "ExtraHorizontalLayout"};
+            var leftExtraLayout = new VerticalLayout {CssClass = "ExtraVerticalLayout"};
+            var rightExtraLayout = new VerticalLayout {CssClass = "ExtraVerticalLayout"};
 
             _topInfoComponent.ExtraLayout.AddChild(extraHorizontalLayout);
             extraHorizontalLayout.AddChild(leftExtraLayout);
@@ -96,7 +94,7 @@ namespace Test
                 CssClass = "TopInfoSideImage",
                 Source = ResourceManager.GetImage("topinfo_extra_person")
             });
-            var text = (string)_currentEventRecordset["ContactVisitingDescription"];
+            var text = (string) _currentEventRecordset["ContactVisitingDescription"];
             if (string.IsNullOrEmpty(text))
                 text = Translator.Translate("contact_not_present");
             else
@@ -115,37 +113,36 @@ namespace Test
         {
             Navigation.Move(nameof(ContactScreen), new Dictionary<string, object>
             {
-                [Parameters.Contact] = (Contacts)DBHelper.LoadEntity(_currentEventRecordset["contactId"].ToString())
+                [Parameters.Contact] = (Contacts) DBHelper.LoadEntity(_currentEventRecordset["contactId"].ToString())
             });
         }
 
         public override void OnShow()
         {
             GpsTracking.Start();
-            if ((string)_currentEventRecordset["statusName"] == EventStatus.Done
-                || (string)_currentEventRecordset["statusName"] == EventStatus.DoneWithTrouble
-                || (string)_currentEventRecordset["statusName"] == EventStatus.OnTheApprovalOf
-                || (string)_currentEventRecordset["statusName"] == EventStatus.Close
-                || (string)_currentEventRecordset["statusName"] == EventStatus.NotDone)
+            if ((string) _currentEventRecordset["statusName"] == EventStatus.Done
+                || (string) _currentEventRecordset["statusName"] == EventStatus.DoneWithTrouble
+                || (string) _currentEventRecordset["statusName"] == EventStatus.OnTheApprovalOf
+                || (string) _currentEventRecordset["statusName"] == EventStatus.Close
+                || (string) _currentEventRecordset["statusName"] == EventStatus.NotDone)
             {
                 Toast.MakeToast(Translator.Translate("event_finished_ro"));
                 _readonly = true;
             }
-            if ((string)_currentEventRecordset["statusName"] == "Cancel")
+            if ((string) _currentEventRecordset["statusName"] == EventStatus.Cancel)
             {
                 Toast.MakeToast(Translator.Translate("event_canceled_ro"));
                 _readonly = true;
             }
-            
         }
 
         private void LoadControls()
         {
-            _rootLayout = (DockLayout)Variables["RootLayout"];
-            _startFinishButton = (VerticalLayout)Variables.GetValueOrDefault("StartFinishButton");
-            _startButton = (Button)Variables.GetValueOrDefault("StartButton");
-            _refuseButton = (Button)Variables.GetValueOrDefault("RefuseButton");
-            _statusImage = (Image)Variables.GetValueOrDefault("StatusImage");
+            _rootLayout = (DockLayout) Variables["RootLayout"];
+            _startFinishButton = (VerticalLayout) Variables.GetValueOrDefault("StartFinishButton");
+            _startButton = (Button) Variables.GetValueOrDefault("StartButton");
+            _refuseButton = (Button) Variables.GetValueOrDefault("RefuseButton");
+            _statusImage = (Image) Variables.GetValueOrDefault("StatusImage");
         }
 
         internal void ClientInfoButton_OnClick(object sender, EventArgs eventArgs)
@@ -168,9 +165,7 @@ namespace Test
             Dialog.Ask(Translator.Translate("areYouSure"), (o, args) =>
             {
                 if (args.Result == Dialog.Result.Yes)
-                {
                     ChangeLayoutToStartedEvent();
-                }
             });
         }
 
@@ -202,7 +197,7 @@ namespace Test
             _refuseButton.Refresh();
             _startFinishButton.CssClass = "FinishButton";
             _startFinishButton.Refresh();
-            _statusImage.Source = GetStatusPicture((string)_currentEventRecordset["ImportanceName"], "InWork");
+            _statusImage.Source = GetStatusPicture((string) _currentEventRecordset["ImportanceName"], "InWork");
             _rootLayout.Refresh();
             Event_OnStart();
         }
@@ -210,32 +205,24 @@ namespace Test
         internal void StartFinishButton_OnClick(object sender, EventArgs eventArgs)
         {
             var result = DBHelper.GetTotalFinishedRequireQuestionByEventId(
-                (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+                (string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
 
-            var isActiveEvent = !result.Next() || (long)result["count"] == 0;
+            var isActiveEvent = !result.Next() || (long) result["count"] == 0;
 
             if (isActiveEvent)
-            {
                 Dialog.Alert(Translator.Translate("closeeventquestion"), (o, args) =>
-                {
-                    if (!CheckEventBeforeClosing() || args.Result != 0) return;
-                    var @event =
-                        (Event)
+                    {
+                        if (!CheckEventBeforeClosing() || args.Result != 0) return;
+                        var @event =
+                            (Event)
                             DBHelper.LoadEntity(
-                                (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
-                    //@event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.Done);
-                    //@event.ActualEndDate = DateTime.Now;
-                    //DBHelper.SaveEntity(@event);
-                    //DBHelper.CreateHistory(@event);
-                    BusinessProcess.GlobalVariables[Parameters.DateEnd] = DateTime.Now;
-                    Navigation.Move("CloseEventScreen");
-                }, null,
+                                (string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+                        BusinessProcess.GlobalVariables[Parameters.DateEnd] = DateTime.Now;
+                        Navigation.Move("CloseEventScreen");
+                    }, null,
                     Translator.Translate("yes"), Translator.Translate("no"));
-            }
             else
-            {
                 Dialog.Message(Translator.Translate("unfinished_business"));
-            }
         }
 
         internal string GetStatusPicture(string importance, string status)
@@ -257,22 +244,15 @@ namespace Test
             }
 
             if (status == EventStatus.Agreed || status == EventStatus.Accepted)
-            {
                 pictureTag += "border";
-            }
             else if (status == EventStatus.Cancel)
-            {
                 pictureTag += "cancel";
-            }
             else if (status == EventStatus.DoneWithTrouble || status == EventStatus.Done ||
-                     status == EventStatus.OnTheApprovalOf || status == EventStatus.Close || status == EventStatus.NotDone)
-            {
+                     status == EventStatus.OnTheApprovalOf || status == EventStatus.Close ||
+                     status == EventStatus.NotDone)
                 pictureTag += "done";
-            }
             else if (status == EventStatus.InWork)
-            {
                 pictureTag += "circle";
-            }
             return ResourceManager.GetImage(pictureTag);
         }
 
@@ -294,8 +274,8 @@ namespace Test
             var latitude = Converter.ToDouble(result["Latitude"]);
             var longitude = Converter.ToDouble(result["Longitude"]);
 
-            var currentEventId = (string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId];
-            var @event = (Event)DBHelper.LoadEntity(currentEventId);
+            var currentEventId = (string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId];
+            var @event = (Event) DBHelper.LoadEntity(currentEventId);
             @event.ActualStartDate = DateTime.Now;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
             @event.Latitude = Converter.ToDecimal(latitude);
@@ -304,14 +284,12 @@ namespace Test
             enitylist.Add(@event);
             enitylist.Add(DBHelper.CreateHistory(@event));
             DBHelper.SaveEntities(enitylist);
-            //DBHelper.SaveEntity(@event);
-            //DBHelper.CreateHistory(@event);
             _needSync = false;
             var rimList = DBHelper.GetServicesAndMaterialsByEventId(currentEventId);
             var rimArrayList = new ArrayList();
             while (rimList.Next())
             {
-                var rim = (Event_ServicesMaterials)((DbRef)rimList["Id"]).GetObject();
+                var rim = (Event_ServicesMaterials) ((DbRef) rimList["Id"]).GetObject();
                 rim.AmountFact = rim.AmountPlan;
                 rim.SumFact = rim.SumPlan;
                 rimArrayList.Add(rim);
@@ -322,9 +300,7 @@ namespace Test
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
             if (_needSync)
-            {
                 DBHelper.SyncAsync();
-            }
             Navigation.Back();
         }
 
@@ -349,7 +325,7 @@ namespace Test
                 {
                     {Parameters.IdClientId, _currentEventRecordset[Parameters.IdClientId]},
                     {Parameters.IdCurrentEventId, _currentEventRecordset["Id"]},
-                    {Parameters.IdIsReadonly, _readonly }
+                    {Parameters.IdIsReadonly, _readonly}
                 };
                 Navigation.Move("TaskListScreen", dictionary);
             }
@@ -358,19 +334,17 @@ namespace Test
         private bool CheckBigButtonActive(object sender)
         {
             // TODO: Сделать проверку более аккуратной?
-            var layout = (HorizontalLayout)sender;
-            return ((TextView)layout.Controls[2]).Text != "0";
+            var layout = (HorizontalLayout) sender;
+            return ((TextView) layout.Controls[2]).Text != "0";
         }
 
         internal void GoToCOCScreen_OnClick(object sender, EventArgs e)
         {
             object eventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdCurrentEventId, out eventId))
-            {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
-            }
-            var @event = (Event)DBHelper.LoadEntity(_currentEventRecordset["Id"].ToString());
-            var status = ((StatusyEvents)@event.Status.GetObject()).Name;
+            var @event = (Event) DBHelper.LoadEntity(_currentEventRecordset["Id"].ToString());
+            var status = ((StatusyEvents) @event.Status.GetObject()).Name;
             var wasStarted = status == EventStatus.InWork || status == EventStatus.Done;
 
             var dictinory = new Dictionary<string, object>
@@ -384,10 +358,9 @@ namespace Test
 
         internal void CheckListCounterLayout_OnClick(object sender, EventArgs eventArgs)
         {
-            var statusName = (string)_currentEventRecordset["statusName"];
+            var statusName = (string) _currentEventRecordset["statusName"];
             if (statusName.Equals(EventStatus.Agreed, StringComparison.OrdinalIgnoreCase)
                 || statusName.Equals(EventStatus.Accepted, StringComparison.OrdinalIgnoreCase))
-            {
                 Dialog.Ask(Translator.Translate("start_event"), (o, args) =>
                 {
                     if (args.Result != Dialog.Result.Yes) return;
@@ -397,38 +370,33 @@ namespace Test
                         [Parameters.IdIsReadonly] = _readonly
                     });
                 });
-            }
             else
-            {
                 Navigation.Move("CheckListScreen", new Dictionary<string, object>
                 {
                     [Parameters.IdIsReadonly] = _readonly
                 });
-            }
         }
 
         internal DbRecordset GetCurrentEvent()
         {
             object eventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdCurrentEventId, out eventId))
-            {
                 DConsole.WriteLine("Can't find current event ID, going to crash");
-            }
-            _currentEventRecordset = DBHelper.GetEventByID((string)eventId);
+            _currentEventRecordset = DBHelper.GetEventByID((string) eventId);
             return _currentEventRecordset;
         }
 
         internal string GetStringPartOfTotal(object part, object total)
-         => !part.Equals(0) ? $"{part}/{total}" : $"{total}";
+            => !part.Equals(0) ? $"{part}/{total}" : $"{total}";
 
         internal string GetPrice(DbRecordset eventRecordset)
         {
-            var status = (string)eventRecordset["statusName"];
+            var status = (string) eventRecordset["statusName"];
             var sums = DBHelper.GetCocSumsByEventId(eventRecordset["Id"].ToString(),
                 status != EventStatus.Done && status != EventStatus.InWork);
-            var total = (double)sums["Sum"];
-            var services = (double)sums["SumServices"];
-            var materials = (double)sums["SumMaterials"];
+            var total = (double) sums["Sum"];
+            var services = (double) sums["SumServices"];
+            var materials = (double) sums["SumMaterials"];
             if (!Settings.ShowMaterialPrice) return $"{services:N2} {Translator.Translate("currency")}";
             return Settings.ShowServicePrice
                 ? $"{total:N2} {Translator.Translate("currency")}"
@@ -452,7 +420,7 @@ namespace Test
 
         internal void GoToMapScreen_OnClick(object sender, EventArgs e)
         {
-            var clientId = (string)_currentEventRecordset[Parameters.IdClientId];
+            var clientId = (string) _currentEventRecordset[Parameters.IdClientId];
             var dictionary = new Dictionary<string, object>
             {
                 {Parameters.IdScreenStateId, MapScreenStates.EventScreen},
@@ -484,9 +452,9 @@ namespace Test
             if (!Settings.ShowMaterialPrice && !Settings.ShowServicePrice) return Parameters.EmptyPriceDescription;
             decimal total = 0;
             if (Settings.ShowMaterialPrice)
-                total += (decimal)materials;
+                total += (decimal) materials;
             if (Settings.ShowServicePrice)
-                total += (decimal)services;
+                total += (decimal) services;
             return $"{total:N2} {Translator.Translate("currency")}";
         }
 
