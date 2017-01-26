@@ -77,7 +77,7 @@
             <c:VerticalLayout CssClass="ExternalButtonContainer">
               <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
                 <c:VerticalLayout Id="SendErrorReport" CssClass="ButtonContainerVerticalAlign"
-                                  OnClick="SendErrorReport_OnClick">
+                                  OnClick="PrintX_OnClick">
                   <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_printx)" />
                   <c:TextView CssClass="ReportTextActive" Text="#x_report#" />
                 </c:VerticalLayout>
