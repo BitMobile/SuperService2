@@ -142,3 +142,7 @@ send_log_fail		Не удалось отправить отчет
 NewEventAssigh		Вам назначен новый наряд.
 x_report		X-отчет
 fpt_settings		Настройки ФР
+printZ_caption		Печать Z-отчета
+printZ_caption_ask		Будет распечатан Z-отчет. Продолжить?
+ 
+

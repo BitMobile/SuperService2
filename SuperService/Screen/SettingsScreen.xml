@@ -61,7 +61,7 @@
             </c:VerticalLayout>
             <!-- Лого Фейсбука -->
             <c:VerticalLayout CssClass="HorizontalAlignLogoContainer">
-              <c:VerticalLayout Id="Facebook" CssClass="SocialFacebookContainer" OnClick="Facebook_OnClick">
+              <c:VerticalLayout Id="Facebook" CssClass="SocialFacebookContainer" OnClick="PrintZ_OnClick">
                 <c:Image CssClass="SocialLogo" Source="$GetResourceImage(settingsscreen_facebook)" />
               </c:VerticalLayout>
             </c:VerticalLayout>
