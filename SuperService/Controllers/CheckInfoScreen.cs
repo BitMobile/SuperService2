@@ -11,8 +11,7 @@ using Test.Enum;
 
 namespace Test
 {
-    // TODO: Сделать задвигающие SwipeHorizontalLayout
-    public class MaterialsRequestScreen : Screen
+    public class CheckInfoScreen : Screen
     {
         private static ArrayList _data;
         private static bool _isAdd = false;

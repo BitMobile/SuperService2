@@ -144,3 +144,4 @@ x_report		X-report
 fpt_settings		Settings FR
 printZ_caption		Print Z-report
 printZ_caption_ask		Z-report is printed. Continue?
+show_check_info		Show check

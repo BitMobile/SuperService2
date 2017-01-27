@@ -1,0 +1,380 @@
+﻿/* ReSharper disable CssNotResolved */
+/* ReSharper disable Html.TagNotResolved */
+/* ReSharper disable InvalidValue */
+/* ReSharper disable RedundantUnits */
+/* ReSharper disable UnexpectedValue */
+body {
+  background-color: #ffffff;
+  height: 100%;
+  width: 100%;
+}
+vl {
+  height: 0sp auto;
+  width: 100%;
+}
+hl {
+  height: 0sp auto;
+  width: 100%;
+}
+DockLayout {
+  height: 0sp auto;
+  width: 100%;
+}
+TextView {
+  color: #51595b;
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  horizontal-align: center;
+  text-align: center;
+  vertical-align: center;
+  white-space: normal;
+  width: 100%;
+}
+HorizontalLine {
+  background-color: #f4f4f5;
+  height: 0.15sp;
+  horizontal-align: center;
+  width: 90%;
+}
+.NoHeight {
+  height: 0%;
+}
+.RootLayout {
+  background-color: #ffffff;
+  height: 100%;
+  width: 100%;
+}
+.EmptySpace3-2sp {
+  height: 1.5sp;
+  width: 100%;
+}
+.EmptySpace8sp {
+  height: 8sp;
+  width: 100%;
+}
+.EmptySpace7sp {
+  height: 7sp;
+  width: 100%;
+}
+.EmptySpace6sp {
+  height: 6sp;
+  width: 100%;
+}
+.EmptySpace5sp {
+  height: 5sp;
+  width: 100%;
+}
+.EmptySpace4sp {
+  height: 4sp;
+  width: 100%;
+}
+.EmptySpace3sp {
+  height: 3sp;
+  width: 100%;
+}
+.EmptySpace2sp {
+  height: 2sp;
+  width: 100%;
+}
+.EmptySpace1sp {
+  height: 1sp;
+  width: 100%;
+}
+.TopInfoLayout {
+  dock-align: top;
+  padding-top: 0.75sp;
+  background-color: #4a4b5e;
+}
+.TopInfoHeadingLayout {
+  margin-top: 0.75sp;
+  height: 4.28553391sp auto;
+  width: 100%;
+}
+.TopInfoHeadingTextLayout {
+  height: 100% auto;
+  width: 45%;
+  vertical-align: center;
+}
+.TopInfoHeading {
+  color: #ffffff;
+  font: 3.08558441sp arial;
+  height: 3.4249987sp auto;
+  padding-top: 0.28703111sp;
+}
+.TopInfoSubHeading {
+  color: #d4d4d7;
+  font: 1.78146299sp arial;
+  height: 1.97742392sp auto;
+}
+.TopInfoButtonLeft {
+  width: 27.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+.TopInfoButtonLeft Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonLeft TextView {
+  color: #fd724c;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonLeft Image {
+  horizontal-align: left;
+  margin-left: 5sp;
+}
+.TopInfoButtonRight {
+  width: 27.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+.TopInfoButtonRight Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonRight TextView {
+  color: #fd724c;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonRight Image {
+  horizontal-align: right;
+  margin-right: 5sp;
+}
+.TopInfoEmptySpace8sp {
+  height: 8sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace7sp {
+  height: 7sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace6sp {
+  height: 6sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace5sp {
+  height: 5sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace4sp {
+  height: 4sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace3sp {
+  height: 3sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace2sp {
+  height: 2sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoEmptySpace1sp {
+  height: 1sp;
+  width: 100%;
+  background-color: #4a4b5e;
+}
+.TopInfoArrowDown {
+  width: 100%;
+}
+.TopInfoCommentLayout {
+  width: 80%;
+  horizontal-align: center;
+  margin-top: 1.2sp;
+  margin-bottom: 0.5sp;
+}
+.TopInfoCommentLayout TextView {
+  margin-top: 0.5sp;
+  font: 2.05705627sp arial;
+  height: 2.28333247sp auto;
+  color: #d4d4d7;
+}
+.TopInfoExtraLayout {
+  height: 0sp auto;
+  width: 100%;
+  width: 80%;
+  horizontal-align: center;
+}
+.TopInfoExtraLayout TextView {
+  color: #ffffff;
+}
+.TopInfoHeadingTextLayoutWithPicOnly {
+  height: 100% auto;
+  width: 45%;
+  vertical-align: center;
+  width: 70%;
+}
+.TopInfoButtonLeftWithPicOnly {
+  width: 15%;
+  height: 3.85698052sp;
+  vertical-align: center;
+  dock-align: left;
+}
+.TopInfoButtonLeftWithPicOnly Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonLeftWithPicOnly TextView {
+  color: #fd724c;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonLeftWithPicOnly Image {
+  horizontal-align: left;
+  margin-left: 5sp;
+}
+.TopInfoButtonRightWithPicOnly {
+  width: 15%;
+  height: 3.85698052sp;
+  vertical-align: center;
+  dock-align: right;
+}
+.TopInfoButtonRightWithPicOnly Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonRightWithPicOnly TextView {
+  color: #fd724c;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonRightWithPicOnly Image {
+  horizontal-align: right;
+  margin-right: 5sp;
+}
+/* ---------------------------------- */
+/* Materials Request Screen */
+.DescriptionMaterialsRequestTV {
+  color: #c7cdda;
+  font: 3sp arial;
+  height: 8sp;
+  horizontal-align: center;
+  text-align: center;
+  white-space: normal;
+  width: 80%;
+}
+.ButtonMaterialsRequestBtn {
+  border-color: #fd724c;
+  border-style: solid;
+  border-width: 3px;
+  color: #fd724c;
+  font: 3sp arial;
+  height: 8sp;
+  horizontal-align: center;
+  margin-top: 5%;
+  width: 90%;
+}
+.BigImageMaterialsRequestImg {
+  height: 3sp0;
+  horizontal-align: center;
+  margin-top: 10%;
+}
+.AddButtonMaterialResourceVl {
+  dock-align: top;
+  height: 10sp;
+  width: 100%;
+}
+.AddContainerMaterialResourceHL {
+  height: 90%;
+  horizontal-align: center;
+  padding-left: 20%;
+  width: 90%;
+}
+.AddMaterialResourceImg {
+  height: 2sp;
+  vertical-align: center;
+}
+.AddMaterialResourceTV {
+  color: #fd724c;
+  font: 3sp arial;
+  height: 80%;
+  margin-left: 3%;
+  padding-top: 22%;
+  text-align: left;
+  vertical-align: center;
+  width: 40% auto;
+}
+.WideHL {
+  background-color: #f4f4f4;
+  dock-align: top;
+  height: 3px;
+  width: 100%;
+}
+.ButtonMaterialsRequestWithBackgroundBtn {
+  background-color: #90c260;
+  border-style: none;
+  color: #ffffff;
+  dock-align: bottom;
+  font: 3sp arial;
+  height: 10sp;
+  width: 100%;
+}
+.ScrollViewMaterialsRequest {
+  height: 100%;
+  width: 100%;
+  dock-align: top;
+}
+.InfoNodeMaterialsRequestHL {
+  height: 10sp;
+  width: 100%;
+}
+.SwipeContainerSHL {
+  height: 0% auto;
+  width: 100%;
+}
+.InfoImageCondtainerVL {
+  height: 10sp;
+  width: 20%;
+}
+.InfoImageContainerHL {
+  height: 100%;
+  horizontal-align: center;
+  width: 0% auto;
+}
+.InfoTextContainerVL {
+  height: 10sp;
+  width: 80%;
+}
+.NameTV {
+  color: #51595b;
+  font: 3sp arial;
+  height: 50%;
+  padding-left: 3%;
+  padding-top: 25%;
+  text-align: left;
+  width: 100%;
+}
+.CountTV {
+  color: #8587b1;
+  font: 3sp arial;
+  height: 50%;
+  padding-left: 3%;
+  padding-top: 5%;
+  text-align: left;
+  width: 100%;
+}
+.DeleteButtonBtn {
+  height: 10sp;
+  width: 30%;
+  background-color: #eb4040;
+  color: #ffffff;
+  font: 3sp arial;
+  border-style: none;
+}
+.DeleteIcoImg {
+  height: 4sp;
+  vertical-align: center;
+}
+/* ---------------------------------- */
