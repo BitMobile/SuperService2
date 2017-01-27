@@ -2,59 +2,11 @@
 
 <!--TODO: Переименовать файл в MeterialsReuestScreen-->
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
-  <c:VerticalLayout Id="Root" CssClass="RootLayout">
+  <c:DockLayout Id="Root" CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
 
-    <s:If Test="$GetIsEmptyList()">
-      <c:Image Id="BigImageMaterialsRequest" CssClass="BigImageMaterialsRequestImg" Source="$GetResourceImage(basket)" />
-      <c:TextView Id="DescriptionMaterialsRequest" CssClass="DescriptionMaterialsRequestTV" Text="#description_materialrequest_screen#" />
-      <c:Button Id="ButtonMaterialsRequest" CssClass="ButtonMaterialsRequestBtn" Text="#add_material#" OnClick="AddMaterial_OnClick" />
-    </s:If>
-    <s:Else>
-
-      <c:Image Id="BigImageMaterialsRequest" CssClass="NoHeight" Source="$GetResourceImage(basket)" />
-      <c:TextView Id="DescriptionMaterialsRequest" CssClass="NoHeight" Text="#description_materialrequest_screen#" />
-      <c:Button Id="ButtonMaterialsRequest" CssClass="NoHeight" Text="#add_material#" OnClick="AddMaterial_OnClick" />
-
-      <c:DockLayout Id="State2DockLayout" CssClass="RootLayout">
-
-        <c:VerticalLayout CssClass="AddButtonMaterialResourceVl" OnClick="AddMaterial_OnClick">
-          <c:HorizontalLayout CssClass="AddContainerMaterialResourceHL">
-            <c:Image CssClass="AddMaterialResourceImg" Source="$GetResourceImage(plus)" />
-            <c:TextView CssClass="AddMaterialResourceTV" Text="#add_material#" />
-          </c:HorizontalLayout>
-        </c:VerticalLayout>
-
-        <c:HorizontalLine CssClass="WideHL" />
-
-        <c:Button Id="SendButton" CssClass="ButtonMaterialsRequestWithBackgroundBtn" Text="#send#" OnClick="SendData_OnClick" />
-
-        <c:ScrollView CssClass="ScrollViewMaterialsRequest">
-          <c:VerticalLayout Id="VerticalLayout">
-
-            <s:Iterator Id="item" Value="$GetData()">
-              <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL" OnSwipe="OnSwipe_Swipe">
-                <c:HorizontalLayout CssClass="InfoNodeMaterialsRequestHL">
-                  <!-- Красный круг с минусом -->
-                  <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
-                    <c:HorizontalLayout Id="Test" CssClass="InfoImageContainerHL">
-                      <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(delete)" />
-                    </c:HorizontalLayout>
-                  </c:VerticalLayout>
-
-                  <!--Два TextView с информацией об услугах-->
-                  <c:VerticalLayout Id="$item.SKU" CssClass="InfoTextContainerVL" OnClick="EditNode_OnClick">
-                    <c:TextView CssClass="NameTV" Text="$item.Description" />
-                    <c:TextView CssClass="CountTV" Text="$Concat($item.Count, $item.Unit)" />
-                  </c:VerticalLayout>
-                </c:HorizontalLayout>
-
-                <c:Button Id="$item.SKU" CssClass="DeleteButtonBtn" Text="#delete_question#" OnClick="DeleteButton_OnClick" />
-              </c:SwipeHorizontalLayout>
-            </s:Iterator>
-          </c:VerticalLayout>
-        </c:ScrollView>
-      </c:DockLayout>
-    </s:Else>
-  </c:VerticalLayout>
+    <c:HorizontalLayout Id="de8b0f2ebec1497aa2b922f6d6abe7fa" CssClass="TotalInfo">
+      
+    </c:HorizontalLayout>
+  </c:DockLayout>
 </c:Screen>
