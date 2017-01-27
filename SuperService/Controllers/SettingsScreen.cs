@@ -1,7 +1,7 @@
-﻿using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
-using System;
+﻿using System;
 using System.Collections;
+using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
 using Test.Components;
 
 namespace Test
@@ -68,7 +68,7 @@ namespace Test
         }
 
         /// <summary>
-        /// Возращает подстрок из строки
+        ///     Возращает подстрок из строки
         /// </summary>
         /// <param name="str"> Строка из которой будт извлекаться подстроки </param>
         /// <param name="maxCount"> Максимальное кол-во извлекаемых подстрок </param>
@@ -101,9 +101,7 @@ namespace Test
             var strings = ReturnCountOfWords(_userDescription, 2);
 
             foreach (var str in strings)
-            {
-                result += $"{((string)str).Substring(0, 1).ToUpper()}";
-            }
+                result += $"{((string) str).Substring(0, 1).ToUpper()}";
 
             return result;
         }
@@ -115,9 +113,7 @@ namespace Test
             var strings = ReturnCountOfWords(_userDescription, 2);
 
             foreach (var str in strings)
-            {
                 result += $"{str} ";
-            }
 
             return result.Trim();
         }
@@ -126,7 +122,7 @@ namespace Test
         {
             //TODO: Опасно брать юзера отсюда.
             var result = DBHelper.GetUserInfoByUserName(Settings.User);
-            _userDescription = result.Next() ? (string)result["Description"] : "";
+            _userDescription = result.Next() ? (string) result["Description"] : "";
 
 #if DEBUG
             DConsole.WriteLine(_userDescription);
@@ -161,13 +157,20 @@ namespace Test
 
             fptr.PutDeviceSettings(fptr.Settings);
             fptr.PutDeviceEnabled(true);
-            FptrInstance.Instance.Beep();
+            fptr.Beep();
         }
 
-        internal void Facebook_OnClick(object sender, EventArgs e)
+        internal void PrintZ_OnClick(object sender, EventArgs e)
         {
-            FptrInstance.Instance.Beep();
-            FptrInstance.Instance.PrintZ();
+            Dialog.Ask(Translator.Translate("printZ_caption_ask")
+                , (o, args) =>
+                {
+                    if (args.Result == Dialog.Result.No)
+                        return;
+
+                    //TODO: По хорошему должна быть проверка статуса устройства, но всем как всегда
+                    FptrInstance.Instance.PrintZ();
+                });
         }
 
         internal void SendErrorReport_OnClick(object sender, EventArgs e)
@@ -178,10 +181,11 @@ namespace Test
                 DConsole.WriteLine("Sync succesful? = " + args.Result);
                 Toast.MakeToast(Translator.Translate(args.Result ? "upload_finished" : "upload_failed"));
                 if (args.Result)
-                    FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password, (o1, args1) =>
-                    {
-                        Toast.MakeToast(Translator.Translate(args1.Result ? "sync_success" : "sync_fail"));
-                    });
+                    FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password,
+                        (o1, args1) =>
+                        {
+                            Toast.MakeToast(Translator.Translate(args1.Result ? "sync_success" : "sync_fail"));
+                        });
             });
         }
 
