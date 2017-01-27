@@ -146,3 +146,6 @@ printZ_caption		Печать Z-отчета
 printZ_caption_ask		Будет распечатан Z-отчет. Продолжить?
 show_check_info			Просмотр чека
 cashbox_check		Кассовый чек
+sale_caption		ПРОДАЖА
+total_checkInfo		ИТОГО:
+include_vat		Включая НДС:

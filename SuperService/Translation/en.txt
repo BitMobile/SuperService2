@@ -146,3 +146,6 @@ printZ_caption		Print Z-report
 printZ_caption_ask		Z-report is printed. Continue?
 show_check_info		Show check
 cashbox_check		Cashbox check
+sale_caption		SALE
+total_checkInfo		TOTAL:
+include_vat		Include VAT:
