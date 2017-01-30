@@ -1,1 +1,20 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:DockLayout Id="07ec0239c319491eb406a40e1183d9b5"
+                CssClass="RootLayout">
+    <s:Include File="Components\TopInfoComponent.xml" />
+
+    <c:VerticalLayout Id="3019f7937a5f428e939aa3db8d5ddd3a"
+                      CssClass="RootLayout">
+
+      <c:VerticalLayout Id="cf2eb3cce66a4325853acc1654283a61"
+                        CssClass="HorizontalAlign">
+        <c:HorizontalLayout Id="8f030437ee5448e183bd2fb54f8aea08"
+                            CssClass="VerticalLayout">
+          <c:TextView Id="a5b9de170bd64381be3afe4db7a49772"
+                      CssClass="CaptionText" Text="#total_to_pay#" />
+        </c:HorizontalLayout>
+      </c:VerticalLayout>
+    </c:VerticalLayout>
+  </c:DockLayout>
+</c:Screen>

@@ -144,5 +144,5 @@ x_report		X-отчет
 fpt_settings		Настройки ФР
 printZ_caption		Печать Z-отчета
 printZ_caption_ask		Будет распечатан Z-отчет. Продолжить?
- 
-
+registration_check		Оформление чека
+total_to_pay		ИТОГО К ОПЛАТЕ
