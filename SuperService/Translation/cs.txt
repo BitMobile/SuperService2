@@ -140,3 +140,4 @@ ask_send_log		Zaslat chybovou zprávu pro vývojáře?
 send_log_ok		Chyba Zpráva byla odeslána!
 send_log_fail		Nelze odeslat zprávu
 NewEventAssigh		Přidělen jste novou objednávku.
+percent_witho_out		BEZ DPH

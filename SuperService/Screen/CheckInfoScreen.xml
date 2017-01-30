@@ -33,15 +33,15 @@
     <c:ScrollView Id="30bf7571ca294fcc8a4bf5f8c8e7248b" CssClass="RootScrollView">
       <c:VerticalLayout Id="27b45d9ed2d94d82a8939c4db55e6d2b" CssClass="RootLayout">
 
-        <s:Iterator Id="sku" Value="">
+        <s:Iterator Id="sku" Value="$GetRIMList()">
           <c:VerticalLayout CssClass="SKULine">
-            <c:TextView Text="Очень длинное название алваофлывоалфывоаф" CssClass="UnitDescription" />
+            <c:TextView Text="$sku.Description" CssClass="UnitDescription" />
             <c:HorizontalLayout>
-              <c:TextView Text="1.000 x 516.00" CssClass="CountAndPricePerUnit" />
-              <c:TextView CssClass="SumSKU" Text="123114.65" />
+              <c:TextView Text="{$sku.AmountFact} x {$sku.Price}" CssClass="CountAndPricePerUnit" />
+              <c:TextView CssClass="SumSKU" Text="$sku.SumFact" />
             </c:HorizontalLayout>
             <c:HorizontalLayout CssClass="Split">
-              <c:TextView Text="НДС 18%" CssClass="VATSStyle" />
+              <c:TextView Text="$GetNameVAT($sku.VAT.Name)" CssClass="VATSStyle" />
             </c:HorizontalLayout>
             <c:HorizontalLine CssClass="HorizontalLineStyle" />
           </c:VerticalLayout>
