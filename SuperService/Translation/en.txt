@@ -146,3 +146,7 @@ printZ_caption		Print Z-report
 printZ_caption_ask		Z-report is printed. Continue?
 registration_check		Registration check
 total_to_pay		TOTAL TO PAY
+payment_type		payment type ▼
+contribution_sum		Sum:
+change		Сhange:
+punch_check		PUNCH CHECK

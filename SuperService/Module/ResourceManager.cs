@@ -115,6 +115,8 @@ namespace Test
             //TaskScreen
             {"task_target_done", @"Image\TaskScreen\done.png" },
             {"task_target_not_done", @"Image\TaskScreen\not_done.png" },
+            //Print check screen
+            {"printcheckscreen_white_printer", @"Image\PrintCheckScreen\IconPrintCheckWhite.png" },
         };
 
         public static string GetImage(string tag)
