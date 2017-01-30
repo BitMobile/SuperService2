@@ -600,6 +600,18 @@ namespace Test
             return query.Execute();
         }
 
+        public static double GetCheckSKUSum(string eventId)
+        {
+            var query = new Query(@"select
+                                      SUM(DESM.SumFact)
+                                  from
+                                      Document_Event_ServicesMaterials AS DESM
+                                   where
+                                   (DESM.AmountFact != 0 or DESM.AmountPlan != 0)");
+            query.AddParameter("eventId", eventId);
+            return (double)query.ExecuteScalar();
+        }
+
         public static DbRecordset GetCheckSKU(string eventId)
         {
 
@@ -622,7 +634,6 @@ namespace Test
                                   " (DESM.AmountFact != 0 or DESM.AmountPlan != 0) and" +
                                   "    DESM.Ref = @eventId");
             query.AddParameter("eventId", eventId);
-            Utils.TraceMessage(eventId);
             return query.Execute();
         }
 

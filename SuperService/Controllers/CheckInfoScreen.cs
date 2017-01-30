@@ -60,15 +60,11 @@ namespace Test
                     return "";
             }
         }
+        internal double GetSumCheck()=> DBHelper.GetCheckSKUSum((string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty));
         internal DbRecordset GetRIMList()
         {
             var eventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
             var res = DBHelper.GetCheckSKU(eventId);
-//            while (res.Next())
-//            {
-//                Utils.TraceMessage($"{res["Desc"]}");
-//            }
-            
             return res;
         }
     }

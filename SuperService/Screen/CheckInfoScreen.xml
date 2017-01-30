@@ -19,7 +19,7 @@
         <c:TextView Id="d2335a222f8e49f692ad9af749acd037"
                     Text="#total_checkInfo#" CssClass="TotalResult" />
         <c:TextView Id="670fe1934b494dc9b3ecf79173f35bbc" CssClass="SumTotal"
-                    Text="123114.65" />
+                    Text="$GetSumCheck()" />
       </c:HorizontalLayout>
 <!--      <c:HorizontalLayout CssClass="Split">-->
 <!--        <c:TextView Id="3219ed0142684b8aac09d61e55d1bddb"-->
