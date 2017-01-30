@@ -255,140 +255,112 @@ HorizontalLine {
   margin-right: 5sp;
 }
 /* ---------------------------------- */
-.TotalPriceInfoVL {
-  height: 10sp;
+/* Check Info Screen */
+.TotalInfo {
+  height: 7sp;
+  width: 100%;
+  dock-align: bottom;
+  background-color: #ff8a5e;
+  padding-top: 2sp;
+  padding-right: 5sp;
+  padding-left: 5sp;
+}
+.RootScrollView {
+  height: 100%;
+  width: 100%;
+  margin-left: 5sp;
+  margin-right: 5sp;
+}
+.TitleHorizontalAligment {
+  height: 6sp;
   width: 100%;
 }
-.TotalPriceInfoHL {
-  height: 90%;
+.TitleVerticalAligment {
+  height: 100%;
+  width: 1sp auto;
   horizontal-align: center;
-  width: 90%;
 }
-.LeftInfoTV {
-  color: #51595b;
-  margin-top: 15%;
+.CaptionSale {
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
   vertical-align: center;
-  width: 50%;
+  color: #ff8a5e;
+  width: 5sp auto;
+}
+.TotalResult {
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  width: 25%;
+  color: #ffffff;
+  text-align: left;
+}
+.SumTotal {
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  width: auto;
+  color: #ffffff;
   text-align: right;
 }
-.RightInfoTV {
-  color: #9b9fa0;
-  margin-top: 15%;
-  vertical-align: center;
-  width: 50%;
-  text-align: left;
-  margin-left: 1sp;
+.Split {
+  margin-top: 1.5sp;
 }
-.WideHL {
-  width: 100%;
-}
-.InfoNodeHL {
-  height: 12sp;
-  width: 100%;
-}
-.InfoImageCondtainerVL {
-  height: 12sp;
-  width: 20%;
-}
-.InfoImageContainerHL {
-  height: 100%;
-  horizontal-align: center;
-  width: 0% auto;
-}
-.DeleteIcoImg {
-  height: 4sp;
-  vertical-align: center;
-}
-.InfoTextContainerVL {
-  height: 10sp;
-  width: 80%;
-}
-.NameTV {
-  color: #51595b;
-  margin-left: 3%;
-  margin-top: 25%;
-  text-align: left;
-  width: 100%;
-}
-.PriceTV {
-  color: #8587b1;
-  margin-left: 3%;
-  margin-top: 10%;
-  text-align: left;
-  width: 100%;
-}
-.AddButtonVl {
-  height: 10sp;
-  width: 100%;
-}
-.AddContainerHL {
-  height: 90%;
-  horizontal-align: center;
-  padding-left: 20%;
-  width: 90%;
-}
-.AddButton {
-  height: 10sp;
-  horizontal-align: center;
-  width: 10sp auto;
-}
-.AddButton Image {
-  width: 4sp;
-  vertical-align: center;
-  margin-right: 3sp;
-}
-.AddButton TextView {
-  color: #fd724c;
-  width: 10% auto;
-}
-.AddTV {
-  color: #fd724c;
-  font: 3.06186218sp arial;
-  height: 3.39866702sp auto;
-  margin-top: 22%;
-  text-align: left;
-  vertical-align: center;
-  width: 40% auto;
-  margin-left: 3%;
-}
-.MiddleHL {
-  width: 90%;
-}
-.VLForSView {
-  height: 0% auto;
-  width: 100%;
-}
-.BottomContainerHL {
-  height: 15sp;
-  width: 100%;
-}
-.BottomTV {
-  width: 100%;
-  text-align: center;
-  padding-top: 35%;
-  color: #8587b1;
-  font: 3.06186218sp arial;
-  height: 3.39866702sp auto;
-}
-.DeleteButtonVL {
-  height: 12sp;
-  width: 30%;
-  background-color: #eb4040;
-}
-.DeleteButtonTV {
-  width: 100%;
-  text-align: center;
-  vertical-align: center;
-  font: 3.06186218sp arial;
-  height: 3.39866702sp auto;
+.TotalVats {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  width: 25%;
   color: #ffffff;
+  text-align: left;
 }
-.SwipeContainerSHL {
-  height: 0% auto;
+.SumVatsTotal {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  width: auto;
+  color: #ffffff;
+  text-align: right;
+}
+.SKULine {
+  height: 10sp auto;
   width: 100%;
+  margin-bottom: 1.5sp;
 }
-.TotalPriceTV {
-  font: 3.06186218sp arial;
-  height: 3.39866702sp auto;
-  color: #8abf57;
+.UnitDescription {
+  font: 2.75sp arial;
+  height: 3.0525sp auto;
+  width: 100%;
+  color: #747474;
+  text-align: left;
+  white-space: nowrap;
+  margin-bottom: 2sp;
 }
+.CountAndPricePerUnit {
+  font: 2.75sp arial;
+  height: 3.0525sp auto;
+  width: 50%;
+  color: #747474;
+  text-align: left;
+  white-space: nowrap;
+}
+.SumSKU {
+  font: 2.75sp arial;
+  height: 3.0525sp auto;
+  width: auto;
+  color: #747474;
+  text-align: right;
+  white-space: nowrap;
+}
+.VATSStyle {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  width: auto;
+  color: #747474;
+  text-align: left;
+  white-space: nowrap;
+}
+.HorizontalLineStyle {
+  background-color: #f4f4f5;
+  height: 0.15sp;
+  horizontal-align: center;
+  width: 100%;
+  margin-top: 1sp;
+}
+/* ---------------------------------- */

@@ -73,11 +73,8 @@ namespace Test
             //BagListScreen
             {"baglistscreen_busket", @"Image\BagListScreen\BagBusket.png"},
             {"baglistscreen_plus", @"Image\BagListScreen\BagPlus.png"},
-            //Materials Request
-            {"close", @"Image\MaterialsRequest\close.png"},
-            {"basket", @"Image\MaterialsRequest\basket.png"},
-            {"plus", @"Image\COCScreen\plus_img.png"},
-            {"delete", @"Image\COCScreen\delete_img.png"},
+            //CheckInfoScreen
+            {"print_icon", @"Image\CheckInfoScreen\iconCheckPrint.png"},
             // EditServicesOrMaterialsScreen
             {"editservicesormaterialsscreen_plus", @"Image\EditServicesOrMaterialsScreen\Plus.png"},
             {"editservicesormaterialsscreen_minus", @"Image\EditServicesOrMaterialsScreen\minus.png"},

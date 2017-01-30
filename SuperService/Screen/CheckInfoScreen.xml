@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:DockLayout Id="Root" CssClass="RootLayout">
+    <s:Include File="Components\TopInfoComponent.xml" />
+
+    <c:VerticalLayout Id="63b80a3d7cca4750875fcd038dc36075"
+                      CssClass="TitleHorizontalAligment">
+      <c:HorizontalLayout Id="32f40c799b75469b90a093aaca06d98e"
+                          CssClass="TitleVerticalAligment">
+        <c:TextView Id="db168399afc44ab88c4d09982fa3e3c2"
+                    CssClass="CaptionSale" Text="#sale_caption#" />
+      </c:HorizontalLayout>
+    </c:VerticalLayout>
+
+
+    <c:VerticalLayout Id="de8b0f2ebec1497aa2b922f6d6abe7fa" CssClass="TotalInfo">
+      <c:HorizontalLayout>
+        <c:TextView Id="d2335a222f8e49f692ad9af749acd037"
+                    Text="#total_checkInfo#" CssClass="TotalResult" />
+        <c:TextView Id="670fe1934b494dc9b3ecf79173f35bbc" CssClass="SumTotal"
+                    Text="123114.65" />
+      </c:HorizontalLayout>
+<!--      <c:HorizontalLayout CssClass="Split">-->
+<!--        <c:TextView Id="3219ed0142684b8aac09d61e55d1bddb"-->
+<!--                    Text="#include_vat#" CssClass="TotalVats" />-->
+<!--        <c:TextView Id="ec69e8ed58c84d6f87ac33faba5790d8" CssClass="SumVatsTotal"-->
+<!--                    Text="35243.65" />-->
+<!--      </c:HorizontalLayout>-->
+      
+    </c:VerticalLayout>
+    
+    <c:ScrollView Id="30bf7571ca294fcc8a4bf5f8c8e7248b" CssClass="RootScrollView">
+      <c:VerticalLayout Id="27b45d9ed2d94d82a8939c4db55e6d2b" CssClass="RootLayout">
+
+        <s:Iterator Id="sku" Value="$GetRIMList()">
+          <c:VerticalLayout CssClass="SKULine">
+            <c:TextView Text="$sku.Description" CssClass="UnitDescription" />
+            <c:HorizontalLayout>
+              <c:TextView Text="{$sku.AmountFact} x {$sku.Price}" CssClass="CountAndPricePerUnit" />
+              <c:TextView CssClass="SumSKU" Text="$sku.SumFact" />
+            </c:HorizontalLayout>
+            <c:HorizontalLayout CssClass="Split">
+              <c:TextView Text="$GetNameVAT($sku.VAT.Name)" CssClass="VATSStyle" />
+            </c:HorizontalLayout>
+            <c:HorizontalLine CssClass="HorizontalLineStyle" />
+          </c:VerticalLayout>
+        </s:Iterator>
+        
+      </c:VerticalLayout>
+    </c:ScrollView>
+    
+  </c:DockLayout>
+</c:Screen>

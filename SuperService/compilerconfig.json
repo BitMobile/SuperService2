@@ -112,8 +112,8 @@
     }
   },
   {
-    "outputFile": "Style/MaterialsRequestScreen.css",
-    "inputFile": "Style/Less/MaterialsRequestScreen.less",
+    "outputFile": "Style/CheckInfoScreen.css",
+    "inputFile": "Style/Less/CheckInfoScreen.less",
     "minify": {
       "enabled": false
     }

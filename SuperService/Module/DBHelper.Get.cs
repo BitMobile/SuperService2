@@ -600,6 +600,32 @@ namespace Test
             return query.Execute();
         }
 
+        public static DbRecordset GetCheckSKU(string eventId)
+        {
+
+            var query = new Query("select " +
+                                  "    DESM.Id," +
+                                  "    DESM.SKU," +
+                                  "    DESM.Price," +
+                                  "    DESM.AmountPlan," +
+                                  "    DESM.AmountFact," +
+                                  "    DESM.SumFact," +
+                                  "    CR.Description," +
+                                  "    CR.Code," +
+                                  "    CR.Unit," +
+                                  "    CR.VAT " +
+                                  "from" +
+                                  "    Document_Event_ServicesMaterials AS DESM " +
+                                  "    join Catalog_RIM AS CR" +
+                                  "        on DESM.SKU = CR.Id " +
+                                  " where " +
+                                  " (DESM.AmountFact != 0 or DESM.AmountPlan != 0) and" +
+                                  "    DESM.Ref = @eventId");
+            query.AddParameter("eventId", eventId);
+            Utils.TraceMessage(eventId);
+            return query.Execute();
+        }
+
         /// <summary>
         ///     Возвращает информацию по материалам
         /// </summary>

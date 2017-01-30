@@ -215,7 +215,11 @@ namespace Test
 
         internal void ApplicatioMaterials_OnClick(object sender, EventArgs e)
         {
-            Navigation.Move("MaterialsRequestScreen");
+            var dict = new Dictionary<string,object>
+            {
+                {Parameters.IdCurrentEventId, _currentEventId}
+            };
+            Navigation.Move(nameof(CheckInfoScreen), dict);
         }
 
         internal void OpenDeleteButton_OnClick(object sender, EventArgs e)
@@ -358,6 +362,6 @@ namespace Test
             DBHelper.SaveEntities(rimArrayList, false);
         }
 
-        internal bool ShowNotEnoughMaterials() => Settings.BagEnabled;
+        internal bool ShowCheckInfoScreen() => true;
     }
 }

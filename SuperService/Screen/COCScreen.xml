@@ -110,11 +110,11 @@
             </c:HorizontalLayout>
           </c:VerticalLayout>
         </s:If>
-        <s:If Test="$ShowNotEnoughMaterials()">
+        <s:If Test="$ShowCheckInfoScreen()">
           <c:HorizontalLine CssClass="WideHL" />
 
           <c:HorizontalLayout CssClass="BottomContainerHL" OnClick="ApplicatioMaterials_OnClick">
-            <c:TextView CssClass="BottomTV" Text="#do_not_have_enough_material#" />
+            <c:TextView CssClass="BottomTV" Text="#show_check_info#" />
           </c:HorizontalLayout>
         </s:If>
       </c:VerticalLayout>
