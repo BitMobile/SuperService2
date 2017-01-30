@@ -149,3 +149,4 @@ cashbox_check		Кассовый чек
 sale_caption		ПРОДАЖА
 total_checkInfo		ИТОГО:
 include_vat		Включая НДС:
+percent_witho_out		БЕЗ НДС

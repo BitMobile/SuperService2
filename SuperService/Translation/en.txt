@@ -149,3 +149,4 @@ cashbox_check		Cashbox check
 sale_caption		SALE
 total_checkInfo		TOTAL:
 include_vat		Include VAT:
+percent_witho_out		WITHOUT VAT
