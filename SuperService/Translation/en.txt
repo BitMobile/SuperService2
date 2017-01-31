@@ -150,3 +150,10 @@ sale_caption		SALE
 total_checkInfo		TOTAL:
 include_vat		Include VAT:
 percent_witho_out		WITHOUT VAT
+registration_check		Registration check
+total_to_pay		TOTAL TO PAY
+payment_type		payment type ▼
+contribution_sum		Sum:
+change		Сhange:
+punch_check		PUNCH CHECK
+missing_amount		The missing amount

@@ -187,5 +187,12 @@
     "minify": {
       "enabled": false
     }
+  },
+  {  
+    "outputFile": "Style/PrintCheckScreen.css",
+    "inputFile": "Style/Less/PrintCheckScreen.less",
+    "minify": {
+      "enabled": false
+    }
   }
 ]

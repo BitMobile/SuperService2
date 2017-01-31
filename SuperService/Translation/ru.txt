@@ -150,3 +150,10 @@ sale_caption		ПРОДАЖА
 total_checkInfo		ИТОГО:
 include_vat		Включая НДС:
 percent_witho_out		БЕЗ НДС
+registration_check		Оформление чека
+total_to_pay		ИТОГО К ОПЛАТЕ
+payment_type		способ оплаты ▼
+contribution_sum		Сумма:
+change		Сдача:
+punch_check		ПРОБИТЬ ЧЕК
+missing_amount		Недостает суммы
