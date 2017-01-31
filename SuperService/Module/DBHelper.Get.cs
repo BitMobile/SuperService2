@@ -607,7 +607,7 @@ namespace Test
                                   from
                                       Document_Event_ServicesMaterials AS DESM
                                    where
-                                   (DESM.AmountFact != 0 or DESM.AmountPlan != 0)");
+                                   (DESM.AmountFact != 0 or DESM.AmountPlan != 0) AND DESM.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return (double)query.ExecuteScalar();
         }

@@ -48,16 +48,17 @@ namespace Test
 
         internal string GetNameVAT(string vatEnum)
         {
+            var strStart = Translator.Translate("VAT");
             switch (vatEnum)
             {
                 case "Percent18":
-                    return "18%";
+                    return strStart + " 18%";
                 case "Percent0":
-                    return "0%";
+                    return strStart + " 0%";
                 case "PercentWithoOut":
                     return Translator.Translate("percent_witho_out");
                 case "Percent10":
-                    return "10%";
+                    return strStart + " 10%";
 
                 default:
                     return "";
@@ -66,15 +67,23 @@ namespace Test
 
         internal string GetSumCheck()
         {
-            var totalSum = DBHelper.GetCheckSKUSum((string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty));
+            var totalSum =
+                DBHelper.GetCheckSKUSum((string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty));
             var decimalSum = Converter.ToDecimal(totalSum);
 
             return $"{decimalSum:N}";
         }
 
+        internal string ConvertToDec(object price)
+        {
+            return $"{Converter.ToDecimal(price):N}";
+        }
+    
+    
+
         internal DbRecordset GetRIMList()
         {
-            var eventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+            var eventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
             var res = DBHelper.GetCheckSKU(eventId);
             return res;
         }

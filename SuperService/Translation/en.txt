@@ -157,3 +157,4 @@ contribution_sum		Sum:
 change		Сhange:
 punch_check		PUNCH CHECK
 missing_amount		The missing amount
+VAT		VAT

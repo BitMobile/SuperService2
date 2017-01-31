@@ -37,7 +37,7 @@
           <c:VerticalLayout CssClass="SKULine">
             <c:TextView Text="$sku.Description" CssClass="UnitDescription" />
             <c:HorizontalLayout>
-              <c:TextView Text="{$sku.AmountFact} x {$sku.Price}" CssClass="CountAndPricePerUnit" />
+              <c:TextView Text="{$sku.AmountFact} x {$ConvertToDec($sku.Price)}" CssClass="CountAndPricePerUnit" />
               <c:TextView CssClass="SumSKU" Text="$sku.SumFact" />
             </c:HorizontalLayout>
             <c:HorizontalLayout CssClass="Split">
