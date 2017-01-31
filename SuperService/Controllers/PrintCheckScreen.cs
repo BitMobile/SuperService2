@@ -136,12 +136,12 @@ namespace Test
             var notEnough = _totalSum - sum;
             if (notEnough > 0)
             {
-                EnableButtonController(false);
+                IsVisibleControls(false);
                 _cashNotEnoughTextView.Text = $"{notEnough:N}";
             }
             else
             {
-                EnableButtonController(true);
+                IsVisibleControls(true);
                 Utils.TraceMessage($"{-notEnough}");
                 _changeTextView.Text = $"{-notEnough:N}";
             }
@@ -176,9 +176,9 @@ namespace Test
             return decimal.TryParse(_enteredSumEditText.Text, out result) ? result : 0m;
         }
 
-        private void EnableButtonController(bool enable)
+        private void IsVisibleControls(bool isVisible)
         {
-            if (enable)
+            if (isVisible)
             {
                 ((HorizontalLine)GetControl("6f931069b5624ed19fc1e705cc0a71b9", true)).Visible = false;
                 ((HorizontalLayout)GetControl("0f36a14440114070a5dd337601396244", true)).Visible = false;
