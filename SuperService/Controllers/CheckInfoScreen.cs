@@ -64,10 +64,19 @@ namespace Test
             }
         }
 
-        internal double GetSumCheck()
-            => DBHelper.GetCheckSKUSum((string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty));
+        internal string GetSumCheck()
+        {
+            var totalSum = DBHelper.GetCheckSKUSum((string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty));
+            var decimalSum = Converter.ToDecimal(totalSum);
+
+            return $"{decimalSum:N}";
+        }
 
         internal DbRecordset GetRIMList()
-            => DBHelper.GetCheckSKU(_eventId);
+        {
+            var eventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+            var res = DBHelper.GetCheckSKU(eventId);
+            return res;
+        }
     }
 }

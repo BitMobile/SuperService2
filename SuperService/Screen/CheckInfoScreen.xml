@@ -31,7 +31,7 @@
     </c:VerticalLayout>
     
     <c:ScrollView Id="30bf7571ca294fcc8a4bf5f8c8e7248b" CssClass="RootScrollView">
-      <c:VerticalLayout Id="27b45d9ed2d94d82a8939c4db55e6d2b" CssClass="RootLayout">
+      <c:VerticalLayout Id="27b45d9ed2d94d82a8939c4db55e6d2b" CssClass="ExpandLayout">
 
         <s:Iterator Id="sku" Value="$GetRIMList()">
           <c:VerticalLayout CssClass="SKULine">

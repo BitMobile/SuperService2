@@ -363,4 +363,8 @@ HorizontalLine {
   width: 100%;
   margin-top: 1sp;
 }
+.ExpandLayout {
+  height: 100% auto;
+  width: 100%;
+}
 /* ---------------------------------- */

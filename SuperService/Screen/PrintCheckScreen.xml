@@ -22,7 +22,7 @@
                   CssClass="CaptionText" Text="#total_to_pay#" />
 
       <c:TextView Id="89aa373a7fba45489590a9bd9a7b83bc"
-                  CssClass="TotalSum" Text="123 114.65" />
+                  CssClass="TotalSum" Text="$GetFormatTotalSum()" />
 
       <c:HorizontalLine Id="935b8a0c0665432fafb0191372a6bcc1"
                         CssClass="ShortLine" />
