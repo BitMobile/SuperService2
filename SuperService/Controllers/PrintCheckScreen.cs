@@ -20,7 +20,7 @@ namespace Test
             };
 
             _topInfoComponent.ActivateBackButton();
-            _eventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+            _eventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
 
             Utils.TraceMessage($"Event Id {_eventId}");
         }
@@ -39,6 +39,7 @@ namespace Test
 
         internal string GetFormatTotalSum()
         {
+            _eventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
             var totalSum = DBHelper.GetCheckSKUSum(_eventId);
             var decimalSum = Converter.ToDecimal(totalSum);
             Utils.TraceMessage($"Total SUm {totalSum}");

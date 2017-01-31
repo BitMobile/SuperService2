@@ -38,7 +38,7 @@
             <c:TextView Text="$sku.Description" CssClass="UnitDescription" />
             <c:HorizontalLayout>
               <c:TextView Text="{$sku.AmountFact} x {$ConvertToDec($sku.Price)}" CssClass="CountAndPricePerUnit" />
-              <c:TextView CssClass="SumSKU" Text="$sku.SumFact" />
+              <c:TextView CssClass="SumSKU" Text="$ConvertToDec($sku.SumFact)" />
             </c:HorizontalLayout>
             <c:HorizontalLayout CssClass="Split">
               <c:TextView Text="$GetNameVAT($sku.VAT.Name)" CssClass="VATSStyle" />
