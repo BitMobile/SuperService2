@@ -268,8 +268,6 @@ HorizontalLine {
 .RootScrollView {
   height: 100%;
   width: 100%;
-  margin-left: 5sp;
-  margin-right: 5sp;
 }
 .TitleHorizontalAligment {
   height: 6sp;
@@ -366,5 +364,7 @@ HorizontalLine {
 .ExpandLayout {
   height: 100% auto;
   width: 100%;
+  padding-right: 5sp;
+  padding-left: 5sp;
 }
 /* ---------------------------------- */
