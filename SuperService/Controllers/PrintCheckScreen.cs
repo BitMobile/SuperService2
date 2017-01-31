@@ -200,7 +200,7 @@ namespace Test
                 _punchButtonLayout.CssClass = "PrintCheckContainerDiactivate";
                 ((TextView)GetControl("c5e071d3b31b4133917ecfa793ef9614", true)).CssClass = "PunchDiactive";
                 _rootDockLayout.Refresh();
-                _punchButtonLayout.OnClick += Print_OnClick;
+                _punchButtonLayout.OnClick -= Print_OnClick;
             }
         }
 
