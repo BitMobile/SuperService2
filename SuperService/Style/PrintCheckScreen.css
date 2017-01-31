@@ -302,7 +302,7 @@ HorizontalLine {
 .PaymentType {
   font: 3.06186218sp arial;
   height: 3.39866702sp auto;
-  width: 10sp auto;
+  width: 100%;
   white-space: nowrap;
   text-align: center;
   color: #fd9c81;
