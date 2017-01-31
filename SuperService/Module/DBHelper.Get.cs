@@ -388,7 +388,8 @@ namespace Test
         /// <param name="userId"></param>
         public static DbRecordset GetTaskList(string eventId, string clientId)
         {
-            var query = new Query(@"SELECT
+            var query = new Query(@"SELECT z.*, GROUP_CONCAT(p.Description, ', ') AS Description FROM
++ (SELECT
                                       Task.Id          AS Id,
                                       Task.Description AS Description,
                                       Task.TaskType    AS TaskType,
@@ -417,7 +418,7 @@ namespace Test
                                             = '@ref[Document_Event]:00000000-0000-0000-0000-000000000000'
                                         AND Status.Name NOT LIKE 'New'
                                         AND Task_Status.CloseEvent = @eventId))
-                                      AND Task.DeletionMark == 0");
+                                      AND Task.DeletionMark == 0) z");
 
             query.AddParameter("eventId", eventId);
             query.AddParameter("clientId", clientId);
