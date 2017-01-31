@@ -6,13 +6,13 @@
     <s:Include File="Components\TopInfoComponent.xml" />
 
     <c:VerticalLayout Id="2551f8ad1b2749d3847581fd124c841b"
-                      CssClass="PrintCheckContainer">
+                      CssClass="PrintCheckContainerDiactivate">
       <c:HorizontalLayout Id="1415259599ca405c81a242ba69c5942f"
                           CssClass="VerticalAlignContainer">
-        <c:Image Source="$GetResourceImage(printcheckscreen_white_printer)"
+        <c:Image Source="$GetResourceImage(printcheckscreen_white_printer_diactivated)"
                  CssClass="IconStyle" />
         <c:TextView Id="c5e071d3b31b4133917ecfa793ef9614"
-                    Text="#punch_check#" CssClass="Punch" />
+                    Text="#punch_check#" CssClass="PunchDiactive" />
       </c:HorizontalLayout>
     </c:VerticalLayout>
     <c:VerticalLayout Id="3019f7937a5f428e939aa3db8d5ddd3a"
@@ -55,6 +55,17 @@
         </c:HorizontalLayout>
         <c:HorizontalLine CssClass="FullHorizontalLine" />
 
+
+        <c:HorizontalLayout Id="0f36a14440114070a5dd337601396244"
+                           CssClass="LineContainerWithMargin">
+          <c:TextView Id="15e0dbfb2d64472292be427add28ec9d"
+                      CssClass="NotEnought" Text="#missing_amount#" />
+          <c:TextView Id="fde6ae3fe5e946b88a13eb305372e38d"
+                      CssClass="CashInEnought" Text="123456" />
+        </c:HorizontalLayout>
+        <c:HorizontalLine Id="6f931069b5624ed19fc1e705cc0a71b9"
+                          CssClass="FullHorizontalLine" />
+        
       </c:VerticalLayout>
     </c:VerticalLayout>
   </c:DockLayout>

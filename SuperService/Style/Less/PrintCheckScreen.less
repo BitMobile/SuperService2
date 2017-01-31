@@ -101,11 +101,22 @@
     margin-top: 1sp;
 }
 
-.PrintCheckContainer {
+//Активная кнопка печати чека
+.PrintCheckContainerActivate {
     height: 10sp;
     width: 100%;
     dock-align: bottom;
     background-color: #fd9c81;
+}
+
+.PrintCheckContainerDiactivate {
+    height: 10sp;
+    width: 100%;
+    dock-align: bottom;
+    background-color: #ffffff;
+    border-color: #d8d8d8;
+    border-style: solid;
+    border-width: 3dp;
 }
 
 .VerticalAlignContainer {
@@ -119,12 +130,37 @@
     vertical-align: center;
     margin-right: 2sp;
 }
-
-.Punch {
+//
+.PunchActive {
     .text-view-style(@big-title-font-size);
     color: #ffffff;
     white-space: nowrap;
     text-align: center;
     width: 0sp auto;
     vertical-align: center;
+}
+
+.PunchDiactive {
+    .text-view-style(@big-title-font-size);
+    color: #d8d8d8;
+    white-space: nowrap;
+    text-align: center;
+    width: 0sp auto;
+    vertical-align: center;
+}
+
+.NotEnought {
+    .text-view-style(@default-font-size);
+    text-align: left;
+    white-space: nowrap;
+    width: 10sp auto;
+    color: #fd9c81;
+}
+
+.CashInEnought {
+    .text-view-style(@default-font-size);
+    width: auto;
+    white-space: nowrap;
+    text-align: right;
+    color: #fd9c81;
 }

@@ -344,11 +344,20 @@ HorizontalLine {
   width: 100%;
   margin-top: 1sp;
 }
-.PrintCheckContainer {
+.PrintCheckContainerActivate {
   height: 10sp;
   width: 100%;
   dock-align: bottom;
   background-color: #fd9c81;
+}
+.PrintCheckContainerDiactivate {
+  height: 10sp;
+  width: 100%;
+  dock-align: bottom;
+  background-color: #ffffff;
+  border-color: #d8d8d8;
+  border-style: solid;
+  border-width: 3dp;
 }
 .VerticalAlignContainer {
   height: 100%;
@@ -360,7 +369,7 @@ HorizontalLine {
   vertical-align: center;
   margin-right: 2sp;
 }
-.Punch {
+.PunchActive {
   font: 3.06186218sp arial;
   height: 3.39866702sp auto;
   color: #ffffff;
@@ -368,4 +377,29 @@ HorizontalLine {
   text-align: center;
   width: 0sp auto;
   vertical-align: center;
+}
+.PunchDiactive {
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  color: #d8d8d8;
+  white-space: nowrap;
+  text-align: center;
+  width: 0sp auto;
+  vertical-align: center;
+}
+.NotEnought {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  text-align: left;
+  white-space: nowrap;
+  width: 10sp auto;
+  color: #fd9c81;
+}
+.CashInEnought {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  width: auto;
+  white-space: nowrap;
+  text-align: right;
+  color: #fd9c81;
 }
