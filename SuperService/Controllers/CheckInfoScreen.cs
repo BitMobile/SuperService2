@@ -1,16 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using Test.Components;
-using System.Collections;
 
 namespace Test
 {
     public class CheckInfoScreen : Screen
     {
-
-        private TopInfoComponent _topInfoComponent;
+        private string _eventId;
         private bool _readOnly;
+        private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
@@ -23,6 +23,7 @@ namespace Test
             };
 
             _topInfoComponent.ActivateBackButton();
+            _eventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
         }
 
         public override void OnShow()
@@ -34,8 +35,10 @@ namespace Test
             => Navigation.Back();
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
-        {
-        }
+            => Navigation.Move(nameof(PrintCheckScreen), new Dictionary<string, object>
+            {
+                {Parameters.IdCurrentEventId, _eventId}
+            });
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
@@ -60,12 +63,11 @@ namespace Test
                     return "";
             }
         }
-        internal double GetSumCheck()=> DBHelper.GetCheckSKUSum((string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty));
+
+        internal double GetSumCheck()
+            => DBHelper.GetCheckSKUSum((string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty));
+
         internal DbRecordset GetRIMList()
-        {
-            var eventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
-            var res = DBHelper.GetCheckSKU(eventId);
-            return res;
-        }
+            => DBHelper.GetCheckSKU(_eventId);
     }
 }
