@@ -26,6 +26,8 @@ namespace Test
         private DockLayout _rootDockLayout;
         private TopInfoComponent _topInfoComponent;
         private decimal _totalSum;
+        private bool _readonly;
+        private bool _wasStarted;
         private IFiscalRegistratorProvider _fptr;
 
         public override void OnLoading()
@@ -64,6 +66,9 @@ namespace Test
 
             _fptr = FptrInstance.Instance;
             _eventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+
+            _readonly = (bool) Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
+            _wasStarted = (bool) Variables.GetValueOrDefault(Parameters.IdWasEventStarted, true);
         }
 
         internal string GetResourceImage(string tag) => ResourceManager.GetImage(tag);
@@ -228,7 +233,7 @@ namespace Test
         internal void Print_OnClick(object sender, EventArgs e)
         {
             _enteredSumEditText.Enabled = false;
-            var CheckError = false;
+            var checkError = false;
             try
             {
                 PrintCheck();
@@ -236,22 +241,34 @@ namespace Test
                 if (_fptr.CloseCheck() < 0)
                     _fptr.CheckError();
 
-                SaveFptrParameters();
 
-                Navigation.ModalMove(nameof(COCScreen), new Dictionary<string, object>
-                {
-                    {Parameters.IdCurrentEventId, _eventId}
-                });
             }
             catch (FPTRException exception)
             {
                 Utils.TraceMessage($"Error code {exception.Result} {exception.Message}");
-                CheckError = true;
+                checkError = true;
                 Toast.MakeToast(exception.Message);
             }
+            catch (Exception exception)
+            {
+                Utils.TraceMessage($"{exception.Message}{Environment.NewLine}" +
+                                   $"Type {exception.GetType()}");
+            }
+            
 
-            if (!CheckError) return;
-
+            if (!checkError) 
+            {
+                SaveFptrParameters();
+                BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId] = _eventId;
+                Navigation.ModalMove(nameof(COCScreen), new Dictionary<string, object>
+                {
+                    {Parameters.IdCurrentEventId, _eventId},
+                    {Parameters.IdIsReadonly, _readonly },
+                    {Parameters.IdWasEventStarted, _wasStarted }
+                });
+            }
+            else
+            {
                 try
                 {
                     _fptr.CancelCheck();
@@ -260,7 +277,11 @@ namespace Test
                 {
                     Toast.MakeToast(exception.Message);
                 }
-
+                finally
+                {
+                    _enteredSumEditText.Enabled = true;
+                }
+            }
 
         }
 
@@ -270,6 +291,8 @@ namespace Test
             var query = DBHelper.GetCheckSKU(_eventId);
 
             var enteredSum = GetEnteredSum();
+
+            _fptr.OpenCheck(FiscalRegistratorConsts.ChequeTypeSell);
 
             while (query.Next())
             {
@@ -300,6 +323,18 @@ namespace Test
             checkParameters.PaymentType = _choosedPaymentType;
             checkParameters.PaymentAmount = GetEnteredSum();
             checkParameters.User = Settings.UserDetailedInfo.Id;
+            checkParameters.Date = DateTime.Now;
+
+            Utils.TraceMessage($"{Parameters.Splitter}");
+
+//            var resultDateTime = _fptr.GetDate();
+//            var time = _fptr.GetTime();
+//            Utils.TraceMessage($"GetDate: {_fptr.GetDate()} GetTime: {_fptr.GetTime()}");
+//            resultDateTime = resultDateTime.AddHours(time.Hour);
+//            resultDateTime = resultDateTime.AddMinutes(time.Minute);
+//            resultDateTime = resultDateTime.AddSeconds(time.Second);
+
+//            checkParameters.Date = resultDateTime;
 
             DBHelper.SaveEntity(checkParameters);
         }

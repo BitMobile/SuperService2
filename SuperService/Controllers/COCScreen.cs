@@ -28,6 +28,7 @@ namespace Test
         private TextView _totalSumForServices;
         private bool _usedCalculateMaterials;
         private bool _usedCalculateService;
+        private bool _wasStarted;
 
         public override void OnLoading()
         {
@@ -214,7 +215,9 @@ namespace Test
                     ChangeEventStatus();
                     var dict = new Dictionary<string, object>
                     {
-                        {Parameters.IdCurrentEventId, _currentEventId}
+                        {Parameters.IdCurrentEventId, _currentEventId},
+                        {Parameters.IdIsReadonly, _isReadOnly},
+                        {Parameters.IdWasEventStarted, _wasStarted}
                     };
                     Navigation.Move(nameof(CheckInfoScreen), dict);
                 });
@@ -223,7 +226,9 @@ namespace Test
             {
                 var dict = new Dictionary<string, object>
                 {
-                    {Parameters.IdCurrentEventId, _currentEventId}
+                    {Parameters.IdCurrentEventId, _currentEventId},
+                    {Parameters.IdIsReadonly, _isReadOnly},
+                    {Parameters.IdWasEventStarted, _wasStarted}
                 };
                 Navigation.Move(nameof(CheckInfoScreen), dict);
             }
@@ -302,8 +307,8 @@ namespace Test
             object eventId;
             if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdCurrentEventId, out eventId))
                 DConsole.WriteLine("Can't find current event ID, going to crash");
-            var wasStarted = (bool) Variables[Parameters.IdWasEventStarted];
-            _sums = DBHelper.GetCocSumsByEventId((string) eventId, !wasStarted);
+            _wasStarted = (bool) Variables[Parameters.IdWasEventStarted];
+            _sums = DBHelper.GetCocSumsByEventId((string) eventId, !_wasStarted);
 
             return _sums;
         }
@@ -319,10 +324,10 @@ namespace Test
 
         internal string CreatePriceString(DbRecordset priceRecordset, string serviceString)
         {
-            var wasEventStarted = (bool) Variables[Parameters.IdWasEventStarted];
+            _wasStarted = (bool) Variables[Parameters.IdWasEventStarted];
             var isService = serviceString == "service";
             var showPrice = isService ? Settings.ShowServicePrice : Settings.ShowMaterialPrice;
-            var amount = (decimal) priceRecordset[wasEventStarted ? "AmountFact" : "AmountPlan"];
+            var amount = (decimal) priceRecordset[_wasStarted ? "AmountFact" : "AmountPlan"];
             var price = showPrice ? $"{priceRecordset["Price"]:N2}" : Parameters.EmptyPriceDescription;
             var unit = (string) priceRecordset["Unit"];
             return

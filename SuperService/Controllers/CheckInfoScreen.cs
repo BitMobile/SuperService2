@@ -9,9 +9,10 @@ namespace Test
     public class CheckInfoScreen : Screen
     {
         private string _eventId;
-        private bool _readOnly;
-        private TopInfoComponent _topInfoComponent;
         private List<string> _fiscalList;
+        private bool _readonly;
+        private TopInfoComponent _topInfoComponent;
+        private bool _wasStarted;
 
         public override void OnLoading()
         {
@@ -19,13 +20,17 @@ namespace Test
             {
                 Header = Translator.Translate("cashbox_check"),
                 LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_back")},
-                RightButtonControl = _fiscalList.Count == 0 ?
-                        new Image {Source = ResourceManager.GetImage("print_icon")}:new Image { Source = ResourceManager.GetImage("print_icon_disabel") },
+                RightButtonControl = _fiscalList.Count == 0
+                    ? new Image {Source = ResourceManager.GetImage("print_icon")}
+                    : new Image {Source = ResourceManager.GetImage("print_icon_disabel")},
                 ArrowVisible = false
             };
 
             _topInfoComponent.ActivateBackButton();
             _eventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+
+            _readonly = (bool) Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
+            _wasStarted = (bool) Variables.GetValueOrDefault(Parameters.IdWasEventStarted, true);
         }
 
         public override void OnShow()
@@ -39,12 +44,12 @@ namespace Test
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
             if (_fiscalList.Count == 0)
-            {
                 Navigation.Move(nameof(PrintCheckScreen), new Dictionary<string, object>
-            {
-                {Parameters.IdCurrentEventId, _eventId}
-            });
-            }
+                {
+                    {Parameters.IdCurrentEventId, _eventId},
+                    {Parameters.IdIsReadonly, _readonly},
+                    {Parameters.IdWasEventStarted, _wasStarted}
+                });
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
@@ -84,7 +89,7 @@ namespace Test
         internal DbRecordset GetFiscalProp()
         {
             _fiscalList = new List<string>();
-            var eventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+            var eventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
             var fiscalRecordSet = DBHelper.GetFiscalEvent(eventId);
             while (fiscalRecordSet.Next())
             {
@@ -96,22 +101,22 @@ namespace Test
             return fiscalRecordSet;
         }
 
-        internal string GetCheckNumber() =>_fiscalList[0];
+        internal string GetCheckNumber() => _fiscalList[0];
         internal string GetDate() => _fiscalList[1];
         internal string GetNumberFtpr() => _fiscalList[2];
         internal string GetShiftNumber() => _fiscalList[3];
 
         internal bool CheckFiscalEvent() => _fiscalList.Count != 0;
+
         internal string ConvertToDec(object price)
         {
             return $"{Converter.ToDecimal(price):N}";
         }
-    
-    
+
 
         internal DbRecordset GetRIMList()
         {
-            var eventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty); 
+            var eventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
             return DBHelper.GetCheckSKU(eventId);
         }
     }
