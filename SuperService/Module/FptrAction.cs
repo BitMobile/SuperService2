@@ -1,5 +1,4 @@
-﻿using BitMobile.ClientModel3;
-using BitMobile.Common.Device.Providers;
+﻿using BitMobile.Common.Device.Providers;
 using BitMobile.Common.FiscalRegistrator;
 
 namespace Test
@@ -18,8 +17,9 @@ namespace Test
             if (resultCode == -6)
                 badParameter = provider.GetBadParamDescription();
 
-            Utils.TraceMessage(badParameter ?? resultDescription);
-            Toast.MakeToast(badParameter ?? resultDescription);
+            if (badParameter != null)
+                throw new FPTRException(resultCode, badParameter);
+            throw new FPTRException(resultCode, resultDescription);
         }
 
         public static void OpenCheck(this IFiscalRegistratorProvider fptr, int type)

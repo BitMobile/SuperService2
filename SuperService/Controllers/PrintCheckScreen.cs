@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.SymbolStore;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.Common.Device.Providers;
+using BitMobile.Common.FiscalRegistrator;
+using BitMobile.DbEngine;
 using Test.Components;
+using Test.Document;
 
 namespace Test
 {
@@ -21,6 +26,7 @@ namespace Test
         private DockLayout _rootDockLayout;
         private TopInfoComponent _topInfoComponent;
         private decimal _totalSum;
+        private IFiscalRegistratorProvider _fptr;
 
         public override void OnLoading()
         {
@@ -56,6 +62,7 @@ namespace Test
                 {"3", "ТАРОЙ"}
             };
 
+            _fptr = FptrInstance.Instance;
             _eventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
         }
 
@@ -220,7 +227,81 @@ namespace Test
 
         internal void Print_OnClick(object sender, EventArgs e)
         {
-            Utils.TraceMessage($"PRIFKSDFJKLSDJFJDSKFJHGJKLSDGK");
+            _enteredSumEditText.Enabled = false;
+            var CheckError = false;
+            try
+            {
+                PrintCheck();
+
+                if (_fptr.CloseCheck() < 0)
+                    _fptr.CheckError();
+
+                SaveFptrParameters();
+
+                Navigation.ModalMove(nameof(COCScreen), new Dictionary<string, object>
+                {
+                    {Parameters.IdCurrentEventId, _eventId}
+                });
+            }
+            catch (FPTRException exception)
+            {
+                Utils.TraceMessage($"Error code {exception.Result} {exception.Message}");
+                CheckError = true;
+                Toast.MakeToast(exception.Message);
+            }
+
+            if (!CheckError) return;
+
+                try
+                {
+                    _fptr.CancelCheck();
+                }
+                catch (FPTRException exception)
+                {
+                    Toast.MakeToast(exception.Message);
+                }
+
+
+        }
+
+
+        private void PrintCheck()
+        {
+            var query = DBHelper.GetCheckSKU(_eventId);
+
+            var enteredSum = GetEnteredSum();
+
+            while (query.Next())
+            {
+                var name = $"{query["Description"]}";
+                var price = decimal.ToDouble((decimal) query["Price"]);
+                var quantity = decimal.ToDouble((decimal) query["AmountFact"]);
+                var vat = int.Parse($"{query["VAT_Number"]}");
+
+                _fptr.RegistrationFz54(name, price, quantity,
+                    FiscalRegistratorConsts.DiscountSumm, 0, vat);
+            }
+
+            _fptr.Payment(decimal.ToDouble(enteredSum), _choosedPaymentType);
+        }
+
+        private void SaveFptrParameters()
+        {
+            var checkParameters = new Event_EventFiskalProperties
+            {
+                Id = DbRef.CreateInstance($"Document_{nameof(Event_EventFiskalProperties)}"
+                , Guid.NewGuid()),
+                Ref = DbRef.FromString(_eventId)
+            };
+
+            checkParameters.NumberFtpr = _fptr.GetSerialNumber();
+            checkParameters.ShiftNumber = _fptr.GetSession();
+            checkParameters.CheckNumber = _fptr.GetCheckNumber();
+            checkParameters.PaymentType = _choosedPaymentType;
+            checkParameters.PaymentAmount = GetEnteredSum();
+            checkParameters.User = Settings.UserDetailedInfo.Id;
+
+            DBHelper.SaveEntity(checkParameters);
         }
     }
 }
