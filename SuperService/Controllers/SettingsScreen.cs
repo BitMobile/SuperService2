@@ -2,6 +2,7 @@
 using System.Collections;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
+using BitMobile.Common.FiscalRegistrator;
 using Test.Components;
 
 namespace Test
@@ -155,9 +156,16 @@ namespace Test
         {
             var fptr = FptrInstance.Instance;
 
-            fptr.PutDeviceSettings(fptr.Settings);
-            fptr.PutDeviceEnabled(true);
-            fptr.Beep();
+            try
+            {
+                fptr.PutDeviceSettings(fptr.Settings);
+                fptr.PutDeviceEnabled(true);
+                fptr.Beep();
+            }
+            catch (FPTRException fptrException)
+            {
+                Toast.MakeToast(fptrException.Message);
+            }
         }
 
         internal void PrintZ_OnClick(object sender, EventArgs e)
@@ -169,7 +177,14 @@ namespace Test
                         return;
 
                     //TODO: По хорошему должна быть проверка статуса устройства, но всем как всегда
-                    FptrInstance.Instance.PrintZ();
+                    try
+                    {
+                        FptrInstance.Instance.PrintZ();
+                    }
+                    catch (FPTRException exception)
+                    {
+                        Toast.MakeToast(exception.Message);
+                    }
                 });
         }
 
@@ -193,6 +208,15 @@ namespace Test
             => FptrInstance.Instance.OpenSettings();
 
         internal void PrintX_OnClick(object sender, EventArgs e)
-            => FptrInstance.Instance.PrintX();
+        {
+            try
+            {
+                FptrInstance.Instance.PrintX();
+            }
+            catch (FPTRException exception)
+            {
+                Toast.MakeToast(exception.Message);
+            }
+        }
     }
 }

@@ -113,9 +113,9 @@ namespace Test.Document
         public DbRef Id { get; set; }
         public int LineNumber { get; set; }
         public DbRef Ref { get; set; }
-        public string CheckNumber { get; set; }
+        public int CheckNumber { get; set; }
         public DateTime Date { get; set; }
-        public DateTime ShiftNumber { get; set; }
+        public int ShiftNumber { get; set; }
         public string NumberFtpr { get; set; }
         public int PaymentType { get; set; }
         public decimal PaymentAmount { get; set; }

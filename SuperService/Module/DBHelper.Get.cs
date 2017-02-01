@@ -625,11 +625,14 @@ namespace Test
                                   "    CR.Description," +
                                   "    CR.Code," +
                                   "    CR.Unit," +
-                                  "    CR.VAT " +
-                                  "from" +
+                                  "    CR.VAT," +
+                                  "    EVAT.Description AS VAT_Number " +
+                                  " from " +
                                   "    Document_Event_ServicesMaterials AS DESM " +
                                   "    join Catalog_RIM AS CR" +
                                   "        on DESM.SKU = CR.Id " +
+                                  "    join Enum_VATS AS EVAT " +
+                                  "       on EVAT.Id = CR.VAT " +
                                   " where " +
                                   " (DESM.AmountFact != 0 or DESM.AmountPlan != 0) and" +
                                   "    DESM.Ref = @eventId");
