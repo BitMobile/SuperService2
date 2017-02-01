@@ -28,8 +28,7 @@
 .RootScrollView {
     height: 100%;
     width: 100%;
-    margin-left: @default-margin-left-right;
-    margin-right: @default-margin-left-right;
+    
 }
 
 .TitleHorizontalAligment {
@@ -87,7 +86,11 @@
     width: 100%;
     margin-bottom:1.5sp;
 }
-
+.FiscalLine {
+    height: 0sp auto;
+    width: 100%;
+    margin-bottom:1.5sp;
+}
 .UnitDescription {
     .text-view-style(@default-font-size * @default-mul-fount);
     width: 100%;
@@ -129,5 +132,12 @@
     horizontal-align: center;
     width: 100%;
     margin-top:1sp;
+}
+
+.ExpandLayout{
+    height:100% auto;
+    width:100%;
+    padding-right: @default-margin-left-right;
+    padding-left: @default-margin-left-right;
 }
 /* ---------------------------------- */

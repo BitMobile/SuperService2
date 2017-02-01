@@ -268,8 +268,6 @@ HorizontalLine {
 .RootScrollView {
   height: 100%;
   width: 100%;
-  margin-left: 5sp;
-  margin-right: 5sp;
 }
 .TitleHorizontalAligment {
   height: 6sp;
@@ -323,6 +321,11 @@ HorizontalLine {
   width: 100%;
   margin-bottom: 1.5sp;
 }
+.FiscalLine {
+  height: 0sp auto;
+  width: 100%;
+  margin-bottom: 1.5sp;
+}
 .UnitDescription {
   font: 2.75sp arial;
   height: 3.0525sp auto;
@@ -362,5 +365,11 @@ HorizontalLine {
   horizontal-align: center;
   width: 100%;
   margin-top: 1sp;
+}
+.ExpandLayout {
+  height: 100% auto;
+  width: 100%;
+  padding-right: 5sp;
+  padding-left: 5sp;
 }
 /* ---------------------------------- */

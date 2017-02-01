@@ -31,14 +31,14 @@
     </c:VerticalLayout>
     
     <c:ScrollView Id="30bf7571ca294fcc8a4bf5f8c8e7248b" CssClass="RootScrollView">
-      <c:VerticalLayout Id="27b45d9ed2d94d82a8939c4db55e6d2b" CssClass="RootLayout">
+      <c:VerticalLayout Id="27b45d9ed2d94d82a8939c4db55e6d2b" CssClass="ExpandLayout">
 
         <s:Iterator Id="sku" Value="$GetRIMList()">
           <c:VerticalLayout CssClass="SKULine">
             <c:TextView Text="$sku.Description" CssClass="UnitDescription" />
             <c:HorizontalLayout>
-              <c:TextView Text="{$sku.AmountFact} x {$sku.Price}" CssClass="CountAndPricePerUnit" />
-              <c:TextView CssClass="SumSKU" Text="$sku.SumFact" />
+              <c:TextView Text="{$sku.AmountFact} x {$ConvertToDec($sku.Price)}" CssClass="CountAndPricePerUnit" />
+              <c:TextView CssClass="SumSKU" Text="$ConvertToDec($sku.SumFact)" />
             </c:HorizontalLayout>
             <c:HorizontalLayout CssClass="Split">
               <c:TextView Text="$GetNameVAT($sku.VAT.Name)" CssClass="VATSStyle" />
@@ -46,7 +46,50 @@
             <c:HorizontalLine CssClass="HorizontalLineStyle" />
           </c:VerticalLayout>
         </s:Iterator>
-        
+
+        <s:Push Id="fiscalProp" Value="$GetFiscalProp()"></s:Push>
+        <s:If Test="$CheckFiscalEvent()">
+          <c:VerticalLayout CssClass="TitleHorizontalAligment">
+            <c:HorizontalLayout CssClass="TitleVerticalAligment">
+              <c:TextView CssClass="CaptionSale" Text="Информация о чеке" />
+            </c:HorizontalLayout>
+          </c:VerticalLayout>
+        <!-- Номер чека -->
+          <c:VerticalLayout CssClass="FiscalLine">
+            <c:HorizontalLayout>
+              <c:TextView Text="Номер чека" CssClass="CountAndPricePerUnit" />
+              <c:TextView CssClass="SumSKU" Text="$GetCheckNumber()" />
+            </c:HorizontalLayout>
+            <c:HorizontalLine CssClass="HorizontalLineStyle" />
+          </c:VerticalLayout>
+          <!-- Дата -->
+          <c:VerticalLayout CssClass="FiscalLine">
+            <c:HorizontalLayout>
+              <c:TextView Text="Дата" CssClass="CountAndPricePerUnit" />
+              <c:TextView CssClass="SumSKU" Text="$GetDate()" />
+            </c:HorizontalLayout>
+            <c:HorizontalLine CssClass="HorizontalLineStyle" />
+          </c:VerticalLayout>
+          <!-- Номер ФР -->
+          <c:VerticalLayout CssClass="FiscalLine">
+            <c:HorizontalLayout>
+              <c:TextView Text="Номер Ф.Р." CssClass="CountAndPricePerUnit" />
+              <c:TextView CssClass="SumSKU" Text="$GetNumberFtpr()" />
+            </c:HorizontalLayout>
+            <c:HorizontalLine CssClass="HorizontalLineStyle" />
+          </c:VerticalLayout>
+          <!-- Номер смены -->
+          <c:VerticalLayout CssClass="FiscalLine">
+            <c:HorizontalLayout>
+              <c:TextView Text="Номер смены" CssClass="CountAndPricePerUnit" />
+              <c:TextView CssClass="SumSKU" Text="$GetShiftNumber()" />
+            </c:HorizontalLayout>
+            <c:HorizontalLine CssClass="HorizontalLineStyle" />
+          </c:VerticalLayout>
+
+
+        </s:If>
+
       </c:VerticalLayout>
     </c:ScrollView>
     

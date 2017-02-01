@@ -9,7 +9,8 @@
                       CssClass="PrintCheckContainerDiactivate">
       <c:HorizontalLayout Id="1415259599ca405c81a242ba69c5942f"
                           CssClass="VerticalAlignContainer">
-        <c:Image Source="$GetResourceImage(printcheckscreen_white_printer_diactivated)"
+        <c:Image Id="ecd5c17d8f904d368bb5ef92bae35447"
+                 Source="$GetResourceImage(printcheckscreen_white_printer_diactivated)"
                  CssClass="IconStyle" />
         <c:TextView Id="c5e071d3b31b4133917ecfa793ef9614"
                     Text="#punch_check#" CssClass="PunchDiactive" />
@@ -22,7 +23,7 @@
                   CssClass="CaptionText" Text="#total_to_pay#" />
 
       <c:TextView Id="89aa373a7fba45489590a9bd9a7b83bc"
-                  CssClass="TotalSum" Text="123 114.65" />
+                  CssClass="TotalSum" Text="$GetFormatTotalSum()" />
 
       <c:HorizontalLine Id="935b8a0c0665432fafb0191372a6bcc1"
                         CssClass="ShortLine" />
@@ -31,7 +32,8 @@
                   CssClass="PaymentTypeCaption" Text="#payment_type#" />
 
       <c:VerticalLayout Id="e4429176bd4e48579dd251cf57a8eed7"
-                        CssClass="PaymentTypeContainer">
+                        CssClass="PaymentTypeContainer"
+                        OnClick="ChoosePaymentType_OnClick">
         <c:TextView Id="7c46a01e25b34835b7ff98f6debfeac0" CssClass="PaymentType"
                     Text="НАЛИЧНЫЕ" />
       </c:VerticalLayout>
@@ -43,9 +45,11 @@
           <c:TextView Id="a6aa0b97309548c09caad2ff7f30436a"
                       CssClass="ContribCaption" Text="#contribution_sum#" />
           <c:EditText Id="778f105408c745b48d4eab7bff782e72"
-                      CssClass="CashIn" Keyboard="numeric" />
+                      CssClass="CashIn" Keyboard="numeric"
+                      OnChange="CheckEnteredSumm_OnChange" />
         </c:HorizontalLayout>
         <c:HorizontalLine CssClass="FullHorizontalLine" />
+
         <c:HorizontalLayout Id="c129ed940d97427fa7cd303171370fde"
                             CssClass="LineContainerWithMargin">
           <c:TextView Id="a4ec4cb2f9da4013bde1f15913e6eeae"
@@ -53,19 +57,19 @@
           <c:TextView Id="fa4aad30428344f7ac60ca62f721f67a"
                       CssClass="CashIn" />
         </c:HorizontalLayout>
-        <c:HorizontalLine CssClass="FullHorizontalLine" />
+        <c:HorizontalLine Id="b6be07680f594b6bbbc8ae137376ddce" CssClass="FullHorizontalLine" />
 
 
         <c:HorizontalLayout Id="0f36a14440114070a5dd337601396244"
-                           CssClass="LineContainerWithMargin">
+                            CssClass="LineContainerWithMargin">
           <c:TextView Id="15e0dbfb2d64472292be427add28ec9d"
                       CssClass="NotEnought" Text="#missing_amount#" />
           <c:TextView Id="fde6ae3fe5e946b88a13eb305372e38d"
-                      CssClass="CashInEnought" Text="123456" />
+                      CssClass="CashInEnought" />
         </c:HorizontalLayout>
         <c:HorizontalLine Id="6f931069b5624ed19fc1e705cc0a71b9"
                           CssClass="FullHorizontalLine" />
-        
+
       </c:VerticalLayout>
     </c:VerticalLayout>
   </c:DockLayout>

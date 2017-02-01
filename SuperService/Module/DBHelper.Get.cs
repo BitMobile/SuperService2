@@ -607,7 +607,7 @@ namespace Test
                                   from
                                       Document_Event_ServicesMaterials AS DESM
                                    where
-                                   (DESM.AmountFact != 0 or DESM.AmountPlan != 0)");
+                                   (DESM.AmountFact != 0 or DESM.AmountPlan != 0) AND DESM.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return (double)query.ExecuteScalar();
         }
@@ -637,6 +637,24 @@ namespace Test
             return query.Execute();
         }
 
+        public static DbRecordset GetFiscalEvent(string eventId)
+        {
+            var query = new Query(@"SELECT
+                                      ID,
+                                      Date,
+                                      CheckNumber,
+                                      ShiftNumber,
+                                      NumberFtpr
+                                    FROM _Document_Event_EventFiskalProperties
+                                    WHERE Ref = @eventId
+                                          AND NOT (Date IS NULL 
+                                                    AND CheckNumber IS NULL
+                                                    AND ShiftNumber IS NULL
+                                                    AND NumberFtpr IS NULL)");
+            query.AddParameter("eventId", eventId);
+            Utils.TraceMessage(eventId);
+            return query.Execute();
+        }
         /// <summary>
         ///     Возвращает информацию по материалам
         /// </summary>

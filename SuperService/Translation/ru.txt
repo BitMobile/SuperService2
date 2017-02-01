@@ -157,3 +157,4 @@ contribution_sum		Сумма:
 change		Сдача:
 punch_check		ПРОБИТЬ ЧЕК
 missing_amount		Недостает суммы
+VAT		НДС
