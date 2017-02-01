@@ -1438,5 +1438,23 @@ namespace Test
 
             return query.Execute();
         }
+        public static bool CheckRole(string webActionName)
+        {
+            var RecSetUser = GetUserInfoByUserName(Settings.User);
+            var role = (((User)((DbRef)RecSetUser["Id"])?.GetObject())?.Role);
+            var queryString = @"Select CR.Id,CR.Description, EW.Name
+                            from Catalog_Roles as CR
+                            Left Join Catalog_RoleWebactions as CRW
+                            On CR.Id = CRW.Role
+                            Left Join Enum_Webactions as EW
+                            On EW.Id = CRW.WebAction
+                            Where CR.Id = @RoleId And EW.Name = @WebActionRoleName ";
+            var query = new Query(queryString);
+            query.AddParameter("RoleId", $"{role}");
+            query.AddParameter("WebActionRoleName", webActionName);
+            int count = query.ExecuteCount();
+            if (count > 0) return true;
+            return false;
+        }
     }
 }
