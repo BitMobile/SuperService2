@@ -75,6 +75,7 @@ namespace Test
             {"baglistscreen_plus", @"Image\BagListScreen\BagPlus.png"},
             //CheckInfoScreen
             {"print_icon", @"Image\CheckInfoScreen\iconCheckPrint.png"},
+            {"print_icon_disabel",@"Image\CheckInfoScreen\iconCheckPrint_dis.png" },
             // EditServicesOrMaterialsScreen
             {"editservicesormaterialsscreen_plus", @"Image\EditServicesOrMaterialsScreen\Plus.png"},
             {"editservicesormaterialsscreen_minus", @"Image\EditServicesOrMaterialsScreen\minus.png"},

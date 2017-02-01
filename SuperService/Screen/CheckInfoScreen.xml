@@ -46,7 +46,50 @@
             <c:HorizontalLine CssClass="HorizontalLineStyle" />
           </c:VerticalLayout>
         </s:Iterator>
-        
+
+        <s:Push Id="fiscalProp" Value="$GetFiscalProp()"></s:Push>
+        <s:If Test="$CheckFiscalEvent()">
+          <c:VerticalLayout CssClass="TitleHorizontalAligment">
+            <c:HorizontalLayout CssClass="TitleVerticalAligment">
+              <c:TextView CssClass="CaptionSale" Text="Информация о чеке" />
+            </c:HorizontalLayout>
+          </c:VerticalLayout>
+        <!-- Номер чека -->
+          <c:VerticalLayout CssClass="FiscalLine">
+            <c:HorizontalLayout>
+              <c:TextView Text="Номер чека" CssClass="CountAndPricePerUnit" />
+              <c:TextView CssClass="SumSKU" Text="$GetCheckNumber()" />
+            </c:HorizontalLayout>
+            <c:HorizontalLine CssClass="HorizontalLineStyle" />
+          </c:VerticalLayout>
+          <!-- Дата -->
+          <c:VerticalLayout CssClass="FiscalLine">
+            <c:HorizontalLayout>
+              <c:TextView Text="Дата" CssClass="CountAndPricePerUnit" />
+              <c:TextView CssClass="SumSKU" Text="$GetDate()" />
+            </c:HorizontalLayout>
+            <c:HorizontalLine CssClass="HorizontalLineStyle" />
+          </c:VerticalLayout>
+          <!-- Номер ФР -->
+          <c:VerticalLayout CssClass="FiscalLine">
+            <c:HorizontalLayout>
+              <c:TextView Text="Номер Ф.Р." CssClass="CountAndPricePerUnit" />
+              <c:TextView CssClass="SumSKU" Text="$GetNumberFtpr()" />
+            </c:HorizontalLayout>
+            <c:HorizontalLine CssClass="HorizontalLineStyle" />
+          </c:VerticalLayout>
+          <!-- Номер смены -->
+          <c:VerticalLayout CssClass="FiscalLine">
+            <c:HorizontalLayout>
+              <c:TextView Text="Номер смены" CssClass="CountAndPricePerUnit" />
+              <c:TextView CssClass="SumSKU" Text="$GetShiftNumber()" />
+            </c:HorizontalLayout>
+            <c:HorizontalLine CssClass="HorizontalLineStyle" />
+          </c:VerticalLayout>
+
+
+        </s:If>
+
       </c:VerticalLayout>
     </c:ScrollView>
     

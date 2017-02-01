@@ -11,6 +11,7 @@ namespace Test
         private string _eventId;
         private bool _readOnly;
         private TopInfoComponent _topInfoComponent;
+        private List<string> _fiscalList;
 
         public override void OnLoading()
         {
@@ -18,7 +19,8 @@ namespace Test
             {
                 Header = Translator.Translate("cashbox_check"),
                 LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_back")},
-                RightButtonControl = new Image {Source = ResourceManager.GetImage("print_icon")},
+                RightButtonControl = _fiscalList.Count == 0 ?
+                        new Image {Source = ResourceManager.GetImage("print_icon")}:new Image { Source = ResourceManager.GetImage("print_icon_disabel") },
                 ArrowVisible = false
             };
 
@@ -35,10 +37,15 @@ namespace Test
             => Navigation.Back();
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
-            => Navigation.Move(nameof(PrintCheckScreen), new Dictionary<string, object>
+        {
+            if (_fiscalList.Count == 0)
+            {
+                Navigation.Move(nameof(PrintCheckScreen), new Dictionary<string, object>
             {
                 {Parameters.IdCurrentEventId, _eventId}
             });
+            }
+        }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
@@ -74,6 +81,27 @@ namespace Test
             return $"{decimalSum:N}";
         }
 
+        internal DbRecordset GetFiscalProp()
+        {
+            _fiscalList = new List<string>();
+            var eventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+            var fiscalRecordSet = DBHelper.GetFiscalEvent(eventId);
+            while (fiscalRecordSet.Next())
+            {
+                _fiscalList.Add(fiscalRecordSet["CheckNumber"].ToString());
+                _fiscalList.Add(fiscalRecordSet["Date"].ToString());
+                _fiscalList.Add(fiscalRecordSet["NumberFtpr"].ToString());
+                _fiscalList.Add(fiscalRecordSet["ShiftNumber"].ToString());
+            }
+            return fiscalRecordSet;
+        }
+
+        internal string GetCheckNumber() =>_fiscalList[0];
+        internal string GetDate() => _fiscalList[1];
+        internal string GetNumberFtpr() => _fiscalList[2];
+        internal string GetShiftNumber() => _fiscalList[3];
+
+        internal bool CheckFiscalEvent() => _fiscalList.Count != 0;
         internal string ConvertToDec(object price)
         {
             return $"{Converter.ToDecimal(price):N}";
@@ -83,9 +111,8 @@ namespace Test
 
         internal DbRecordset GetRIMList()
         {
-            var eventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
-            var res = DBHelper.GetCheckSKU(eventId);
-            return res;
+            var eventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty); 
+            return DBHelper.GetCheckSKU(eventId);
         }
     }
 }

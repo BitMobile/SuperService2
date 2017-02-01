@@ -637,6 +637,24 @@ namespace Test
             return query.Execute();
         }
 
+        public static DbRecordset GetFiscalEvent(string eventId)
+        {
+            var query = new Query(@"SELECT
+                                      ID,
+                                      Date,
+                                      CheckNumber,
+                                      ShiftNumber,
+                                      NumberFtpr
+                                    FROM _Document_Event_EventFiskalProperties
+                                    WHERE Ref = @eventId
+                                          AND NOT (Date IS NULL 
+                                                    AND CheckNumber IS NULL
+                                                    AND ShiftNumber IS NULL
+                                                    AND NumberFtpr IS NULL)");
+            query.AddParameter("eventId", eventId);
+            Utils.TraceMessage(eventId);
+            return query.Execute();
+        }
         /// <summary>
         ///     Возвращает информацию по материалам
         /// </summary>
