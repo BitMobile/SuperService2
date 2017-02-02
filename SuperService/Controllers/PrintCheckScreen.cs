@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.SymbolStore;
 using BitMobile.ClientModel3;
 using BitMobile.ClientModel3.UI;
 using BitMobile.Common.Device.Providers;
@@ -19,16 +18,16 @@ namespace Test
         private int _choosedPaymentType;
         private EditText _enteredSumEditText;
         private string _eventId;
+        private IFiscalRegistratorProvider _fptr;
         private Dictionary<object, string> _paymentTypes;
         private TextView _paymentTypeTextView;
         private Image _printImage;
         private VerticalLayout _punchButtonLayout;
+        private bool _readonly;
         private DockLayout _rootDockLayout;
         private TopInfoComponent _topInfoComponent;
         private decimal _totalSum;
-        private bool _readonly;
         private bool _wasStarted;
-        private IFiscalRegistratorProvider _fptr;
 
         public override void OnLoading()
         {
@@ -41,7 +40,6 @@ namespace Test
 
             _topInfoComponent.ActivateBackButton();
 
-           
 
             InitFields();
         }
@@ -71,21 +69,19 @@ namespace Test
 
             _readonly = (bool) Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
             _wasStarted = (bool) Variables.GetValueOrDefault(Parameters.IdWasEventStarted, true);
-
         }
 
         public override void OnShow()
         {
-
-//            try
-//            {
-//                _enteredSumEditText.Text = $"{_totalSum:N}";
-//                ProcessingPaymentType();
-//            }
-//            catch (Exception e)
-//            {
-//                Utils.TraceMessage($"{e.Message}");
-//            }
+            try
+            {
+                _enteredSumEditText.Text = $"{_totalSum}";
+                ProcessingPaymentType();
+            }
+            catch (Exception e)
+            {
+                Utils.TraceMessage($"{e.Message}");
+            }
         }
 
         internal string GetResourceImage(string tag) => ResourceManager.GetImage(tag);
@@ -124,11 +120,12 @@ namespace Test
                 {
                     case 0:
                         _enteredSumEditText.Enabled = true;
+                        _enteredSumEditText.Text = $"{_totalSum}";
                         break;
                     case 1:
                     case 2:
                     case 3:
-                        _enteredSumEditText.Text = $"{_totalSum:N}";
+                        _enteredSumEditText.Text = $"{_totalSum}";
                         _enteredSumEditText.Enabled = false;
                         break;
                 }
@@ -227,6 +224,10 @@ namespace Test
         {
             decimal result;
 
+            var parcingString = _enteredSumEditText.Text.Replace(".", ",");
+            if (decimal.TryParse(parcingString, out result))
+                return result;
+
             return decimal.TryParse(_enteredSumEditText.Text, out result) ? result : 0m;
         }
 
@@ -270,7 +271,7 @@ namespace Test
             var checkParameters = new Event_EventFiskalProperties
             {
                 Id = DbRef.CreateInstance($"Document_{nameof(Event_EventFiskalProperties)}"
-              , Guid.NewGuid()),
+                    , Guid.NewGuid()),
                 Ref = DbRef.FromString(_eventId),
                 User = Settings.UserDetailedInfo.Id
             };
@@ -298,17 +299,17 @@ namespace Test
                 Utils.TraceMessage($"{exception.Message}{Environment.NewLine}" +
                                    $"Type {exception.GetType()}");
             }
-            
 
-            if (!checkError) 
+
+            if (!checkError)
             {
                 SaveFptrParameters(checkParameters);
                 BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId] = _eventId;
                 Navigation.ModalMove(nameof(COCScreen), new Dictionary<string, object>
                 {
                     {Parameters.IdCurrentEventId, _eventId},
-                    {Parameters.IdIsReadonly, _readonly },
-                    {Parameters.IdWasEventStarted, _wasStarted }
+                    {Parameters.IdIsReadonly, _readonly},
+                    {Parameters.IdWasEventStarted, _wasStarted}
                 });
             }
             else
@@ -324,10 +325,10 @@ namespace Test
                 }
                 finally
                 {
-                    _enteredSumEditText.Enabled = true;
+                    if (_choosedPaymentType == 0)
+                        _enteredSumEditText.Enabled = true;
                 }
             }
-
         }
 
 
@@ -355,8 +356,6 @@ namespace Test
 
         private void SaveFptrParameters(Event_EventFiskalProperties checkParameters)
         {
-            
-
             checkParameters.NumberFtpr = _fptr.GetSerialNumber();
             checkParameters.ShiftNumber = _fptr.GetSession();
             checkParameters.CheckNumber = _fptr.GetCheckNumber();
