@@ -41,6 +41,8 @@ namespace Test
 
             _topInfoComponent.ActivateBackButton();
 
+           
+
             InitFields();
         }
 
@@ -69,6 +71,21 @@ namespace Test
 
             _readonly = (bool) Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
             _wasStarted = (bool) Variables.GetValueOrDefault(Parameters.IdWasEventStarted, true);
+
+        }
+
+        public override void OnShow()
+        {
+
+            try
+            {
+                _enteredSumEditText.Text = $"{_totalSum:N}";
+                ProcessingPaymentType();
+            }
+            catch (Exception e)
+            {
+                Utils.TraceMessage($"{e.Message}");
+            }
         }
 
         internal string GetResourceImage(string tag) => ResourceManager.GetImage(tag);
@@ -233,6 +250,14 @@ namespace Test
         internal void Print_OnClick(object sender, EventArgs e)
         {
             _enteredSumEditText.Enabled = false;
+            var checkParameters = new Event_EventFiskalProperties
+            {
+                Id = DbRef.CreateInstance($"Document_{nameof(Event_EventFiskalProperties)}"
+              , Guid.NewGuid()),
+                Ref = DbRef.FromString(_eventId),
+                User = Settings.UserDetailedInfo.Id
+            };
+
             var checkError = false;
             try
             {
@@ -241,7 +266,9 @@ namespace Test
                 if (_fptr.CloseCheck() < 0)
                     _fptr.CheckError();
 
+                checkParameters.Date = DateTime.Now;
 
+                DBHelper.SaveEntity(checkParameters, false);
             }
             catch (FPTRException exception)
             {
@@ -258,7 +285,7 @@ namespace Test
 
             if (!checkError) 
             {
-                SaveFptrParameters();
+                SaveFptrParameters(checkParameters);
                 BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId] = _eventId;
                 Navigation.ModalMove(nameof(COCScreen), new Dictionary<string, object>
                 {
@@ -271,6 +298,7 @@ namespace Test
             {
                 try
                 {
+                    DBHelper.DeleteByRef(checkParameters.Id, false);
                     _fptr.CancelCheck();
                 }
                 catch (FPTRException exception)
@@ -308,21 +336,15 @@ namespace Test
             _fptr.Payment(decimal.ToDouble(enteredSum), _choosedPaymentType);
         }
 
-        private void SaveFptrParameters()
+        private void SaveFptrParameters(Event_EventFiskalProperties checkParameters)
         {
-            var checkParameters = new Event_EventFiskalProperties
-            {
-                Id = DbRef.CreateInstance($"Document_{nameof(Event_EventFiskalProperties)}"
-                , Guid.NewGuid()),
-                Ref = DbRef.FromString(_eventId)
-            };
+            
 
             checkParameters.NumberFtpr = _fptr.GetSerialNumber();
             checkParameters.ShiftNumber = _fptr.GetSession();
             checkParameters.CheckNumber = _fptr.GetCheckNumber();
             checkParameters.PaymentType = _choosedPaymentType;
             checkParameters.PaymentAmount = GetEnteredSum();
-            checkParameters.User = Settings.UserDetailedInfo.Id;
             checkParameters.Date = DateTime.Now;
 
             Utils.TraceMessage($"{Parameters.Splitter}");
