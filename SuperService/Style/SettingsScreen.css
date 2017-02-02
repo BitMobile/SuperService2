@@ -374,6 +374,11 @@ HorizontalLine {
   width: 100%;
   background-color: #f1f2f5;
 }
+CompanyInfoContainerWithFtpr {
+  height: 25%;
+  width: 100%;
+  background-color: #f1f2f5;
+}
 .ArrowDown {
   height: 6sp;
   horizontal-align: center;

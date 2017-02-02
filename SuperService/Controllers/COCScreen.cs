@@ -90,6 +90,12 @@ namespace Test
             _isReadOnly = (bool) Variables[Parameters.IdIsReadonly];
         }
 
+        internal bool ChechFiscal()
+        {
+            var eventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+            return !DBHelper.CheckFiscalEvent(eventId);
+        }
+
         internal string GetResourceImage(string tag)
         {
             return ResourceManager.GetImage(tag);
