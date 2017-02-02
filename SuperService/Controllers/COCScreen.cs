@@ -174,7 +174,7 @@ namespace Test
         internal void EditServicesOrMaterials_OnClick(object sender, EventArgs e)
         {
             if (_isReadOnly) return;
-
+            if (!ChechFiscal()) return;
             var eventStatus = (string) _currentEventDbRecordset["statusName"];
             var vl = (VerticalLayout) sender;
 

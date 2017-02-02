@@ -43,13 +43,16 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            if (_fiscalList.Count == 0)
+            if (_fiscalList.Count != 0) return;
+            if (!_readonly)
+            {
                 Navigation.Move(nameof(PrintCheckScreen), new Dictionary<string, object>
                 {
                     {Parameters.IdCurrentEventId, _eventId},
                     {Parameters.IdIsReadonly, _readonly},
                     {Parameters.IdWasEventStarted, _wasStarted}
                 });
+            }
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
