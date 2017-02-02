@@ -332,6 +332,22 @@ HorizontalLine {
   text-align: right;
   color: #9dcb75;
 }
+.SumIsCalculated {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  width: auto;
+  white-space: nowrap;
+  text-align: right;
+  color: #9dcb75;
+}
+.SumIsNotCalculated {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  width: auto;
+  white-space: nowrap;
+  text-align: right;
+  color: #b8b8b8;
+}
 .LineContainerWithMargin {
   height: 4sp auto;
   width: 100%;

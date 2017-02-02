@@ -179,12 +179,17 @@ namespace Test
             {
                 ShowControls(false);
                 _cashNotEnoughTextView.Text = $"{notEnough:N}";
+                _changeTextView.Text = Translator.Translate("change_is_not_calculated");
+                _changeTextView.CssClass = "SumIsNotCalculated";
+                _rootDockLayout.Refresh();
             }
             else
             {
                 ShowControls(true);
                 Utils.TraceMessage($"{-notEnough}");
                 _changeTextView.Text = $"{-notEnough:N}";
+                _changeTextView.CssClass = "SumIsCalculated";
+                _rootDockLayout.Refresh();
             }
         }
 

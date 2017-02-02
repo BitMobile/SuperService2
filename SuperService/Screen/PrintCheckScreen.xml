@@ -55,7 +55,7 @@
           <c:TextView Id="a4ec4cb2f9da4013bde1f15913e6eeae"
                       CssClass="ContribCaption" Text="#change#" />
           <c:TextView Id="fa4aad30428344f7ac60ca62f721f67a"
-                      CssClass="CashIn" />
+                      CssClass="SumIsCalculated" />
         </c:HorizontalLayout>
         <c:HorizontalLine Id="b6be07680f594b6bbbc8ae137376ddce" CssClass="FullHorizontalLine" />
 
