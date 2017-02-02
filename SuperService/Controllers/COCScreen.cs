@@ -368,6 +368,6 @@ namespace Test
             DBHelper.SaveEntities(rimArrayList, false);
         }
 
-        internal bool ShowCheckInfoScreen() => true;
+        internal bool ShowCheckInfoScreen() => DBHelper.CheckFtprAcsess();
     }
 }

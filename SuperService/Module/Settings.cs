@@ -170,7 +170,6 @@ namespace Test
             }
 
             var dictionary = (Dictionary<string, object>)value;
-
             return (bool)dictionary.GetValueOrDefault(Parameters.LogicValue, @default);
         }
 

@@ -1456,5 +1456,21 @@ namespace Test
             if (count > 0) return true;
             return false;
         }
+
+        public static bool CheckFtprAcsess()
+        {
+           
+            
+            if (Settings.EnableFPTR)
+            {
+                Utils.TraceMessage($"{Settings.EnableFPTR}");
+                if (CheckRole("MobileFPRAccess"))
+                {
+                    Utils.TraceMessage($"{CheckRole("MobileFPRAccess")}");
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
