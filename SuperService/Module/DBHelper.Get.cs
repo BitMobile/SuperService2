@@ -662,7 +662,7 @@ namespace Test
         {
             var query = new Query(@"SELECT
                                       ID,
-                                      Date,
+                                      strftime('%d-%m-%Y  %H:%M', Date) AS Date,
                                       CheckNumber,
                                       ShiftNumber,
                                       NumberFtpr
