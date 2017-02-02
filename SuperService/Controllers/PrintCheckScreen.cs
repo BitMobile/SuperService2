@@ -77,15 +77,15 @@ namespace Test
         public override void OnShow()
         {
 
-            try
-            {
-                _enteredSumEditText.Text = $"{_totalSum:N}";
-                ProcessingPaymentType();
-            }
-            catch (Exception e)
-            {
-                Utils.TraceMessage($"{e.Message}");
-            }
+//            try
+//            {
+//                _enteredSumEditText.Text = $"{_totalSum:N}";
+//                ProcessingPaymentType();
+//            }
+//            catch (Exception e)
+//            {
+//                Utils.TraceMessage($"{e.Message}");
+//            }
         }
 
         internal string GetResourceImage(string tag) => ResourceManager.GetImage(tag);
@@ -120,6 +120,18 @@ namespace Test
                 DisableButton();
                 ChangeViewState(_choosedPaymentType <= 0);
                 _punchButtonLayout.OnClick -= Print_OnClick;
+                switch (_choosedPaymentType)
+                {
+                    case 0:
+                        _enteredSumEditText.Enabled = true;
+                        break;
+                    case 1:
+                    case 2:
+                    case 3:
+                        _enteredSumEditText.Text = $"{_totalSum:N}";
+                        _enteredSumEditText.Enabled = false;
+                        break;
+                }
                 ProcessingPaymentType();
             });
         }
