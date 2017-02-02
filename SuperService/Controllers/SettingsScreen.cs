@@ -204,11 +204,23 @@ namespace Test
             });
         }
 
+        internal bool CheckFtprAcsess() => DBHelper.CheckFtprAcsess();
         internal void SendLog_OnClick(object sender, EventArgs e)
-            => FptrInstance.Instance.OpenSettings();
+        {
+            if (DBHelper.CheckFtprAcsess())
+            {
+                FptrInstance.Instance.OpenSettings();
+            }
+            else
+            {
+                Settings.SendDatabase();
+            }
+        }
 
         internal void PrintX_OnClick(object sender, EventArgs e)
         {
+            if (DBHelper.CheckFtprAcsess())
+            {
             try
             {
                 FptrInstance.Instance.PrintX();
@@ -217,6 +229,23 @@ namespace Test
             {
                 Toast.MakeToast(exception.Message);
             }
+            }
+            else
+            {
+                Toast.MakeToast(Translator.Translate("start_sync"));
+                FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password, (o, args) =>
+                {
+                    DConsole.WriteLine("Sync succesful? = " + args.Result);
+                    Toast.MakeToast(Translator.Translate(args.Result ? "upload_finished" : "upload_failed"));
+                    if (args.Result)
+                        FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password,
+                            (o1, args1) =>
+                            {
+                                Toast.MakeToast(Translator.Translate(args1.Result ? "sync_success" : "sync_fail"));
+                            });
+                });
+            }
+            
         }
     }
 }

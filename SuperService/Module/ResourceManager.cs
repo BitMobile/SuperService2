@@ -102,6 +102,7 @@ namespace Test
             {"settingsscreen_send_error",@"Image\SettingsScreen\Error.png" },
             {"settingsscreen_facebook",@"Image\SettingsScreen\FB.png" },
             {"settingsscreen_send_log",@"Image\SettingsScreen\log.png" },
+            {"settingsscreen_send_logsend",@"Image\SettingsScreen\log_send.png" },
             {"settingsscreen_sservice_logo",@"Image\SettingsScreen\logo.png" },
             {"settingsscreen_logout",@"Image\SettingsScreen\logout.png" },
             {"settingsscreen_twitter",@"Image\SettingsScreen\Twitter.png" },
