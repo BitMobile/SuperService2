@@ -37,7 +37,7 @@
         <!--Стрелка-->
         <c:Image CssClass="ArrowDown" Source="$GetResourceImage(settingsscreen_grey_arrow)" />
         <!--Информация о компании-->
-        <c:VerticalLayout CssClass="CompanyInfoContainer">
+        <c:VerticalLayout CssClass="$GetStyleForCompanyInfo()">
           <!--Логотип SService-->
           <c:Image CssClass="SserviceLogo" Source="$GetResourceImage(settingsscreen_sservice_logo)" />
           <!--Версия-->

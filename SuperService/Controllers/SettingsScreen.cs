@@ -107,6 +107,14 @@ namespace Test
             return result;
         }
 
+        internal string GetStyleForCompanyInfo()
+        {
+            if (DBHelper.CheckFtprAcsess())
+            {
+                return "CompanyInfoContainerWithFtpr";
+            }
+            return "CompanyInfoContainer";
+        }
         internal string GetUserDescription()
         {
             var result = "";
