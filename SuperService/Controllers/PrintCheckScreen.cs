@@ -86,7 +86,13 @@ namespace Test
 
         internal string GetResourceImage(string tag) => ResourceManager.GetImage(tag);
 
-        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e) => Navigation.Back();
+        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
+            => Navigation.ModalMove(nameof(CheckInfoScreen), new Dictionary<string, object>
+            {
+                {Parameters.IdCurrentEventId, _eventId},
+                {Parameters.IdIsReadonly, _readonly},
+                {Parameters.IdWasEventStarted, _wasStarted}
+            });
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
@@ -224,9 +230,9 @@ namespace Test
         {
             decimal result;
 
-            var parcingString = _enteredSumEditText.Text.Replace(".", ",");
-            if (decimal.TryParse(parcingString, out result))
-                return result;
+//            var parcingString = _enteredSumEditText.Text.Replace(".", ",");
+//            if (decimal.TryParse(parcingString, out result))
+//                return result;
 
             return decimal.TryParse(_enteredSumEditText.Text, out result) ? result : 0m;
         }
