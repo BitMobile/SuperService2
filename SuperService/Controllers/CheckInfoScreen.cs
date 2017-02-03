@@ -16,15 +16,16 @@ namespace Test
 
         public override void OnLoading()
         {
-            _readonly = (bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
+            _readonly = (bool) Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("cashbox_check"),
                 LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_back")},
-                RightButtonControl = _fiscalList.Count == 0 ? 
-                    _readonly? new Image {Source = ResourceManager.GetImage("print_icon_disabel")}:
-                    new Image {Source = ResourceManager.GetImage("print_icon")}
-                : new Image {Source = ResourceManager.GetImage("print_icon_disabel")},
+                RightButtonControl = _fiscalList.Count == 0
+                    ? _readonly
+                        ? new Image {Source = ResourceManager.GetImage("print_icon_disabel")}
+                        : new Image {Source = ResourceManager.GetImage("print_icon")}
+                    : new Image {Source = ResourceManager.GetImage("print_icon_disabel")},
                 ArrowVisible = false
             };
 
@@ -39,20 +40,23 @@ namespace Test
 
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
-            => Navigation.Back();
+            => Navigation.ModalMove(nameof(COCScreen), new Dictionary<string, object>
+            {
+                {Parameters.IdCurrentEventId, _eventId},
+                {Parameters.IdIsReadonly, _readonly},
+                {Parameters.IdWasEventStarted, _wasStarted}
+            });
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
             if (_fiscalList.Count != 0) return;
             if (!_readonly)
-            {
-                Navigation.Move(nameof(PrintCheckScreen), new Dictionary<string, object>
+                Navigation.ModalMove(nameof(PrintCheckScreen), new Dictionary<string, object>
                 {
                     {Parameters.IdCurrentEventId, _eventId},
                     {Parameters.IdIsReadonly, _readonly},
                     {Parameters.IdWasEventStarted, _wasStarted}
                 });
-            }
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)

@@ -227,16 +227,16 @@
 					<Field AllowNull="true" Name="SumFact" Precision="15" Scale="2" Type="Decimal"/>
 				</TabularSection>
 				<TabularSection Key="User" Name="EventFiskalProperties" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
+					<Field KeyField="false" Name="Id" Type="Guid"/>
 					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
 					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field KeyField="false"  Name="CheckNumber" Type="Integer" />
-					<Field AllowNull="false" Name="Date" Type="DateTime2" />
-					<Field AllowNull="false" Name="ShiftNumber" Type="Integer" />
-					<Field AllowNull="false" Length="100" Name="NumberFtpr" Type="String" />
-					<Field AllowNull="false" Name="PaymentType" Type="Integer" />
-					<Field AllowNull="false" Name="PaymentAmount" Precision="15" Scale="2" Type="Decimal" />
-					<Field AllowNull="false" Name="User" Type="Catalog.User" />
+					<Field KeyField="true"  Name="CheckNumber" Type="Integer" />
+					<Field AllowNull="true" Name="Date" Type="DateTime2" />
+					<Field AllowNull="true" Name="ShiftNumber" Type="Integer" />
+					<Field AllowNull="true" Length="100" Name="NumberFtpr" Type="String" />
+					<Field AllowNull="true" Name="PaymentType" Type="Integer" />
+					<Field AllowNull="true" Name="PaymentAmount" Precision="15" Scale="2" Type="Decimal" />
+					<Field AllowNull="true" Name="User" Type="Catalog.User" />
 				</TabularSection>
 			</TabularSections>
 		</Entity>

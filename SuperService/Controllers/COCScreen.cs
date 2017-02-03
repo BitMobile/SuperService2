@@ -225,7 +225,7 @@ namespace Test
                         {Parameters.IdIsReadonly, _isReadOnly},
                         {Parameters.IdWasEventStarted, _wasStarted}
                     };
-                    Navigation.Move(nameof(CheckInfoScreen), dict);
+                    Navigation.ModalMove(nameof(CheckInfoScreen), dict);
                 });
             }
             else
@@ -236,7 +236,7 @@ namespace Test
                     {Parameters.IdIsReadonly, _isReadOnly},
                     {Parameters.IdWasEventStarted, _wasStarted}
                 };
-                Navigation.Move(nameof(CheckInfoScreen), dict);
+                Navigation.ModalMove(nameof(CheckInfoScreen), dict);
             }
         }
 
