@@ -69,6 +69,8 @@ namespace Test
 
             _readonly = (bool) Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
             _wasStarted = (bool) Variables.GetValueOrDefault(Parameters.IdWasEventStarted, true);
+            _enteredSumEditText.Mask = @"^(\+|\-)?\d+(\.\d{0,2})*$";
+            _enteredSumEditText.Required = true;
         }
 
         public override void OnShow()
