@@ -16,7 +16,7 @@
     </c:VerticalLayout>
     <c:HorizontalLayout CssClass="LoginPasswordContainerFirstHL">
       <c:Image CssClass="LoginPasswordImg" Source="$GetResourceImage(authscreen_username)" />
-      <c:EditText Mask="^\d+$" Id="AuthScreenLoginET" Placeholder="#login#" />
+      <c:EditText Id="AuthScreenLoginET" Placeholder="#login#" />
     </c:HorizontalLayout>
     <c:VerticalLayout CssClass="BreakerContainerVL">
       <c:HorizontalLine CssClass="BreakerHL" />
