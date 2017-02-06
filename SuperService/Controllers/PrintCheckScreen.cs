@@ -230,9 +230,9 @@ namespace Test
         {
             decimal result;
 
-//            var parcingString = _enteredSumEditText.Text.Replace(".", ",");
-//            if (decimal.TryParse(parcingString, out result))
-//                return result;
+            var parcingString = _enteredSumEditText.Text.Replace(".", ",");
+            if (decimal.TryParse(parcingString, out result))
+                return result;
 
             return decimal.TryParse(_enteredSumEditText.Text, out result) ? result : 0m;
         }
