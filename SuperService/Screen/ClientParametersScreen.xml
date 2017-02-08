@@ -97,7 +97,7 @@
 
               <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$Parameter.Id">
                 <c:EditText Enabled="$IsNotReadonly()" Text="$Parameter.Result" Keyboard="numeric"
-                            Mask="^(\+|\-)?\d+(\.\d*)*$"
+                            Mask="^(\+|\-)?\d+([\.\,]\d*)*$"
                             OnLostFocus="CheckListDecimal_OnLostFocus" Id="$Parameter.Id"
                             Placeholder="#not_specified#" CssClass="CheckListAnswerElementTV"
                             OnGetFocus="CheckListDecimal_OnGetFocus" />
