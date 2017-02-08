@@ -34,12 +34,11 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("registration_check"),
-                LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_back")},
+                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
                 ArrowVisible = false
             };
 
             _topInfoComponent.ActivateBackButton();
-
 
             InitFields();
         }
@@ -48,14 +47,14 @@ namespace Test
         {
             _choosedPaymentType = 0;
 
-            _paymentTypeTextView = (TextView) GetControl("7c46a01e25b34835b7ff98f6debfeac0", true);
-            _rootDockLayout = (DockLayout) GetControl("07ec0239c319491eb406a40e1183d9b5", true);
-            _changeHorizontalLayout = (HorizontalLayout) GetControl("c129ed940d97427fa7cd303171370fde", true);
-            _enteredSumEditText = (EditText) GetControl("778f105408c745b48d4eab7bff782e72", true);
-            _cashNotEnoughTextView = (TextView) GetControl("fde6ae3fe5e946b88a13eb305372e38d", true);
-            _punchButtonLayout = (VerticalLayout) GetControl("2551f8ad1b2749d3847581fd124c841b", true);
-            _printImage = (Image) GetControl("ecd5c17d8f904d368bb5ef92bae35447", true);
-            _changeTextView = (TextView) GetControl("fa4aad30428344f7ac60ca62f721f67a", true);
+            _paymentTypeTextView = (TextView)GetControl("7c46a01e25b34835b7ff98f6debfeac0", true);
+            _rootDockLayout = (DockLayout)GetControl("07ec0239c319491eb406a40e1183d9b5", true);
+            _changeHorizontalLayout = (HorizontalLayout)GetControl("c129ed940d97427fa7cd303171370fde", true);
+            _enteredSumEditText = (EditText)GetControl("778f105408c745b48d4eab7bff782e72", true);
+            _cashNotEnoughTextView = (TextView)GetControl("fde6ae3fe5e946b88a13eb305372e38d", true);
+            _punchButtonLayout = (VerticalLayout)GetControl("2551f8ad1b2749d3847581fd124c841b", true);
+            _printImage = (Image)GetControl("ecd5c17d8f904d368bb5ef92bae35447", true);
+            _changeTextView = (TextView)GetControl("fa4aad30428344f7ac60ca62f721f67a", true);
             _paymentTypes = new Dictionary<object, string>
             {
                 {"0", "НАЛИЧНЫЕ"},
@@ -65,10 +64,10 @@ namespace Test
             };
 
             _fptr = FptrInstance.Instance;
-            _eventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+            _eventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
 
-            _readonly = (bool) Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
-            _wasStarted = (bool) Variables.GetValueOrDefault(Parameters.IdWasEventStarted, true);
+            _readonly = (bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
+            _wasStarted = (bool)Variables.GetValueOrDefault(Parameters.IdWasEventStarted, true);
             _enteredSumEditText.Mask = @"^(\+|\-)?\d+([\.\,]\d{0,2})*$";
             _enteredSumEditText.Required = true;
         }
@@ -106,7 +105,8 @@ namespace Test
 
         internal string GetFormatTotalSum()
         {
-            _eventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+            _eventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+
             var totalSum = DBHelper.GetCheckSKUSum(_eventId);
             _totalSum = Converter.ToDecimal(totalSum);
             Utils.TraceMessage($"Total SUm {totalSum}");
@@ -144,9 +144,9 @@ namespace Test
         private void ChangeViewState(bool isVisible)
         {
             _changeHorizontalLayout.Visible = isVisible;
-            ((HorizontalLine) GetControl("b6be07680f594b6bbbc8ae137376ddce", true)).Visible = isVisible;
-            ((HorizontalLine) GetControl("6f931069b5624ed19fc1e705cc0a71b9", true)).Visible = isVisible;
-            ((HorizontalLayout) GetControl("0f36a14440114070a5dd337601396244", true)).Visible = isVisible;
+            ((HorizontalLine)GetControl("b6be07680f594b6bbbc8ae137376ddce", true)).Visible = isVisible;
+            ((HorizontalLine)GetControl("6f931069b5624ed19fc1e705cc0a71b9", true)).Visible = isVisible;
+            ((HorizontalLayout)GetControl("0f36a14440114070a5dd337601396244", true)).Visible = isVisible;
         }
 
         internal void CheckEnteredSumm_OnChange(object sender, EventArgs e)
@@ -180,6 +180,7 @@ namespace Test
         {
             var sum = GetEnteredSum();
             var notEnough = _totalSum - sum;
+
             if (notEnough > 0)
             {
                 ShowControls(false);
@@ -202,6 +203,7 @@ namespace Test
         {
             var sum = GetEnteredSum();
             var notEnough = _totalSum - sum;
+
             if (notEnough == 0m)
                 EnableButton();
             else
@@ -212,6 +214,7 @@ namespace Test
         {
             var sum = GetEnteredSum();
             var notEnough = _totalSum - sum;
+
             if (notEnough == 0m)
                 EnableButton();
             else
@@ -222,6 +225,7 @@ namespace Test
         {
             var sum = GetEnteredSum();
             var notEnough = _totalSum - sum;
+
             if (notEnough == 0m)
                 EnableButton();
             else
@@ -233,6 +237,7 @@ namespace Test
             decimal result;
 
             var parcingString = _enteredSumEditText.Text.Replace(".", ",");
+
             if (decimal.TryParse(parcingString, out result))
                 return result;
 
@@ -243,14 +248,14 @@ namespace Test
         {
             if (isVisible)
             {
-                ((HorizontalLine) GetControl("6f931069b5624ed19fc1e705cc0a71b9", true)).Visible = false;
-                ((HorizontalLayout) GetControl("0f36a14440114070a5dd337601396244", true)).Visible = false;
+                ((HorizontalLine)GetControl("6f931069b5624ed19fc1e705cc0a71b9", true)).Visible = false;
+                ((HorizontalLayout)GetControl("0f36a14440114070a5dd337601396244", true)).Visible = false;
                 EnableButton();
             }
             else
             {
-                ((HorizontalLine) GetControl("6f931069b5624ed19fc1e705cc0a71b9", true)).Visible = true;
-                ((HorizontalLayout) GetControl("0f36a14440114070a5dd337601396244", true)).Visible = true;
+                ((HorizontalLine)GetControl("6f931069b5624ed19fc1e705cc0a71b9", true)).Visible = true;
+                ((HorizontalLayout)GetControl("0f36a14440114070a5dd337601396244", true)).Visible = true;
                 DisableButton();
             }
         }
@@ -259,7 +264,7 @@ namespace Test
         {
             _printImage.Source = ResourceManager.GetImage("printcheckscreen_white_printer");
             _punchButtonLayout.CssClass = "PrintCheckContainerActivate";
-            ((TextView) GetControl("c5e071d3b31b4133917ecfa793ef9614", true)).CssClass = "PunchActive";
+            ((TextView)GetControl("c5e071d3b31b4133917ecfa793ef9614", true)).CssClass = "PunchActive";
             _rootDockLayout.Refresh();
             _punchButtonLayout.OnClick += Print_OnClick;
         }
@@ -268,7 +273,7 @@ namespace Test
         {
             _printImage.Source = ResourceManager.GetImage("printcheckscreen_white_printer_diactivated");
             _punchButtonLayout.CssClass = "PrintCheckContainerDiactivate";
-            ((TextView) GetControl("c5e071d3b31b4133917ecfa793ef9614", true)).CssClass = "PunchDiactive";
+            ((TextView)GetControl("c5e071d3b31b4133917ecfa793ef9614", true)).CssClass = "PunchDiactive";
             _rootDockLayout.Refresh();
             _punchButtonLayout.OnClick -= Print_OnClick;
         }
@@ -276,6 +281,7 @@ namespace Test
         internal void Print_OnClick(object sender, EventArgs e)
         {
             _enteredSumEditText.Enabled = false;
+
             var checkParameters = new Event_EventFiskalProperties
             {
                 Id = DbRef.CreateInstance($"Document_{nameof(Event_EventFiskalProperties)}"
@@ -285,6 +291,7 @@ namespace Test
             };
 
             var checkError = false;
+
             try
             {
                 PrintCheck();
@@ -307,7 +314,6 @@ namespace Test
                 Utils.TraceMessage($"{exception.Message}{Environment.NewLine}" +
                                    $"Type {exception.GetType()}");
             }
-
 
             if (!checkError)
             {
@@ -339,7 +345,6 @@ namespace Test
             }
         }
 
-
         private void PrintCheck()
         {
             var query = DBHelper.GetCheckSKU(_eventId);
@@ -351,8 +356,8 @@ namespace Test
             while (query.Next())
             {
                 var name = $"{query["Description"]}";
-                var price = decimal.ToDouble((decimal) query["Price"]);
-                var quantity = decimal.ToDouble((decimal) query["AmountFact"]);
+                var price = decimal.ToDouble((decimal)query["Price"]);
+                var quantity = decimal.ToDouble((decimal)query["AmountFact"]);
                 var vat = int.Parse($"{query["VAT_Number"]}");
 
                 _fptr.RegistrationFz54(name, price, quantity,
@@ -365,7 +370,7 @@ namespace Test
         private void SaveFptrParameters(Event_EventFiskalProperties checkParameters)
         {
             checkParameters.NumberFtpr = _fptr.GetSerialNumber();
-            checkParameters.ShiftNumber = _fptr.GetSession();
+            checkParameters.ShiftNumber = _fptr.GetSession() + 1;
             checkParameters.CheckNumber = _fptr.GetCheckNumber();
             checkParameters.PaymentType = _choosedPaymentType;
             checkParameters.PaymentAmount = GetEnteredSum();
@@ -373,14 +378,14 @@ namespace Test
 
             Utils.TraceMessage($"{Parameters.Splitter}");
 
-//            var resultDateTime = _fptr.GetDate();
-//            var time = _fptr.GetTime();
-//            Utils.TraceMessage($"GetDate: {_fptr.GetDate()} GetTime: {_fptr.GetTime()}");
-//            resultDateTime = resultDateTime.AddHours(time.Hour);
-//            resultDateTime = resultDateTime.AddMinutes(time.Minute);
-//            resultDateTime = resultDateTime.AddSeconds(time.Second);
+            //            var resultDateTime = _fptr.GetDate();
+            //            var time = _fptr.GetTime();
+            //            Utils.TraceMessage($"GetDate: {_fptr.GetDate()} GetTime: {_fptr.GetTime()}");
+            //            resultDateTime = resultDateTime.AddHours(time.Hour);
+            //            resultDateTime = resultDateTime.AddMinutes(time.Minute);
+            //            resultDateTime = resultDateTime.AddSeconds(time.Second);
 
-//            checkParameters.Date = resultDateTime;
+            //            checkParameters.Date = resultDateTime;
 
             DBHelper.SaveEntity(checkParameters);
         }
