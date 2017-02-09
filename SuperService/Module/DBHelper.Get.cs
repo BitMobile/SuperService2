@@ -1,7 +1,10 @@
 ﻿using BitMobile.ClientModel3;
 using BitMobile.DbEngine;
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
+using BitMobile.Common.FiscalRegistrator;
+using Test.Catalog;
 using Test.Document;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
 
@@ -597,6 +600,82 @@ namespace Test
             return query.Execute();
         }
 
+        public static double GetCheckSKUSum(string eventId)
+        {
+            var query = new Query(@"select
+                                      SUM(DESM.SumFact)
+                                  from
+                                      Document_Event_ServicesMaterials AS DESM
+                                   where
+                                   (DESM.AmountFact != 0 or DESM.AmountPlan != 0) AND DESM.Ref = @eventId");
+            query.AddParameter("eventId", eventId);
+            return (double)query.ExecuteScalar();
+        }
+
+        public static DbRecordset GetCheckSKU(string eventId)
+        {
+
+            var query = new Query("select " +
+                                  "    DESM.Id," +
+                                  "    DESM.SKU," +
+                                  "    DESM.Price," +
+                                  "    DESM.AmountPlan," +
+                                  "    DESM.AmountFact," +
+                                  "    DESM.SumFact," +
+                                  "    CR.Description," +
+                                  "    CR.Code," +
+                                  "    CR.Unit," +
+                                  "    CR.VAT," +
+                                  "    EVAT.Description AS VAT_Number " +
+                                  " from " +
+                                  "    Document_Event_ServicesMaterials AS DESM " +
+                                  "    join Catalog_RIM AS CR" +
+                                  "        on DESM.SKU = CR.Id " +
+                                  "    join Enum_VATS AS EVAT " +
+                                  "       on EVAT.Id = CR.VAT " +
+                                  " where " +
+                                  " (DESM.AmountFact != 0 or DESM.AmountPlan != 0) and" +
+                                  "    DESM.Ref = @eventId");
+            query.AddParameter("eventId", eventId);
+            return query.Execute();
+        }
+
+        public static bool CheckFiscalEvent(string eventId)
+        {
+            var query = new Query(@"SELECT
+                                      ID,
+                                      Date,
+                                      CheckNumber,
+                                      ShiftNumber,
+                                      NumberFtpr
+                                    FROM _Document_Event_EventFiskalProperties
+                                    WHERE Ref = @eventId
+                                          AND NOT (Date IS NULL 
+                                                    AND CheckNumber IS NULL
+                                                    AND ShiftNumber IS NULL
+                                                    AND NumberFtpr IS NULL)");
+            query.AddParameter("eventId", eventId);
+            Utils.TraceMessage(eventId);
+            return query.ExecuteCount() != 0;
+        }
+        public static DbRecordset GetFiscalEvent(string eventId)
+        {
+            var query = new Query(@"SELECT
+                                      ID,
+                                      strftime('%d-%m-%Y  %H:%M', Date) AS Date,
+                                      CheckNumber,
+                                      ShiftNumber,
+                                      NumberFtpr
+                                    FROM _Document_Event_EventFiskalProperties
+                                    WHERE Ref = @eventId
+                                          AND NOT (Date IS NULL 
+                                                    AND CheckNumber IS NULL
+                                                    AND ShiftNumber IS NULL
+                                                    AND NumberFtpr IS NULL)");
+            query.AddParameter("eventId", eventId);
+            Utils.TraceMessage(eventId);
+            return query.Execute();
+        }
         /// <summary>
         ///     Возвращает информацию по материалам
         /// </summary>
@@ -625,6 +704,44 @@ namespace Test
                                   " (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and" +
                                   "    Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
+            return query.Execute();
+        }
+
+        public static DbRecordset GetCheckByIdEvent(string eventId)
+        {
+            // TODO: Написать запрос
+
+            var query = new Query("select " +
+                                  "    Document_Event_ServicesMaterials.Id," +
+                                  "    Document_Event_ServicesMaterials.SKU," +
+                                  "    Document_Event_ServicesMaterials.Price," +
+                                  "    AmountPlan," +
+                                  "    SumPlan," +
+                                  "    AmountFact," +
+                                  "    SumFact," +
+                                  "    Description," +
+                                  "    Code," +
+                                  "    Unit " +
+                                  "from" +
+                                  "    Document_Event_ServicesMaterials " +
+                                  "    join Catalog_RIM " +
+                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  " where " +
+                                  " (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and" +
+                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+            query.AddParameter("eventId", eventId);
+//            var queryResult = query.Execute();
+//            while (queryResult.Next())
+//            {
+//                ResultList.Add(new CheckItem
+//                {
+//                    Name = (string)queryResult["Description"],
+//                    Price =  double.Parse(queryResult["Price"].ToString()),
+//                    Quantity = double.Parse(queryResult["AmountFact"].ToString())
+//                    });
+//            }
+
+
             return query.Execute();
         }
 
@@ -1338,6 +1455,40 @@ namespace Test
             query.AddParameter("optionId", optionId);
 
             return query.Execute();
+        }
+        public static bool CheckRole(string webActionName)
+        {
+            var RecSetUser = GetUserInfoByUserName(Settings.User);
+            var role = (((User)((DbRef)RecSetUser["Id"])?.GetObject())?.Role);
+            var queryString = @"Select CR.Id,CR.Description, EW.Name
+                            from Catalog_Roles as CR
+                            Left Join Catalog_RoleWebactions as CRW
+                            On CR.Id = CRW.Role
+                            Left Join Enum_Webactions as EW
+                            On EW.Id = CRW.WebAction
+                            Where CR.Id = @RoleId And EW.Name = @WebActionRoleName ";
+            var query = new Query(queryString);
+            query.AddParameter("RoleId", $"{role}");
+            query.AddParameter("WebActionRoleName", webActionName);
+            int count = query.ExecuteCount();
+            if (count > 0) return true;
+            return false;
+        }
+
+        public static bool CheckFtprAcsess()
+        {
+           
+            
+            if (Settings.EnableFPTR)
+            {
+                Utils.TraceMessage($"{Settings.EnableFPTR}");
+                if (CheckRole("MobileFPRAccess"))
+                {
+                    Utils.TraceMessage($"{CheckRole("MobileFPRAccess")}");
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

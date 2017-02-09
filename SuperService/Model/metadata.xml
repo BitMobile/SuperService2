@@ -1,225 +1,245 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration Name="SuperService" Version="1.3.1.327">
-	<GlobalParameters/>
-	<Entities>
-		<Entity Name="TypesDataParameters" Schema="Enum">
-			<Fields>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Length="100" Name="Name" Type="String"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-			</Fields>
-		</Entity>
-		<Entity Name="StatusEquipment" Schema="Enum">
-			<Fields>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Length="100" Name="Name" Type="String"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-			</Fields>
-		</Entity>
-		<Entity Name="CheckListStatus" Schema="Enum">
-			<Fields>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Length="100" Name="Name" Type="String"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-			</Fields>
-		</Entity>
-		<Entity Name="TypesEvents" Schema="Enum">
-			<Fields>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Length="100" Name="Name" Type="String"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-			</Fields>
-		</Entity>
-		<Entity Name="StatsNeedNum" Schema="Enum">
-			<Fields>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Length="100" Name="Name" Type="String"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-			</Fields>
-		</Entity>
-		<Entity Name="StatusyEvents" Schema="Enum">
-			<Fields>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Length="100" Name="Name" Type="String"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-			</Fields>
-		</Entity>
-		<Entity Name="ResultEvent" Schema="Enum">
-			<Fields>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Length="100" Name="Name" Type="String"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-			</Fields>
-		</Entity>
-		<Entity Name="StatusImportance" Schema="Enum">
-			<Fields>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Length="100" Name="Name" Type="String"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-			</Fields>
-		</Entity>
-		<Entity Name="StatusTasks" Schema="Enum">
-			<Fields>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Length="100" Name="Name" Type="String"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-			</Fields>
-		</Entity>
-		<Entity Name="FoReminders" Schema="Enum">
-			<Fields>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Length="100" Name="Name" Type="String"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-			</Fields>
-		</Entity>
-		<Entity Name="Webactions" Schema="Enum">
-			<Fields>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Length="100" Name="Name" Type="String"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-			</Fields>
-			<TabularSections/>
-		</Entity>
-		<Entity DeleteFilter="" Name="TypesDepartures" Schema="Catalog" SyncDownload="False" SyncFilter="" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="true" Length="9" Name="Code" Type="String"/>
-			</Fields>
-			<TabularSections/>
-		</Entity>
-		<Entity Name="RIM" Schema="Catalog" SyncDownload="True" DeleteFilter="" SyncFilter="" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="true" Name="IsFolder" Type="Boolean"/>
-				<Field AllowNull="true" Name="Parent" Type="Catalog.RIM"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="true" Length="9" Name="Code" Type="String"/>
-				<Field AllowNull="true" Name="Price" Precision="15" Scale="2" Type="Decimal"/>
-				<Field AllowNull="true" Name="Service" Type="Boolean"/>
-				<Field AllowNull="true" Name="SKU" Type="Catalog.SKU"/>
-				<Field AllowNull="true" Length="5" Name="Unit" Type="String"/>
-			</Fields>
-			<TabularSections/>
-		</Entity>
-		<Entity Name="Reminder" Schema="Document" SyncDownload="True" DeleteFilter="" SyncFilter="" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Posted" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="false" Name="Date" Type="DateTime2"/>
-				<Field AllowNull="true" Length="9" Name="Number" Type="String"/>
-				<Field AllowNull="true" Name="Reminders" Type="Document.Event"/>
-				<Field AllowNull="true" Name="ViewReminder" Type="Enum.FoReminders"/>
-				<Field AllowNull="true" Length="1000" Name="Comment" Type="String"/>
-			</Fields>
-			<TabularSections>
-				<TabularSection Key="IDPhoto" Name="Photo" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Name="IDPhoto" Type="Guid"/>
-				</TabularSection>
-			</TabularSections>
-		</Entity>
-		<Entity Name="Event" Schema="Document" SyncDownload="True" DeleteFilter="" SyncFilter="t.[Id] IN(SELECT EV.[Id] FROM [Document].[Event] EV JOIN [Enum].[StatusyEvents] SE ON EV.[Status] = SE.[Id] WHERE EV.[UserMA] = @UserId AND EV.[StartDatePlan] &gt;(getDate() - 31) AND NOT (SE.[Name] = 'Done')) " SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Posted" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="false" Name="Date" Type="DateTime2"/>
-				<Field AllowNull="true" Length="9" Name="Number" Type="String"/>
-				<Field Length="500" Name="ApplicationJustification" Type="String"/>
-				<Field AllowNull="false" Name="Client" Type="Catalog.Client"/>
-				<Field Length="500" Name="DivisionSource" Type="String"/>
-				<Field AllowNull="true" Name="KindEvent" Type="Enum.TypesEvents"/>
-				<Field AllowNull="true" Name="AnySale" Type="Boolean"/>
-				<Field AllowNull="true" Name="AnyProblem" Type="Boolean"/>
-				<Field AllowNull="true" Name="StartDatePlan" Type="DateTime2"/>
-				<Field AllowNull="true" Name="EndDatePlan" Type="DateTime2"/>
-				<Field AllowNull="true" Name="ActualStartDate" Type="DateTime2"/>
-				<Field AllowNull="true" Name="ActualEndDate" Type="DateTime2"/>
-				<Field AllowNull="true" Name="Author" Type="Catalog.User"/>
-				<Field AllowNull="true" Name="UserMA" Type="Catalog.User"/>
-				<Field AllowNull="true" Length="1000" Name="Comment" Type="String"/>
-				<Field AllowNull="true" Length="1000" Name="DetailedDescription" Type="String"/>
-				<Field AllowNull="true" Length="1000" Name="CommentContractor" Type="String"/>
-				<Field AllowNull="true" Length="100" Name="TargInteractions" Type="String"/>
-				<Field AllowNull="true" Length="100" Name="ResultInteractions" Type="String"/>
-				<Field AllowNull="true" Name="Status" Type="Enum.StatusyEvents"/>
-				<Field AllowNull="true" Name="Latitude" Precision="12" Scale="8" Type="Decimal"/>
-				<Field AllowNull="true" Name="Longitude" Precision="12" Scale="8" Type="Decimal"/>
-				<Field AllowNull="true" Name="GPSTime" Type="DateTime2"/>
-				<Field AllowNull="true" Name="ContactVisiting" Type="Catalog.Contacts"/>
-				<Field AllowNull="true" Name="TypesDepartures" Type="Catalog.TypesDepartures"/>
-				<Field AllowNull="false" Name="Importance" Type="Enum.StatusImportance"/>
-			</Fields>
-			<TabularSections>
-				<TabularSection Key="FullFileName,FileName" Name="Files" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="true" Length="1000" Name="FullFileName" Type="String"/>
-					<Field AllowNull="true" Name="FileName" Type="Guid"/>
-				</TabularSection>
-				<TabularSection Key="Equipment,SID" Name="Equipments" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="false" Name="Equipment" Type="Catalog.Equipment"/>
-					<Field AllowNull="true" Length="1000" Name="Terget" Type="String"/>
-					<Field AllowNull="true" Name="Result" Type="Enum.ResultEvent"/>
-					<Field AllowNull="true" Length="1000" Name="Comment" Type="String"/>
-					<Field AllowNull="true" Name="SID" Type="Guid"/>
-				</TabularSection>
-				<TabularSection Key="UIDPhoto" Name="Photos" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Name="UIDPhoto" Type="Guid"/>
-					<Field AllowNull="true" Name="Equipment" Type="Catalog.Equipment"/>
-				</TabularSection>
-				<TabularSection Key="Parameter" Name="Parameters" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Name="Parameter" Type="Catalog.EventOptions"/>
-					<Field AllowNull="true" Length="100" Name="Val" Type="String"/>
-				</TabularSection>
-				<TabularSection Key="Action,CheckListRef" Name="CheckList" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Name="Action" Type="Catalog.Actions"/>
-					<Field AllowNull="true" Name="CheckListRef" Type="Document.CheckList"/>
-					<Field AllowNull="true" Length="1000" Name="Result" Type="String"/>
-					<Field AllowNull="true" Name="ActionType" Type="Enum.TypesDataParameters"/>
-					<Field AllowNull="true" Name="Required" Type="Boolean"/>
-				</TabularSection>
-				<TabularSection Key="TypeDeparture" Name="TypeDepartures" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Name="TypeDeparture" Type="Catalog.TypesDepartures"/>
-					<Field AllowNull="true" Name="Active" Type="Boolean"/>
-				</TabularSection>
-				<TabularSection Key="SKU" Name="ServicesMaterials" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Name="SKU" Type="Catalog.RIM"/>
-					<Field AllowNull="true" Name="Price" Precision="15" Scale="2" Type="Decimal"/>
-					<Field AllowNull="true" Name="AmountPlan" Precision="10" Scale="3" Type="Decimal"/>
-					<Field AllowNull="true" Name="SumPlan" Precision="15" Scale="2" Type="Decimal"/>
-					<Field AllowNull="true" Name="AmountFact" Precision="10" Scale="3" Type="Decimal"/>
-					<Field AllowNull="true" Name="SumFact" Precision="15" Scale="2" Type="Decimal"/>
-				</TabularSection>
-			</TabularSections>
-		</Entity>
+  <GlobalParameters/>
+  <Entities>
+    <Entity Name="VATS" Schema="Enum">
+      <Fields>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Length="100" Name="Name" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+      </Fields>
+    </Entity>
+    <Entity Name="TypesDataParameters" Schema="Enum">
+      <Fields>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Length="100" Name="Name" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+      </Fields>
+    </Entity>
+    <Entity Name="StatusEquipment" Schema="Enum">
+      <Fields>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Length="100" Name="Name" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+      </Fields>
+    </Entity>
+    <Entity Name="CheckListStatus" Schema="Enum">
+      <Fields>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Length="100" Name="Name" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+      </Fields>
+    </Entity>
+    <Entity Name="TypesEvents" Schema="Enum">
+      <Fields>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Length="100" Name="Name" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+      </Fields>
+    </Entity>
+    <Entity Name="StatsNeedNum" Schema="Enum">
+      <Fields>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Length="100" Name="Name" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+      </Fields>
+    </Entity>
+    <Entity Name="StatusyEvents" Schema="Enum">
+      <Fields>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Length="100" Name="Name" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+      </Fields>
+    </Entity>
+    <Entity Name="ResultEvent" Schema="Enum">
+      <Fields>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Length="100" Name="Name" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+      </Fields>
+    </Entity>
+    <Entity Name="StatusImportance" Schema="Enum">
+      <Fields>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Length="100" Name="Name" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+      </Fields>
+    </Entity>
+    <Entity Name="StatusTasks" Schema="Enum">
+      <Fields>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Length="100" Name="Name" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+      </Fields>
+    </Entity>
+    <Entity Name="FoReminders" Schema="Enum">
+      <Fields>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Length="100" Name="Name" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+      </Fields>
+    </Entity>
+    <Entity Name="Webactions" Schema="Enum">
+      <Fields>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Length="100" Name="Name" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+      </Fields>
+      <TabularSections/>
+    </Entity>
+    <Entity DeleteFilter="" Name="TypesDepartures" Schema="Catalog" SyncDownload="False" SyncFilter="" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Predefined" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="true" Length="9" Name="Code" Type="String"/>
+      </Fields>
+      <TabularSections/>
+    </Entity>
+    <Entity Name="RIM" Schema="Catalog" SyncDownload="True" DeleteFilter="" SyncFilter="" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Predefined" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="true" Name="IsFolder" Type="Boolean"/>
+        <Field AllowNull="true" Name="Parent" Type="Catalog.RIM"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="true" Length="9" Name="Code" Type="String"/>
+        <Field AllowNull="true" Name="Price" Precision="15" Scale="2" Type="Decimal"/>
+        <Field AllowNull="true" Name="Service" Type="Boolean"/>
+        <Field AllowNull="true" Name="SKU" Type="Catalog.SKU"/>
+        <Field AllowNull="true" Length="5" Name="Unit" Type="String"/>
+        <Field AllowNull="true" Length="5" Name="VAT" Type="Enum.VATS"/>
+      </Fields>
+      <TabularSections/>
+    </Entity>
+    <Entity Name="Reminder" Schema="Document" SyncDownload="True" DeleteFilter="" SyncFilter="" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Posted" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Name="Date" Type="DateTime2"/>
+        <Field AllowNull="true" Length="9" Name="Number" Type="String"/>
+        <Field AllowNull="true" Name="Reminders" Type="Document.Event"/>
+        <Field AllowNull="true" Name="ViewReminder" Type="Enum.FoReminders"/>
+        <Field AllowNull="true" Length="1000" Name="Comment" Type="String"/>
+      </Fields>
+      <TabularSections>
+        <TabularSection Key="IDPhoto" Name="Photo" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Name="IDPhoto" Type="Guid"/>
+        </TabularSection>
+      </TabularSections>
+    </Entity>
+    <Entity Name="Event" Schema="Document" SyncDownload="True" DeleteFilter="" SyncFilter="t.[Id] IN(SELECT DISTINCT EV.[Id] FROM [Document].[Event] EV JOIN [Enum].[StatusyEvents] SE ON EV.[Status] = SE.[Id] LEFT JOIN [Document].[EventHistory] EH ON EH.Event = EV.Id WHERE (EV.[UserMA] = @UserId OR (EH.UserMA = @UserId AND EH.Date &gt;(getDate()-30))) AND EV.[StartDatePlan] &gt;(getDate() - 31) AND (NOT (SE.[Name] = 'New')) AND (NOT (SE.[Name] = 'Done' OR SE.[Name] = 'Cancel' OR SE.[Name] = 'DoneWithTrouble' OR SE.[Name] = 'Close' OR SE.[Name] = 'NotDone' OR SE.[Name] = 'OnTheApprovalOf') OR ((SE.[Name] = 'Done' OR SE.[Name] = 'Cancel' OR SE.[Name] = 'DoneWithTrouble' OR SE.[Name] = 'Close' OR SE.[Name] = 'NotDone' OR SE.[Name] = 'OnTheApprovalOf') AND EV.[ActualEndDate] &gt;(getDate() - 1)))) " SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Posted" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Name="Date" Type="DateTime2"/>
+        <Field AllowNull="true" Length="9" Name="Number" Type="String"/>
+        <Field Length="500" Name="ApplicationJustification" Type="String"/>
+        <Field AllowNull="false" Name="Client" Type="Catalog.Client"/>
+        <Field Length="500" Name="DivisionSource" Type="String"/>
+        <Field AllowNull="true" Name="KindEvent" Type="Enum.TypesEvents"/>
+        <Field AllowNull="true" Name="AnySale" Type="Boolean"/>
+        <Field AllowNull="true" Name="AnyProblem" Type="Boolean"/>
+        <Field AllowNull="true" Name="StartDatePlan" Type="DateTime2"/>
+        <Field AllowNull="true" Name="EndDatePlan" Type="DateTime2"/>
+        <Field AllowNull="true" Name="ActualStartDate" Type="DateTime2"/>
+        <Field AllowNull="true" Name="ActualEndDate" Type="DateTime2"/>
+        <Field AllowNull="true" Name="Author" Type="Catalog.User"/>
+        <Field AllowNull="true" Name="UserMA" Type="Catalog.User"/>
+        <Field AllowNull="true" Length="1000" Name="Comment" Type="String"/>
+        <Field AllowNull="true" Length="1000" Name="DetailedDescription" Type="String"/>
+        <Field AllowNull="true" Length="1000" Name="CommentContractor" Type="String"/>
+        <Field AllowNull="true" Length="100" Name="TargInteractions" Type="String"/>
+        <Field AllowNull="true" Length="100" Name="ResultInteractions" Type="String"/>
+        <Field AllowNull="true" Name="Status" Type="Enum.StatusyEvents"/>
+        <Field AllowNull="true" Name="Latitude" Precision="12" Scale="8" Type="Decimal"/>
+        <Field AllowNull="true" Name="Longitude" Precision="12" Scale="8" Type="Decimal"/>
+        <Field AllowNull="true" Name="GPSTime" Type="DateTime2"/>
+        <Field AllowNull="true" Name="ContactVisiting" Type="Catalog.Contacts"/>
+        <Field AllowNull="true" Name="TypesDepartures" Type="Catalog.TypesDepartures"/>
+        <Field AllowNull="false" Name="Importance" Type="Enum.StatusImportance"/>
+      </Fields>
+      <TabularSections>
+        <TabularSection Key="FullFileName,FileName" Name="Files" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="true" Length="1000" Name="FullFileName" Type="String"/>
+          <Field AllowNull="true" Name="FileName" Type="Guid"/>
+        </TabularSection>
+        <TabularSection Key="Equipment,SID" Name="Equipments" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="false" Name="Equipment" Type="Catalog.Equipment"/>
+          <Field AllowNull="true" Length="1000" Name="Terget" Type="String"/>
+          <Field AllowNull="true" Name="Result" Type="Enum.ResultEvent"/>
+          <Field AllowNull="true" Length="1000" Name="Comment" Type="String"/>
+          <Field AllowNull="true" Name="SID" Type="Guid"/>
+        </TabularSection>
+        <TabularSection Key="UIDPhoto" Name="Photos" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Name="UIDPhoto" Type="Guid"/>
+          <Field AllowNull="true" Name="Equipment" Type="Catalog.Equipment"/>
+        </TabularSection>
+        <TabularSection Key="Parameter" Name="Parameters" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Name="Parameter" Type="Catalog.EventOptions"/>
+          <Field AllowNull="true" Length="100" Name="Val" Type="String"/>
+        </TabularSection>
+        <TabularSection Key="Action,CheckListRef" Name="CheckList" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Name="Action" Type="Catalog.Actions"/>
+          <Field AllowNull="true" Name="CheckListRef" Type="Document.CheckList"/>
+          <Field AllowNull="true" Length="1000" Name="Result" Type="String"/>
+          <Field AllowNull="true" Name="ActionType" Type="Enum.TypesDataParameters"/>
+          <Field AllowNull="true" Name="Required" Type="Boolean"/>
+        </TabularSection>
+        <TabularSection Key="TypeDeparture" Name="TypeDepartures" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Name="TypeDeparture" Type="Catalog.TypesDepartures"/>
+          <Field AllowNull="true" Name="Active" Type="Boolean"/>
+        </TabularSection>
+        <TabularSection Key="SKU" Name="ServicesMaterials" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Name="SKU" Type="Catalog.RIM"/>
+          <Field AllowNull="true" Name="Price" Precision="15" Scale="2" Type="Decimal"/>
+          <Field AllowNull="true" Name="AmountPlan" Precision="10" Scale="3" Type="Decimal"/>
+          <Field AllowNull="true" Name="SumPlan" Precision="15" Scale="2" Type="Decimal"/>
+          <Field AllowNull="true" Name="AmountFact" Precision="10" Scale="3" Type="Decimal"/>
+          <Field AllowNull="true" Name="SumFact" Precision="15" Scale="2" Type="Decimal"/>
+        </TabularSection>
+        <TabularSection Key="User" Name="EventFiskalProperties" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field KeyField="false"  Name="CheckNumber" Type="Integer" />
+          <Field AllowNull="true" Name="Date" Type="DateTime2" />
+          <Field AllowNull="true" Name="ShiftNumber" Type="Integer" />
+          <Field AllowNull="true" Length="100" Name="NumberFtpr" Type="String" />
+          <Field AllowNull="true" Name="PaymentType" Type="Integer" />
+          <Field AllowNull="true" Name="PaymentAmount" Precision="15" Scale="2" Type="Decimal" />
+          <Field AllowNull="true" Name="User" Type="Catalog.User" />
+        </TabularSection>
+      </TabularSections>
+    </Entity>
     <Entity Name="EventHistory" Schema="Document" SyncDownload="True" DeleteFilter="" SyncFilter="" SyncUpload="True">
       <Fields>
         <Field KeyField="true" Name="Id" Type="Guid" />
@@ -232,465 +252,472 @@
       </Fields>
       <TabularSections />
     </Entity>
-		<Entity Name="SKU" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="t.Id IN (SELECT DE.SKU FROM [Document].[Event_ServicesMaterials] DE WHERE DE.Ref IN (SELECT SE.Id FROM [Document].[Event] SE WHERE SE.UserMA = @UserId))" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="true" Name="IsFolder" Type="Boolean"/>
-				<Field AllowNull="true" Name="Parent" Type="Catalog.SKU"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="true" Length="9" Name="Code" Type="String"/>
-			</Fields>
-			<TabularSections/>
-		</Entity>
-		<Entity Name="ServiceAgreement" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="t.Id IN (SELECT SE.CantractService FROM [Catalog].[Equipment_Equipments] SE WHERE SE.Clients IN (SELECT DE.Client FROM [Document].[Event] DE WHERE DE.UserMA = @UserId))" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="true" Length="9" Name="Code" Type="String"/>
-				<Field AllowNull="true" Name="Client" Type="Catalog.Client"/>
-				<Field Length="500" Name="Organization" Type="String"/>
-				<Field AllowNull="true" Name="DateStart" Type="DateTime2"/>
-				<Field AllowNull="true" Name="DateEnd" Type="DateTime2"/>
-			</Fields>
-			<TabularSections/>
-		</Entity>
-		<Entity Name="EquipmentOptions" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="true" Length="9" Name="Code" Type="String"/>
-				<Field AllowNull="false" Name="DataTypeParameter" Type="Enum.TypesDataParameters"/>
-				<Field AllowNull="true" Name="DisplayingBMA" Type="Boolean"/>
-				<Field AllowNull="true" Name="EditingBMA" Type="Boolean"/>
-			</Fields>
-			<TabularSections>
-				<TabularSection Key="Val" Name="ListValues" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Length="100" Name="Val" Type="String"/>
-				</TabularSection>
-			</TabularSections>
-		</Entity>
-		<Entity Name="Equipment" Schema="Catalog" SyncDownload="True" DeleteFilter="" SyncFilter="t.Id IN (SELECT DE.Equipment FROM [Catalog].[Equipment_Equipments] DE WHERE DE.Clients IN (SELECT SE.Client FROM [Document].[Event] SE WHERE SE.UserMA = @UserId))" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="true" Length="9" Name="Code" Type="String"/>
-				<Field AllowNull="true" Name="SKU" Type="Catalog.SKU"/>
-			</Fields>
-			<TabularSections>
-				<TabularSection Key="Period,Clients,Equipment" Name="Equipments" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="true" Name="Period" Type="DateTime2"/>
-					<Field AllowNull="true" Name="Clients" Type="Catalog.Client"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Name="StatusEquipment" Type="Enum.StatusEquipment"/>
-					<Field AllowNull="true" Name="ContractSale" Type="Catalog.ServiceAgreement"/>
-					<Field AllowNull="true" Name="CantractService" Type="Catalog.ServiceAgreement"/>
-					<Field AllowNull="true" Length="100" Name="ContactForEquipment" Type="String"/>
-					<Field AllowNull="true" Length="1000" Name="Info" Type="String"/>
-					<Field AllowNull="true" Name="Equipment" Type="Catalog.Equipment"/>
-				</TabularSection>
-				<TabularSection Key="Period,Client,Equipments" Name="EquipmentsHistory" DeleteFilter="" SyncFilter="T.[Period] &gt;(SELECT CASE WHEN LogicValue = 1         THEN CASE WHEN NumericValue = 0            THEN CAST('1980-01-01 00:00:00' as date)            ELSE (getDate() - NumericValue)            END         ELSE CAST('2100-01-01 00:00:00' as date)          END             FROM [Catalog].[SettingMobileApplication]       WHERE [Description] = 'HistoryLength')">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="true" Name="Period" Type="DateTime2"/>
-					<Field AllowNull="true" Name="Client" Type="Catalog.Client"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Name="Equipments" Type="Catalog.Equipment"/>
-					<Field AllowNull="true" Length="100" Name="Target" Type="String"/>
-					<Field AllowNull="true" Name="Result" Type="Enum.ResultEvent"/>
-					<Field AllowNull="true" Length="1000" Name="ObjectGet" Type="String"/>
-					<Field AllowNull="true" Length="1000" Name="Comment" Type="String"/>
-					<Field AllowNull="true" Name="Executor" Type="Catalog.User"/>
-				</TabularSection>
-				<TabularSection Key="FullFileName,FileName" Name="Files" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="true" Length="1000" Name="FullFileName" Type="String"/>
-					<Field AllowNull="true" Name="FileName" Type="Guid"/>
-				</TabularSection>
-				<TabularSection Key="Parameter" Name="Parameters" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Name="Parameter" Type="Catalog.EquipmentOptions"/>
-					<Field AllowNull="true" Length="100" Name="Val" Type="String"/>
-				</TabularSection>
-			</TabularSections>
-		</Entity>
-		<Entity Name="Client" Schema="Catalog" SyncDownload="True" DeleteFilter="" SyncFilter="t.Id IN (SELECT DE.Client FROM [Document].[Event] DE WHERE DE.UserMA = @UserId)" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="true" Length="9" Name="Code" Type="String"/>
-				<Field AllowNull="true" Name="Latitude" Precision="12" Scale="8" Type="Decimal"/>
-				<Field AllowNull="true" Name="Longitude" Precision="12" Scale="8" Type="Decimal"/>
-				<Field AllowNull="true" Length="1000" Name="Address" Type="String"/>
-				<Field AllowNull="true" Name="Contractor" Type="Catalog.Accounts"/>
-			</Fields>
-			<TabularSections>
-				<TabularSection Key="FullFileName,FileName" Name="Files" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="true" Length="1000" Name="FullFileName" Type="String"/>
-					<Field AllowNull="true" Name="FileName" Type="Guid"/>
-				</TabularSection>
-				<TabularSection Key="Contact" Name="Contacts" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="false" Name="Contact" Type="Catalog.Contacts"/>
-					<Field AllowNull="true" Name="Actual" Type="Boolean"/>
-				</TabularSection>
-				<TabularSection Key="Parameter" Name="Parameters" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Name="Parameter" Type="Catalog.ClientOptions"/>
-					<Field AllowNull="true" Length="100" Name="Val" Type="String"/>
-				</TabularSection>
-			</TabularSections>
-		</Entity>
-		<Entity Name="SettingMobileApplication" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="true" Length="9" Name="Code" Type="String"/>
-				<Field AllowNull="true" Name="DataType" Type="Enum.TypesDataParameters"/>
-				<Field AllowNull="true" Name="LogicValue" Type="Boolean"/>
-				<Field AllowNull="true" Name="NumericValue" Type="Integer"/>
-			</Fields>
-			<TabularSections/>
-		</Entity>
-		<Entity Name="User" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="t.[Id] = @UserId OR t.[Id] IN (SELECT Executor FROM [Catalog].[Equipment_EquipmentsHistory] WHERE Equipments IN ( SELECT DE.Equipment FROM [Catalog].[Equipment_Equipments] DE WHERE DE.Clients IN (SELECT SE.Client FROM [Document].[Event] SE WHERE SE.UserMA = @UserId))) OR t.[Id] IN (SELECT [Author] FROM [Document].[Event] WHERE [UserMA] = @UserId)" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="true" Length="9" Name="Code" Type="String"/>
-				<Field AllowNull="false" Length="100" Name="UserName" Type="String"/>
-				<Field AllowNull="false" Length="100" Name="Password" Type="String"/>
-				<Field Length="500" Name="UserDB" Type="String"/>
-				<Field AllowNull="true" Length="100" Name="EMail" Type="String"/>
-				<Field AllowNull="true" Name="UserID" Type="Guid"/>
-				<Field AllowNull="true" Length="100" Name="Phone" Type="String"/>
-				<Field AllowNull="false" Name="Role" Type="Catalog.Roles"/>
-				<Field Length="5" Name="Language" Type="String"/>
-				<Field Length="128" Name="AspNetUserID" Type="String"/>
-			</Fields>
-			<TabularSections>
-				<TabularSection Key="Materials" Name="Bag" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="Materials" Type="Catalog.RIM"/>
-					<Field AllowNull="true" Name="Count" Precision="38" Scale="3" Type="Decimal"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-				</TabularSection>
-				<TabularSection Key="Materials" Name="RemainsNorms" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="Materials" Type="Catalog.RIM"/>
-					<Field AllowNull="true" Name="Count" Precision="15" Scale="3" Type="Decimal"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-				</TabularSection>
-			</TabularSections>
-		</Entity>
-		<Entity Name="Accounts" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="true" Name="IsFolder" Type="Boolean"/>
-				<Field AllowNull="true" Name="Parent" Type="Catalog.Accounts"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="true" Length="9" Name="Code" Type="String"/>
-			</Fields>
-			<TabularSections/>
-		</Entity>
-		<Entity Name="ClientOptions" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="true" Length="9" Name="Code" Type="String"/>
-				<Field AllowNull="false" Name="DataTypeParameter" Type="Enum.TypesDataParameters"/>
-				<Field AllowNull="true" Name="DisplayingBMA" Type="Boolean"/>
-				<Field AllowNull="true" Name="EditingBMA" Type="Boolean"/>
-			</Fields>
-			<TabularSections>
-				<TabularSection Key="Val" Name="ListValues" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Length="100" Name="Val" Type="String"/>
-				</TabularSection>
-			</TabularSections>
-		</Entity>
-		<Entity Name="EventOptions" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="true" Length="9" Name="Code" Type="String"/>
-				<Field AllowNull="false" Name="DataTypeParameter" Type="Enum.TypesDataParameters"/>
-				<Field AllowNull="true" Name="DisplayingBMA" Type="Boolean"/>
-				<Field AllowNull="true" Name="EditingBMA" Type="Boolean"/>
-			</Fields>
-			<TabularSections>
-				<TabularSection Key="Val" Name="ListValues" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Length="100" Name="Val" Type="String"/>
-				</TabularSection>
-			</TabularSections>
-		</Entity>
-		<Entity Name="CheckList" Schema="Document" SyncDownload="False" DeleteFilter="" SyncFilter="t.Id IN (SELECT DEC.[CheckListRef] FROM [Document].[Event_CheckList] DEC LEFT JOIN [Document].[Event] DE ON DEC.Ref = DE.Id WHERE DE.[UserMA] = @UserId)" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Posted" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="false" Name="Date" Type="DateTime2"/>
-				<Field AllowNull="true" Length="9" Name="Number" Type="String"/>
-				<Field AllowNull="true" Length="100" Name="Description" Type="String"/>
-				<Field Length="500" Name="Project" Type="String"/>
-				<Field AllowNull="true" Name="Status" Type="Enum.CheckListStatus"/>
-			</Fields>
-			<TabularSections>
-				<TabularSection Key="Action" Name="Actions" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Name="Action" Type="Catalog.Actions"/>
-					<Field AllowNull="true" Name="Required" Type="Boolean"/>
-				</TabularSection>
-			</TabularSections>
-		</Entity>
-		<Entity Name="Actions" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="t.Id IN (SELECT DEC.Action FROM [Document].[Event_CheckList] DEC LEFT JOIN [Document].[Event] DE ON DEC.Ref = DE.Id WHERE DE.[UserMA] = @UserId)" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="true" Length="9" Name="Code" Type="String"/>
-				<Field AllowNull="false" Name="ActionType" Type="Enum.TypesDataParameters"/>
-			</Fields>
-			<TabularSections>
-				<TabularSection Key="Val" Name="ValueList" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Length="100" Name="Val" Type="String"/>
-				</TabularSection>
-			</TabularSections>
-		</Entity>
-		<Entity Name="Contacts" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Predefined" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="true" Length="9" Name="Code" Type="String"/>
-				<Field AllowNull="true" Length="100" Name="Position" Type="String"/>
-				<Field AllowNull="true" Length="100" Name="Tel" Type="String"/>
-				<Field AllowNull="true" Length="100" Name="EMail" Type="String"/>
-			</Fields>
-			<TabularSections/>
-		</Entity> 
-		<Entity Name="NeedMat" Schema="Document" SyncDownload="True" DeleteFilter="" SyncFilter="t.[SR] = @UserId" SyncUpload="True">
-			<Fields>
-				<Field AllowNull="true" Name="Posted" Type="Boolean"/>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="false" Name="Date" Type="DateTime2"/>
-				<Field AllowNull="true" Length="9" Name="Number" Type="String"/>
-				<Field AllowNull="true" Name="DocIn" Type="Document.Event"/>
-				<Field AllowNull="false" Name="StatsNeed" Type="Enum.StatsNeedNum"/>
-				<Field AllowNull="false" Name="SR" Type="Catalog.User"/>
-				<Field AllowNull="true" Name="FillFull" Type="Boolean"/>
-				<Field AllowNull="true" Length="1000" Name="SRMComment" Type="String"/>
-				<Field AllowNull="true" Length="1000" Name="SRComment" Type="String"/>
-			</Fields>
-			<TabularSections>
-				<TabularSection Key="SKU" Name="Matireals" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="false" Name="SKU" Type="Catalog.RIM"/>
-					<Field AllowNull="false" Name="Count" Precision="15" Scale="3" Type="Decimal"/>
-				</TabularSection>
-			</TabularSections>
-		</Entity>
-		<Entity Name="Task" Schema="Document" SyncDownload="True" DeleteFilter="" SyncFilter="" SyncUpload="True">
-			<Fields>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="true" Name="Posted" Type="Boolean"/>
-				<Field AllowNull="false" Name="Date" Type="DateTime2"/>
-				<Field AllowNull="true" Length="9" Name="Number" Type="String"/>
-				<Field AllowNull="true" Length="1000" Name="Description" Type="String"/>
-				<Field AllowNull="false" Name="Client" Type="Catalog.Client"/>
-				<Field AllowNull="true" Name="Equipment" Type="Catalog.Equipment"/>
-				<Field AllowNull="true" Name="Event" Type="Document.Event"/>
-				<Field AllowNull="true" Length="100" Name="TaskType" Type="String"/>
-			</Fields>
-			<TabularSections>
-				<TabularSection Key="Description" Name="Targets" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Length="1000" Name="Description" Type="String"/>
-					<Field AllowNull="true" Name="IsDone" Type="Boolean"/>
-				</TabularSection>
-				<TabularSection Key="CommentContractor" Name="Status" DeleteFilter="" SyncFilter="">
-					<Field KeyField="true" Name="Id" Type="Guid"/>
-					<Field AllowNull="true" Name="LineNumber" Type="Integer"/>
-					<Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
-					<Field AllowNull="true" Length="1000" Name="CommentContractor" Type="String"/>
-					<Field AllowNull="true" Name="Status" Type="Enum.StatusTasks"/>
-					<Field AllowNull="true" Name="UserMA" Type="Catalog.User"/>
-					<Field AllowNull="true" Name="ActualEndDate" Type="DateTime2"/>
-					<Field AllowNull="true" Name="CloseEvent" Type="Document.Event"/>
-				</TabularSection>
-			</TabularSections>
-		</Entity>
-		<Entity DeleteFilter="" Name="Roles" Schema="Catalog" SyncDownload="False" SyncFilter="" SyncUpload="True">
-			<Fields>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
-				<Field AllowNull="false" Length="9" Name="Name" Type="String"/>
-				<Field AllowNull="false" Length="50" Name="Ident" Type="String"/>
-				<Field AllowNull="false" Length="100" Name="Description" Type="String"/>
-				<Field AllowNull="false" Name="CanManageSelf" Type="Boolean"/>
-			</Fields>
-			<TabularSections/>
-		</Entity>
-		<Entity DeleteFilter="" Name="RoleWebactions" Schema="Catalog" SyncDownload="False" SyncFilter="" SyncUpload="True">
-			<Fields>
-				<Field KeyField="true" Name="Id" Type="Guid"/>
-				<Field AllowNull="false" Name="Role" Type="Catalog.Roles"/>
-				<Field AllowNull="false" Name="Webaction" Type="Enum.Webactions"/>
-			</Fields>
-			<TabularSections/>
-		</Entity>    
-		</Entities>
-	
-	<Constants>
-		<Entity Name="Enum.TypesDataParameters">
-			<Row Description="Текст" Id="8404c846-e63b-425c-40fb-e3081e1b97c0" Name="String" _RS="0"/>
-			<Row Description="Целое число" Id="a41d9f6f-7392-f28b-4894-2fdff7b03f74" Name="Integer" _RS="0"/>
-			<Row Description="Дробное число" Id="a93579ae-b709-07f2-4228-f017f13e594f" Name="Decimal" _RS="0"/>
-			<Row Description="Логический" Id="aab753ce-1c3b-26b2-4d84-1461cd69c8ab" Name="Boolean" _RS="0"/>
-			<Row Description="Дата" Id="be371ba8-80cb-b12e-4445-d9dbd848cd08" Name="DateTime" _RS="0"/>
-			<Row Description="Выбор из списка" Id="988d759f-473c-bdde-42c8-3dcc69bcc24b" Name="ValList" _RS="0"/>
-			<Row Description="Снимок" Id="ae3d67f7-50b3-4e00-4ab8-fc9cb4f1bf64" Name="Snapshot" _RS="0"/>
-		</Entity>
-		<Entity Name="Enum.StatusEquipment">
-			<Row Description="Аренда" Id="951b5831-923e-0439-4ef7-9198a2cf19fe" Name="Rent" _RS="0"/>
-			<Row Description="Продажа" Id="b526c98c-9cca-ddd2-4c8f-b6be4e172e26" Name="Seales" _RS="0"/>
-			<Row Description="Ссуда" Id="a9c2af13-ed6d-3af3-48f9-bdcbb4065442" Name="Loan" _RS="0"/>
-			<Row Description="Умер" Id="9a558829-062a-01f9-4c0d-3f32723dd886" Name="Died" _RS="0"/>
-		</Entity>
-		<Entity Name="Enum.CheckListStatus">
-			<Row Description="Черновик" Id="854946f6-fc1d-bec2-4968-1f7e3c8d3c61" Name="Blank" _RS="0"/>
-			<Row Description="Активен" Id="ba4d325a-f1b7-072d-4c3e-fd4bf9f33901" Name="Active" _RS="0"/>
-			<Row Description="НеАктивен" Id="ab0acbab-556c-7058-4ba9-e4cd72c2958d" Name="Disactive" _RS="0"/>
-		</Entity>
-		<Entity Name="Enum.TypesEvents">
-			<Row Description="Визит" Id="83c0e4e3-0164-81bf-4804-a18e953859f5" Name="Visit" _RS="0"/>
-			<Row Description="Задача" Id="be62d056-4a2d-3ff4-45bf-b48e8f3b30fb" Name="Task" _RS="0"/>
-			<Row Description="Звонок" Id="ad7e2b2c-b856-ed78-4d06-4b44a4a4cd57" Name="Call" _RS="0"/>
-			<Row Description="Письмо" Id="8824e263-6025-070c-4ea0-55807f97b5e3" Name="Letter" _RS="0"/>
-		</Entity>
-		<Entity Name="Enum.StatsNeedNum">
-			<Row Description="Новая" Id="aba20521-d3cb-0a3f-42c2-eee2ce12a07a" Name="New" _RS="0"/>
-			<Row Description="Отгружено" Id="bdd2411f-c0e4-2a47-4486-a87fa2ad1dfb" Name="Done" _RS="0"/>
-			<Row Description="Подтверждено" Id="b1c2efd2-66a9-e59e-4211-09077ec95dc7" Name="Confirmed" _RS="0"/>
-			<Row Description="Отменено" Id="b7b121a8-56ab-5a80-4a81-096647744ebd" Name="Cancel" _RS="0"/>
-		</Entity>
-		<Entity Name="Enum.StatusyEvents">
-		
-			<Row Description="Новый" Id="5f99e04e-10a8-4224-949a-7ed7863e1fb9" Name="New" _RS="0"/>
+    <Entity Name="SKU" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="t.Id IN (SELECT DE.SKU FROM [Document].[Event_ServicesMaterials] DE WHERE DE.Ref IN (SELECT SE.Id FROM [Document].[Event] SE WHERE SE.UserMA = @UserId))" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Predefined" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="true" Name="IsFolder" Type="Boolean"/>
+        <Field AllowNull="true" Name="Parent" Type="Catalog.SKU"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="true" Length="9" Name="Code" Type="String"/>
+      </Fields>
+      <TabularSections/>
+    </Entity>
+    <Entity Name="ServiceAgreement" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="t.Id IN (SELECT SE.CantractService FROM [Catalog].[Equipment_Equipments] SE WHERE SE.Clients IN (SELECT DE.Client FROM [Document].[Event] DE WHERE DE.UserMA = @UserId))" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Predefined" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="true" Length="9" Name="Code" Type="String"/>
+        <Field AllowNull="true" Name="Client" Type="Catalog.Client"/>
+        <Field Length="500" Name="Organization" Type="String"/>
+        <Field AllowNull="true" Name="DateStart" Type="DateTime2"/>
+        <Field AllowNull="true" Name="DateEnd" Type="DateTime2"/>
+      </Fields>
+      <TabularSections/>
+    </Entity>
+    <Entity Name="EquipmentOptions" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Predefined" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="true" Length="9" Name="Code" Type="String"/>
+        <Field AllowNull="false" Name="DataTypeParameter" Type="Enum.TypesDataParameters"/>
+        <Field AllowNull="true" Name="DisplayingBMA" Type="Boolean"/>
+        <Field AllowNull="true" Name="EditingBMA" Type="Boolean"/>
+      </Fields>
+      <TabularSections>
+        <TabularSection Key="Val" Name="ListValues" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Length="100" Name="Val" Type="String"/>
+        </TabularSection>
+      </TabularSections>
+    </Entity>
+    <Entity Name="Equipment" Schema="Catalog" SyncDownload="True" DeleteFilter="" SyncFilter="t.Id IN (SELECT DE.Equipment FROM [Catalog].[Equipment_Equipments] DE WHERE DE.Clients IN (SELECT SE.Client FROM [Document].[Event] SE WHERE SE.UserMA = @UserId))" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Predefined" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="true" Length="9" Name="Code" Type="String"/>
+        <Field AllowNull="true" Name="SKU" Type="Catalog.SKU"/>
+      </Fields>
+      <TabularSections>
+        <TabularSection Key="Period,Clients,Equipment" Name="Equipments" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="true" Name="Period" Type="DateTime2"/>
+          <Field AllowNull="true" Name="Clients" Type="Catalog.Client"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Name="StatusEquipment" Type="Enum.StatusEquipment"/>
+          <Field AllowNull="true" Name="ContractSale" Type="Catalog.ServiceAgreement"/>
+          <Field AllowNull="true" Name="CantractService" Type="Catalog.ServiceAgreement"/>
+          <Field AllowNull="true" Length="100" Name="ContactForEquipment" Type="String"/>
+          <Field AllowNull="true" Length="1000" Name="Info" Type="String"/>
+          <Field AllowNull="true" Name="Equipment" Type="Catalog.Equipment"/>
+        </TabularSection>
+        <TabularSection Key="Period,Client,Equipments" Name="EquipmentsHistory" DeleteFilter="" SyncFilter="T.[Period] &gt;(SELECT CASE WHEN LogicValue = 1         THEN CASE WHEN NumericValue = 0            THEN CAST('1980-01-01 00:00:00' as date)            ELSE (getDate() - NumericValue)            END         ELSE CAST('2100-01-01 00:00:00' as date)          END             FROM [Catalog].[SettingMobileApplication]       WHERE [Description] = 'HistoryLength')">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="true" Name="Period" Type="DateTime2"/>
+          <Field AllowNull="true" Name="Client" Type="Catalog.Client"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Name="Equipments" Type="Catalog.Equipment"/>
+          <Field AllowNull="true" Length="100" Name="Target" Type="String"/>
+          <Field AllowNull="true" Name="Result" Type="Enum.ResultEvent"/>
+          <Field AllowNull="true" Length="1000" Name="ObjectGet" Type="String"/>
+          <Field AllowNull="true" Length="1000" Name="Comment" Type="String"/>
+          <Field AllowNull="true" Name="Executor" Type="Catalog.User"/>
+        </TabularSection>
+        <TabularSection Key="FullFileName,FileName" Name="Files" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="true" Length="1000" Name="FullFileName" Type="String"/>
+          <Field AllowNull="true" Name="FileName" Type="Guid"/>
+        </TabularSection>
+        <TabularSection Key="Parameter" Name="Parameters" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Name="Parameter" Type="Catalog.EquipmentOptions"/>
+          <Field AllowNull="true" Length="100" Name="Val" Type="String"/>
+        </TabularSection>
+      </TabularSections>
+    </Entity>
+    <Entity Name="Client" Schema="Catalog" SyncDownload="True" DeleteFilter="" SyncFilter="t.Id IN (SELECT DE.Client FROM [Document].[Event] DE WHERE DE.UserMA = @UserId)" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Predefined" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="true" Length="9" Name="Code" Type="String"/>
+        <Field AllowNull="true" Name="Latitude" Precision="12" Scale="8" Type="Decimal"/>
+        <Field AllowNull="true" Name="Longitude" Precision="12" Scale="8" Type="Decimal"/>
+        <Field AllowNull="true" Length="1000" Name="Address" Type="String"/>
+        <Field AllowNull="true" Name="Contractor" Type="Catalog.Accounts"/>
+      </Fields>
+      <TabularSections>
+        <TabularSection Key="FullFileName,FileName" Name="Files" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="true" Length="1000" Name="FullFileName" Type="String"/>
+          <Field AllowNull="true" Name="FileName" Type="Guid"/>
+        </TabularSection>
+        <TabularSection Key="Contact" Name="Contacts" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="false" Name="Contact" Type="Catalog.Contacts"/>
+          <Field AllowNull="true" Name="Actual" Type="Boolean"/>
+        </TabularSection>
+        <TabularSection Key="Parameter" Name="Parameters" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Name="Parameter" Type="Catalog.ClientOptions"/>
+          <Field AllowNull="true" Length="100" Name="Val" Type="String"/>
+        </TabularSection>
+      </TabularSections>
+    </Entity>
+    <Entity Name="SettingMobileApplication" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Predefined" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="true" Length="9" Name="Code" Type="String"/>
+        <Field AllowNull="true" Name="DataType" Type="Enum.TypesDataParameters"/>
+        <Field AllowNull="true" Name="LogicValue" Type="Boolean"/>
+        <Field AllowNull="true" Name="NumericValue" Type="Integer"/>
+      </Fields>
+      <TabularSections/>
+    </Entity>
+    <Entity Name="User" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="t.[Id] = @UserId OR t.[Id] IN (SELECT Executor FROM [Catalog].[Equipment_EquipmentsHistory] WHERE Equipments IN ( SELECT DE.Equipment FROM [Catalog].[Equipment_Equipments] DE WHERE DE.Clients IN (SELECT SE.Client FROM [Document].[Event] SE WHERE SE.UserMA = @UserId))) OR t.[Id] IN (SELECT [Author] FROM [Document].[Event] WHERE [UserMA] = @UserId)" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Predefined" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="true" Length="9" Name="Code" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="UserName" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="Password" Type="String"/>
+        <Field Length="500" Name="UserDB" Type="String"/>
+        <Field AllowNull="true" Length="100" Name="EMail" Type="String"/>
+        <Field AllowNull="true" Name="UserID" Type="Guid"/>
+        <Field AllowNull="true" Length="100" Name="Phone" Type="String"/>
+        <Field AllowNull="false" Name="Role" Type="Catalog.Roles"/>
+        <Field Length="5" Name="Language" Type="String"/>
+        <Field Length="128" Name="AspNetUserID" Type="String"/>
+      </Fields>
+      <TabularSections>
+        <TabularSection Key="Materials" Name="Bag" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="Materials" Type="Catalog.RIM"/>
+          <Field AllowNull="true" Name="Count" Precision="38" Scale="3" Type="Decimal"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+        </TabularSection>
+        <TabularSection Key="Materials" Name="RemainsNorms" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="Materials" Type="Catalog.RIM"/>
+          <Field AllowNull="true" Name="Count" Precision="15" Scale="3" Type="Decimal"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+        </TabularSection>
+      </TabularSections>
+    </Entity>
+    <Entity Name="Accounts" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Predefined" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="true" Name="IsFolder" Type="Boolean"/>
+        <Field AllowNull="true" Name="Parent" Type="Catalog.Accounts"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="true" Length="9" Name="Code" Type="String"/>
+      </Fields>
+      <TabularSections/>
+    </Entity>
+    <Entity Name="ClientOptions" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Predefined" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="true" Length="9" Name="Code" Type="String"/>
+        <Field AllowNull="false" Name="DataTypeParameter" Type="Enum.TypesDataParameters"/>
+        <Field AllowNull="true" Name="DisplayingBMA" Type="Boolean"/>
+        <Field AllowNull="true" Name="EditingBMA" Type="Boolean"/>
+      </Fields>
+      <TabularSections>
+        <TabularSection Key="Val" Name="ListValues" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Length="100" Name="Val" Type="String"/>
+        </TabularSection>
+      </TabularSections>
+    </Entity>
+    <Entity Name="EventOptions" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Predefined" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="true" Length="9" Name="Code" Type="String"/>
+        <Field AllowNull="false" Name="DataTypeParameter" Type="Enum.TypesDataParameters"/>
+        <Field AllowNull="true" Name="DisplayingBMA" Type="Boolean"/>
+        <Field AllowNull="true" Name="EditingBMA" Type="Boolean"/>
+      </Fields>
+      <TabularSections>
+        <TabularSection Key="Val" Name="ListValues" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Length="100" Name="Val" Type="String"/>
+        </TabularSection>
+      </TabularSections>
+    </Entity>
+    <Entity Name="CheckList" Schema="Document" SyncDownload="False" DeleteFilter="" SyncFilter="t.Id IN (SELECT DEC.[CheckListRef] FROM [Document].[Event_CheckList] DEC LEFT JOIN [Document].[Event] DE ON DEC.Ref = DE.Id WHERE DE.[UserMA] = @UserId)" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Posted" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Name="Date" Type="DateTime2"/>
+        <Field AllowNull="true" Length="9" Name="Number" Type="String"/>
+        <Field AllowNull="true" Length="100" Name="Description" Type="String"/>
+        <Field Length="500" Name="Project" Type="String"/>
+        <Field AllowNull="true" Name="Status" Type="Enum.CheckListStatus"/>
+      </Fields>
+      <TabularSections>
+        <TabularSection Key="Action" Name="Actions" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Name="Action" Type="Catalog.Actions"/>
+          <Field AllowNull="true" Name="Required" Type="Boolean"/>
+        </TabularSection>
+      </TabularSections>
+    </Entity>
+    <Entity Name="Actions" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="t.Id IN (SELECT DEC.Action FROM [Document].[Event_CheckList] DEC LEFT JOIN [Document].[Event] DE ON DEC.Ref = DE.Id WHERE DE.[UserMA] = @UserId)" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Predefined" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="true" Length="9" Name="Code" Type="String"/>
+        <Field AllowNull="false" Name="ActionType" Type="Enum.TypesDataParameters"/>
+      </Fields>
+      <TabularSections>
+        <TabularSection Key="Val" Name="ValueList" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Length="100" Name="Val" Type="String"/>
+        </TabularSection>
+      </TabularSections>
+    </Entity>
+    <Entity Name="Contacts" Schema="Catalog" SyncDownload="False" DeleteFilter="" SyncFilter="" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Predefined" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="true" Length="9" Name="Code" Type="String"/>
+        <Field AllowNull="true" Length="100" Name="Position" Type="String"/>
+        <Field AllowNull="true" Length="100" Name="Tel" Type="String"/>
+        <Field AllowNull="true" Length="100" Name="EMail" Type="String"/>
+      </Fields>
+      <TabularSections/>
+    </Entity>
+    <Entity Name="NeedMat" Schema="Document" SyncDownload="True" DeleteFilter="" SyncFilter="t.[SR] = @UserId" SyncUpload="True">
+      <Fields>
+        <Field AllowNull="true" Name="Posted" Type="Boolean"/>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Name="Date" Type="DateTime2"/>
+        <Field AllowNull="true" Length="9" Name="Number" Type="String"/>
+        <Field AllowNull="true" Name="DocIn" Type="Document.Event"/>
+        <Field AllowNull="false" Name="StatsNeed" Type="Enum.StatsNeedNum"/>
+        <Field AllowNull="false" Name="SR" Type="Catalog.User"/>
+        <Field AllowNull="true" Name="FillFull" Type="Boolean"/>
+        <Field AllowNull="true" Length="1000" Name="SRMComment" Type="String"/>
+        <Field AllowNull="true" Length="1000" Name="SRComment" Type="String"/>
+      </Fields>
+      <TabularSections>
+        <TabularSection Key="SKU" Name="Matireals" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="false" Name="SKU" Type="Catalog.RIM"/>
+          <Field AllowNull="false" Name="Count" Precision="15" Scale="3" Type="Decimal"/>
+        </TabularSection>
+      </TabularSections>
+    </Entity>
+    <Entity Name="Task" Schema="Document" SyncDownload="True" DeleteFilter="" SyncFilter="" SyncUpload="True">
+      <Fields>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="true" Name="Posted" Type="Boolean"/>
+        <Field AllowNull="false" Name="Date" Type="DateTime2"/>
+        <Field AllowNull="true" Length="9" Name="Number" Type="String"/>
+        <Field AllowNull="true" Length="1000" Name="Description" Type="String"/>
+        <Field AllowNull="false" Name="Client" Type="Catalog.Client"/>
+        <Field AllowNull="true" Name="Equipment" Type="Catalog.Equipment"/>
+        <Field AllowNull="true" Name="Event" Type="Document.Event"/>
+        <Field AllowNull="true" Length="100" Name="TaskType" Type="String"/>
+      </Fields>
+      <TabularSections>
+        <TabularSection Key="Description" Name="Targets" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Length="1000" Name="Description" Type="String"/>
+          <Field AllowNull="true" Name="IsDone" Type="Boolean"/>
+        </TabularSection>
+        <TabularSection Key="CommentContractor" Name="Status" DeleteFilter="" SyncFilter="">
+          <Field KeyField="true" Name="Id" Type="Guid"/>
+          <Field AllowNull="true" Name="LineNumber" Type="Integer"/>
+          <Field AllowNull="false" KeyField="false" Name="Ref" Type="Guid"/>
+          <Field AllowNull="true" Length="1000" Name="CommentContractor" Type="String"/>
+          <Field AllowNull="true" Name="Status" Type="Enum.StatusTasks"/>
+          <Field AllowNull="true" Name="UserMA" Type="Catalog.User"/>
+          <Field AllowNull="true" Name="ActualEndDate" Type="DateTime2"/>
+          <Field AllowNull="true" Name="CloseEvent" Type="Document.Event"/>
+        </TabularSection>
+      </TabularSections>
+    </Entity>
+    <Entity DeleteFilter="" Name="Roles" Schema="Catalog" SyncDownload="False" SyncFilter="" SyncUpload="True">
+      <Fields>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="DeletionMark" Type="Boolean"/>
+        <Field AllowNull="false" Length="9" Name="Name" Type="String"/>
+        <Field AllowNull="false" Length="50" Name="Ident" Type="String"/>
+        <Field AllowNull="false" Length="100" Name="Description" Type="String"/>
+        <Field AllowNull="false" Name="CanManageSelf" Type="Boolean"/>
+      </Fields>
+      <TabularSections/>
+    </Entity>
+    <Entity DeleteFilter="" Name="RoleWebactions" Schema="Catalog" SyncDownload="False" SyncFilter="" SyncUpload="True">
+      <Fields>
+        <Field KeyField="true" Name="Id" Type="Guid"/>
+        <Field AllowNull="false" Name="Role" Type="Catalog.Roles"/>
+        <Field AllowNull="false" Name="Webaction" Type="Enum.Webactions"/>
+      </Fields>
+      <TabularSections/>
+    </Entity>
+  </Entities>
 
-			<Row Description="На согласовании" Id="e97536d7-061f-4b9a-9257-871ed9ad9229" Name="OnHarmonization" _RS="0"/>
-			<Row Description="Согласован" Id="46428625-7b29-41dc-a2a2-9c07cfbd85b2" Name="Agreed" _RS="0"/>
-			<Row Description="Принят" Id="dfbe38ad-0b3b-462c-b4fe-e026b4701604" Name="Accepted" _RS="0"/>
-			<Row Description="Отклонен" Id="57e71cfb-3d2e-4f57-9764-8f1a8a41d387" Name="Cancel" _RS="0"/>
-			
-	<!---	<Row Description="Назначено" Id="8d300e1c-3261-e745-4046-0ae57541898b" Name="Appointed" _RS="0"/>
+  <Constants>
+    <Entity Name="Enum.VATS">
+      <Row Description="1" Id="7cb0603a-e767-4e13-b86b-882242e9e05f" Name="Percent18" RS="0"/>
+      <Row Description="2" Id="7a3bfd88-68bd-44e3-87b0-51a844828792" Name="Percent0" _RS="0"/>
+      <Row Description="3" Id="123f1daf-215e-417e-b975-223089e9f0d0" Name="PercentWithoOut" _RS="0"/>
+      <Row Description="4" Id="a100a27f-7f2f-488b-aab8-573db25f83c1" Name="Percent10" _RS="0"/>
+    </Entity>
+    <Entity Name="Enum.TypesDataParameters">
+      <Row Description="Текст" Id="8404c846-e63b-425c-40fb-e3081e1b97c0" Name="String" _RS="0"/>
+      <Row Description="Целое число" Id="a41d9f6f-7392-f28b-4894-2fdff7b03f74" Name="Integer" _RS="0"/>
+      <Row Description="Дробное число" Id="a93579ae-b709-07f2-4228-f017f13e594f" Name="Decimal" _RS="0"/>
+      <Row Description="Логический" Id="aab753ce-1c3b-26b2-4d84-1461cd69c8ab" Name="Boolean" _RS="0"/>
+      <Row Description="Дата" Id="be371ba8-80cb-b12e-4445-d9dbd848cd08" Name="DateTime" _RS="0"/>
+      <Row Description="Выбор из списка" Id="988d759f-473c-bdde-42c8-3dcc69bcc24b" Name="ValList" _RS="0"/>
+      <Row Description="Снимок" Id="ae3d67f7-50b3-4e00-4ab8-fc9cb4f1bf64" Name="Snapshot" _RS="0"/>
+    </Entity>
+    <Entity Name="Enum.StatusEquipment">
+      <Row Description="Аренда" Id="951b5831-923e-0439-4ef7-9198a2cf19fe" Name="Rent" _RS="0"/>
+      <Row Description="Продажа" Id="b526c98c-9cca-ddd2-4c8f-b6be4e172e26" Name="Seales" _RS="0"/>
+      <Row Description="Ссуда" Id="a9c2af13-ed6d-3af3-48f9-bdcbb4065442" Name="Loan" _RS="0"/>
+      <Row Description="Умер" Id="9a558829-062a-01f9-4c0d-3f32723dd886" Name="Died" _RS="0"/>
+    </Entity>
+    <Entity Name="Enum.CheckListStatus">
+      <Row Description="Черновик" Id="854946f6-fc1d-bec2-4968-1f7e3c8d3c61" Name="Blank" _RS="0"/>
+      <Row Description="Активен" Id="ba4d325a-f1b7-072d-4c3e-fd4bf9f33901" Name="Active" _RS="0"/>
+      <Row Description="НеАктивен" Id="ab0acbab-556c-7058-4ba9-e4cd72c2958d" Name="Disactive" _RS="0"/>
+    </Entity>
+    <Entity Name="Enum.TypesEvents">
+      <Row Description="Визит" Id="83c0e4e3-0164-81bf-4804-a18e953859f5" Name="Visit" _RS="0"/>
+      <Row Description="Задача" Id="be62d056-4a2d-3ff4-45bf-b48e8f3b30fb" Name="Task" _RS="0"/>
+      <Row Description="Звонок" Id="ad7e2b2c-b856-ed78-4d06-4b44a4a4cd57" Name="Call" _RS="0"/>
+      <Row Description="Письмо" Id="8824e263-6025-070c-4ea0-55807f97b5e3" Name="Letter" _RS="0"/>
+    </Entity>
+    <Entity Name="Enum.StatsNeedNum">
+      <Row Description="Новая" Id="aba20521-d3cb-0a3f-42c2-eee2ce12a07a" Name="New" _RS="0"/>
+      <Row Description="Отгружено" Id="bdd2411f-c0e4-2a47-4486-a87fa2ad1dfb" Name="Done" _RS="0"/>
+      <Row Description="Подтверждено" Id="b1c2efd2-66a9-e59e-4211-09077ec95dc7" Name="Confirmed" _RS="0"/>
+      <Row Description="Отменено" Id="b7b121a8-56ab-5a80-4a81-096647744ebd" Name="Cancel" _RS="0"/>
+    </Entity>
+    <Entity Name="Enum.StatusyEvents">
+
+      <Row Description="Создан" Id="5f99e04e-10a8-4224-949a-7ed7863e1fb9" Name="New" _RS="0"/>
+
+      <Row Description="На согласовании" Id="e97536d7-061f-4b9a-9257-871ed9ad9229" Name="OnHarmonization" _RS="0"/>
+      <Row Description="Согласован" Id="46428625-7b29-41dc-a2a2-9c07cfbd85b2" Name="Agreed" _RS="0"/>
+      <Row Description="Просмотрен" Id="dfbe38ad-0b3b-462c-b4fe-e026b4701604" Name="Accepted" _RS="0"/>
+      <Row Description="Отклонен" Id="57e71cfb-3d2e-4f57-9764-8f1a8a41d387" Name="Cancel" _RS="0"/>
+
+      <!---	<Row Description="Назначено" Id="8d300e1c-3261-e745-4046-0ae57541898b" Name="Appointed" _RS="0"/>
 			<Row Description="Выполнено" Id="81998d6c-e971-8f4d-4fbb-bd4d3b61e737" Name="Done" _RS="0"/>
 			<Row Description="Отменено" Id="81ec69ec-e546-b95d-4879-1cb04ea0a1e6" Name="Cancel" _RS="0"/>-->
-			<Row Description="ВРаботе" Id="a00d846a-3d09-46c0-4a19-b6a10e055c9e" Name="InWork" _RS="0"/>
-			<Row Description="Выполнен" Id="3943413c-cf47-4f3b-8795-b93c9f78d1c6" Name="Done" _RS="0"/>
-			<Row Description="Выполнен с проблемой" Id="1220b261-dbcf-4df5-aec1-6630c250d643" Name="DoneWithTrouble" _RS="0"/>
-			<Row Description="На утверждении" Id="be45c12b-267a-4c59-89b1-ac06af6dbc86" Name="OnTheApprovalOf" _RS="0"/>
-			<Row Description="Закрыт" Id="c36d3c89-3dbb-4b12-aef0-c970347e3961" Name="Close" _RS="0"/>
-			<Row Description="Не справился" Id="7ecb70fa-fc91-49f0-a7fd-b905bd994a02" Name="NotDone" _RS="0"/>
-		
-		</Entity>
-		<Entity Name="Enum.ResultEvent">
-			<Row Description="Новое" Id="ae46ba49-b076-6c8c-4730-4709e7191d5b" Name="New" _RS="0"/>
-			<Row Description="Выполнено" Id="81270b2c-190a-faf2-440f-4a593042495e" Name="Done" _RS="0"/>
-			<Row Description="НеВыполнено" Id="9956cf47-e216-522e-48f6-8aba06fc9a5e" Name="NotDone" _RS="0"/>
-		</Entity>
-		<Entity Name="Enum.StatusImportance">
-			<Row Description="Стандартная" Id="9deb314e-1bd6-1ee0-4eb2-ac621ba09b74" Name="Standart" _RS="0"/>
-			<Row Description="Высокая" Id="9495d0f0-6ef5-a7fe-473f-8e2d6e8586e2" Name="High" _RS="0"/>
-			<Row Description="Критическая" Id="a570aeea-0f88-54c3-4075-d0cb82f0dd95" Name="Critical" _RS="0"/>
-		</Entity>
-		<Entity Name="Enum.FoReminders">
-			<Row Description="Продажа" Id="a0e50e05-99b8-58c2-4a45-180c4462723a" Name="Sale" _RS="0"/>
-			<Row Description="Проблема" Id="969c9dd5-db42-b32a-40c7-935be3a19251" Name="Problem" _RS="0"/>
-		</Entity>
-		<Entity Name="Enum.StatusTasks">
-			<Row Description="Новая" Id="a0a9e67f-483e-419a-a714-859f13c1245c" Name="New" _RS="0"/>
-			<Row Description="Выполнена" Id="a0a9e67f-483e-423a-a714-859f13c1245c" Name="Done" _RS="0"/>
-			<Row Description="Отклонена" Id="a0a9e67f-483e-426b-a714-859f13c1245c" Name="Rejected" _RS="0"/>
-		</Entity>
-		<Entity Name="Enum.Webactions">
-			<Row Description="Создание и редактирование нарядов" Id="0236eb9f-eed9-489b-9152-86b037e79a79" Name="EventsEditing" _RS="0"/>
-			<Row Description="Удаление нарядов" Id="0236eb9f-eed9-490b-9152-86b037e79a79" Name="EventsDeleting" _RS="0"/>
-			<Row Description="Управление параметрами нарядов" Id="0236eb9f-eed9-491b-9152-86b037e79a79" Name="EventsOptionsEditing" _RS="0"/>
-			<Row Description="Разрешить доступ ко всем нарядам (иначе только к назначенным)" Id="0236eb9f-eed9-492b-9152-86b037e79a79" Name="EventsAllAvaliable" _RS="0"/>
-			<Row Description="Отображать АВР в нарядах" Id="0236eb9f-eed9-494b-9152-86b037e79a79" Name="EventsShowAVR" _RS="0"/>
-			<Row Description="Редактирование сотрудников" Id="0236eb9f-eed9-495b-9152-86b037e79a79" Name="UsersEditing" _RS="0"/>
-			<Row Description="Удаление сотрудников" Id="0236eb9f-eed9-496b-9152-86b037e79a79" Name="UsersDeleting" _RS="0"/>
-			<Row Description="Управление ролями сотрудников" Id="0236eb9f-eed9-497b-9152-86b037e79a79" Name="UsersManageRoles" _RS="0"/>
-			<Row Description="Создание и редактирование клиентов" Id="0236eb9f-eed9-498b-9152-86b037e79a79" Name="ClientsEditing" _RS="0"/>
-			<Row Description="Удаление клиентов" Id="0236eb9f-eed9-499b-9152-86b037e79a79" Name="ClientsDeleting" _RS="0"/>
-			<Row Description="Управление параметрами клиентов" Id="0236eb9f-eed9-500b-9152-86b037e79a79" Name="ClientsOptionsEditing" _RS="0"/>
-			<Row Description="Редактирование задач" Id="0236eb9f-eed9-501b-9152-86b037e79a79" Name="TasksEditing" _RS="0"/>
-			<Row Description="Создание и редактирование оборудования" Id="0236eb9f-eed9-502b-9152-86b037e79a79" Name="EquipmentsEditing" _RS="0"/>
-			<Row Description="Удаление оборудования" Id="0236eb9f-eed9-503b-9152-86b037e79a79" Name="EquipmentsDeleting" _RS="0"/>
-			<Row Description="Управление параметрами оборудования" Id="0236eb9f-eed9-504b-9152-86b037e79a79" Name="EquipmentsOptionsEditing" _RS="0"/>
-			<Row Description="Создание и редактирование услуг и материалов" Id="0236eb9f-eed9-505b-9152-86b037e79a79" Name="RIMEditing" _RS="0"/>
-			<Row Description="Удаление услуг и материлов" Id="0236eb9f-eed9-506b-9152-86b037e79a79" Name="RIMDeleting" _RS="0"/>
-			<Row Description="Создание и редактирование чек-листов" Id="0236eb9f-eed9-507b-9152-86b037e79a79" Name="CheckListsEditing" _RS="0"/>
-			<Row Description="Управление активностью чек-листов" Id="0236eb9f-eed9-508b-9152-86b037e79a79" Name="CheckListManageActivityStatus" _RS="0"/>
-			<Row Description="Доступ к аналитике" Id="0236eb9f-eed9-509b-9152-86b037e79a79" Name="AnaliticAccess" _RS="0"/>
-			<Row Description="Доступ к веб-приложению" Id="0236eb9f-eed9-510b-9152-86b037e79a79" Name="WebInterfaceAccess" _RS="0"/>
-			<Row Description="Доступ к мобильному приложению" Id="0236eb9f-eed9-511b-9152-86b037e79a79" Name="MobileAppAccess" _RS="0"/>
-		</Entity>
-		
-	</Constants>
+      <Row Description="В работе" Id="a00d846a-3d09-46c0-4a19-b6a10e055c9e" Name="InWork" _RS="0"/>
+      <Row Description="Выполнен" Id="3943413c-cf47-4f3b-8795-b93c9f78d1c6" Name="Done" _RS="0"/>
+      <Row Description="Выполнен с проблемой" Id="1220b261-dbcf-4df5-aec1-6630c250d643" Name="DoneWithTrouble" _RS="0"/>
+      <Row Description="На утверждении" Id="be45c12b-267a-4c59-89b1-ac06af6dbc86" Name="OnTheApprovalOf" _RS="0"/>
+      <Row Description="Закрыт" Id="c36d3c89-3dbb-4b12-aef0-c970347e3961" Name="Close" _RS="0"/>
+      <Row Description="Не справились" Id="7ecb70fa-fc91-49f0-a7fd-b905bd994a02" Name="NotDone" _RS="0"/>
+
+    </Entity>
+    <Entity Name="Enum.ResultEvent">
+      <Row Description="Новое" Id="ae46ba49-b076-6c8c-4730-4709e7191d5b" Name="New" _RS="0"/>
+      <Row Description="Выполнено" Id="81270b2c-190a-faf2-440f-4a593042495e" Name="Done" _RS="0"/>
+      <Row Description="НеВыполнено" Id="9956cf47-e216-522e-48f6-8aba06fc9a5e" Name="NotDone" _RS="0"/>
+    </Entity>
+    <Entity Name="Enum.StatusImportance">
+      <Row Description="Стандартная" Id="9deb314e-1bd6-1ee0-4eb2-ac621ba09b74" Name="Standart" _RS="0"/>
+      <Row Description="Высокая" Id="9495d0f0-6ef5-a7fe-473f-8e2d6e8586e2" Name="High" _RS="0"/>
+      <Row Description="Критическая" Id="a570aeea-0f88-54c3-4075-d0cb82f0dd95" Name="Critical" _RS="0"/>
+    </Entity>
+    <Entity Name="Enum.FoReminders">
+      <Row Description="Продажа" Id="a0e50e05-99b8-58c2-4a45-180c4462723a" Name="Sale" _RS="0"/>
+      <Row Description="Проблема" Id="969c9dd5-db42-b32a-40c7-935be3a19251" Name="Problem" _RS="0"/>
+    </Entity>
+    <Entity Name="Enum.StatusTasks">
+      <Row Description="Новая" Id="a0a9e67f-483e-419a-a714-859f13c1245c" Name="New" _RS="0"/>
+      <Row Description="Выполнена" Id="a0a9e67f-483e-423a-a714-859f13c1245c" Name="Done" _RS="0"/>
+      <Row Description="Отклонена" Id="a0a9e67f-483e-426b-a714-859f13c1245c" Name="Rejected" _RS="0"/>
+    </Entity>
+    <Entity Name="Enum.Webactions">
+      <Row Description="Создание и редактирование нарядов" Id="0236eb9f-eed9-489b-9152-86b037e79a79" Name="EventsEditing" _RS="0"/>
+      <Row Description="Удаление нарядов" Id="0236eb9f-eed9-490b-9152-86b037e79a79" Name="EventsDeleting" _RS="0"/>
+      <Row Description="Управление параметрами нарядов" Id="0236eb9f-eed9-491b-9152-86b037e79a79" Name="EventsOptionsEditing" _RS="0"/>
+      <Row Description="Разрешить доступ ко всем нарядам (иначе только к назначенным)" Id="0236eb9f-eed9-492b-9152-86b037e79a79" Name="EventsAllAvaliable" _RS="0"/>
+      <Row Description="Отображать АВР в нарядах" Id="0236eb9f-eed9-494b-9152-86b037e79a79" Name="EventsShowAVR" _RS="0"/>
+      <Row Description="Редактирование сотрудников" Id="0236eb9f-eed9-495b-9152-86b037e79a79" Name="UsersEditing" _RS="0"/>
+      <Row Description="Удаление сотрудников" Id="0236eb9f-eed9-496b-9152-86b037e79a79" Name="UsersDeleting" _RS="0"/>
+      <Row Description="Управление ролями сотрудников" Id="0236eb9f-eed9-497b-9152-86b037e79a79" Name="UsersManageRoles" _RS="0"/>
+      <Row Description="Создание и редактирование клиентов" Id="0236eb9f-eed9-498b-9152-86b037e79a79" Name="ClientsEditing" _RS="0"/>
+      <Row Description="Удаление клиентов" Id="0236eb9f-eed9-499b-9152-86b037e79a79" Name="ClientsDeleting" _RS="0"/>
+      <Row Description="Управление параметрами клиентов" Id="0236eb9f-eed9-500b-9152-86b037e79a79" Name="ClientsOptionsEditing" _RS="0"/>
+      <Row Description="Редактирование задач" Id="0236eb9f-eed9-501b-9152-86b037e79a79" Name="TasksEditing" _RS="0"/>
+      <Row Description="Создание и редактирование оборудования" Id="0236eb9f-eed9-502b-9152-86b037e79a79" Name="EquipmentsEditing" _RS="0"/>
+      <Row Description="Удаление оборудования" Id="0236eb9f-eed9-503b-9152-86b037e79a79" Name="EquipmentsDeleting" _RS="0"/>
+      <Row Description="Управление параметрами оборудования" Id="0236eb9f-eed9-504b-9152-86b037e79a79" Name="EquipmentsOptionsEditing" _RS="0"/>
+      <Row Description="Создание и редактирование услуг и материалов" Id="0236eb9f-eed9-505b-9152-86b037e79a79" Name="RIMEditing" _RS="0"/>
+      <Row Description="Удаление услуг и материлов" Id="0236eb9f-eed9-506b-9152-86b037e79a79" Name="RIMDeleting" _RS="0"/>
+      <Row Description="Создание и редактирование чек-листов" Id="0236eb9f-eed9-507b-9152-86b037e79a79" Name="CheckListsEditing" _RS="0"/>
+      <Row Description="Управление активностью чек-листов" Id="0236eb9f-eed9-508b-9152-86b037e79a79" Name="CheckListManageActivityStatus" _RS="0"/>
+      <Row Description="Доступ к аналитике" Id="0236eb9f-eed9-509b-9152-86b037e79a79" Name="AnaliticAccess" _RS="0"/>
+      <Row Description="Доступ к веб-приложению" Id="0236eb9f-eed9-510b-9152-86b037e79a79" Name="WebInterfaceAccess" _RS="0"/>
+      <Row Description="Доступ к мобильному приложению" Id="0236eb9f-eed9-511b-9152-86b037e79a79" Name="MobileAppAccess" _RS="0"/>
+      <Row Description="Доступ к фискальному регистратору из мобильного приложения" Id="f22c49d3-42b4-4ccc-9646-970ee8f7db23" Name="MobileFPRAccess" _RS="0"/>
+    </Entity>
+
+  </Constants>
 </Configuration>

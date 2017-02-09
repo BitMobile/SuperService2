@@ -112,8 +112,8 @@
     }
   },
   {
-    "outputFile": "Style/MaterialsRequestScreen.css",
-    "inputFile": "Style/Less/MaterialsRequestScreen.less",
+    "outputFile": "Style/CheckInfoScreen.css",
+    "inputFile": "Style/Less/CheckInfoScreen.less",
     "minify": {
       "enabled": false
     }
@@ -184,6 +184,13 @@
     {  
     "outputFile": "Style/PhotoScreen.css",
     "inputFile": "Style/Less/PhotoScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {  
+    "outputFile": "Style/PrintCheckScreen.css",
+    "inputFile": "Style/Less/PrintCheckScreen.less",
     "minify": {
       "enabled": false
     }

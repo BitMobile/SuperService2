@@ -1,0 +1,182 @@
+﻿@import "defaults.less";
+@import "Components/TopInfoComponent.less";
+
+@paddings-left-right: 5sp;
+@default-margin-top: 2sp;
+
+.MainContainer {
+    height: 100%;
+    width: 100%;
+    padding-left: @paddings-left-right;
+    padding-right: @paddings-left-right;
+    padding-bottom: 5sp;
+    padding-top: 5sp;
+}
+
+.CaptionText {
+    .text-view-style(@default-font-size);
+    color: #6b6b6b;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.TotalSum {
+    .text-view-style(@big-title-font-size * 1.5);
+    width: 100%;
+    text-align: center;
+    color: #f17d2e;
+    white-space: nowrap;
+    margin-top: @default-margin-top;
+}
+
+.ShortLine {
+    background-color: #f4f4f5;
+    height: 0.3sp;
+    horizontal-align: center;
+    width: 5sp;
+    margin-top: @default-margin-top;
+}
+
+.PaymentTypeCaption {
+    .text-view-style(@default-font-size);
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    color: #616161;
+    margin-top: @default-margin-top;
+}
+
+.PaymentTypeContainer {
+    height: 0sp auto;
+    width: 100%;
+    margin-top: @default-margin-top;
+}
+
+.PaymentType {
+    .text-view-style(@big-title-font-size);
+    width: 100%;
+    white-space: nowrap;
+    text-align: center;
+    color: #fd9c81;
+}
+
+.SummAndChangeContainer {
+    width: 100%;
+    height: 4sp auto;
+    margin-top: 4sp;
+}
+
+.LineContainer {
+    height: 4sp auto;
+    width: 100%;
+}
+
+.ContribCaption {
+    .text-view-style(@default-font-size);
+    text-align: left;
+    white-space: nowrap;
+    width: 10sp auto;
+    color: #9c9c9c;
+}
+
+.CashIn {
+    .text-view-style(@default-font-size);
+    width: auto;
+    white-space: nowrap;
+    text-align: right;
+    color: #9dcb75;
+}
+
+.SumIsCalculated {
+    .text-view-style(@default-font-size);
+    width: auto;
+    white-space: nowrap;
+    text-align: right;
+    color: #9dcb75;
+}
+
+.SumIsNotCalculated {
+    .text-view-style(@default-font-size);
+    width: auto;
+    white-space: nowrap;
+    text-align: right;
+    color: #b8b8b8;
+}
+
+.LineContainerWithMargin {
+    height: 4sp auto;
+    width: 100%;
+    margin-top: @default-margin-top;
+}
+
+.FullHorizontalLine {
+    background-color: #f4f4f5;
+    height: 0.15sp;
+    horizontal-align: center;
+    width: 100%;
+    margin-top: 1sp;
+}
+
+//Активная кнопка печати чека
+.PrintCheckContainerActivate {
+    height: 10sp;
+    width: 100%;
+    dock-align: bottom;
+    background-color: #fd9c81;
+}
+
+.PrintCheckContainerDiactivate {
+    height: 10sp;
+    width: 100%;
+    dock-align: bottom;
+    background-color: #ffffff;
+    border-color: #d8d8d8;
+    border-style: solid;
+    border-width: 3dp;
+}
+
+.VerticalAlignContainer {
+    height: 100%;
+    width: 0sp auto;
+    horizontal-align: center;
+}
+
+.IconStyle {
+    width: 7sp;
+    vertical-align: center;
+    margin-right: 2sp;
+}
+//
+.PunchActive {
+    .text-view-style(@big-title-font-size);
+    color: #ffffff;
+    white-space: nowrap;
+    text-align: center;
+    width: 0sp auto;
+    vertical-align: center;
+}
+
+.PunchDiactive {
+    .text-view-style(@big-title-font-size);
+    color: #d8d8d8;
+    white-space: nowrap;
+    text-align: center;
+    width: 0sp auto;
+    vertical-align: center;
+}
+
+.NotEnought {
+    .text-view-style(@default-font-size);
+    text-align: left;
+    white-space: nowrap;
+    width: 10sp auto;
+    color: #fd9c81;
+}
+
+.CashInEnought {
+    .text-view-style(@default-font-size);
+    width: auto;
+    white-space: nowrap;
+    text-align: right;
+    color: #fd9c81;
+}

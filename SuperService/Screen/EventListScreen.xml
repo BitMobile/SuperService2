@@ -97,7 +97,7 @@
         <!--После итератора обрабатываем последний элемент-->
         <s:If Test="$IsEmptyEventList == false">
           <s:If Test="$IsTodayLayoutNeed()">
-            <s:If Test="$IsDateEqualsOrLess($EventListCurrentDate, $StartPlanDate)">
+            <s:If Test="$IsDateEquals($EventListCurrentDate, $StartPlanDate)">
               <c:TextView Text="#todayUpper#" CssClass="EventListDateTV" />
               <c:HorizontalLine CssClass="EventListLongBreaker" />
             </s:If>

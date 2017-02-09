@@ -40,7 +40,7 @@
         public const string ShowMaterialPrice = "UsedCalculateMaterials";
         public const string LogicValue = "LogicValue";
         public const string NumericValue = "NumericValue";
-
+        public const string EnableFPTR = "EnableFPTR";
         /// <summary>
         /// Индетефикатор задачи
         /// </summary>

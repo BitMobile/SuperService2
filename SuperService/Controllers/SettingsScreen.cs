@@ -1,7 +1,8 @@
-﻿using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
-using System;
+﻿using System;
 using System.Collections;
+using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
+using BitMobile.Common.FiscalRegistrator;
 using Test.Components;
 
 namespace Test
@@ -68,7 +69,7 @@ namespace Test
         }
 
         /// <summary>
-        /// Возращает подстрок из строки
+        ///     Возращает подстрок из строки
         /// </summary>
         /// <param name="str"> Строка из которой будт извлекаться подстроки </param>
         /// <param name="maxCount"> Максимальное кол-во извлекаемых подстрок </param>
@@ -101,13 +102,19 @@ namespace Test
             var strings = ReturnCountOfWords(_userDescription, 2);
 
             foreach (var str in strings)
-            {
-                result += $"{((string)str).Substring(0, 1).ToUpper()}";
-            }
+                result += $"{((string) str).Substring(0, 1).ToUpper()}";
 
             return result;
         }
 
+        internal string GetStyleForCompanyInfo()
+        {
+            if (DBHelper.CheckFtprAcsess())
+            {
+                return "CompanyInfoContainerWithFtpr";
+            }
+            return "CompanyInfoContainer";
+        }
         internal string GetUserDescription()
         {
             var result = "";
@@ -115,9 +122,7 @@ namespace Test
             var strings = ReturnCountOfWords(_userDescription, 2);
 
             foreach (var str in strings)
-            {
                 result += $"{str} ";
-            }
 
             return result.Trim();
         }
@@ -126,7 +131,7 @@ namespace Test
         {
             //TODO: Опасно брать юзера отсюда.
             var result = DBHelper.GetUserInfoByUserName(Settings.User);
-            _userDescription = result.Next() ? (string)result["Description"] : "";
+            _userDescription = result.Next() ? (string) result["Description"] : "";
 
 #if DEBUG
             DConsole.WriteLine(_userDescription);
@@ -157,10 +162,38 @@ namespace Test
 
         internal void Twitter_OnClick(object sender, EventArgs e)
         {
+            var fptr = FptrInstance.Instance;
+
+            try
+            {
+                fptr.PutDeviceSettings(fptr.Settings);
+                fptr.PutDeviceEnabled(true);
+                fptr.Beep();
+            }
+            catch (FPTRException fptrException)
+            {
+                Toast.MakeToast(fptrException.Message);
+            }
         }
 
-        internal void Facebook_OnClick(object sender, EventArgs e)
+        internal void PrintZ_OnClick(object sender, EventArgs e)
         {
+            Dialog.Ask(Translator.Translate("printZ_caption_ask")
+                , (o, args) =>
+                {
+                    if (args.Result == Dialog.Result.No)
+                        return;
+
+                    //TODO: По хорошему должна быть проверка статуса устройства, но всем как всегда
+                    try
+                    {
+                        FptrInstance.Instance.PrintZ();
+                    }
+                    catch (FPTRException exception)
+                    {
+                        Toast.MakeToast(exception.Message);
+                    }
+                });
         }
 
         internal void SendErrorReport_OnClick(object sender, EventArgs e)
@@ -171,15 +204,24 @@ namespace Test
                 DConsole.WriteLine("Sync succesful? = " + args.Result);
                 Toast.MakeToast(Translator.Translate(args.Result ? "upload_finished" : "upload_failed"));
                 if (args.Result)
-                    FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password, (o1, args1) =>
-                    {
-                        Toast.MakeToast(Translator.Translate(args1.Result ? "sync_success" : "sync_fail"));
-                    });
+                    FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password,
+                        (o1, args1) =>
+                        {
+                            Toast.MakeToast(Translator.Translate(args1.Result ? "sync_success" : "sync_fail"));
+                        });
             });
         }
 
+        internal bool CheckFtprAcsess() => DBHelper.CheckFtprAcsess();
         internal void SendLog_OnClick(object sender, EventArgs e)
-            => Dialog.Ask(Translator.Translate("ask_send_log"),
+        {
+            if (DBHelper.CheckFtprAcsess())
+            {
+                FptrInstance.Instance.OpenSettings();
+            }
+            else
+            {
+                Dialog.Ask(Translator.Translate("ask_send_log"),
                 (o, args) =>
                 {
                     if (args.Result == Dialog.Result.No) return;
@@ -191,5 +233,38 @@ namespace Test
                         ? Translator.Translate("send_log_ok")
                         : Translator.Translate("send_log_fail"));
                 });
+            }
+        }
+
+        internal void PrintX_OnClick(object sender, EventArgs e)
+        {
+            if (DBHelper.CheckFtprAcsess())
+            {
+            try
+            {
+                FptrInstance.Instance.PrintX();
+            }
+            catch (FPTRException exception)
+            {
+                Toast.MakeToast(exception.Message);
+            }
+            }
+            else
+            {
+                Toast.MakeToast(Translator.Translate("start_sync"));
+                FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password, (o, args) =>
+                {
+                    DConsole.WriteLine("Sync succesful? = " + args.Result);
+                    Toast.MakeToast(Translator.Translate(args.Result ? "upload_finished" : "upload_failed"));
+                    if (args.Result)
+                        FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password,
+                            (o1, args1) =>
+                            {
+                                Toast.MakeToast(Translator.Translate(args1.Result ? "sync_success" : "sync_fail"));
+                            });
+                });
+            }
+            
+        }
     }
 }

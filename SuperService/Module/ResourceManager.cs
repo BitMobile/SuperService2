@@ -73,11 +73,9 @@ namespace Test
             //BagListScreen
             {"baglistscreen_busket", @"Image\BagListScreen\BagBusket.png"},
             {"baglistscreen_plus", @"Image\BagListScreen\BagPlus.png"},
-            //Materials Request
-            {"close", @"Image\MaterialsRequest\close.png"},
-            {"basket", @"Image\MaterialsRequest\basket.png"},
-            {"plus", @"Image\COCScreen\plus_img.png"},
-            {"delete", @"Image\COCScreen\delete_img.png"},
+            //CheckInfoScreen
+            {"print_icon", @"Image\CheckInfoScreen\iconCheckPrint.png"},
+            {"print_icon_disabel",@"Image\CheckInfoScreen\iconCheckPrint_dis.png" },
             // EditServicesOrMaterialsScreen
             {"editservicesormaterialsscreen_plus", @"Image\EditServicesOrMaterialsScreen\Plus.png"},
             {"editservicesormaterialsscreen_minus", @"Image\EditServicesOrMaterialsScreen\minus.png"},
@@ -104,6 +102,7 @@ namespace Test
             {"settingsscreen_send_error",@"Image\SettingsScreen\Error.png" },
             {"settingsscreen_facebook",@"Image\SettingsScreen\FB.png" },
             {"settingsscreen_send_log",@"Image\SettingsScreen\log.png" },
+            {"settingsscreen_send_logsend",@"Image\SettingsScreen\log_send.png" },
             {"settingsscreen_sservice_logo",@"Image\SettingsScreen\logo.png" },
             {"settingsscreen_logout",@"Image\SettingsScreen\logout.png" },
             {"settingsscreen_twitter",@"Image\SettingsScreen\Twitter.png" },
@@ -111,9 +110,13 @@ namespace Test
             {"settingsscreen_send_log_disable",@"Image\SettingsScreen\Log_Disable.png" },
             {"settingsscreen_userpic",@"Image\SettingsScreen\Userpic_blank.png" },
             {"settingsscreen_upload",@"Image\SettingsScreen\upload.png" },
+            { "settingsscreen_printx", @"Image\SettingsScreen\X-check.png"},
             //TaskScreen
             {"task_target_done", @"Image\TaskScreen\done.png" },
             {"task_target_not_done", @"Image\TaskScreen\not_done.png" },
+            //Print check screen
+            {"printcheckscreen_white_printer", @"Image\PrintCheckScreen\IconPrintCheckWhite.png" },
+            {"printcheckscreen_white_printer_diactivated", @"Image\PrintCheckScreen\IconPrintCheckGrey.png" },
         };
 
         public static string GetImage(string tag)
