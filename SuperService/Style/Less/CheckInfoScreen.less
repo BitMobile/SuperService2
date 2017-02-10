@@ -1,0 +1,143 @@
+﻿@import "defaults.less";
+@import "Components/TopInfoComponent.less";
+
+/* ---------------------------------- */
+
+/* Check Info Screen */
+
+@default-margin-left-right: 5sp;
+@default-mul-fount: 1.1sp;
+.horizontal-align(@align: center) {
+    horizontal-align: @align;
+}
+
+.vertical-align(@align: center) {
+    vertical-align: @align;
+}
+
+.TotalInfo {
+    height: 7sp;
+    width: 100%;
+    dock-align: bottom;
+    background-color: #ff8a5e;
+    padding-top: 2sp;
+    padding-right: @default-margin-left-right;
+    padding-left: @default-margin-left-right;
+}
+
+.RootScrollView {
+    height: 100%;
+    width: 100%;
+    
+}
+
+.TitleHorizontalAligment {
+    height: 6sp;
+    width: 100%;
+}
+
+.TitleVerticalAligment {
+    height: 100%;
+    width: 1sp auto;
+    .horizontal-align
+}
+
+.CaptionSale {
+    .text-view-style(@big-title-font-size);
+    .vertical-align;
+    color: #ff8a5e;
+    width: 5sp auto;
+}
+
+.TotalResult {
+    .text-view-style(@big-title-font-size);
+    width: 25%;
+    color: #ffffff;
+    text-align: left;
+}
+
+.SumTotal {
+    .text-view-style(@big-title-font-size);
+    width: auto;
+    color: #ffffff;
+    text-align: right;
+}
+
+.Split {
+    margin-top: 1.5sp;
+}
+
+.TotalVats {
+    .text-view-style(@default-font-size);
+    width: 25%;
+    color: #ffffff;
+    text-align: left;
+}
+
+.SumVatsTotal {
+    .text-view-style(@default-font-size);
+    width: auto;
+    color: #ffffff;
+    text-align: right;
+}
+
+.SKULine {
+    height: 10sp auto;
+    width: 100%;
+    margin-bottom:1.5sp;
+}
+.FiscalLine {
+    height: 0sp auto;
+    width: 100%;
+    margin-bottom:1.5sp;
+}
+.UnitDescription {
+    .text-view-style(@default-font-size * @default-mul-fount);
+    width: 100%;
+    color: #747474;
+    text-align: left;
+    white-space: nowrap;
+    margin-bottom:2sp;
+}
+
+.CountAndPricePerUnit {
+    .text-view-style(@default-font-size * @default-mul-fount);
+    width: 50%;
+    color: #747474;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.SumSKU {
+    .text-view-style(@default-font-size * @default-mul-fount);
+    width: auto;
+    color: #747474;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.VATSStyle {
+    .text-view-style(@default-font-size);
+    width: auto;
+    color: #747474;
+    text-align: left;
+    white-space: nowrap;
+}
+
+
+
+.HorizontalLineStyle {
+    background-color: #f4f4f5;
+    height: 0.15sp;
+    horizontal-align: center;
+    width: 100%;
+    margin-top:1sp;
+}
+
+.ExpandLayout{
+    height:100% auto;
+    width:100%;
+    padding-right: @default-margin-left-right;
+    padding-left: @default-margin-left-right;
+}
+/* ---------------------------------- */

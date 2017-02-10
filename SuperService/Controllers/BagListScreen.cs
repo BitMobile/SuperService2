@@ -41,7 +41,7 @@ namespace Test
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
             if (Settings.BagEnabled)
-                Navigation.Move("MaterialsRequestScreen");
+                Navigation.Move("CheckInfoScreen");
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)

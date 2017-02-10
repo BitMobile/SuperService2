@@ -79,6 +79,9 @@ namespace Test.Enum
                 case WebactionsEnum.MobileAppAccess:
                     res = "0236eb9f-eed9-511b-9152-86b037e79a79";
                     break;
+                case WebactionsEnum.MobileFPRAccess:
+                    res = "f22c49d3-42b4-4ccc-9646-970ee8f7db23";
+                    break;
             }
             if (string.IsNullOrEmpty(res)) return null;
             return DbRef.FromString($"@ref[Enum_Webactions]:{res}");
@@ -132,6 +135,8 @@ namespace Test.Enum
                     return WebactionsEnum.WebInterfaceAccess;
                 case "0236eb9f-eed9-511b-9152-86b037e79a79": 
                     return WebactionsEnum.MobileAppAccess;
+                case "f22c49d3-42b4-4ccc-9646-970ee8f7db23": 
+                    return WebactionsEnum.MobileFPRAccess;
             }
             return default(WebactionsEnum);
         }
@@ -163,6 +168,7 @@ namespace Test.Enum
         AnaliticAccess,
         WebInterfaceAccess,
         MobileAppAccess,
+        MobileFPRAccess,
     } 
 }
     

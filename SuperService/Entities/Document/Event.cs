@@ -108,6 +108,20 @@ namespace Test.Document
         public decimal SumFact { get; set; }
 
    }
+    public class Event_EventFiskalProperties : DbEntity
+    {
+        public DbRef Id { get; set; }
+        public int LineNumber { get; set; }
+        public DbRef Ref { get; set; }
+        public int CheckNumber { get; set; }
+        public DateTime Date { get; set; }
+        public int ShiftNumber { get; set; }
+        public string NumberFtpr { get; set; }
+        public int PaymentType { get; set; }
+        public decimal PaymentAmount { get; set; }
+        public DbRef User { get; set; }
+
+   }
 
 
 }

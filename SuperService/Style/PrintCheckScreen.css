@@ -254,269 +254,168 @@ HorizontalLine {
   horizontal-align: right;
   margin-right: 5sp;
 }
-.TabBarMainVL {
-  background-color: #ffffff;
-  dock-align: bottom;
-  height: 9%;
-  horizontal-align: center;
-  width: 100%;
-}
-.TabBarHL {
-  background-color: #ffffff;
-  dock-align: bottom;
+.MainContainer {
   height: 100%;
-  horizontal-align: center;
   width: 100%;
+  padding-left: 5sp;
+  padding-right: 5sp;
+  padding-bottom: 5sp;
+  padding-top: 5sp;
 }
-.TabBarBreaker {
-  background-color: #f3f3f4;
-  height: 1dp;
-  horizontal-align: center;
-  width: 100%;
-}
-.TabBarItemVL {
-  background-color: #ffffff;
-  color: #ffffff;
-  height: 100%;
-  horizontal-align: center;
-  margin-bottom: 0%;
-  vertical-align: center;
-  width: 25%;
-}
-.TabImage {
-  background-color: #ffffff;
-  color: #ffffff;
-  margin-top: 1.5sp;
-  height: 35%;
-  horizontal-align: center;
-  vertical-align: center;
-}
-.TabTextViewActive {
-  background-color: #ffffff;
-  color: #fd724c;
+.CaptionText {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  color: #6b6b6b;
   text-align: center;
-  font: 2.04124145sp arial;
-  height: 2.26577801sp auto;
-  margin-top: 1sp;
-}
-.TabTextViewNotActive {
-  background-color: #ffffff;
-  color: #9b9fa0;
-  text-align: center;
-  font: 2.04124145sp arial;
-  height: 2.26577801sp auto;
-  margin-top: 1sp;
-}
-/* Settings style */
-.MainInfoContainer {
-  height: 100%;
-  width: 100%;
-}
-.MainPartContainer {
-  height: 100% auto;
-  width: 100%;
-}
-.ExternalImageContainerExit {
-  height: 0sp auto;
-  width: 8% auto;
-  horizontal-align: right;
-  margin-top: 3sp;
-  margin-right: 3sp;
-}
-.ExitImage {
-  height: 4sp;
-  vertical-align: center;
-  horizontal-align: center;
-}
-.UserInfo {
-  height: 40% auto;
-  width: 100%;
-}
-.UserInfoContainerHorizontalAlign {
-  height: 100%;
-  width: 80%;
-  horizontal-align: center;
-}
-.UserInfoContainerVerticalAlign {
-  height: 0sp auto;
-  width: 100%;
-  vertical-align: center;
-}
-.UserInitials {
-  font: 6.25sp arial;
-  height: 6.9375sp auto;
-  width: 5sp auto;
-  color: #e3e3e5;
-  vertical-align: center;
   white-space: nowrap;
 }
-.UserFandLName {
-  font: 3.75sp arial;
-  height: 4.1625sp auto;
+.TotalSum {
+  font: 4.59279327sp arial;
+  height: 5.09800053sp auto;
   width: 100%;
-  color: #51595b;
-  horizontal-align: center;
+  text-align: center;
+  color: #f17d2e;
   white-space: nowrap;
-}
-.FatHorizontalLineLayout {
-  height: 5dp;
-  width: 100%;
   margin-top: 2sp;
 }
-.FatHorizontalLine {
-  height: 100%;
+.ShortLine {
+  background-color: #f4f4f5;
+  height: 0.3sp;
+  horizontal-align: center;
   width: 5sp;
-  horizontal-align: center;
-  background-color: #a8acad;
+  margin-top: 2sp;
 }
-.CompanyInfoContainer {
-  height: 15%;
-  width: 100%;
-  background-color: #f1f2f5;
-}
-CompanyInfoContainerWithFtpr {
-  height: 25%;
-  width: 100%;
-  background-color: #f1f2f5;
-}
-.ArrowDown {
-  height: 6sp;
-  horizontal-align: center;
-}
-.SserviceLogo {
-  height: 8sp;
-  margin-top: 5%;
-  horizontal-align: center;
-}
-.ProductVersion {
-  horizontal-align: center;
+.PaymentTypeCaption {
   font: 2.5sp arial;
   height: 2.775sp auto;
-  color: #a2a2aa;
-  width: 50%;
   text-align: center;
-  white-space: nowrap;
-}
-.TranslateDeveloper {
-  font: 2.5sp arial;
-  height: 2.775sp auto;
-  color: #a2a2aa;
-  width: 60%;
-  text-align: center;
-  white-space: nowrap;
-  horizontal-align: center;
-  margin-top: 5%;
-}
-.CompanyLogo {
-  height: 8sp;
-  margin-top: 5%;
-  horizontal-align: center;
-}
-.CompanySite {
-  font: 2.5sp arial;
-  height: 2.775sp auto;
-  color: #a2a2aa;
-  width: 60%;
-  text-align: center;
-  white-space: nowrap;
-  horizontal-align: center;
-  margin-top: 4%;
-}
-.MainSocialLogoContainer {
-  height: auto;
   width: 100%;
+  white-space: nowrap;
+  color: #616161;
+  margin-top: 2sp;
 }
-.HorizontalAlignLogoContainer {
+.PaymentTypeContainer {
   height: 0sp auto;
-  width: 50%;
-  vertical-align: center;
-}
-.SocialTwitterContainer {
-  height: 0sp auto;
-  width: 0sp auto;
-  horizontal-align: right;
-  margin-right: 15%;
-}
-.SocialFacebookContainer {
-  height: 0sp auto;
-  width: 0sp auto;
-  horizontal-align: left;
-  margin-left: 15%;
-}
-.SocialLogo {
-  height: 8sp;
-  horizontal-align: center;
-}
-.ReportLayout {
-  height: 30%;
-  width: 100%;
-}
-.ReportContainer {
-  height: auto;
   width: 100%;
   margin-top: 2sp;
+}
+.PaymentType {
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  width: 100%;
+  white-space: nowrap;
+  text-align: center;
+  color: #fd9c81;
+}
+.SummAndChangeContainer {
+  width: 100%;
+  height: 4sp auto;
+  margin-top: 4sp;
+}
+.LineContainer {
+  height: 4sp auto;
+  width: 100%;
+}
+.ContribCaption {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  text-align: left;
+  white-space: nowrap;
+  width: 10sp auto;
+  color: #9c9c9c;
+}
+.CashIn {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  width: auto;
+  white-space: nowrap;
+  text-align: right;
+  color: #9dcb75;
+}
+.SumIsCalculated {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  width: auto;
+  white-space: nowrap;
+  text-align: right;
+  color: #9dcb75;
+}
+.SumIsNotCalculated {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  width: auto;
+  white-space: nowrap;
+  text-align: right;
+  color: #b8b8b8;
+}
+.LineContainerWithMargin {
+  height: 4sp auto;
+  width: 100%;
+  margin-top: 2sp;
+}
+.FullHorizontalLine {
+  background-color: #f4f4f5;
+  height: 0.15sp;
   horizontal-align: center;
+  width: 100%;
+  margin-top: 1sp;
 }
-.ExternalButtonContainer {
-  height: 100%;
-  width: 49%;
+.PrintCheckContainerActivate {
+  height: 10sp;
+  width: 100%;
+  dock-align: bottom;
+  background-color: #fd9c81;
 }
-.VerticalLineContainer {
-  height: 100%;
-  width: 2%;
+.PrintCheckContainerDiactivate {
+  height: 10sp;
+  width: 100%;
+  dock-align: bottom;
+  background-color: #ffffff;
+  border-color: #d8d8d8;
+  border-style: solid;
+  border-width: 3dp;
 }
-.VerticalLine {
-  height: 100%;
-  width: 0.15sp;
-  background-color: #f3f3f3;
-  horizontal-align: center;
-}
-.ButtonContainerHorizontalAlign {
+.VerticalAlignContainer {
   height: 100%;
   width: 0sp auto;
   horizontal-align: center;
 }
-.ButtonContainerVerticalAlign {
-  height: 12sp;
+.IconStyle {
+  width: 7sp;
+  vertical-align: center;
+  margin-right: 2sp;
+}
+.PunchActive {
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  color: #ffffff;
+  white-space: nowrap;
+  text-align: center;
   width: 0sp auto;
   vertical-align: center;
 }
-.ReportImage {
-  height: 4sp;
-  horizontal-align: center;
-}
-.ReportText {
-  font: 2.5sp arial;
-  height: 2.775sp auto;
-  color: #cfcfd4;
-  width: 30sp;
+.PunchDiactive {
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  color: #d8d8d8;
+  white-space: nowrap;
   text-align: center;
-  white-space: normal;
-  margin-top: 1sp;
-  horizontal-align: center;
-}
-.ReportTextActive {
-  font: 2.5sp arial;
-  height: 2.775sp auto;
-  color: #51595b;
-  width: 30sp;
-  text-align: center;
-  white-space: normal;
-  margin-top: 1sp;
-  horizontal-align: center;
-}
-.Userpic {
-  background-image: url(Image.SettingsScreen.Userpic_blank.png);
-  height: 15mm;
-  width: 15mm;
-  margin-bottom: 3sp;
-  horizontal-align: center;
-}
-.UserpicAlign {
-  height: 100%;
   width: 0sp auto;
-  horizontal-align: center;
+  vertical-align: center;
 }
-/* End settings style*/
-/* Mix-in */
-/* End of Mix-in*/
+.NotEnought {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  text-align: left;
+  white-space: nowrap;
+  width: 10sp auto;
+  color: #fd9c81;
+}
+.CashInEnought {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  width: auto;
+  white-space: nowrap;
+  text-align: right;
+  color: #fd9c81;
+}

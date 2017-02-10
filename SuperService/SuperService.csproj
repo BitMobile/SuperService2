@@ -75,6 +75,9 @@
     <None Include="Style\Less\**" />
     <EmbeddedResource Include="*.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Image\SettingsScreen\log_send.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>$(SolutionDir)..\SDK\BitMobileSDK\BitMobileSDK.exe $(TargetPath)

@@ -106,8 +106,6 @@
 
               <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$Parameter.Id">
                 <c:EditText Enabled="$IsNotReadonly()" Text="$Parameter.Result" Keyboard="numeric"
-                            Mask="^(\d*)(\.\d+)?$"
-                            OnLostFocus="CheckListDecimal_OnLostFocus" Id="$Parameter.Id"
                             Placeholder="#not_specified#" CssClass="CheckListAnswerElementTV"
                             OnGetFocus="CheckListDecimal_OnGetFocus" />
               </c:VerticalLayout>
@@ -120,7 +118,7 @@
               </c:VerticalLayout>
 
               <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$Parameter.Id">
-                <c:EditText Enabled="$IsNotReadonly()" Text="$Parameter.Result" Keyboard="numeric" Mask="^\d*$"
+                <c:EditText Enabled="$IsNotReadonly()" Text="$Parameter.Result" Keyboard="numeric"
                             OnLostFocus="CheckListInteger_OnLostFocus" Id="$Parameter.Id"
                             Placeholder="#not_specified#" CssClass="CheckListAnswerElementTV"
                             OnGetFocus="CheckListInteger_OnGetFocus" />

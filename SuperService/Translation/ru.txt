@@ -140,3 +140,22 @@ ask_send_log		Отправить отчет об ошибке разработч
 send_log_ok		Отчет об ошибках отправлен!
 send_log_fail		Не удалось отправить отчет
 NewEventAssigh		Вам назначен новый наряд.
+x_report		X-отчет
+fpt_settings		Настройки ФР
+printZ_caption		Печать Z-отчета
+printZ_caption_ask		Будет распечатан Z-отчет. Продолжить?
+show_check_info			Просмотр чека
+cashbox_check		Кассовый чек
+sale_caption		ПРОДАЖА
+total_checkInfo		ИТОГО:
+include_vat		Включая НДС:
+percent_witho_out		БЕЗ НДС
+registration_check		Оформление чека
+total_to_pay		ИТОГО К ОПЛАТЕ
+payment_type		способ оплаты ▼
+contribution_sum		Сумма:
+change		Сдача:
+punch_check		ПРОБИТЬ ЧЕК
+missing_amount		Недостает суммы
+VAT		НДС
+change_is_not_calculated		не рассчитана
