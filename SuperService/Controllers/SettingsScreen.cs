@@ -151,7 +151,15 @@ namespace Test
 
         private static void Logout()
         {
-            PushService.Unregister();
+            try
+            {
+                PushService.Unregister();
+
+            }
+            catch (Exception e)
+            {
+                Utils.TraceMessage($"{e.Message}");
+            }
             DBHelper.Sync();
             FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password);
             Settings.Password = "";

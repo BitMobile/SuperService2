@@ -250,14 +250,17 @@ namespace Test
                 return;
             }
 
+            Utils.TraceMessage($"{Parameters.Splitter}{Environment.NewLine}" +
+                                   $"Sync in progress");
+
             try
             {
                 _db.UploadChanges(Settings.Server, Settings.User, Settings.Password, Settings.DefaultSyncTimeOut
-                    , SyncHandler + resultEventHandler, null);
+                    , SyncHandler + resultEventHandler, nameof(Upload));
             }
             catch (Exception)
             {
-                SyncHandler("Upload", new ResultEventArgs<bool>(false));
+                SyncHandler(nameof(Upload), new ResultEventArgs<bool>(false));
             }
         }
 
@@ -270,14 +273,17 @@ namespace Test
                 return;
             }
 
+            Utils.TraceMessage($"{Parameters.Splitter}{Environment.NewLine}" +
+                                  $"Sync in progress");
+
             try
             {
                 _db.UploadChangesAsync(Settings.Server, Settings.User, Settings.Password, Settings.DefaultSyncTimeOut
-                    , SyncHandler + resultEventHandler, null);
+                    , SyncHandler + resultEventHandler, nameof(UploadAsync));
             }
             catch (Exception)
             {
-                SyncHandler("Upload", new ResultEventArgs<bool>(false));
+                SyncHandler(nameof(Upload), new ResultEventArgs<bool>(false));
             }
         }
     }

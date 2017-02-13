@@ -110,7 +110,8 @@ namespace Test
             }
             entitiesList.Add(@event);
             entitiesList.Add(DBHelper.CreateHistory(@event));
-            DBHelper.SaveEntities(entitiesList);
+            DBHelper.SaveEntities(entitiesList,false);
+            DBHelper.SyncAsync();
             Navigation.CleanStack();
             Navigation.ModalMove("EventListScreen");
         }
