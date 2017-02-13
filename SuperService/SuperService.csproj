@@ -112,8 +112,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)..\SDK\BitMobileSDK\BitMobileSDK.exe $(TargetPath)
-echo $(TargetPath).zip &gt; "$(TargetDir)package.txt</PostBuildEvent>
+    <PostBuildEvent Condition=" '$(OS)' == 'Windows_NT'" >$(SolutionDir)..\SDK\BitMobileSDK\BitMobileSDK.exe $(TargetPath)
+      echo $(TargetPath).zip &gt; "$(TargetDir)package.txt"</PostBuildEvent>
+    <PostBuildEvent Condition=" '$(OS)' != 'Windows_NT'" >mono '$(SolutionDir)..\SDK\BitMobileSDK\BitMobileSDK.exe' '$(TargetPath)'
+      echo '$(TargetPath).zip' &gt; '$(TargetDir)package.txt'</PostBuildEvent>
   </PropertyGroup>
   <Import Project="packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
