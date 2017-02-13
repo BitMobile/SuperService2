@@ -1,7 +1,7 @@
-﻿using BitMobile.ClientModel3;
-using BitMobile.DbEngine;
-using System;
+﻿using System;
 using System.Collections;
+using BitMobile.ClientModel3;
+using BitMobile.DbEngine;
 using Test.Document;
 using Database = BitMobile.ClientModel3.Database;
 
@@ -34,8 +34,9 @@ namespace Test
             entity.Save();
             _db.Commit();
             if (doSync)
-                SyncAsync();
+                UploadAsync();
         }
+
         public static EventHistory CreateHistory(Event @event)
         {
             return new EventHistory
@@ -53,12 +54,10 @@ namespace Test
         public static void SaveEntities(IEnumerable entities, bool doSync = true)
         {
             foreach (DbEntity entity in entities)
-            {
                 entity.Save();
-            }
             _db.Commit();
             if (doSync)
-                SyncAsync();
+                UploadAsync();
         }
 
         public static void DeleteByRef(DbRef @ref, bool doSync = true)
@@ -66,7 +65,7 @@ namespace Test
             _db.Delete(@ref);
             _db.Commit();
             if (doSync)
-                SyncAsync();
+                UploadAsync();
         }
 
         public static object LoadEntity(string id)
@@ -105,6 +104,7 @@ namespace Test
             }
         }
 
+      
         public static void SyncAsync(ResultEventHandler<bool> resultEventHandler = null)
         {
             if (_db.SyncIsActive)
@@ -238,6 +238,46 @@ namespace Test
             catch (Exception)
             {
                 SyncHandler("Full", new ResultEventArgs<bool>(false));
+            }
+        }
+
+        public static void Upload(ResultEventHandler<bool> resultEventHandler = null)
+        {
+            if (_db.SyncIsActive)
+            {
+                Utils.TraceMessage($"{Parameters.Splitter}{Environment.NewLine}" +
+                                   $"Another sync in progress");
+                return;
+            }
+
+            try
+            {
+                _db.UploadChanges(Settings.Server, Settings.User, Settings.Password, Settings.DefaultSyncTimeOut
+                    , SyncHandler + resultEventHandler, null);
+            }
+            catch (Exception)
+            {
+                SyncHandler("Upload", new ResultEventArgs<bool>(false));
+            }
+        }
+
+        public static void UploadAsync(ResultEventHandler<bool> resultEventHandler = null)
+        {
+            if (_db.SyncIsActive)
+            {
+                Utils.TraceMessage($"{Parameters.Splitter}{Environment.NewLine}" +
+                                   $"Another sync in progress");
+                return;
+            }
+
+            try
+            {
+                _db.UploadChangesAsync(Settings.Server, Settings.User, Settings.Password, Settings.DefaultSyncTimeOut
+                    , SyncHandler + resultEventHandler, null);
+            }
+            catch (Exception)
+            {
+                SyncHandler("Upload", new ResultEventArgs<bool>(false));
             }
         }
     }
