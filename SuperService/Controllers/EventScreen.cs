@@ -300,7 +300,7 @@ namespace Test
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {
             if (_needSync)
-                DBHelper.UploadAsync();
+                DBHelper.SyncAsync();
             Navigation.Back();
         }
 
