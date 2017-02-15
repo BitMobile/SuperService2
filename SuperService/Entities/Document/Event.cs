@@ -28,8 +28,10 @@ namespace Test.Document
         public string TargInteractions { get; set; }
         public string ResultInteractions { get; set; }
         public DbRef Status { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public decimal LatitudeStart { get; set; }
+        public decimal LongitudeStart { get; set; }
+        public decimal LatitudeEnd { get; set; }
+        public decimal LongitudeEnd { get; set; }
         public DateTime GPSTime { get; set; }
         public DbRef ContactVisiting { get; set; }
         public DbRef TypesDepartures { get; set; }

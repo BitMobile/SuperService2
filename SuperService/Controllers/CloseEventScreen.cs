@@ -2,6 +2,7 @@
 using BitMobile.DbEngine;
 using System;
 using System.Collections;
+using BitMobile.ClientModel3;
 using Test.Document;
 using Test.Enum;
 
@@ -91,8 +92,13 @@ namespace Test
                 reminder.ViewReminder = FoReminders.GetDbRefFromEnum(FoRemindersEnum.Sale);
                 entitiesList.Add(reminder);
             }
+            var result = DBHelper.GetCoordinate(TimeRangeCoordinate.DefaultTimeRange);
+            var latitude = Converter.ToDouble(result["Latitude"]);
+            var longitude = Converter.ToDouble(result["Longitude"]);
             var @event = (Event)eventRef.GetObject();
             @event.ActualEndDate = (DateTime)BusinessProcess.GlobalVariables[Parameters.DateEnd];
+            @event.LatitudeEnd = Converter.ToDecimal(latitude);
+            @event.LongitudeEnd = Converter.ToDecimal(longitude);
             if (_problem)
             {
                 @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.DoneWithTrouble);

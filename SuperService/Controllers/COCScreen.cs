@@ -357,8 +357,8 @@ namespace Test
             var @event = (Event) DBHelper.LoadEntity(_currentEventId);
             @event.ActualStartDate = DateTime.Now;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
-            @event.Latitude = Converter.ToDecimal(latitude);
-            @event.Longitude = Converter.ToDecimal(longitude);
+            @event.LatitudeStart = Converter.ToDecimal(latitude);
+            @event.LongitudeStart = Converter.ToDecimal(longitude);
             DBHelper.SaveEntity(@event);
             Variables[Parameters.IdWasEventStarted] = true;
             _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);

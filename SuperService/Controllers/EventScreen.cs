@@ -278,8 +278,8 @@ namespace Test
             var @event = (Event) DBHelper.LoadEntity(currentEventId);
             @event.ActualStartDate = DateTime.Now;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
-            @event.Latitude = Converter.ToDecimal(latitude);
-            @event.Longitude = Converter.ToDecimal(longitude);
+            @event.LatitudeStart = Converter.ToDecimal(latitude);
+            @event.LongitudeStart = Converter.ToDecimal(longitude);
             var enitylist = new ArrayList();
             enitylist.Add(@event);
             enitylist.Add(DBHelper.CreateHistory(@event));
