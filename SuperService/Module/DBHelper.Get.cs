@@ -3,6 +3,7 @@ using BitMobile.DbEngine;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using BitMobile.Common.Application;
 using BitMobile.Common.FiscalRegistrator;
 using Test.Catalog;
 using Test.Document;
@@ -1490,15 +1491,30 @@ namespace Test
 
         public static bool CheckFtprAcsess()
         {
-           
-            
+            bool ios = true;
+
+            switch (Application.TargetPlatform)
+            {
+                case TargetPlatform.Android:
+                    ios = false;
+                    break;
+                case TargetPlatform.iOS:
+                    ios = true;
+                    break;               
+                default:
+                    ios = true;
+                    break;
+            }
             if (Settings.EnableFPTR)
             {
                 Utils.TraceMessage($"{Settings.EnableFPTR}");
                 if (CheckRole("MobileFPRAccess"))
                 {
-                    Utils.TraceMessage($"{CheckRole("MobileFPRAccess")}");
-                    return true;
+                    if (!ios)
+                    {
+                        Utils.TraceMessage($"{CheckRole("MobileFPRAccess")}");
+                        return true;
+                    }
                 }
             }
             return false;
