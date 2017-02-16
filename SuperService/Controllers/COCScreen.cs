@@ -374,6 +374,11 @@ namespace Test
             DBHelper.SaveEntities(rimArrayList, false);
         }
 
-        internal bool ShowCheckInfoScreen() => DBHelper.CheckFtprAcsess();
+        internal bool ShowCheckInfoScreen()
+        {
+            _wasStarted = (bool)Variables[Parameters.IdWasEventStarted];
+            var CountRim = DBHelper.GetCocCountRimByEventId(_currentEventId, !_wasStarted);
+            return DBHelper.CheckFtprAcsess() && ((int)CountRim["Sum"] != 0);
+        }
     }
 }

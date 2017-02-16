@@ -599,6 +599,19 @@ namespace Test
             query.AddParameter("eventId", eventId);
             return query.Execute();
         }
+        public static DbRecordset GetCocCountRimByEventId(string eventId, bool isPlanCount = false)
+        {
+            var column = isPlanCount ? "AmountPlan" : "AmountFact";
+            var query = new Query("select " +
+                                  $"    TOTAL({column}) as Sum " +
+                                  "from " +
+                                  "    Document_Event_ServicesMaterials " +
+                                  "    join Catalog_RIM " +
+                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  "where Ref = @eventId");
+            query.AddParameter("eventId", eventId);
+            return query.Execute();
+        }
 
         public static double GetCheckSKUSum(string eventId)
         {
