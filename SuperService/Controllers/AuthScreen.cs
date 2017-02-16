@@ -2,6 +2,7 @@
 using BitMobile.ClientModel3.UI;
 using ClientModel3.MD;
 using System;
+using BitMobile.Common.Application;
 
 namespace Test
 {
@@ -85,6 +86,19 @@ namespace Test
 
             if (_enterButton != null)
                 _enterButton.Enabled = edit;
+        }
+
+        public string GetPlatformRoundButtonStyle()
+        {
+            switch (Application.TargetPlatform)
+            {
+                case TargetPlatform.Android:
+                    return "AuthScreenConnectBTNAndroid";
+                case TargetPlatform.iOS:
+                    return "AuthScreenConnectBTNiOS";
+                default:
+                    return "Button";
+            }
         }
     }
 }
