@@ -28,7 +28,8 @@
     <c:VerticalLayout CssClass="BreakerContainerVL">
       <c:HorizontalLine CssClass="BreakerHL" />
     </c:VerticalLayout>
-    <c:Button Id="ba603e1782d543f696944a603d7f05f2" Text="#log_in#" OnClick="СonnectButton_OnClick" CssClass="AuthScreenConnectBTN" />
+    <c:Button Id="ba603e1782d543f696944a603d7f05f2" Text="#log_in#" OnClick="СonnectButton_OnClick" 
+              CssClass="$GetPlatformRoundButtonStyle()" />
     <!--TODO: Кнопка временно отключена, так как пока невозможно реализовать её функционал.-->
     <!--<c:Button Text="#cant_signing#" OnClick="CantSigningButton_OnClick" CssClass="AuthScreenResetPasswordBTN" />-->
   </c:VerticalLayout>
