@@ -213,11 +213,7 @@ namespace Test
                 Dialog.Alert(Translator.Translate("closeeventquestion"), (o, args) =>
                     {
                         if (!CheckEventBeforeClosing() || args.Result != 0) return;
-                        var @event =
-                            (Event)
-                            DBHelper.LoadEntity(
-                                (string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
-                        BusinessProcess.GlobalVariables[Parameters.DateEnd] = DateTime.Now;
+                       
                         Navigation.Move("CloseEventScreen");
                     }, null,
                     Translator.Translate("yes"), Translator.Translate("no"));
@@ -353,7 +349,7 @@ namespace Test
                 {Parameters.IdIsReadonly, _readonly},
                 {Parameters.IdWasEventStarted, wasStarted}
             };
-            Navigation.Move("COCScreen", dictinory);
+            Navigation.Move(nameof(COCScreen), dictinory);
         }
 
         internal void CheckListCounterLayout_OnClick(object sender, EventArgs eventArgs)

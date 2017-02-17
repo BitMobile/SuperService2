@@ -96,7 +96,7 @@ namespace Test
             var latitude = Converter.ToDouble(result["Latitude"]);
             var longitude = Converter.ToDouble(result["Longitude"]);
             var @event = (Event)eventRef.GetObject();
-            @event.ActualEndDate = (DateTime)BusinessProcess.GlobalVariables[Parameters.DateEnd];
+            @event.ActualEndDate = DateTime.Now;
             @event.LatitudeEnd = Converter.ToDecimal(latitude);
             @event.LongitudeEnd = Converter.ToDecimal(longitude);
             if (_problem)

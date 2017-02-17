@@ -86,12 +86,18 @@
                               CssClass="CheckListAnswerElement" />
                 </s:If>
                 <s:Else>
-                  <s:If Test="$Parameter.Result == #yes#">
+                  <s:If Test="$Parameter.Result == 'true'">
                     <c:TextView Text="#yes#" Id="$Parameter.OptionId"
                                 CssClass="CheckListAnswerElement" />
                   </s:If>
                   <s:Else>
-                    <c:TextView Text="#no#" Id="$Parameter.OptionId"
+                    <s:If Test="$Parameter.Result == 'false'">
+                      <c:TextView Text="#no#" Id="$Parameter.OptionId"
+                                  CssClass="CheckListAnswerElement" />
+                    </s:If>
+                  </s:Else>
+                  <s:Else>
+                    <c:TextView Text="#not_choosed#" Id="$Parameter.OptionId"
                                 CssClass="CheckListAnswerElement" />
                   </s:Else>
                 </s:Else>
