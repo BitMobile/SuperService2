@@ -1,11 +1,10 @@
-﻿using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
-using BitMobile.Common.Controls;
-using BitMobile.DbEngine;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
+using BitMobile.DbEngine;
 using Test.Components;
 using Test.Document;
 
@@ -27,16 +26,16 @@ namespace Test
         private string _newGuid;
         private string _pathToImg;
 
+        private bool _readonly;
+
         // Для списка и даты
         private TextView _textView;
 
-        private int _totalRequired;
+        private TopInfoComponent _topInfoComponent;
 
         private int _totalAnswered;
 
-        private TopInfoComponent _topInfoComponent;
-
-        private bool _readonly;
+        private int _totalRequired;
 
         public override void OnLoading()
         {
@@ -44,18 +43,18 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("clist"),
-                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
+                LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_back")},
                 ArrowVisible = false,
                 SubHeader =
                     string.Format(Translator.Translate("mandatory_questions_0_1"), _totalAnswered, _totalRequired)
             };
-            _readonly = (bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
+            _readonly = (bool) Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
             _topInfoComponent.ActivateBackButton();
         }
 
         private void UpdateChecklist(string id, string result)
         {
-            var checkList = (Event_CheckList)DBHelper.LoadEntity(id);
+            var checkList = (Event_CheckList) DBHelper.LoadEntity(id);
             checkList.Result = result;
             DBHelper.SaveEntity(checkList, false);
         }
@@ -100,8 +99,8 @@ namespace Test
         internal void CheckListSnapshot_OnClick(object sender, EventArgs eventArgs)
         {
             if (_readonly) return;
-            _imgToReplace = (Image)((VerticalLayout)sender).GetControl(0);
-            _currentCheckListItemID = ((VerticalLayout)sender).Id;
+            _imgToReplace = (Image) ((VerticalLayout) sender).GetControl(0);
+            _currentCheckListItemID = ((VerticalLayout) sender).Id;
 
             if (_imgToReplace.Source.StartsWith("~"))
             {
@@ -137,8 +136,8 @@ namespace Test
         internal void CheckListValList_OnClick(object sender, EventArgs e)
         {
             if (_readonly) return;
-            _currentCheckListItemID = ((VerticalLayout)sender).Id;
-            _textView = (TextView)((VerticalLayout)sender).GetControl(0);
+            _currentCheckListItemID = ((VerticalLayout) sender).Id;
+            _textView = (TextView) ((VerticalLayout) sender).GetControl(0);
 
             var tv = GetTextView(sender);
             var startObject = "not_choosed";
@@ -175,8 +174,8 @@ namespace Test
         internal void CheckListDateTime_OnClick(object sender, EventArgs e)
         {
             if (_readonly) return;
-            _currentCheckListItemID = ((VerticalLayout)sender).Id;
-            _textView = (TextView)((VerticalLayout)sender).GetControl(0);
+            _currentCheckListItemID = ((VerticalLayout) sender).Id;
+            _textView = (TextView) ((VerticalLayout) sender).GetControl(0);
             DateTime date;
             var isDate = DateTime.TryParse(_textView.Text, out date);
             date = isDate ? date : DateTime.Now;
@@ -196,8 +195,8 @@ namespace Test
         internal void CheckListBoolean_OnClick(object sender, EventArgs e)
         {
             if (_readonly) return;
-            _currentCheckListItemID = ((VerticalLayout)sender).Id;
-            _textView = (TextView)((VerticalLayout)sender).GetControl(0);
+            _currentCheckListItemID = ((VerticalLayout) sender).Id;
+            _textView = (TextView) ((VerticalLayout) sender).GetControl(0);
 
             var tv = GetTextView(sender);
 
@@ -217,9 +216,9 @@ namespace Test
         //Костыльно. Получаем парента при помощи интерфейса, которого(интерфейс) у нас в SDK у класса нет.
         private TextView GetTextView(object sender)
         {
-            var hl = (HorizontalLayout)((VerticalLayout)sender).Parent;
-            var vl = (VerticalLayout)hl.Controls[hl.Controls.Length < 3 ? 0 : 1];
-            var tv = (TextView)vl.Controls[0];
+            var hl = (HorizontalLayout) ((VerticalLayout) sender).Parent;
+            var vl = (VerticalLayout) hl.Controls[hl.Controls.Length < 3 ? 0 : 1];
+            var tv = (TextView) vl.Controls[0];
             return tv;
         }
 
@@ -227,7 +226,7 @@ namespace Test
         {
             _textView.Text = args.Result.Value;
             UpdateChecklist(_currentCheckListItemID,
-                ((string) args.Result.Key) == "not_choosed" ? "" : (string) args.Result.Key);
+                (string) args.Result.Key == "not_choosed" ? "" : (string) args.Result.Key);
             Utils.TraceMessage($"Boleean choose: Key {args.Result.Key} Value: {args.Result.Value}");
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов ChangeRequiredIndicator(_lastClickedRequiredIndicatior, args.Result.Value != Translator.Translate("not_choosed"));
             if (args.Result.Value != Translator.Translate("not_choosed"))
@@ -241,13 +240,13 @@ namespace Test
         // С точкой
         internal void CheckListDecimal_OnLostFocus(object sender, EventArgs e)
         {
-            _editText = (EditText)sender;
-            _currentCheckListItemID = ((EditText)sender).Id;
+            _editText = (EditText) sender;
+            _currentCheckListItemID = ((EditText) sender).Id;
 
             UpdateChecklist(_currentCheckListItemID, _editText.Text);
 
             _lastClickedRequiredIndicatior =
-                (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
+                (VerticalLayout) GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
 
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов  ChangeRequiredIndicator(_lastClickedRequiredIndicatior, string.IsNullOrWhiteSpace(_editText.Text));
             if (!string.IsNullOrWhiteSpace(_editText.Text))
@@ -259,13 +258,13 @@ namespace Test
         //Целое
         internal void CheckListInteger_OnLostFocus(object sender, EventArgs e)
         {
-            _editText = (EditText)sender;
-            _currentCheckListItemID = ((EditText)sender).Id;
+            _editText = (EditText) sender;
+            _currentCheckListItemID = ((EditText) sender).Id;
 
             UpdateChecklist(_currentCheckListItemID, _editText.Text);
 
             _lastClickedRequiredIndicatior =
-                (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
+                (VerticalLayout) GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
 
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов  ChangeRequiredIndicator(_lastClickedRequiredIndicatior, string.IsNullOrWhiteSpace(_editText.Text));
             if (!string.IsNullOrWhiteSpace(_editText.Text))
@@ -276,35 +275,35 @@ namespace Test
 
         internal void CheckListString_OnGetFocus(object sender, EventArgs e)
         {
-            _currentCheckListItemID = ((EditText)sender).Id;
+            _currentCheckListItemID = ((EditText) sender).Id;
             _lastClickedRequiredIndicatior =
-                (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_currentCheckListItemID), true);
+                (VerticalLayout) GetControl(GenerateRequiredIndicatorId(_currentCheckListItemID), true);
         }
 
         internal void CheckListDecimal_OnGetFocus(object sender, EventArgs e)
         {
-            _currentCheckListItemID = ((EditText)sender).Id;
+            _currentCheckListItemID = ((EditText) sender).Id;
             _lastClickedRequiredIndicatior =
-                (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_currentCheckListItemID), true);
+                (VerticalLayout) GetControl(GenerateRequiredIndicatorId(_currentCheckListItemID), true);
         }
 
         internal void CheckListInteger_OnGetFocus(object sender, EventArgs e)
         {
-            _currentCheckListItemID = ((EditText)sender).Id;
+            _currentCheckListItemID = ((EditText) sender).Id;
             _lastClickedRequiredIndicatior =
-                (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_currentCheckListItemID), true);
+                (VerticalLayout) GetControl(GenerateRequiredIndicatorId(_currentCheckListItemID), true);
         }
 
         // Строка
         internal void CheckListString_OnLostFocus(object sender, EventArgs e)
         {
-            _editText = (EditText)sender;
-            _currentCheckListItemID = ((EditText)sender).Id;
+            _editText = (EditText) sender;
+            _currentCheckListItemID = ((EditText) sender).Id;
 
             UpdateChecklist(_currentCheckListItemID, _editText.Text);
 
             _lastClickedRequiredIndicatior =
-                (VerticalLayout)GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
+                (VerticalLayout) GetControl(GenerateRequiredIndicatorId(_editText.Id), true);
 
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов  ChangeRequiredIndicator(_lastClickedRequiredIndicatior, string.IsNullOrWhiteSpace(_editText.Text)););
             if (!string.IsNullOrWhiteSpace(_editText.Text))
@@ -315,8 +314,8 @@ namespace Test
 
         internal void CheckListElementLayout_OnClick(object sender, EventArgs e)
         {
-            var horizontalLayout = (HorizontalLayout)sender;
-            _lastClickedRequiredIndicatior = (VerticalLayout)horizontalLayout.Controls[0];
+            var horizontalLayout = (HorizontalLayout) sender;
+            _lastClickedRequiredIndicatior = (VerticalLayout) horizontalLayout.Controls[0];
         }
 
         //TODO: КОСТЫЛЬ метод оставлен для совместимости. когда-нибудь, когда bool начнет работать как надо он опять начнет использоваться
@@ -376,7 +375,7 @@ namespace Test
 
         internal IEnumerable GetCheckList()
         {
-            return DBHelper.GetCheckListByEventID((string)BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
+            return DBHelper.GetCheckListByEventID((string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
         }
 
         internal void BackButton_OnClick(object sender, EventArgs eventArgs)
@@ -406,7 +405,7 @@ namespace Test
 
         internal bool IsNotReadonly()
         {
-            return !((bool)Variables[Parameters.IdIsReadonly]);
+            return !(bool) Variables[Parameters.IdIsReadonly];
         }
 
         internal string GetResourceImage(string tag)
