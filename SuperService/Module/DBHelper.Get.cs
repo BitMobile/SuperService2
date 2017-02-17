@@ -91,9 +91,8 @@ namespace Test
                                   event.StartDatePlan";
 
             var query = new Query(queryString);
-
             query.AddParameter("eventDate", eventSinceDate);
-            query.AddParameter("userId", Settings.UserDetailedInfo.Id);
+            query.AddParameter("userId", Settings.UserDetailedInfo?.Id);
             query.AddParameter("EVD", eventToDate);
             query.AddParameter("OnHarmonization", EventStatus.OnHarmonization);
             query.AddParameter("statusDone", EventStatus.Done);
@@ -147,7 +146,7 @@ namespace Test
                                     WHERE
                                       event.DeletionMark = 0 AND event.UserMA = @userID AND NOT(Enum_StatusyEvents.Name = @OnHarmonization)");
             query.AddParameter("OnHarmonization", EventStatus.OnHarmonization);
-            query.AddParameter("userID",Settings.UserDetailedInfo.Id);
+            query.AddParameter("userID",Settings.UserDetailedInfo?.Id);
             var result = query.Execute();
 
             if (!result.Next()) return statistic;
@@ -1305,8 +1304,8 @@ namespace Test
                                     from Catalog_User
                                     where UserName like @userName");
             query.AddParameter("userName", userName);
-
-            return query.Execute();
+            var result = query.Execute();
+            return result;
         }
 
         public static DbRecordset GetSettings()
