@@ -15,7 +15,7 @@ namespace Test
             DConsole.WriteLine("Authorization init...");
             DynamicScreenRefreshService.Init();
             Authorization.Init();
-            if (Authorization.FastAuthorization())
+            if (Authorization.FastAuthorization() && Settings.UserDetailedInfo!=null)
             {
 #if DEBUG
                 DConsole.WriteLine($"Логин и пароль были сохранены." +
@@ -28,6 +28,10 @@ namespace Test
             else
             {
 #if DEBUG
+                if (Settings.UserDetailedInfo == null)
+                {
+                    Utils.TraceMessage("Произошло падение базы... извините");
+                }
                 DConsole.WriteLine($"Логин и пароль НЕ были сохранены." +
                                    $"{Environment.NewLine}" +
                                    $"Login: {Settings.User} Password: {Settings.Password} {Environment.NewLine}");

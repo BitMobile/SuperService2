@@ -95,6 +95,7 @@ namespace Test
 
             try
             {
+                Utils.TraceMessage($"Sync(from Settings) login: {Settings.User} password: {Settings.Password}");
                 _db.PerformFullSyncAsync(Settings.Server, Settings.User, Settings.Password, Settings.DefaultSyncTimeOut,
                     SyncHandler + resultEventHandler,
                     "Full");
