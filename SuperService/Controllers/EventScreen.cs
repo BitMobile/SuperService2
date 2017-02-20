@@ -442,7 +442,7 @@ namespace Test
         {
             var parsedDate = DateTime.Parse(date);
             var result = DateTime.Now - parsedDate;
-            return $"{(int)result.TotalHours}:{result.Minutes}";
+            return $"{(int)result.TotalHours:00}:{result.Minutes:00}";
         }
 
         internal bool ShowTaskButton() => Settings.EquipmentEnabled;
