@@ -29,12 +29,17 @@ namespace Test
         private bool _usedCalculateMaterials;
         private bool _usedCalculateService;
         private bool _wasStarted;
+        private HorizontalLayout _hl;
 
         public override void OnLoading()
         {
+            _hl = (HorizontalLayout)GetControl("buttonPrint", true);
+            if (ShowCheckInfoScreen())
+            {
+                _hl.Visible = true;
+            }
             InitClassFields();
             string totalSum;
-
             if (!_usedCalculateMaterials && !_usedCalculateService)
             {
                 totalSum = Parameters.EmptyPriceDescription;
@@ -75,7 +80,6 @@ namespace Test
             _currentEventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
             _usedCalculateService = Settings.ShowServicePrice;
             _usedCalculateMaterials = Settings.ShowMaterialPrice;
-
             GetSums();
 
             _fieldsAreInitialized = true;
@@ -273,7 +277,16 @@ namespace Test
                     $"{sm.AmountFact} x {sm.Price} {Translator.Translate("currency")} {(string.IsNullOrEmpty(sku.Unit) ? "" : $"/ {sku.Unit}")}";
                 shl.Index = 0;
             }
-
+            if (ShowCheckInfoScreen())
+            {
+                _hl.Visible = true;
+                _hl.Refresh();
+            }
+            else
+            {
+                _hl.Visible = false;
+                _hl.Refresh();
+            }
             var sums = GetSums();
             _totalSumForServices.Text = GetFormatStringForServiceSums();
             _totalSumForMaterials.Text = GetFormatStringForMaterialSums();
