@@ -3,30 +3,15 @@
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
 
   <c:DockLayout CssClass="RootLayout">
-
-    <!-- Добавление верхней панели -->
-    <s:Include File="Components\TopInfoComponent.xml" />
-
     <!-- Tab Bar-->
     <s:Include File="Components\TabBarСomponent.xml" />
-
-    <c:ScrollView CssClass="BagListMainSVL">
-      <c:VerticalLayout>
-        <s:Iterator Id="UserBag" Value="$GetUserBag()">
-
-          <c:HorizontalLayout CssClass ="BagListItemHL">
-            <c:VerticalLayout CssClass="BagListNameVL">
-              <c:TextView Text="$UserBag.Description" CssClass="BagListNameTV" />
-            </c:VerticalLayout>
-            <c:VerticalLayout CssClass="BagListAmountVL">
-              <s:If Test="$ShowCount()">
-                <c:TextView Text="$ConcatCountUnit($UserBag.Count, $UserBag.Unit)" CssClass="BagListAmountTV" />
-              </s:If>
-            </c:VerticalLayout>
-          </c:HorizontalLayout>
-          <c:HorizontalLine CssClass="BagListBreaker" />
-        </s:Iterator>
-      </c:VerticalLayout>
-    </c:ScrollView>
+    <c:VerticalLayout Id="ede910a77e0a4414a29d9cb7a344de76" 
+                      CssClass="GrayLayout">
+      
+      <c:HorizontalLayout Id="d30266853cbd493b97bca8ae6d222d58"
+                          CssClass="TopContainer">
+        
+      </c:HorizontalLayout>
+    </c:VerticalLayout>
   </c:DockLayout>
 </c:Screen>

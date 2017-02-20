@@ -3,6 +3,7 @@ using BitMobile.ClientModel3.UI;
 using System;
 using System.Collections;
 using System.Globalization;
+using BitMobile.Common.Application;
 using Test.Components;
 
 namespace Test
@@ -10,26 +11,12 @@ namespace Test
     public class FiscalRegistratorSettingsScreen : Screen
     {
         private TabBarComponent _tabBarComponent;
-        private TopInfoComponent _topInfoComponent;
-
+        private bool _readonlyForIos;
         public override void OnLoading()
         {
-            _topInfoComponent = new TopInfoComponent(this)
-            {
-                Header = Translator.Translate("bag"),
-                ArrowVisible = false
-            };
-            if (Settings.BagEnabled)
-            {
-                _topInfoComponent.LeftButtonControl = new Image
-                {
-                    Source = ResourceManager.GetImage("baglistscreen_busket")
-                };
-                _topInfoComponent.RightButtonControl = new Image
-                {
-                    Source = ResourceManager.GetImage("baglistscreen_plus")
-                };
-            }
+            _readonlyForIos = Application.TargetPlatform == TargetPlatform.iOS 
+                || Application.TargetPlatform == TargetPlatform.Other;
+
             _tabBarComponent = new TabBarComponent(this);
         }
 
@@ -38,32 +25,6 @@ namespace Test
             GpsTracking.Start();
         }
 
-        internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
-        {
-            if (Settings.BagEnabled)
-                Navigation.Move("RequestHistoryScreen");
-        }
-
-        internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
-        {
-            if (Settings.BagEnabled)
-                Navigation.Move("CheckInfoScreen");
-        }
-
-        internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
-        {
-            _topInfoComponent.Arrow_OnClick(sender, e);
-        }
-
-        internal IEnumerable GetUserBag()
-        {
-            return Settings.BagEnabled ? DBHelper.GetUserBagByUserId(Settings.UserId) : DBHelper.GetAllMaterials();
-        }
-
-        internal string ConcatCountUnit(Single count, string unit)
-        {
-            return string.Concat(count.ToString(CultureInfo.CurrentCulture), unit);
-        }
 
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
         {
@@ -90,6 +51,5 @@ namespace Test
             return ResourceManager.GetImage(tag);
         }
 
-        internal bool ShowCount() => Settings.BagEnabled;
     }
 }

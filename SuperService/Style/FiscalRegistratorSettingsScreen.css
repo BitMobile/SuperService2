@@ -307,54 +307,9 @@ HorizontalLine {
   height: 2.26577801sp auto;
   margin-top: 1sp;
 }
-.BagListMainSVL {
-  height: auto;
+.GrayLayout {
   width: 100%;
-}
-.BagListItemHL {
-  height: 0% auto;
-  horizontal-align: center;
-  width: 100%;
-}
-.BagListNameVL {
-  height: 9sp auto;
-  vertical-align: center;
-  horizontal-align: center;
-  width: 75%;
-}
-.BagListNameTV {
-  width: 95%;
-  color: #51595b;
-  font: 3.06186218sp arial;
-  height: 3.39866702sp auto;
-  margin-top: 3sp;
-  margin-left: 5.5sp;
-  margin-bottom: 3sp;
-  text-align: left;
-  vertical-align: center;
-  horizontal-align: center;
-}
-.BagListAmountVL {
-  height: 9sp auto;
-  vertical-align: top;
-  horizontal-align: right;
-  width: 25%;
-}
-.BagListAmountTV {
-  width: 95%;
-  color: #8abf57;
-  font: 3.06186218sp arial;
-  height: 3.39866702sp auto;
-  margin-top: 3sp;
-  margin-right: 5sp;
-  margin-bottom: 3sp;
-  text-align: right;
-  vertical-align: top;
-  horizontal-align: right;
-}
-.BagListBreaker {
-  background-color: #f4f4f4;
-  horizontal-align: center;
-  width: 90%;
+  height: 54%;
+  background-color: #f1f2f5;
 }
 /* End of BagList style */
