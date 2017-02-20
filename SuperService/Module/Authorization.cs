@@ -38,6 +38,7 @@ namespace Test
 
         public static void StartAuthorization(string userName, string password)
         {
+            Init();
             _user = userName;
             _password = password;
             var userpass = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{userName}:{password}"));

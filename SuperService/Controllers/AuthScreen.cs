@@ -51,6 +51,7 @@ namespace Test
                 Toast.MakeToast(Translator.Translate("password_empty"));
             else
                 Authorization.StartAuthorization(_loginEditText.Text, _passwordEditText.Text);
+            
         }
 
         internal string GetResourceImage(string tag)
