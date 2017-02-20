@@ -389,7 +389,9 @@ namespace Test
         {
             var status = (string) eventRecordset["statusName"];
             var sums = DBHelper.GetCocSumsByEventId(eventRecordset["Id"].ToString(),
-                status != EventStatus.Done && status != EventStatus.InWork);
+                status != EventStatus.Done && status != EventStatus.InWork
+                && status != EventStatus.Close && status != EventStatus.NotDone
+                && status != EventStatus.DoneWithTrouble && status != EventStatus.OnTheApprovalOf);
             var total = (double) sums["Sum"];
             var services = (double) sums["SumServices"];
             var materials = (double) sums["SumMaterials"];
