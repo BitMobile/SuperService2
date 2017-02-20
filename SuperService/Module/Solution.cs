@@ -28,10 +28,6 @@ namespace Test
             else
             {
 #if DEBUG
-                if (Settings.UserDetailedInfo == null)
-                {
-                    Utils.TraceMessage("Произошло падение базы... извините");
-                }
                 DConsole.WriteLine($"Логин и пароль НЕ были сохранены." +
                                    $"{Environment.NewLine}" +
                                    $"Login: {Settings.User} Password: {Settings.Password} {Environment.NewLine}");
