@@ -9,8 +9,8 @@ namespace Test
 
         private static readonly Dictionary<string, object> Paths = new Dictionary<string, object>
         {
-            {"tabbar_bag", @"Image\_Components\TabBar\Bag.png"},
-            {"tabbar_bag_active", @"Image\_Components\TabBar\BagActive.png"},
+            {"tabbar_fr_inactive", @"Image\_Components\TabBar\reg_inactive.png"},
+            {"tabbar_fr_active", @"Image\_Components\TabBar\reg_active.png"},
             {"tabbar_clients", @"Image\_Components\TabBar\Clients.png"},
             {"tabbar_clients_active", @"Image\_Components\TabBar\ClientsActive.png"},
             {"tabbar_events", @"Image\_Components\TabBar\Events.png"},
@@ -70,9 +70,9 @@ namespace Test
             //CheckListScreen
             {"checklistscreen_photo", @"Image\CheckListScreen\TakePhoto.png"},
             {"checklistscreen_nophoto", @"Image\CheckListScreen\NoPhoto.png"},
-            //BagListScreen
-            {"baglistscreen_busket", @"Image\BagListScreen\BagBusket.png"},
-            {"baglistscreen_plus", @"Image\BagListScreen\BagPlus.png"},
+            //FiscalRegistratorSettingsScreen
+            {"baglistscreen_busket", @"Image\FiscalRegistratorSettingsScreen\reg.png"},
+            {"baglistscreen_plus", @"Image\FiscalRegistratorSettingsScreen\reg_active.png"},
             //CheckInfoScreen
             {"print_icon", @"Image\CheckInfoScreen\iconCheckPrint.png"},
             {"print_icon_disabel",@"Image\CheckInfoScreen\iconCheckPrint_dis.png" },

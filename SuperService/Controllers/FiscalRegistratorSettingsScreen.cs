@@ -7,7 +7,7 @@ using Test.Components;
 
 namespace Test
 {
-    public class BagListScreen : Screen
+    public class FiscalRegistratorSettingsScreen : Screen
     {
         private TabBarComponent _tabBarComponent;
         private TopInfoComponent _topInfoComponent;
@@ -21,8 +21,14 @@ namespace Test
             };
             if (Settings.BagEnabled)
             {
-                _topInfoComponent.LeftButtonControl = new Image { Source = ResourceManager.GetImage("baglistscreen_busket") };
-                _topInfoComponent.RightButtonControl = new Image { Source = ResourceManager.GetImage("baglistscreen_plus") };
+                _topInfoComponent.LeftButtonControl = new Image
+                {
+                    Source = ResourceManager.GetImage("baglistscreen_busket")
+                };
+                _topInfoComponent.RightButtonControl = new Image
+                {
+                    Source = ResourceManager.GetImage("baglistscreen_plus")
+                };
             }
             _tabBarComponent = new TabBarComponent(this);
         }
@@ -65,16 +71,12 @@ namespace Test
             DConsole.WriteLine("Bag Events");
         }
 
-        internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
-        {
-            //_tabBarComponent.Bag_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Bag Bag");
-        }
+        internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs) 
+            => _tabBarComponent.Clients_OnClick(sender, eventArgs);
 
         internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
         {
-            _tabBarComponent.Clients_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Bag Clients");
+            //_tabBarComponent.FrSettings_OnClick(sender, eventArgs);
         }
 
         internal void TabBarFourthButton_OnClick(object sender, EventArgs eventArgs)

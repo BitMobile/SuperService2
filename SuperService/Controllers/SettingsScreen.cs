@@ -20,22 +20,13 @@ namespace Test
         }
 
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
-        {
-            _tabBarComponent.Events_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Settings Events");
-        }
+            => _tabBarComponent.Events_OnClick(sender, eventArgs);
 
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
-        {
-            _tabBarComponent.Bag_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Settings Bag");
-        }
+            => _tabBarComponent.Clients_OnClick(sender, eventArgs);
 
         internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
-        {
-            _tabBarComponent.Clients_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Settings Clients");
-        }
+            => _tabBarComponent.FrSettings_OnClick(sender, eventArgs);
 
         internal void TabBarFourthButton_OnClick(object sender, EventArgs eventArgs)
         {
@@ -115,6 +106,7 @@ namespace Test
             }
             return "CompanyInfoContainer";
         }
+
         internal string GetUserDescription()
         {
             var result = "";
@@ -213,6 +205,7 @@ namespace Test
         }
 
         internal bool CheckFtprAcsess() => DBHelper.CheckFtprAcsess();
+
         internal void SendLog_OnClick(object sender, EventArgs e)
         {
             if (DBHelper.CheckFtprAcsess())
@@ -222,17 +215,17 @@ namespace Test
             else
             {
                 Dialog.Ask(Translator.Translate("ask_send_log"),
-                (o, args) =>
-                {
-                    if (args.Result == Dialog.Result.No) return;
+                    (o, args) =>
+                    {
+                        if (args.Result == Dialog.Result.No) return;
 
-                    var isLogSend = Settings.SendDatabase();
-                    Utils.TraceMessage($"Log is send. Result of sending: {isLogSend}");
+                        var isLogSend = Settings.SendDatabase();
+                        Utils.TraceMessage($"Log is send. Result of sending: {isLogSend}");
 
-                    Toast.MakeToast(isLogSend
-                        ? Translator.Translate("send_log_ok")
-                        : Translator.Translate("send_log_fail"));
-                });
+                        Toast.MakeToast(isLogSend
+                            ? Translator.Translate("send_log_ok")
+                            : Translator.Translate("send_log_fail"));
+                    });
             }
         }
 
@@ -240,14 +233,14 @@ namespace Test
         {
             if (DBHelper.CheckFtprAcsess())
             {
-            try
-            {
-                FptrInstance.Instance.PrintX();
-            }
-            catch (FPTRException exception)
-            {
-                Toast.MakeToast(exception.Message);
-            }
+                try
+                {
+                    FptrInstance.Instance.PrintX();
+                }
+                catch (FPTRException exception)
+                {
+                    Toast.MakeToast(exception.Message);
+                }
             }
             else
             {
@@ -264,7 +257,6 @@ namespace Test
                             });
                 });
             }
-            
         }
     }
 }
