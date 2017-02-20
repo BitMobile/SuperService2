@@ -439,13 +439,8 @@ namespace Test
         internal string FormatTimer(string date)
         {
             var parsedDate = DateTime.Parse(date);
-            var timeFromDb = new Query("SELECT datetime('now','localtime') As dt");
-            var timeRecordSet = timeFromDb.Execute();
-            var datestr = timeRecordSet["dt"];
-            var currentDate = DateTime.Parse((string)datestr);
-            Utils.TraceMessage($"{currentDate}");
-            var result = currentDate - parsedDate;
-            return $"{result.TotalHours:00}:{result.Minutes:00}";
+            var result = DateTime.Now - parsedDate;
+            return $"{(int)result.TotalHours}:{result.Minutes}";
         }
 
         internal bool ShowTaskButton() => Settings.EquipmentEnabled;
