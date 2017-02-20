@@ -341,7 +341,9 @@ namespace Test
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             var @event = (Event) DBHelper.LoadEntity(_currentEventRecordset["Id"].ToString());
             var status = ((StatusyEvents) @event.Status.GetObject()).Name;
-            var wasStarted = status == EventStatus.InWork || status == EventStatus.Done;
+            var wasStarted = status == EventStatus.InWork || status == EventStatus.Done 
+                || status == EventStatus.Close || status == EventStatus.NotDone 
+                || status == EventStatus.DoneWithTrouble || status == EventStatus.OnTheApprovalOf;
 
             var dictinory = new Dictionary<string, object>
             {
