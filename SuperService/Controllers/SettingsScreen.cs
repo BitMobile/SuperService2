@@ -215,12 +215,7 @@ namespace Test
         internal bool CheckFtprAcsess() => DBHelper.CheckFtprAcsess();
         internal void SendLog_OnClick(object sender, EventArgs e)
         {
-            if (DBHelper.CheckFtprAcsess())
-            {
-                FptrInstance.Instance.OpenSettings();
-            }
-            else
-            {
+
                 Dialog.Ask(Translator.Translate("ask_send_log"),
                 (o, args) =>
                 {
@@ -233,24 +228,12 @@ namespace Test
                         ? Translator.Translate("send_log_ok")
                         : Translator.Translate("send_log_fail"));
                 });
-            }
+            
         }
 
         internal void PrintX_OnClick(object sender, EventArgs e)
         {
-            if (DBHelper.CheckFtprAcsess())
-            {
-            try
-            {
-                FptrInstance.Instance.PrintX();
-            }
-            catch (FPTRException exception)
-            {
-                Toast.MakeToast(exception.Message);
-            }
-            }
-            else
-            {
+
                 Toast.MakeToast(Translator.Translate("start_sync"));
                 FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password, (o, args) =>
                 {
@@ -263,7 +246,7 @@ namespace Test
                                 Toast.MakeToast(Translator.Translate(args1.Result ? "sync_success" : "sync_fail"));
                             });
                 });
-            }
+            
             
         }
     }
