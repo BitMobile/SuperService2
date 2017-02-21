@@ -37,7 +37,7 @@ namespace Test
             FillControls();
 
             IsEmptyDateTime((string) _currentEventRecordset["ActualStartDate"]);
-            _needSync = ReadEvent();
+            
         }
 
         private bool ReadEvent()
@@ -111,14 +111,35 @@ namespace Test
 
         private void RightExtraLayoutOnOnClick(object sender, EventArgs eventArgs)
         {
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             Navigation.Move(nameof(ContactScreen), new Dictionary<string, object>
             {
                 [Parameters.Contact] = (Contacts) DBHelper.LoadEntity(_currentEventRecordset["contactId"].ToString())
             });
         }
 
+        private bool CheckAndGoIfNotExsist()
+        {
+            GetCurrentEvent();
+            Utils.TraceMessage($"{_currentEventRecordset["clientId"] == null}");
+            if (_currentEventRecordset["clientId"] == null)
+            {
+                Toast.MakeToast(Translator.Translate("eventChangeSr"));
+                Navigation.ModalMove(nameof(EventListScreen));
+                return true;
+            }
+            return false;
+        }
         public override void OnShow()
         {
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
+            _needSync = ReadEvent();
             GpsTracking.Start();
             if ((string) _currentEventRecordset["statusName"] == EventStatus.Done
                 || (string) _currentEventRecordset["statusName"] == EventStatus.DoneWithTrouble
@@ -147,11 +168,19 @@ namespace Test
 
         internal void ClientInfoButton_OnClick(object sender, EventArgs eventArgs)
         {
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             Navigation.Move("ClientScreen");
         }
 
         internal void RefuseButton_OnClick(object sender, EventArgs eventArgs)
         {
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             Navigation.Move("CancelEventScreen");
         }
 
@@ -162,6 +191,10 @@ namespace Test
 
         internal void StartButton_OnClick(object sender, EventArgs eventArgs)
         {
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             Dialog.Ask(Translator.Translate("areYouSure"), (o, args) =>
             {
                 if (args.Result == Dialog.Result.Yes)
@@ -304,6 +337,10 @@ namespace Test
         {
             BusinessProcess.GlobalVariables[Parameters.IdClientId] =
                 _currentEventRecordset[Parameters.IdClientId].ToString();
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             Navigation.Move("ClientScreen");
         }
 
@@ -323,6 +360,10 @@ namespace Test
                     {Parameters.IdCurrentEventId, _currentEventRecordset["Id"]},
                     {Parameters.IdIsReadonly, _readonly}
                 };
+                if (CheckAndGoIfNotExsist())
+                {
+                    return;
+                }
                 Navigation.Move("TaskListScreen", dictionary);
             }
         }
@@ -351,12 +392,20 @@ namespace Test
                 {Parameters.IdIsReadonly, _readonly},
                 {Parameters.IdWasEventStarted, wasStarted}
             };
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             Navigation.Move(nameof(COCScreen), dictinory);
         }
 
         internal void CheckListCounterLayout_OnClick(object sender, EventArgs eventArgs)
         {
             var statusName = (string) _currentEventRecordset["statusName"];
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             if (statusName.Equals(EventStatus.Agreed, StringComparison.OrdinalIgnoreCase)
                 || statusName.Equals(EventStatus.Accepted, StringComparison.OrdinalIgnoreCase))
                 Dialog.Ask(Translator.Translate("start_event"), (o, args) =>
@@ -417,7 +466,6 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
-
         internal void GoToMapScreen_OnClick(object sender, EventArgs e)
         {
             var clientId = (string) _currentEventRecordset[Parameters.IdClientId];
@@ -431,8 +479,11 @@ namespace Test
             BusinessProcess.GlobalVariables.Remove(Parameters.IdClientId);
             BusinessProcess.GlobalVariables[Parameters.IdScreenStateId] = MapScreenStates.EventScreen;
             BusinessProcess.GlobalVariables[Parameters.IdClientId] = clientId;
-
-            Navigation.Move("MapScreen", dictionary);
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
+            Navigation.Move(nameof(MapScreen), dictionary);
         }
 
         internal bool IsNotZero(long count)

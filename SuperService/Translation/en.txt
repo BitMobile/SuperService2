@@ -159,3 +159,4 @@ punch_check		PUNCH CHECK
 missing_amount		The missing amount
 VAT		VAT
 change_is_not_calculated		is not calculated
+eventChangeSr		Order was nominated for another mobile worker
