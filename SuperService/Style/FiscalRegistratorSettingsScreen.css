@@ -135,7 +135,7 @@ HorizontalLine {
 }
 .GrayLayout {
   width: 100%;
-  height: 54%;
+  height: 58%;
   background-color: #f1f2f5;
 }
 .TopContainer {
@@ -197,4 +197,41 @@ HorizontalLine {
   height: 100%;
   width: 60%;
   horizontal-align: center;
+}
+.IsConnectedText {
+  margin-top: 1sp;
+  horizontal-align: center;
+  font: 3.75sp arial;
+  height: 4.1625sp auto;
+  color: #51595b;
+  white-space: nowrap;
+}
+.ConnectDisconnectIcon {
+  margin-top: 2.5sp;
+  width: 15sp;
+  horizontal-align: center;
+  margin-bottom: 2sp;
+}
+.VerticalLine {
+  width: 0.3sp;
+  background-color: #bebfc3;
+  horizontal-align: center;
+  height: 5sp;
+  margin-bottom: 2sp;
+}
+.PingButton {
+  height: 0sp auto;
+  width: 0sp auto;
+  horizontal-align: center;
+  margin-bottom: 2sp;
+}
+.PingImage {
+  width: 15sp;
+}
+.ConnectTv {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  horizontal-align: center;
+  white-space: nowrap;
+  color: #51595b;
 }

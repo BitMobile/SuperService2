@@ -74,6 +74,12 @@ namespace Test
             {"fptr_errorlist", @"Image\FiscalRegistratorSettingsScreen\error_icon.png"},
             {"fptr_settings", @"Image\FiscalRegistratorSettingsScreen\fptr_settings.png"},
             {"fptr_arrow_down", @"Image\FiscalRegistratorSettingsScreen\arrow_down.png"},
+            {"fptr_connected", @"Image\FiscalRegistratorSettingsScreen\connected_fptr.png"},
+            {"fptr_disconnected", @"Image\FiscalRegistratorSettingsScreen\connect_fail.png"},
+            {"fptr_pair", @"Image\FiscalRegistratorSettingsScreen\connect_fail.png"},
+            {"fptr_ping_ok", @"Image\FiscalRegistratorSettingsScreen\ping_ok.png"},
+            {"fptr_zreport", @"Image\FiscalRegistratorSettingsScreen\zreport.png"},
+            {"fptr_xreport", @"Image\FiscalRegistratorSettingsScreen\xreport.png"},
             //CheckInfoScreen
             {"print_icon", @"Image\CheckInfoScreen\iconCheckPrint.png"},
             {"print_icon_disabel",@"Image\CheckInfoScreen\iconCheckPrint_dis.png" },

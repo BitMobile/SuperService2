@@ -160,4 +160,8 @@ missing_amount		The missing amount
 VAT		VAT
 change_is_not_calculated		is not calculated
 registrator		Registrator
-
+fptr_is_not_connected		Communication has not been established
+fptr_connected		Connected
+unset_checks		Unset checks
+ping		Ping
+connect		Connect

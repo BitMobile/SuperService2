@@ -5,14 +5,14 @@
   <c:DockLayout CssClass="RootLayout">
     <!-- Tab Bar-->
     <s:Include File="Components\TabBarСomponent.xml" />
-    <c:VerticalLayout Id="ede910a77e0a4414a29d9cb7a344de76" 
+    <c:VerticalLayout Id="ede910a77e0a4414a29d9cb7a344de76"
                       CssClass="GrayLayout">
-      
+
       <c:HorizontalLayout Id="d30266853cbd493b97bca8ae6d222d58"
                           CssClass="TopContainer">
-        
-        <c:VerticalLayout Id="TopInfoLeftButton" 
-                          CssClass="TopInfoButtonLeft" 
+
+        <c:VerticalLayout Id="TopInfoLeftButton"
+                          CssClass="TopInfoButtonLeft"
                           OnClick="TopInfo_LeftButton_OnClick" />
 
         <c:VerticalLayout Id="ea3e64128597467f81087c652b6e4560"
@@ -25,24 +25,51 @@
           <c:TextView Id="19931320adbd4fbf9f2bb2f6ae765677"
                       CssClass="DontSendedCheckDate"
                       Text="c 13:40 14 января" />
-          
+
         </c:VerticalLayout>
 
-        <c:VerticalLayout Id="TopInfoRightButton" 
-                          CssClass="TopInfoButtonRight" 
+        <c:VerticalLayout Id="TopInfoRightButton"
+                          CssClass="TopInfoButtonRight"
                           OnClick="TopInfo_RightButton_OnClick" />
-        
+
       </c:HorizontalLayout>
 
       <c:VerticalLayout Id="a52412c1aa7342c5b9e148e91e954569"
                         CssClass="ConnectionInfo">
+
+        <c:TextView Id="c3ec25a698d140e89086926246db8e2f"
+                    CssClass="IsConnectedText"
+                    Text="#fptr_is_not_connected#" />
+
+        <c:Image Id="ab27dfe251704c82a835a85088e98c2b"
+                 CssClass="ConnectDisconnectIcon"
+                 Source="$GetResourceImage(fptr_connected)" />
+
+     
+        <c:VerticalLayout CssClass="VerticalLine" />
+
+        <!--TODO: Добавить OnClick для подключения к ФР-->
+        <c:VerticalLayout Id="83841f90385143248d8e865eed46ee3a"
+                          CssClass="PingButton">
+          <c:Image Id="f0f0255fe94b454982a5a79b51d16ecb"
+                   CssClass="PingImage"
+                   Source="$GetResourceImage(fptr_ping_ok)" />
+        </c:VerticalLayout>
+
+        <c:TextView Id="cde826477edc449faefce13edf3da0ed"
+                    CssClass="ConnectTv"
+                    Text="#ping#" />
         
-        <c:TextView  />
       </c:VerticalLayout>
-      
+
     </c:VerticalLayout>
-    
+
     <c:Image CssClass="ArrowDown"
-              Source="$GetResourceImage(fptr_arrow_down)" />
+             Source="$GetResourceImage(fptr_arrow_down)" />
+
+    <c:VerticalLayout Id="64bee6e819b14dea96eeb439be128e82"
+                      CssClass="ReportContainer">
+      
+    </c:VerticalLayout> 
   </c:DockLayout>
 </c:Screen>

@@ -14,7 +14,7 @@
 
 .GrayLayout {
     width: 100%;
-    height: 54%;
+    height: 58%;
     background-color: @default-background-color;
 }
 
@@ -84,4 +84,45 @@
     height:100%;
     width:60%;
     .horizontal-align;
+}
+
+.IsConnectedText{
+    margin-top:1sp;
+    .horizontal-align;
+    .text-view-style(@default-font-size * 1.5);
+    color:#51595b;
+    white-space:nowrap;
+}
+
+.ConnectDisconnectIcon{
+    margin-top:2.5sp;
+    width:15sp;
+    .horizontal-align;
+    margin-bottom:2sp;
+}
+
+.VerticalLine{
+    width:0.3sp;
+    background-color:#bebfc3;
+    .horizontal-align;
+    height:5sp;
+    margin-bottom: 2sp;
+}
+
+.PingButton{
+    height: 0sp auto;
+    width: 0sp auto;
+    .horizontal-align;
+    margin-bottom:2sp;
+}
+
+.PingImage{
+    width:15sp;
+}
+
+.ConnectTv{
+    .text-view-style(@default-font-size);
+    .horizontal-align;
+    white-space:nowrap;
+    color:#51595b;
 }
