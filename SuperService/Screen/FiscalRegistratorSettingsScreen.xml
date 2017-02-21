@@ -37,6 +37,7 @@
       <c:VerticalLayout Id="a52412c1aa7342c5b9e148e91e954569"
                         CssClass="ConnectionInfo">
         
+        <c:TextView  />
       </c:VerticalLayout>
       
     </c:VerticalLayout>
