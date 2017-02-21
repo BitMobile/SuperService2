@@ -1,12 +1,87 @@
 @import "defaults.less";
-@import "Components/TopInfoComponent.less";
 @import "Components/TabBarComponent.less";
 
-@default-background-color:#f1f2f5;
+@default-background-color: #f1f2f5;
+@header-width: 65%;
+@margin-top: 0.75sp;
+@heading-size: @default-font-size * sqrt(2) + @margin-top;
+@default-margin-left-right: 5sp;
+@default-margin-top: 2.5sp;
 
-.GrayLayout{
-    width:100%;
-    height:54%;
-    background-color:@default-background-color;
+.horizontal-align(@_align: center) {
+    horizontal-align: @_align;
 }
-/* End of BagList style */
+
+.GrayLayout {
+    width: 100%;
+    height: 54%;
+    background-color: @default-background-color;
+}
+
+.TopContainer {
+    height: 10sp auto;
+    width: 100%;
+}
+
+.TopInfoButton(@header-width: @header-width) {
+    width: (100% - @header-width) / 2;
+    height: @heading-size * 0.9;
+    vertical-align: center;
+
+    Image {
+        height: @heading-size * 0.9;
+    }
+}
+
+.TopInfoButtonLeft {
+    .TopInfoButton;
+
+    Image {
+        horizontal-align: left;
+        margin-left: @default-margin-left-right;
+    }
+}
+
+.TopInfoButtonRight {
+    .TopInfoButton;
+
+    Image {
+        horizontal-align: right;
+        margin-right: @default-margin-left-right;
+    }
+}
+
+.TopHeader {
+    height: 100% auto;
+    width: @header-width;
+    vertical-align: center;
+    margin-top: @default-margin-top;
+}
+
+.ArrowDown {
+    height: 4sp;
+    .horizontal-align;
+}
+
+.DontSendedCheckStyle{
+    .horizontal-align;
+    .text-view-style(@big-title-font-size);
+    color:#eb4040;
+    text-align:center;
+    white-space:nowrap;
+}
+
+.DontSendedCheckDate{
+    .horizontal-align;
+    .text-view-style(@default-font-size);
+    color:#9b9fa0;
+    text-align:center;
+    white-space:nowrap;
+    margin-top:1sp;
+}
+
+.ConnectionInfo{
+    height:100%;
+    width:60%;
+    .horizontal-align;
+}

@@ -71,8 +71,9 @@ namespace Test
             {"checklistscreen_photo", @"Image\CheckListScreen\TakePhoto.png"},
             {"checklistscreen_nophoto", @"Image\CheckListScreen\NoPhoto.png"},
             //FiscalRegistratorSettingsScreen
-            {"baglistscreen_busket", @"Image\FiscalRegistratorSettingsScreen\reg.png"},
-            {"baglistscreen_plus", @"Image\FiscalRegistratorSettingsScreen\reg_active.png"},
+            {"fptr_errorlist", @"Image\FiscalRegistratorSettingsScreen\error_icon.png"},
+            {"fptr_settings", @"Image\FiscalRegistratorSettingsScreen\fptr_settings.png"},
+            {"fptr_arrow_down", @"Image\FiscalRegistratorSettingsScreen\arrow_down.png"},
             //CheckInfoScreen
             {"print_icon", @"Image\CheckInfoScreen\iconCheckPrint.png"},
             {"print_icon_disabel",@"Image\CheckInfoScreen\iconCheckPrint_dis.png" },

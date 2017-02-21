@@ -11,7 +11,37 @@
       <c:HorizontalLayout Id="d30266853cbd493b97bca8ae6d222d58"
                           CssClass="TopContainer">
         
+        <c:VerticalLayout Id="TopInfoLeftButton" 
+                          CssClass="TopInfoButtonLeft" 
+                          OnClick="TopInfo_LeftButton_OnClick" />
+
+        <c:VerticalLayout Id="ea3e64128597467f81087c652b6e4560"
+                          CssClass="TopHeader">
+
+          <c:TextView Id="d93a34ef373b48939b2bf3a588b6e9b1"
+                      CssClass="DontSendedCheckStyle"
+                      Text="Неотправленных чеков: 1000" />
+
+          <c:TextView Id="19931320adbd4fbf9f2bb2f6ae765677"
+                      CssClass="DontSendedCheckDate"
+                      Text="c 13:40 14 января" />
+          
+        </c:VerticalLayout>
+
+        <c:VerticalLayout Id="TopInfoRightButton" 
+                          CssClass="TopInfoButtonRight" 
+                          OnClick="TopInfo_RightButton_OnClick" />
+        
       </c:HorizontalLayout>
+
+      <c:VerticalLayout Id="a52412c1aa7342c5b9e148e91e954569"
+                        CssClass="ConnectionInfo">
+        
+      </c:VerticalLayout>
+      
     </c:VerticalLayout>
+    
+    <c:Image CssClass="ArrowDown"
+              Source="$GetResourceImage(fptr_arrow_down)" />
   </c:DockLayout>
 </c:Screen>
