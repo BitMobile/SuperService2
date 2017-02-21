@@ -143,6 +143,7 @@ NewEventAssigh		You assigned a new order.
 x_report		X-report
 fpt_settings		Settings FR
 printZ_caption		Print Z-report
+printX_caption		Print X-report
 printZ_caption_ask		Z-report is printed. Continue?
 show_check_info		Show check
 cashbox_check		Cashbox check

@@ -191,7 +191,7 @@ HorizontalLine {
   color: #9b9fa0;
   text-align: center;
   white-space: nowrap;
-  margin-top: 1sp;
+  margin-top: 0.85sp;
 }
 .ConnectionInfo {
   height: 100%;
@@ -203,7 +203,7 @@ HorizontalLine {
   horizontal-align: center;
   font: 3.75sp arial;
   height: 4.1625sp auto;
-  color: #51595b;
+  color: #7b8182;
   white-space: nowrap;
 }
 .ConnectDisconnectIcon {
@@ -234,4 +234,32 @@ HorizontalLine {
   horizontal-align: center;
   white-space: nowrap;
   color: #51595b;
+}
+.ReportContainer {
+  margin-top: 8sp;
+  height: 0sp auto;
+  horizontal-align: center;
+  margin-left: 10sp;
+  margin-right: 10sp;
+}
+.ReportsButtons {
+  height: 0sp auto;
+  width: 100%;
+}
+.ReportIcon {
+  width: 5sp;
+  margin-right: 3sp;
+}
+.ReportDescription {
+  font: 3.25sp arial;
+  height: 3.6075sp auto;
+  width: 100%;
+  white-space: nowrap;
+  color: #51595b;
+  text-align: left;
+}
+.HorizontalLineSplitter {
+  margin-top: 3sp;
+  width: 100%;
+  margin-bottom: 3sp;
 }
