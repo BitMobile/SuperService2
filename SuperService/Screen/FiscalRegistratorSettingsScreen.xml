@@ -6,7 +6,8 @@
     <!-- Tab Bar-->
     <s:Include File="Components\TabBarСomponent.xml" />
 
-
+    <s:Push Id="void_crutch" Value="$Init()" />
+    
       <c:VerticalLayout Id="ede910a77e0a4414a29d9cb7a344de76"
                         CssClass="GrayLayout">
 
@@ -41,26 +42,26 @@
 
           <c:TextView Id="c3ec25a698d140e89086926246db8e2f"
                       CssClass="IsConnectedText"
-                      Text="#fptr_is_not_connected#" />
+                      Text="$GetFrStatusText()" />
 
           <c:Image Id="ab27dfe251704c82a835a85088e98c2b"
                    CssClass="ConnectDisconnectIcon"
-                   Source="$GetResourceImage(fptr_connected)" />
+                   Source="$GetFrStatusIcon()" />
 
 
           <c:VerticalLayout CssClass="VerticalLine" />
 
-          <!--TODO: Добавить OnClick для подключения к ФР-->
           <c:VerticalLayout Id="83841f90385143248d8e865eed46ee3a"
-                            CssClass="PingButton">
+                            CssClass="PingButton"
+                            OnClick="ConnectToFptr_OnClick">
             <c:Image Id="f0f0255fe94b454982a5a79b51d16ecb"
                      CssClass="PingImage"
-                     Source="$GetResourceImage(fptr_ping_ok)" />
+                     Source="$GetStatusIconForConnectedButton()" />
           </c:VerticalLayout>
 
           <c:TextView Id="cde826477edc449faefce13edf3da0ed"
                       CssClass="ConnectTv"
-                      Text="#ping#" />
+                      Text="$GetStatusDescriptionForConnectButton()" />
 
         </c:VerticalLayout>
 
@@ -72,7 +73,8 @@
       <c:VerticalLayout Id="64bee6e819b14dea96eeb439be128e82"
                         CssClass="ReportContainer">
 
-        <c:HorizontalLayout CssClass="ReportsButtons">
+        <c:HorizontalLayout CssClass="ReportsButtons"
+                            OnClick="PrintX_OnClick">
           <c:Image CssClass="ReportIcon"
                    Source="$GetResourceImage(fptr_xreport)" />
           <c:TextView CssClass="ReportDescription"
@@ -81,7 +83,8 @@
 
         <c:HorizontalLine CssClass="HorizontalLineSplitter" />
 
-        <c:HorizontalLayout CssClass="ReportsButtons">
+        <c:HorizontalLayout CssClass="ReportsButtons"
+                            OnClick="PrintZ_OnClick">
           <c:Image CssClass="ReportIcon"
                    Source="$GetResourceImage(fptr_zreport)" />
           <c:TextView CssClass="ReportDescription"

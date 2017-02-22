@@ -76,7 +76,7 @@ namespace Test
             {"fptr_arrow_down", @"Image\FiscalRegistratorSettingsScreen\arrow_down.png"},
             {"fptr_connected", @"Image\FiscalRegistratorSettingsScreen\connected_fptr.png"},
             {"fptr_disconnected", @"Image\FiscalRegistratorSettingsScreen\connect_fail.png"},
-            {"fptr_pair", @"Image\FiscalRegistratorSettingsScreen\connect_fail.png"},
+            {"fptr_pair", @"Image\FiscalRegistratorSettingsScreen\pair.png"},
             {"fptr_ping_ok", @"Image\FiscalRegistratorSettingsScreen\ping_ok.png"},
             {"fptr_zreport", @"Image\FiscalRegistratorSettingsScreen\zreport.png"},
             {"fptr_xreport", @"Image\FiscalRegistratorSettingsScreen\xreport.png"},
