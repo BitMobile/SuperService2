@@ -423,7 +423,8 @@ namespace Test
                                         Catalog_Client
 
                                   where
-                                      Catalog_Client.DeletionMark = 0");
+                                      Catalog_Client.DeletionMark = 0" +
+                                  "order by Catalog_Client.Description asc");
 
             return query.Execute();
         }
@@ -503,7 +504,7 @@ namespace Test
                                   "    " +
                                   "where " +
                                   "    parameters.Ref = @clientId " +
-                                  "order by parameters.LineNumber asc");
+                                  "order by options.Description asc");
 
             query.AddParameter("clientId", clientId);
             return query.Execute();
@@ -1205,7 +1206,7 @@ namespace Test
 
                                 WHERE
                                   parameters.Ref = @equipmentId AND options.DeletionMark = 0
-                                ORDER BY parameters.LineNumber ASC";
+                                ORDER BY options.Description ASC";
 
             var query = new Query(queryText);
             query.AddParameter("equipmentId", equipmentId);
