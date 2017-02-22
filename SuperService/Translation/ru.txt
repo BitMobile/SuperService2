@@ -142,7 +142,8 @@ send_log_fail		Не удалось отправить отчет
 NewEventAssigh		Вам назначен новый наряд.
 x_report		X-отчет
 fpt_settings		Настройки ФР
-printZ_caption		Печать Z-отчета
+printZ_caption		Напечатать Z-отчет
+printX_caption		Напечатать X-отчет
 printZ_caption_ask		Будет распечатан Z-отчет. Продолжить?
 show_check_info			Просмотр чека
 cashbox_check		Кассовый чек
@@ -160,3 +161,10 @@ missing_amount		Недостает суммы
 VAT		НДС
 change_is_not_calculated		не рассчитана
 eventChangeSr		Наряд был назначен на другого исполнителя
+registrator		Регистратор
+fptr_is_not_connected		Связь не установлена
+fptr_connected		Связь установлена
+unset_checks		Неотправленных чеков
+ping		Отклик
+connect		Соединиться
+dont_sent_checks		Неотправленных чеков:

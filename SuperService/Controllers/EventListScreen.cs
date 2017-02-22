@@ -22,16 +22,16 @@ namespace Test
             _tabBarComponent = new TabBarComponent(this);
             _topInfoComponent = new TopInfoComponent(this)
             {
-                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_sync") },
-                RightButtonControl = new Image { Source = ResourceManager.GetImage("topheading_map") },
+                LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_sync")},
+                RightButtonControl = new Image {Source = ResourceManager.GetImage("topheading_map")},
                 Header = Translator.Translate("orders")
             };
 
             var statistic = DBHelper.GetEventsStatistic();
 
-            var extraHorizontalLayout = new HorizontalLayout { CssClass = "ExtraHorizontalLayout" };
-            var leftExtraLayout = new VerticalLayout { CssClass = "ExtraLeftLayoutCss" };
-            var rightExtraLayout = new VerticalLayout { CssClass = "ExtraRightLayoutCss" };
+            var extraHorizontalLayout = new HorizontalLayout {CssClass = "ExtraHorizontalLayout"};
+            var leftExtraLayout = new VerticalLayout {CssClass = "ExtraLeftLayoutCss"};
+            var rightExtraLayout = new VerticalLayout {CssClass = "ExtraRightLayoutCss"};
             extraHorizontalLayout.AddChild(leftExtraLayout);
             extraHorizontalLayout.AddChild(rightExtraLayout);
 
@@ -92,7 +92,8 @@ namespace Test
                 pictureTag += "cancel";
             }
             else if (status == EventStatus.DoneWithTrouble || status == EventStatus.Done ||
-                     status == EventStatus.OnTheApprovalOf || status == EventStatus.Close || status == EventStatus.NotDone)
+                     status == EventStatus.OnTheApprovalOf || status == EventStatus.Close ||
+                     status == EventStatus.NotDone)
             {
                 pictureTag += "done";
             }
@@ -111,11 +112,13 @@ namespace Test
         internal string DateTimeToDateWithWeekCheck(string datetime)
         {
             DateTime workDate;
-            var Wecan = DateTime.TryParse(datetime,out workDate);
-            if (Wecan) {
+            var Wecan = DateTime.TryParse(datetime, out workDate);
+            if (Wecan)
+            {
                 workDate = workDate.Date;
             }
-            else {
+            else
+            {
                 workDate = DateTime.MinValue.Date;
                 return datetime;
             }
@@ -151,10 +154,11 @@ namespace Test
         internal string GetStartDate(string startPlan, string endPlan)
         {
             DateTime startTime;
-            var WeCanStart = DateTime.TryParse(startPlan,out startTime); //DateTime.Parse(startPlan).ToString("HH:mm:ss");
+            var WeCanStart = DateTime.TryParse(startPlan, out startTime);
+                //DateTime.Parse(startPlan).ToString("HH:mm:ss");
             DateTime endTime;
-            var WeCanEnd = DateTime.TryParse(endPlan,out endTime); // .ToString("HH:mm");
-            if(!WeCanEnd || !WeCanStart)
+            var WeCanEnd = DateTime.TryParse(endPlan, out endTime); // .ToString("HH:mm");
+            if (!WeCanEnd || !WeCanStart)
             {
                 return startPlan;
             }
@@ -167,8 +171,8 @@ namespace Test
 
         internal string GetTimeCounter(string actualStartDate, string statusName)
         {
-            DateTime actualTime; 
-            var WeCan = DateTime.TryParse(actualStartDate,out actualTime);
+            DateTime actualTime;
+            var WeCan = DateTime.TryParse(actualStartDate, out actualTime);
 
             if (!WeCan)
             {
@@ -178,7 +182,7 @@ namespace Test
                 return "";
 
             var ans = DateTime.Now - actualTime;
-            var hours = (int)ans.TotalHours;
+            var hours = (int) ans.TotalHours;
             if (ans < TimeSpan.FromHours(1))
                 return $"{ans.Minutes} {Translator.Translate("min.")}";
             if (ans < TimeSpan.FromHours(24))
@@ -201,10 +205,11 @@ namespace Test
         internal bool IsDateEquals(string lastdate, string nowdate)
         {
             DateTime lastdateDate;
-            var WeCanlastDate = DateTime.TryParse(lastdate,out lastdateDate);
+            var WeCanlastDate = DateTime.TryParse(lastdate, out lastdateDate);
             DateTime nowdateDate;
-            var WeCabNowDate = DateTime.TryParse(nowdate,out nowdateDate);
-            if (!WeCanlastDate || !WeCabNowDate) {
+            var WeCabNowDate = DateTime.TryParse(nowdate, out nowdateDate);
+            if (!WeCanlastDate || !WeCabNowDate)
+            {
                 return lastdate.Equals(nowdate);
             }
             if (lastdateDate == nowdateDate)
@@ -222,16 +227,18 @@ namespace Test
             {
                 return date1.Date >= date2.Date;
             }
-            else {
+            else
+            {
                 return lastdate.Equals(nowdate);
-            };
+            }
+            ;
             //return DateTime.Parse(lastdate).Date >= DateTime.Parse(nowdate).Date;
         }
 
         internal bool IsDateChanged(string lastdate, string nowdate)
         {
             DateTime lastdateDate;
-            var WeCanLastDate = DateTime.TryParse(lastdate,out lastdateDate);
+            var WeCanLastDate = DateTime.TryParse(lastdate, out lastdateDate);
             DateTime nowdateDate;
             var WeCanNow = DateTime.TryParse(nowdate, out nowdateDate);
             if (!WeCanLastDate || !WeCanNow) return lastdate.Equals(nowdate);
@@ -259,7 +266,7 @@ namespace Test
 
         internal IEnumerable GetEvents()
         {
-            return DBHelper.GetEvents(DateTime.Now.Date.AddDays(-31),DateTime.Now.Date.AddDays(31));
+            return DBHelper.GetEvents(DateTime.Now.Date.AddDays(-31), DateTime.Now.Date.AddDays(31));
         }
 
         internal string GetResourceImage(string tag)
@@ -295,7 +302,7 @@ namespace Test
         internal void EventListItemHL_OnClick(object sender, EventArgs e)
         {
             DConsole.WriteLine("Go To View Event");
-            var currentEvent = (HorizontalLayout)sender;
+            var currentEvent = (HorizontalLayout) sender;
             BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId] = currentEvent.Id;
             Navigation.Move("EventScreen");
         }
@@ -307,27 +314,13 @@ namespace Test
         }
 
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
-        {
-            _tabBarComponent.Bag_OnClick(sender, eventArgs);
-        }
+            => _tabBarComponent.Clients_OnClick(sender, eventArgs);
 
         internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
-        {
-            _tabBarComponent.Clients_OnClick(sender, eventArgs);
-        }
+            => _tabBarComponent.FrSettings_OnClick(sender, eventArgs);
 
         internal void TabBarFourthButton_OnClick(object sender, EventArgs eventArgs)
-        {
-            _tabBarComponent.Settings_OnClick(sender, eventArgs);
-        }
+            => _tabBarComponent.Settings_OnClick(sender, eventArgs);
     }
 
-    public enum MapMarkerColor
-    {
-        Red,
-        Green,
-        Blue,
-        Yellow,
-        Orange
-    }
 }
