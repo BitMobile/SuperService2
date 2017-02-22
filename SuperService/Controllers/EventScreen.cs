@@ -124,8 +124,8 @@ namespace Test
         private bool CheckAndGoIfNotExsist()
         {
             GetCurrentEvent();
-            Utils.TraceMessage($"{_currentEventRecordset["clientId"] == null}");
-            if (_currentEventRecordset["clientId"] == null)
+            Utils.TraceMessage($"{_currentEventRecordset["UserId"] == null}");
+            if (_currentEventRecordset["UserId"] == null || !Equals(_currentEventRecordset["UserId"], Settings.UserDetailedInfo.Id))
             {
                 Toast.MakeToast(Translator.Translate("eventChangeSr"));
                 Navigation.ModalMove(nameof(EventListScreen));

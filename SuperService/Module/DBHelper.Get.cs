@@ -212,7 +212,8 @@ namespace Test
                                   event.DetailedDescription,
                                   --//описание события
                                   Catalog_Contacts.Description      AS ContactVisitingDescription,
-                                  Catalog_Contacts.Id               AS contactId
+                                  Catalog_Contacts.Id               AS contactId,
+                                  CatalogUser.Id                    AS UserId
 
                                 FROM
                                   Document_Event AS event
@@ -287,7 +288,8 @@ namespace Test
 
                                   LEFT JOIN Enum_StatusyEvents
                                     ON event.status = Enum_StatusyEvents.Id
-
+                                  LEFT JOIN Catalog_User AS CatalogUser
+                                    ON CatalogUser.Id = event.UserMA
                                 WHERE
                                   event.id = @id  ";
 
