@@ -254,6 +254,7 @@ namespace Test
 
         internal string GetDontSentChecksFormat()
         {
+            if (_readonlyForIos) return string.Empty;
             if (_fptr.CurrentStatus >= 0)
             {
                 var result = GetFptrIsNotSentChecks();
@@ -267,6 +268,7 @@ namespace Test
 
         internal string FormatDate()
         {
+            if (_readonlyForIos) return string.Empty;
             if (_fptr.CurrentStatus >= 0
                 && GetFptrIsNotSentChecks() > 0)
                 return "с " + DateTime.Now.ToString("HH:mm dd MMMM");
