@@ -166,3 +166,4 @@ fptr_connected		Связь установлена
 unset_checks		Неотправленных чеков
 ping		Отклик
 connect		Соединиться
+dont_sent_checks		Неотправленных чеков:

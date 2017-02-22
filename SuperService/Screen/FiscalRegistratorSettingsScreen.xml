@@ -2,7 +2,8 @@
 
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
 
-  <c:DockLayout CssClass="RootLayout">
+  <c:DockLayout Id="a2dc5f6557284abe92f6d343ade27192"
+    CssClass="RootLayout">
     <!-- Tab Bar-->
     <s:Include File="Components\TabBarСomponent.xml" />
 
@@ -23,11 +24,11 @@
 
             <c:TextView Id="d93a34ef373b48939b2bf3a588b6e9b1"
                         CssClass="DontSendedCheckStyle"
-                        Text="Неотправленных чеков: 1000" />
+                        Text="$GetDontSentChecksFormat()" />
 
             <c:TextView Id="19931320adbd4fbf9f2bb2f6ae765677"
                         CssClass="DontSendedCheckDate"
-                        Text="c 13:40 14 января" />
+                        Text="$FormatDate()" />
 
           </c:VerticalLayout>
 

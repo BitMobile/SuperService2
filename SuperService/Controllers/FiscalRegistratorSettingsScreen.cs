@@ -23,6 +23,7 @@ namespace Test
         private VerticalLayout _leftButtonVerticalLayout;
         private bool _readonlyForIos;
         private VerticalLayout _rightButtonVerticalLayout;
+        private DockLayout _rootLayout;
         private TabBarComponent _tabBarComponent;
 //        -------------------------------------------------------
         public override void OnLoading()
@@ -45,10 +46,11 @@ namespace Test
                 Source = ResourceManager.GetImage("fptr_settings")
             });
 
-            InitControls();
+            B672E6Cf63784Ca9A44Eaa6024E0B11B();
         }
 
-        private void InitControls()
+        //TODO: бомбануло
+        private void B672E6Cf63784Ca9A44Eaa6024E0B11B()
         {
             _dontSendChecksTextView =
                 (TextView) GetControl("d93a34ef373b48939b2bf3a588b6e9b1", true);
@@ -62,6 +64,8 @@ namespace Test
                 (Image) GetControl("f0f0255fe94b454982a5a79b51d16ecb", true);
             _connectionButtonDescriptionTextView =
                 (TextView) GetControl("cde826477edc449faefce13edf3da0ed", true);
+            _rootLayout =
+                (DockLayout) GetControl("a2dc5f6557284abe92f6d343ade27192", true);
         }
 
         internal int Init()
@@ -79,6 +83,8 @@ namespace Test
         public override void OnShow()
         {
             GpsTracking.Start();
+            if (_readonlyForIos)
+                Toast.MakeToast("Функциональность не поддерживается на iOS");
         }
 
 
@@ -172,12 +178,15 @@ namespace Test
             {
                 _fptr.Beep();
                 ChangeLayoutStatus();
+                ChangeTopInfoTextViews();
             }
             else
             {
                 _fptr.PutDeviceSettings(_fptr.Settings);
                 _fptr.PutDeviceEnabled(true);
                 ChangeLayoutStatus();
+
+                ChangeTopInfoTextViews();
                 Utils.TraceMessage($"{nameof(_fptr.CurrentStatus)}: {_fptr.CurrentStatus}");
             }
         }
@@ -188,8 +197,6 @@ namespace Test
             if (_readonlyForIos)
                 return;
 
-            ChangeLayoutStatus();
-
             try
             {
                 _fptr.PrintX();
@@ -197,6 +204,7 @@ namespace Test
             catch (FPTRException exception)
             {
                 Toast.MakeToast(exception.Message);
+                ChangeLayoutStatus();
             }
         }
 
@@ -204,8 +212,7 @@ namespace Test
         {
             if (_readonlyForIos)
                 return;
-            ChangeLayoutStatus();
-            
+
             try
             {
                 _fptr.PrintZ();
@@ -213,6 +220,7 @@ namespace Test
             catch (FPTRException exception)
             {
                 Toast.MakeToast(exception.Message);
+                ChangeLayoutStatus();
             }
         }
 
@@ -229,6 +237,48 @@ namespace Test
 
             _connectionButtonDescriptionTextView.Text =
                 GetStatusDescriptionForConnectButton();
+
+            _rootLayout.Refresh();
+        }
+
+
+        private int GetFptrIsNotSentChecks()
+        {
+            _fptr.PutRegisterNumber(44);
+            var result = _fptr.Register;
+
+            Utils.TraceMessage($"Dont Send {result}");
+
+            return result;
+        }
+
+        internal string GetDontSentChecksFormat()
+        {
+            if (_fptr.CurrentStatus >= 0)
+            {
+                var result = GetFptrIsNotSentChecks();
+                if (result > 0)
+                    return Translator.Translate("dont_sent_checks")
+                           + $" {result}";
+                return string.Empty;
+            }
+            return string.Empty;
+        }
+
+        internal string FormatDate()
+        {
+            if (_fptr.CurrentStatus >= 0
+                && GetFptrIsNotSentChecks() > 0)
+                return "с " + DateTime.Now.ToString("HH:mm dd MMMM");
+            return string.Empty;
+        }
+
+        private void ChangeTopInfoTextViews()
+        {
+            _dontSendChecksTextView.Text =
+                GetDontSentChecksFormat();
+            _dotSendChecksDataTextView.Text =
+                FormatDate();
         }
     }
 }

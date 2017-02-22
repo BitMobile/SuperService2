@@ -166,3 +166,4 @@ fptr_connected		Connected
 unset_checks		Unset checks
 ping		Ping
 connect		Connect
+dont_sent_checks		Don't sent checks:
