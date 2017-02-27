@@ -66,10 +66,10 @@ namespace Test
                                  ifnull(Enum_StatusyEvents.Description, '') as statusDescription
                               --//представление статуса
                                from
-                                 Document_Event as event
-                                   left join Catalog_Client as client
+                                 _Document_Event as event
+                                   left join _Catalog_Client as client
                                    on event.client = client.Id
-                                    left join Catalog_User as CU
+                                    left join _Catalog_User as CU
                                         ON CU.Id = event.UserMA
                                   LEFT JOIN Enum_TypesEvents AS ETE
                                     ON ETE.Id = event.KindEvent
