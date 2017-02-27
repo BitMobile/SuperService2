@@ -96,8 +96,8 @@ namespace Test
                 return;
             }
             if (_readonlyForIos)
-            {
-                Translator.Translate("Функциональность не поддерживается на iOS");
+            { 
+                Toast.MakeToast(Translator.Translate("Функциональность не поддерживается на iOS"));
                 return;
             }
         }
@@ -117,7 +117,7 @@ namespace Test
             }
             if (_readonlyForIos)
             {
-                Translator.Translate("Функциональность не поддерживается на iOS");
+                Toast.MakeToast(Translator.Translate("Функциональность не поддерживается на iOS"));
                 return;
             }
         }
@@ -137,7 +137,7 @@ namespace Test
             }
             if (_readonlyForIos)
             {
-                Translator.Translate("Функциональность не поддерживается на iOS");
+                Toast.MakeToast(Translator.Translate("Функциональность не поддерживается на iOS"));
                 return;
             }
 
@@ -223,7 +223,7 @@ namespace Test
             }
             if (_readonlyForIos)
             {
-                Translator.Translate("Функциональность не поддерживается на iOS");
+                Toast.MakeToast(Translator.Translate("Функциональность не поддерживается на iOS"));
                 return;
             }
 
@@ -261,7 +261,7 @@ namespace Test
             }
             if (_readonlyForIos)
             {
-                Translator.Translate("Функциональность не поддерживается на iOS");
+                Toast.MakeToast(Translator.Translate("Функциональность не поддерживается на iOS"));
                 return;
             }
 
@@ -290,7 +290,7 @@ namespace Test
             }
             if (_readonlyForIos)
             {
-                Translator.Translate("Функциональность не поддерживается на iOS");
+                Toast.MakeToast(Translator.Translate("Функциональность не поддерживается на iOS"));
                 return;
             }
 
