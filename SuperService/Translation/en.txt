@@ -168,3 +168,5 @@ unset_checks		Unset checks
 ping		Ping
 connect		Connect
 dont_sent_checks		Don't sent checks:
+fr_disable		FR module disable
+fr_role_disable		FR role disable
