@@ -5,6 +5,7 @@ using BitMobile.Common.Application;
 using BitMobile.Common.Device.Providers;
 using BitMobile.Common.FiscalRegistrator;
 using Test.Components;
+using Test.Enum;
 
 namespace Test
 {
@@ -83,21 +84,62 @@ namespace Test
         public override void OnShow()
         {
             GpsTracking.Start();
+           
+            if (!Settings.EnableFPTR)
+            {
+                Toast.MakeToast(Translator.Translate("fr_disable"));
+                return;
+            }
+            if(!DBHelper.CheckRole(nameof(WebactionsEnum.MobileFPRAccess)))
+            {
+                Toast.MakeToast(Translator.Translate("fr_role_disable"));
+                return;
+            }
             if (_readonlyForIos)
-                Toast.MakeToast("Функциональность не поддерживается на iOS");
+            {
+                Translator.Translate("Функциональность не поддерживается на iOS");
+                return;
+            }
         }
 
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
-            if (_readonlyForIos)
+            if (!Settings.EnableFPTR)
+            {
+                Toast.MakeToast(Translator.Translate("fr_disable"));
                 return;
+            }
+            if (!DBHelper.CheckRole(nameof(WebactionsEnum.MobileFPRAccess)))
+            {
+                Toast.MakeToast(Translator.Translate("fr_role_disable"));
+                return;
+            }
+            if (_readonlyForIos)
+            {
+                Translator.Translate("Функциональность не поддерживается на iOS");
+                return;
+            }
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            if (_readonlyForIos)
+
+            if (!Settings.EnableFPTR)
+            {
+                Toast.MakeToast(Translator.Translate("fr_disable"));
                 return;
+            }
+            if (!DBHelper.CheckRole(nameof(WebactionsEnum.MobileFPRAccess)))
+            {
+                Toast.MakeToast(Translator.Translate("fr_role_disable"));
+                return;
+            }
+            if (_readonlyForIos)
+            {
+                Translator.Translate("Функциональность не поддерживается на iOS");
+                return;
+            }
 
             FptrInstance.Instance.OpenSettings();
         }
@@ -169,8 +211,21 @@ namespace Test
 
         internal void ConnectToFptr_OnClick(object sender, EventArgs e)
         {
-            if (_readonlyForIos)
+            if (!Settings.EnableFPTR)
+            {
+                Toast.MakeToast(Translator.Translate("fr_disable"));
                 return;
+            }
+            if (!DBHelper.CheckRole(nameof(WebactionsEnum.MobileFPRAccess)))
+            {
+                Toast.MakeToast(Translator.Translate("fr_role_disable"));
+                return;
+            }
+            if (_readonlyForIos)
+            {
+                Translator.Translate("Функциональность не поддерживается на iOS");
+                return;
+            }
 
             Utils.TraceMessage($"{_fptr.CurrentStatus}: {_fptr.CurrentStatus}");
 
@@ -194,8 +249,21 @@ namespace Test
 
         internal void PrintX_OnClick(object sender, EventArgs e)
         {
-            if (_readonlyForIos)
+            if (!Settings.EnableFPTR)
+            {
+                Toast.MakeToast(Translator.Translate("fr_disable"));
                 return;
+            }
+            if (!DBHelper.CheckRole(nameof(WebactionsEnum.MobileFPRAccess)))
+            {
+                Toast.MakeToast(Translator.Translate("fr_role_disable"));
+                return;
+            }
+            if (_readonlyForIos)
+            {
+                Translator.Translate("Функциональность не поддерживается на iOS");
+                return;
+            }
 
             try
             {
@@ -210,8 +278,21 @@ namespace Test
 
         internal void PrintZ_OnClick(object sender, EventArgs e)
         {
-            if (_readonlyForIos)
+            if (!Settings.EnableFPTR)
+            {
+                Toast.MakeToast(Translator.Translate("fr_disable"));
                 return;
+            }
+            if (!DBHelper.CheckRole(nameof(WebactionsEnum.MobileFPRAccess)))
+            {
+                Toast.MakeToast(Translator.Translate("fr_role_disable"));
+                return;
+            }
+            if (_readonlyForIos)
+            {
+                Translator.Translate("Функциональность не поддерживается на iOS");
+                return;
+            }
 
             try
             {
