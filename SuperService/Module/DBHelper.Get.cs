@@ -1085,7 +1085,9 @@ namespace Test
             var query = new Query(@"select
                                         client.Description as Description,
                                         client.Latitude as Latitude,
-                                        client.Longitude as Longitude
+                                        client.Longitude as Longitude,
+                                        (select Name from Enum_StatusyEvents
+                                         where Enum_StatusyEvents.Id = event.Status) as StatusName
                                     from
                                         Document_Event as event
                                     left join Catalog_Client as client
@@ -1094,7 +1096,8 @@ namespace Test
                                         event.DeletionMark = 0
                                         and date(event.StartDatePlan) = date('now','start of day')
                                         and client.Latitude != 0
-                                        and client.Longitude != 0");
+                                        and client.Longitude != 0
+                                        and StatusName != 'OnHarmonization'");
 
             return query.Execute();
         }
