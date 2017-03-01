@@ -1,5 +1,7 @@
 ﻿using BitMobile.ClientModel3;
 using System;
+using System.Text;
+using Test.Catalog;
 
 namespace Test
 {
@@ -8,6 +10,8 @@ namespace Test
         private static WebRequest _webRequest;
         public static bool Initialized { get; private set; }
         private static AuthScreen _screen;
+        private static string _user;
+        private static string _password;
 
         public static void Init()
         {
@@ -34,10 +38,14 @@ namespace Test
 
         public static void StartAuthorization(string userName, string password)
         {
-            _webRequest.UserName = userName;
-            _webRequest.Password = password;
-
+            Init();
+            _user = userName;
+            _password = password;
+            var userpass = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{userName}:{password}"));
+            _webRequest.AddHeader($"Authorization",$"Basic {userpass}");
+            Utils.TraceMessage($"Header auth in BASE64:{userpass}");
             Application.InvokeOnMainThread(() => AuthScreen.EditableVisualElements(false));
+            Utils.TraceMessage($"Url auth: {Settings.AuthUrl}");
             _webRequest.Get(Settings.AuthUrl, Callback);
         }
 
@@ -59,7 +67,7 @@ namespace Test
                     DConsole.WriteLine("Сохраняем пароль");
 #endif
 
-                    Settings.Password = _webRequest.Password;
+                    Settings.Password = _password;
 
 #if DEBUG
                     DConsole.WriteLine($"Запустили частичную синхронизацию. From class {nameof(Authorization)}");
@@ -74,8 +82,8 @@ namespace Test
                     DConsole.WriteLine($"Авторизировались, пользователь НЕ сохранен в системе.");
                     DConsole.WriteLine("Сохраняем пользователя и пароль в системе");
 #endif
-                    Settings.User = _webRequest.UserName;
-                    Settings.Password = _webRequest.Password;
+                    Settings.User = _user;
+                    Settings.Password = _password;
 #if DEBUG
                     DConsole.WriteLine($"Запустили полную синхронизацию. From class {nameof(Authorization)}");
 #endif

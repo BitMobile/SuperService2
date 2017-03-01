@@ -1,0 +1,265 @@
+﻿/* ReSharper disable CssNotResolved */
+/* ReSharper disable Html.TagNotResolved */
+/* ReSharper disable InvalidValue */
+/* ReSharper disable RedundantUnits */
+/* ReSharper disable UnexpectedValue */
+body {
+  background-color: #ffffff;
+  height: 100%;
+  width: 100%;
+}
+vl {
+  height: 0sp auto;
+  width: 100%;
+}
+hl {
+  height: 0sp auto;
+  width: 100%;
+}
+DockLayout {
+  height: 0sp auto;
+  width: 100%;
+}
+TextView {
+  color: #51595b;
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  horizontal-align: center;
+  text-align: center;
+  vertical-align: center;
+  white-space: normal;
+  width: 100%;
+}
+HorizontalLine {
+  background-color: #f4f4f5;
+  height: 0.15sp;
+  horizontal-align: center;
+  width: 90%;
+}
+.NoHeight {
+  height: 0%;
+}
+.RootLayout {
+  background-color: #ffffff;
+  height: 100%;
+  width: 100%;
+}
+.EmptySpace3-2sp {
+  height: 1.5sp;
+  width: 100%;
+}
+.EmptySpace8sp {
+  height: 8sp;
+  width: 100%;
+}
+.EmptySpace7sp {
+  height: 7sp;
+  width: 100%;
+}
+.EmptySpace6sp {
+  height: 6sp;
+  width: 100%;
+}
+.EmptySpace5sp {
+  height: 5sp;
+  width: 100%;
+}
+.EmptySpace4sp {
+  height: 4sp;
+  width: 100%;
+}
+.EmptySpace3sp {
+  height: 3sp;
+  width: 100%;
+}
+.EmptySpace2sp {
+  height: 2sp;
+  width: 100%;
+}
+.EmptySpace1sp {
+  height: 1sp;
+  width: 100%;
+}
+.TabBarMainVL {
+  background-color: #ffffff;
+  dock-align: bottom;
+  height: 9%;
+  horizontal-align: center;
+  width: 100%;
+}
+.TabBarHL {
+  background-color: #ffffff;
+  dock-align: bottom;
+  height: 100%;
+  horizontal-align: center;
+  width: 100%;
+}
+.TabBarBreaker {
+  background-color: #f3f3f4;
+  height: 1dp;
+  horizontal-align: center;
+  width: 100%;
+}
+.TabBarItemVL {
+  background-color: #ffffff;
+  color: #ffffff;
+  height: 100%;
+  horizontal-align: center;
+  margin-bottom: 0%;
+  vertical-align: center;
+  width: 25%;
+}
+.TabImage {
+  background-color: #ffffff;
+  color: #ffffff;
+  margin-top: 1.5sp;
+  height: 35%;
+  horizontal-align: center;
+  vertical-align: center;
+}
+.TabTextViewActive {
+  background-color: #ffffff;
+  color: #fd724c;
+  text-align: center;
+  font: 2.04124145sp arial;
+  height: 2.26577801sp auto;
+  margin-top: 1sp;
+}
+.TabTextViewNotActive {
+  background-color: #ffffff;
+  color: #9b9fa0;
+  text-align: center;
+  font: 2.04124145sp arial;
+  height: 2.26577801sp auto;
+  margin-top: 1sp;
+}
+.GrayLayout {
+  width: 100%;
+  height: 58%;
+  background-color: #f1f2f5;
+}
+.TopContainer {
+  height: 10sp auto;
+  width: 100%;
+}
+.TopInfoButtonLeft {
+  width: 17.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+.TopInfoButtonLeft Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonLeft Image {
+  horizontal-align: left;
+  margin-left: 5sp;
+}
+.TopInfoButtonRight {
+  width: 17.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+.TopInfoButtonRight Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonRight Image {
+  horizontal-align: right;
+  margin-right: 5sp;
+}
+.TopHeader {
+  height: 100% auto;
+  width: 65%;
+  vertical-align: center;
+  margin-top: 2.5sp;
+}
+.ArrowDown {
+  height: 4sp;
+  horizontal-align: center;
+}
+.DontSendedCheckStyle {
+  horizontal-align: center;
+  font: 3.06186218sp arial;
+  height: 3.39866702sp auto;
+  color: #eb4040;
+  text-align: center;
+  white-space: nowrap;
+}
+.DontSendedCheckDate {
+  horizontal-align: center;
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  color: #9b9fa0;
+  text-align: center;
+  white-space: nowrap;
+  margin-top: 0.85sp;
+}
+.ConnectionInfo {
+  height: 100%;
+  width: 60%;
+  horizontal-align: center;
+}
+.IsConnectedText {
+  margin-top: 1sp;
+  horizontal-align: center;
+  font: 3.75sp arial;
+  height: 4.1625sp auto;
+  color: #7b8182;
+  white-space: nowrap;
+}
+.ConnectDisconnectIcon {
+  margin-top: 2.5sp;
+  width: 15sp;
+  horizontal-align: center;
+  margin-bottom: 2sp;
+}
+.VerticalLine {
+  width: 0.3sp;
+  background-color: #bebfc3;
+  horizontal-align: center;
+  height: 5sp;
+  margin-bottom: 2sp;
+}
+.PingButton {
+  height: 0sp auto;
+  width: 0sp auto;
+  horizontal-align: center;
+  margin-bottom: 2sp;
+}
+.PingImage {
+  width: 15sp;
+}
+.ConnectTv {
+  font: 2.5sp arial;
+  height: 2.775sp auto;
+  horizontal-align: center;
+  white-space: nowrap;
+  color: #51595b;
+}
+.ReportContainer {
+  margin-top: 8sp;
+  height: 0sp auto;
+  horizontal-align: center;
+  margin-left: 10sp;
+  margin-right: 10sp;
+}
+.ReportsButtons {
+  height: 0sp auto;
+  width: 100%;
+}
+.ReportIcon {
+  width: 5sp;
+  margin-right: 3sp;
+}
+.ReportDescription {
+  font: 3.25sp arial;
+  height: 3.6075sp auto;
+  width: 100%;
+  white-space: nowrap;
+  color: #51595b;
+  text-align: left;
+}
+.HorizontalLineSplitter {
+  margin-top: 3sp;
+  width: 100%;
+  margin-bottom: 3sp;
+}

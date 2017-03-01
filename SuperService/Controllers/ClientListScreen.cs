@@ -28,29 +28,19 @@ namespace Test
             GpsTracking.Start();
         }
 
-        internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
-        {
-            _tabBarComponent.Events_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Clients Events");
-        }
+        internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs) 
+            => _tabBarComponent.Events_OnClick(sender, eventArgs);
 
-        internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
+        internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs) 
         {
-            _tabBarComponent.Bag_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Clients Bag");
+            //_tabBarComponent.Clients_OnClick(sender, eventArgs);
         }
 
         internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
-        {
-            //_tabBarComponent.Clients_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Clients Clients");
-        }
+        => _tabBarComponent.FrSettings_OnClick(sender, eventArgs);
 
-        internal void TabBarFourthButton_OnClick(object sender, EventArgs eventArgs)
-        {
-            _tabBarComponent.Settings_OnClick(sender, eventArgs);
-            DConsole.WriteLine("Clients Settings");
-        }
+        internal void TabBarFourthButton_OnClick(object sender, EventArgs eventArgs) 
+            => _tabBarComponent.Settings_OnClick(sender, eventArgs);
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
         {

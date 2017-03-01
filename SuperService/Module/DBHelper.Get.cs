@@ -3,6 +3,7 @@ using BitMobile.DbEngine;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using BitMobile.Common.Application;
 using BitMobile.Common.FiscalRegistrator;
 using Test.Catalog;
 using Test.Document;
@@ -90,9 +91,8 @@ namespace Test
                                   event.StartDatePlan";
 
             var query = new Query(queryString);
-
             query.AddParameter("eventDate", eventSinceDate);
-            query.AddParameter("userId", Settings.UserDetailedInfo.Id);
+            query.AddParameter("userId", Settings.UserDetailedInfo?.Id);
             query.AddParameter("EVD", eventToDate);
             query.AddParameter("OnHarmonization", EventStatus.OnHarmonization);
             query.AddParameter("statusDone", EventStatus.Done);
@@ -146,7 +146,7 @@ namespace Test
                                     WHERE
                                       event.DeletionMark = 0 AND event.UserMA = @userID AND NOT(Enum_StatusyEvents.Name = @OnHarmonization)");
             query.AddParameter("OnHarmonization", EventStatus.OnHarmonization);
-            query.AddParameter("userID",Settings.UserDetailedInfo.Id);
+            query.AddParameter("userID",Settings.UserDetailedInfo?.Id);
             var result = query.Execute();
 
             if (!result.Next()) return statistic;
@@ -212,7 +212,8 @@ namespace Test
                                   event.DetailedDescription,
                                   --//описание события
                                   Catalog_Contacts.Description      AS ContactVisitingDescription,
-                                  Catalog_Contacts.Id               AS contactId
+                                  Catalog_Contacts.Id               AS contactId,
+                                  CatalogUser.Id                    AS UserId
 
                                 FROM
                                   Document_Event AS event
@@ -287,7 +288,8 @@ namespace Test
 
                                   LEFT JOIN Enum_StatusyEvents
                                     ON event.status = Enum_StatusyEvents.Id
-
+                                  LEFT JOIN Catalog_User AS CatalogUser
+                                    ON CatalogUser.Id = event.UserMA
                                 WHERE
                                   event.id = @id  ";
 
@@ -599,6 +601,19 @@ namespace Test
             query.AddParameter("eventId", eventId);
             return query.Execute();
         }
+        public static DbRecordset GetCocCountRimByEventId(string eventId, bool isPlanCount = false)
+        {
+            var column = isPlanCount ? "AmountPlan" : "AmountFact";
+            var query = new Query("select " +
+                                  $"    TOTAL({column}) as Sum " +
+                                  "from " +
+                                  "    Document_Event_ServicesMaterials " +
+                                  "    join Catalog_RIM " +
+                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
+                                  "where Ref = @eventId");
+            query.AddParameter("eventId", eventId);
+            return query.Execute();
+        }
 
         public static double GetCheckSKUSum(string eventId)
         {
@@ -607,7 +622,7 @@ namespace Test
                                   from
                                       Document_Event_ServicesMaterials AS DESM
                                    where
-                                   (DESM.AmountFact != 0 or DESM.AmountPlan != 0) AND DESM.Ref = @eventId");
+                                   DESM.AmountFact != 0 AND DESM.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return (double)query.ExecuteScalar();
         }
@@ -634,7 +649,7 @@ namespace Test
                                   "    join Enum_VATS AS EVAT " +
                                   "       on EVAT.Id = CR.VAT " +
                                   " where " +
-                                  " (DESM.AmountFact != 0 or DESM.AmountPlan != 0) and" +
+                                  " DESM.AmountFact != 0 and" +
                                   "    DESM.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
@@ -1291,8 +1306,8 @@ namespace Test
                                     from Catalog_User
                                     where UserName like @userName");
             query.AddParameter("userName", userName);
-
-            return query.Execute();
+            var result = query.Execute();
+            return result;
         }
 
         public static DbRecordset GetSettings()
@@ -1477,15 +1492,30 @@ namespace Test
 
         public static bool CheckFtprAcsess()
         {
-           
-            
+            bool ios = true;
+
+            switch (Application.TargetPlatform)
+            {
+                case TargetPlatform.Android:
+                    ios = false;
+                    break;
+                case TargetPlatform.iOS:
+                    ios = true;
+                    break;               
+                default:
+                    ios = true;
+                    break;
+            }
             if (Settings.EnableFPTR)
             {
                 Utils.TraceMessage($"{Settings.EnableFPTR}");
                 if (CheckRole("MobileFPRAccess"))
                 {
-                    Utils.TraceMessage($"{CheckRole("MobileFPRAccess")}");
-                    return true;
+                    if (!ios)
+                    {
+                        Utils.TraceMessage($"{CheckRole("MobileFPRAccess")}");
+                        return true;
+                    }
                 }
             }
             return false;

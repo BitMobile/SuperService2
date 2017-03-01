@@ -6,8 +6,8 @@ namespace Test.Components
     public class TabBarComponent
     {
         private readonly Screen _parentScreen;
-        private TextView _textView;
         private Image _image;
+        private TextView _textView;
 
         public TabBarComponent(Screen parentScreen)
         {
@@ -20,7 +20,7 @@ namespace Test.Components
             var screenName = Navigation.CurrentScreenInfo.Name;
             switch (screenName)
             {
-                case "EventListScreen":
+                case nameof(EventListScreen):
                     _textView = (TextView) _parentScreen.GetControl("TabBarFirstTabTextView", true);
                     _image = (Image) parentScreen.GetControl("TabBarFirstTabImage", true);
 
@@ -28,15 +28,7 @@ namespace Test.Components
                     _image.Source = ResourceManager.GetImage("tabbar_events_active");
                     break;
 
-                case "BagListScreen":
-                    _textView = (TextView) parentScreen.GetControl("TabBarSecondTabTextView", true);
-                    _image = (Image) parentScreen.GetControl("TabBarSecondTabImage", true);
-
-                    _textView.CssClass = "TabTextViewActive";
-                    _image.Source = ResourceManager.GetImage("tabbar_bag_active");
-                    break;
-
-                case "ClientListScreen":
+                case nameof(ClientListScreen):
                     _textView = (TextView) parentScreen.GetControl("TabBarThirdTabTextView", true);
                     _image = (Image) parentScreen.GetControl("TabBarThirdTabImage", true);
 
@@ -44,7 +36,15 @@ namespace Test.Components
                     _image.Source = ResourceManager.GetImage("tabbar_clients_active");
                     break;
 
-                case "SettingsScreen":
+                case nameof(FiscalRegistratorSettingsScreen):
+                    _textView = (TextView) parentScreen.GetControl("TabBarSecondTabTextView", true);
+                    _image = (Image) parentScreen.GetControl("TabBarSecondTabImage", true);
+
+                    _textView.CssClass = "TabTextViewActive";
+                    _image.Source = ResourceManager.GetImage("tabbar_fr_active");
+                    break;
+
+                case nameof(SettingsScreen):
                     _textView = (TextView) parentScreen.GetControl("TabBarFourthTabTextView", true);
                     _image = (Image) parentScreen.GetControl("TabBarFourthTabImage", true);
 
@@ -54,24 +54,16 @@ namespace Test.Components
             }
         }
 
-        internal void Events_OnClick(object sender, EventArgs e)
-        {
-            Navigation.ModalMove("EventListScreen");
-        }
+        internal void Events_OnClick(object sender, EventArgs e) 
+            => Navigation.ModalMove(nameof(EventListScreen));
 
-        internal void Bag_OnClick(object sender, EventArgs e)
-        {
-            Navigation.ModalMove("BagListScreen");
-        }
+        internal void FrSettings_OnClick(object sender, EventArgs e)
+            => Navigation.ModalMove(nameof(FiscalRegistratorSettingsScreen));
 
-        internal void Clients_OnClick(object sender, EventArgs e)
-        {
-            Navigation.ModalMove("ClientListScreen");
-        }
+        internal void Clients_OnClick(object sender, EventArgs e) 
+            => Navigation.ModalMove(nameof(ClientListScreen));
 
-        internal void Settings_OnClick(object sender, EventArgs e)
-        {
-            Navigation.ModalMove("SettingsScreen");
-        }
+        internal void Settings_OnClick(object sender, EventArgs e) 
+            => Navigation.ModalMove(nameof(SettingsScreen));
     }
 }

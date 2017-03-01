@@ -379,8 +379,8 @@ namespace Test
             var @event = (Event)DBHelper.LoadEntity($"{Variables[Parameters.IdCurrentEventId]}");
             @event.ActualStartDate = DateTime.Now;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
-            @event.Latitude = Converter.ToDecimal(latitude);
-            @event.Longitude = Converter.ToDecimal(longitude);
+            @event.LatitudeStart = Converter.ToDecimal(latitude);
+            @event.LongitudeStart = Converter.ToDecimal(longitude);
             DBHelper.SaveEntity(@event);
             _currentEvent = DBHelper.GetEventByID($"{Variables[Parameters.IdCurrentEventId]}");
             _taskCommentEditText.Enabled = true;

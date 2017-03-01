@@ -37,7 +37,7 @@ namespace Test
             FillControls();
 
             IsEmptyDateTime((string) _currentEventRecordset["ActualStartDate"]);
-            _needSync = ReadEvent();
+            
         }
 
         private bool ReadEvent()
@@ -111,14 +111,35 @@ namespace Test
 
         private void RightExtraLayoutOnOnClick(object sender, EventArgs eventArgs)
         {
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             Navigation.Move(nameof(ContactScreen), new Dictionary<string, object>
             {
                 [Parameters.Contact] = (Contacts) DBHelper.LoadEntity(_currentEventRecordset["contactId"].ToString())
             });
         }
 
+        private bool CheckAndGoIfNotExsist()
+        {
+            GetCurrentEvent();
+            Utils.TraceMessage($"{_currentEventRecordset["UserId"] == null}");
+            if (_currentEventRecordset["UserId"] == null || !Equals(_currentEventRecordset["UserId"], Settings.UserDetailedInfo.Id))
+            {
+                Toast.MakeToast(Translator.Translate("eventChangeSr"));
+                Navigation.ModalMove(nameof(EventListScreen));
+                return true;
+            }
+            return false;
+        }
         public override void OnShow()
         {
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
+            _needSync = ReadEvent();
             GpsTracking.Start();
             if ((string) _currentEventRecordset["statusName"] == EventStatus.Done
                 || (string) _currentEventRecordset["statusName"] == EventStatus.DoneWithTrouble
@@ -147,11 +168,19 @@ namespace Test
 
         internal void ClientInfoButton_OnClick(object sender, EventArgs eventArgs)
         {
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             Navigation.Move("ClientScreen");
         }
 
         internal void RefuseButton_OnClick(object sender, EventArgs eventArgs)
         {
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             Navigation.Move("CancelEventScreen");
         }
 
@@ -162,6 +191,10 @@ namespace Test
 
         internal void StartButton_OnClick(object sender, EventArgs eventArgs)
         {
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             Dialog.Ask(Translator.Translate("areYouSure"), (o, args) =>
             {
                 if (args.Result == Dialog.Result.Yes)
@@ -213,11 +246,7 @@ namespace Test
                 Dialog.Alert(Translator.Translate("closeeventquestion"), (o, args) =>
                     {
                         if (!CheckEventBeforeClosing() || args.Result != 0) return;
-                        var @event =
-                            (Event)
-                            DBHelper.LoadEntity(
-                                (string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId]);
-                        BusinessProcess.GlobalVariables[Parameters.DateEnd] = DateTime.Now;
+                       
                         Navigation.Move("CloseEventScreen");
                     }, null,
                     Translator.Translate("yes"), Translator.Translate("no"));
@@ -278,8 +307,8 @@ namespace Test
             var @event = (Event) DBHelper.LoadEntity(currentEventId);
             @event.ActualStartDate = DateTime.Now;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
-            @event.Latitude = Converter.ToDecimal(latitude);
-            @event.Longitude = Converter.ToDecimal(longitude);
+            @event.LatitudeStart = Converter.ToDecimal(latitude);
+            @event.LongitudeStart = Converter.ToDecimal(longitude);
             var enitylist = new ArrayList();
             enitylist.Add(@event);
             enitylist.Add(DBHelper.CreateHistory(@event));
@@ -308,6 +337,10 @@ namespace Test
         {
             BusinessProcess.GlobalVariables[Parameters.IdClientId] =
                 _currentEventRecordset[Parameters.IdClientId].ToString();
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             Navigation.Move("ClientScreen");
         }
 
@@ -327,6 +360,10 @@ namespace Test
                     {Parameters.IdCurrentEventId, _currentEventRecordset["Id"]},
                     {Parameters.IdIsReadonly, _readonly}
                 };
+                if (CheckAndGoIfNotExsist())
+                {
+                    return;
+                }
                 Navigation.Move("TaskListScreen", dictionary);
             }
         }
@@ -345,7 +382,9 @@ namespace Test
                 DConsole.WriteLine("Can't find current event ID, going to crash");
             var @event = (Event) DBHelper.LoadEntity(_currentEventRecordset["Id"].ToString());
             var status = ((StatusyEvents) @event.Status.GetObject()).Name;
-            var wasStarted = status == EventStatus.InWork || status == EventStatus.Done;
+            var wasStarted = status == EventStatus.InWork || status == EventStatus.Done 
+                || status == EventStatus.Close || status == EventStatus.NotDone 
+                || status == EventStatus.DoneWithTrouble || status == EventStatus.OnTheApprovalOf;
 
             var dictinory = new Dictionary<string, object>
             {
@@ -353,12 +392,20 @@ namespace Test
                 {Parameters.IdIsReadonly, _readonly},
                 {Parameters.IdWasEventStarted, wasStarted}
             };
-            Navigation.Move("COCScreen", dictinory);
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
+            Navigation.Move(nameof(COCScreen), dictinory);
         }
 
         internal void CheckListCounterLayout_OnClick(object sender, EventArgs eventArgs)
         {
             var statusName = (string) _currentEventRecordset["statusName"];
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             if (statusName.Equals(EventStatus.Agreed, StringComparison.OrdinalIgnoreCase)
                 || statusName.Equals(EventStatus.Accepted, StringComparison.OrdinalIgnoreCase))
                 Dialog.Ask(Translator.Translate("start_event"), (o, args) =>
@@ -393,7 +440,9 @@ namespace Test
         {
             var status = (string) eventRecordset["statusName"];
             var sums = DBHelper.GetCocSumsByEventId(eventRecordset["Id"].ToString(),
-                status != EventStatus.Done && status != EventStatus.InWork);
+                status != EventStatus.Done && status != EventStatus.InWork
+                && status != EventStatus.Close && status != EventStatus.NotDone
+                && status != EventStatus.DoneWithTrouble && status != EventStatus.OnTheApprovalOf);
             var total = (double) sums["Sum"];
             var services = (double) sums["SumServices"];
             var materials = (double) sums["SumMaterials"];
@@ -417,7 +466,6 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
-
         internal void GoToMapScreen_OnClick(object sender, EventArgs e)
         {
             var clientId = (string) _currentEventRecordset[Parameters.IdClientId];
@@ -431,8 +479,11 @@ namespace Test
             BusinessProcess.GlobalVariables.Remove(Parameters.IdClientId);
             BusinessProcess.GlobalVariables[Parameters.IdScreenStateId] = MapScreenStates.EventScreen;
             BusinessProcess.GlobalVariables[Parameters.IdClientId] = clientId;
-
-            Navigation.Move("MapScreen", dictionary);
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
+            Navigation.Move(nameof(MapScreen), dictionary);
         }
 
         internal bool IsNotZero(long count)
@@ -442,7 +493,7 @@ namespace Test
         {
             var parsedDate = DateTime.Parse(date);
             var result = DateTime.Now - parsedDate;
-            return $"{result.TotalHours:00}:{result.Minutes:00}";
+            return $"{(int)result.TotalHours:00}:{result.Minutes:00}";
         }
 
         internal bool ShowTaskButton() => Settings.EquipmentEnabled;

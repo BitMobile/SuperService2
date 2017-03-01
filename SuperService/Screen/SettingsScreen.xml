@@ -42,22 +42,7 @@
           <c:Image CssClass="SserviceLogo" Source="$GetResourceImage(settingsscreen_sservice_logo)" />
           <!--Версия-->
           <c:TextView CssClass="ProductVersion" Text="$GetVersion()" />
-          <!-- Лого Твиттера-->
-          <s:If Test="$CheckFtprAcsess()">
-            <c:HorizontalLayout CssClass="MainSocialLogoContainer">
-              <c:VerticalLayout CssClass="HorizontalAlignLogoContainer">
-                <c:VerticalLayout Id="Twitter" CssClass="SocialTwitterContainer" OnClick="Twitter_OnClick">
-                  <c:Image CssClass="SocialLogo" Source="$GetResourceImage(settingsscreen_twitter)" />
-                </c:VerticalLayout>
-              </c:VerticalLayout>
-              <!-- Лого Фейсбука -->
-              <c:VerticalLayout CssClass="HorizontalAlignLogoContainer">
-                <c:VerticalLayout Id="Facebook" CssClass="SocialFacebookContainer" OnClick="PrintZ_OnClick">
-                  <c:Image CssClass="SocialLogo" Source="$GetResourceImage(settingsscreen_facebook)" />
-                </c:VerticalLayout>
-              </c:VerticalLayout>
-            </c:HorizontalLayout>
-          </s:If>
+
         </c:VerticalLayout>
         <!--Конец информации о компании-->
         <!--Стрелка вниз серого цвета-->
@@ -70,14 +55,10 @@
               <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
                 <c:VerticalLayout Id="SendErrorReport" CssClass="ButtonContainerVerticalAlign"
                                   OnClick="PrintX_OnClick">
-                  <s:If Test="$CheckFtprAcsess()">
-                    <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_printx)" />
-                    <c:TextView CssClass="ReportTextActive" Text="#x_report#" />
-                  </s:If>
-                  <s:Else>
+
                     <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_upload)" />
                     <c:TextView CssClass="ReportTextActive" Text="#upload_pictures#" />
-                  </s:Else>
+
                 </c:VerticalLayout>
               </c:HorizontalLayout>
             </c:VerticalLayout>
@@ -89,14 +70,10 @@
             <c:VerticalLayout CssClass="ExternalButtonContainer">
               <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
                 <c:VerticalLayout Id="SendLog" CssClass="ButtonContainerVerticalAlign" OnClick="SendLog_OnClick">
-                  <s:If Test="$CheckFtprAcsess()">
-                    <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_send_log)" />
-                    <c:TextView CssClass="ReportTextActive" Text="#fpt_settings#" />
-                  </s:If>
-                  <s:Else>
+
                     <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_send_logsend)" />
                     <c:TextView CssClass="ReportTextActive" Text="#send_log#" />
-                  </s:Else>
+
                 </c:VerticalLayout>
               </c:HorizontalLayout>
             </c:VerticalLayout>

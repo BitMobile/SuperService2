@@ -1,10 +1,9 @@
-﻿using BitMobile.ClientModel3;
-using BitMobile.ClientModel3.UI;
-using BitMobile.Common.Controls;
-using BitMobile.DbEngine;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using BitMobile.ClientModel3;
+using BitMobile.ClientModel3.UI;
+using BitMobile.DbEngine;
 using Test.Catalog;
 using Test.Components;
 using DbRecordset = BitMobile.ClientModel3.DbRecordset;
@@ -13,15 +12,15 @@ namespace Test
 {
     public class EquipmentScreen : Screen
     {
-        private bool _fieldsAreInitialized;
-
-        private TopInfoComponent _topInfoComponent;
-
         // Для обновления
         private string _currentCheckListItemId;
 
         // Для целого и строки
         private EditText _editText;
+        private string _equipmentDescription;
+
+        private string _equipmentId;
+        private bool _fieldsAreInitialized;
 
         // Для камеры
         private Image _imgToReplace;
@@ -29,13 +28,12 @@ namespace Test
         private string _newGuid;
         private string _pathToImg;
 
+        private bool _readonly;
+
         // Для списка и даты
         private TextView _textView;
 
-        private bool _readonly;
-
-        private string _equipmentId;
-        private string _equipmentDescription;
+        private TopInfoComponent _topInfoComponent;
 
         public override void OnLoading()
         {
@@ -44,7 +42,7 @@ namespace Test
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("equipment"),
-                LeftButtonControl = new Image() { Source = ResourceManager.GetImage("topheading_back") },
+                LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_back")},
                 ArrowVisible = false
             };
             _topInfoComponent.ActivateBackButton();
@@ -53,18 +51,14 @@ namespace Test
         public int InitClassFields()
         {
             if (_fieldsAreInitialized)
-            {
                 return 0;
-            }
 
             //TODO: сделать получение по гуиду через getObject когда его починят
 
-            _equipmentId = (string)Variables.GetValueOrDefault(Parameters.IdEquipmentId, "");
+            _equipmentId = (string) Variables.GetValueOrDefault(Parameters.IdEquipmentId, "");
             var equipmentRs = DBHelper.GetEquipmentById(_equipmentId);
             if (equipmentRs.Next())
-            {
                 _equipmentDescription = equipmentRs.GetString(0);
-            }
 
             _fieldsAreInitialized = true;
             _readonly = false;
@@ -112,9 +106,7 @@ namespace Test
             DateTime date;
 
             if (DateTime.TryParse(dateTime, out date))
-            {
                 return date.ToString("d MMMM");
-            }
 
             throw new FormatException("Date format uncorrect");
         }
@@ -126,7 +118,7 @@ namespace Test
 
         private static void UpdateChecklist(string id, string result)
         {
-            var clientParameters = (Client_Parameters)DBHelper.LoadEntity(id);
+            var clientParameters = (Client_Parameters) DBHelper.LoadEntity(id);
             clientParameters.Val = result;
             DBHelper.SaveEntity(clientParameters, false);
         }
@@ -145,8 +137,8 @@ namespace Test
         internal void CheckListSnapshot_OnClick(object sender, EventArgs eventArgs)
         {
             if (_readonly) return;
-            _imgToReplace = (Image)((VerticalLayout)sender).GetControl(0);
-            _currentCheckListItemId = ((VerticalLayout)sender).Id;
+            _imgToReplace = (Image) ((VerticalLayout) sender).GetControl(0);
+            _currentCheckListItemId = ((VerticalLayout) sender).Id;
 
             if (_imgToReplace.Source.StartsWith("~"))
             {
@@ -180,8 +172,8 @@ namespace Test
         internal void CheckListValList_OnClick(object sender, EventArgs e)
         {
             if (_readonly) return;
-            _currentCheckListItemId = ((VerticalLayout)sender).Id;
-            _textView = (TextView)((VerticalLayout)sender).GetControl(0);
+            _currentCheckListItemId = ((VerticalLayout) sender).Id;
+            _textView = (TextView) ((VerticalLayout) sender).GetControl(0);
 
             var tv = GetTextView(sender);
             var startObject = "not_choosed";
@@ -212,8 +204,8 @@ namespace Test
         internal void CheckListDateTime_OnClick(object sender, EventArgs e)
         {
             if (_readonly) return;
-            _currentCheckListItemId = ((VerticalLayout)sender).Id;
-            _textView = (TextView)((VerticalLayout)sender).GetControl(0);
+            _currentCheckListItemId = ((VerticalLayout) sender).Id;
+            _textView = (TextView) ((VerticalLayout) sender).GetControl(0);
             DateTime date;
             var isDate = DateTime.TryParse(_textView.Text, out date);
             date = isDate ? date : DateTime.Now;
@@ -223,15 +215,15 @@ namespace Test
         internal void DateCallback(object state, ResultEventArgs<DateTime> args)
         {
             _textView.Text = args.Result.Date.ToString("dd MMMM yyyy");
-            UpdateChecklist(_currentCheckListItemId, _textView.Text);
+            UpdateChecklist(_currentCheckListItemId, args.Result.ToString("yyyy-MM-dd HH:mm:ss"));
         }
 
         // Булево
         internal void CheckListBoolean_OnClick(object sender, EventArgs e)
         {
             if (_readonly) return;
-            _currentCheckListItemId = ((VerticalLayout)sender).Id;
-            _textView = (TextView)((VerticalLayout)sender).GetControl(0);
+            _currentCheckListItemId = ((VerticalLayout) sender).Id;
+            _textView = (TextView) ((VerticalLayout) sender).GetControl(0);
 
             var tv = GetTextView(sender);
 
@@ -239,16 +231,20 @@ namespace Test
             {
                 {"true", Translator.Translate("yes")},
                 {"false", Translator.Translate("no")},
+                {"not_choosed", Translator.Translate("not_choosed")}
             };
-            var startKey = _textView.Text == Translator.Translate("no") ? "false" : "true";
+
+            var startKey = _textView.Text == Translator.Translate("not_choosed")
+                ? ""
+                : _textView.Text == Translator.Translate("yes") ? "true" : "false";
             Dialog.Choose(tv.Text, items, startKey, BooleanCallback);
         }
 
         private TextView GetTextView(object sender)
         {
-            var hl = (HorizontalLayout)((VerticalLayout)sender).Parent;
-            var vl = (VerticalLayout)hl.Controls[hl.Controls.Length < 3 ? 0 : 1];
-            var tv = (TextView)vl.Controls[0];
+            var hl = (HorizontalLayout) ((VerticalLayout) sender).Parent;
+            var vl = (VerticalLayout) hl.Controls[hl.Controls.Length < 3 ? 0 : 1];
+            var tv = (TextView) vl.Controls[0];
             return tv;
         }
 
@@ -256,15 +252,17 @@ namespace Test
         {
             _textView.Text = args.Result.Value;
             UpdateChecklist(_currentCheckListItemId,
-                args.Result.Value == Translator.Translate("not_choosed") ? "" : _textView.Text);
+                (string) args.Result.Key == "not_choosed" ? "" : (string) args.Result.Key);
+            Utils.TraceMessage($"Boleean choose: Key {args.Result.Key} Value: {args.Result.Value}");
+
             _textView.Refresh();
         }
 
         // С точкой
         internal void CheckListDecimal_OnLostFocus(object sender, EventArgs e)
         {
-            _editText = (EditText)sender;
-            _currentCheckListItemId = ((EditText)sender).Id;
+            _editText = (EditText) sender;
+            _currentCheckListItemId = ((EditText) sender).Id;
 
             UpdateChecklist(_currentCheckListItemId, _editText.Text);
         }
@@ -272,32 +270,32 @@ namespace Test
         //Целое
         internal void CheckListInteger_OnLostFocus(object sender, EventArgs e)
         {
-            _editText = (EditText)sender;
-            _currentCheckListItemId = ((EditText)sender).Id;
+            _editText = (EditText) sender;
+            _currentCheckListItemId = ((EditText) sender).Id;
 
             UpdateChecklist(_currentCheckListItemId, _editText.Text);
         }
 
         internal void CheckListString_OnGetFocus(object sender, EventArgs e)
         {
-            _currentCheckListItemId = ((EditText)sender).Id;
+            _currentCheckListItemId = ((EditText) sender).Id;
         }
 
         internal void CheckListDecimal_OnGetFocus(object sender, EventArgs e)
         {
-            _currentCheckListItemId = ((EditText)sender).Id;
+            _currentCheckListItemId = ((EditText) sender).Id;
         }
 
         internal void CheckListInteger_OnGetFocus(object sender, EventArgs e)
         {
-            _currentCheckListItemId = ((EditText)sender).Id;
+            _currentCheckListItemId = ((EditText) sender).Id;
         }
 
         // Строка
         internal void CheckListString_OnLostFocus(object sender, EventArgs e)
         {
-            _editText = (EditText)sender;
-            _currentCheckListItemId = ((EditText)sender).Id;
+            _editText = (EditText) sender;
+            _currentCheckListItemId = ((EditText) sender).Id;
 
             UpdateChecklist(_currentCheckListItemId, _editText.Text);
         }

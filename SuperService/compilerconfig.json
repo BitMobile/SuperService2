@@ -14,8 +14,8 @@
     }
   },
   {
-    "outputFile": "Style/BagListScreen.css",
-    "inputFile": "Style/Less/BagListScreen.less",
+    "outputFile": "Style/FiscalRegistratorSettingsScreen.css",
+    "inputFile": "Style/Less/FiscalRegistratorSettingsScreen.less",
     "minify": {
       "enabled": false
     }

@@ -56,6 +56,10 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             Navigation.Move(nameof(ClientParametersScreen), new Dictionary<string, object>
             {
                 [Parameters.IdClientId] = _clientId
@@ -74,6 +78,10 @@ namespace Test
 
         internal void GoToAddContact_OnClick(object sender, EventArgs e)
         {
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             Navigation.Move("EditContactScreen", new Dictionary<string, object>
             {
                 [Parameters.Contact] = new Contacts
@@ -86,6 +94,10 @@ namespace Test
 
         internal void EquipmentLayout_OnClick(object sender, EventArgs e)
         {
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             var layout = (VerticalLayout)sender;
             var dictionary = new Dictionary<string, object>()
             {
@@ -102,10 +114,21 @@ namespace Test
                 DConsole.WriteLine("Can't find current client ID, going to crash");
             }
             _clientId = (string)clientId;
-            _client = DBHelper.GetClientByID(_clientId);
+            CheckAndGoIfNotExsist();
             return _client;
         }
 
+        private bool CheckAndGoIfNotExsist()
+        {
+            _client = DBHelper.GetClientByID(_clientId);
+            Utils.TraceMessage($"{_client["Id"] == null}");
+            if (_client["Id"] == null)
+            {
+                Navigation.ModalMove(nameof(ClientListScreen));
+                return true;
+            }
+            return false;
+        }
         /// <summary>
         ///     Проверяет строку на то, что она null, пустая
         ///     или представляет пробельный символ
@@ -153,6 +176,10 @@ namespace Test
 
         internal void GoToMapScreen_OnClick(object sender, EventArgs e)
         {
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             DConsole.WriteLine($"{nameof(GoToMapScreen_OnClick)} Start");
             var dictionary = new Dictionary<string, object>
             {
@@ -170,6 +197,10 @@ namespace Test
 
         internal void ContactContainerLayout_OnClick(object sender, EventArgs eventArgs)
         {
+            if (CheckAndGoIfNotExsist())
+            {
+                return;
+            }
             var id = ((HorizontalLayout)((VerticalLayout)sender).Parent).Id;
             var contacts = (Contacts)DbRef.FromString(id).GetObject();
 
