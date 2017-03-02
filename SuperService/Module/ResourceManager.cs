@@ -9,8 +9,8 @@ namespace Test
 
         private static readonly Dictionary<string, object> Paths = new Dictionary<string, object>
         {
-            {"tabbar_bag", @"Image\_Components\TabBar\Bag.png"},
-            {"tabbar_bag_active", @"Image\_Components\TabBar\BagActive.png"},
+            {"tabbar_fr_inactive", @"Image\_Components\TabBar\reg_inactive.png"},
+            {"tabbar_fr_active", @"Image\_Components\TabBar\reg_active.png"},
             {"tabbar_clients", @"Image\_Components\TabBar\Clients.png"},
             {"tabbar_clients_active", @"Image\_Components\TabBar\ClientsActive.png"},
             {"tabbar_events", @"Image\_Components\TabBar\Events.png"},
@@ -70,9 +70,16 @@ namespace Test
             //CheckListScreen
             {"checklistscreen_photo", @"Image\CheckListScreen\TakePhoto.png"},
             {"checklistscreen_nophoto", @"Image\CheckListScreen\NoPhoto.png"},
-            //BagListScreen
-            {"baglistscreen_busket", @"Image\BagListScreen\BagBusket.png"},
-            {"baglistscreen_plus", @"Image\BagListScreen\BagPlus.png"},
+            //FiscalRegistratorSettingsScreen
+            {"fptr_errorlist", @"Image\FiscalRegistratorSettingsScreen\error_icon.png"},
+            {"fptr_settings", @"Image\FiscalRegistratorSettingsScreen\fptr_settings.png"},
+            {"fptr_arrow_down", @"Image\FiscalRegistratorSettingsScreen\arrow_down.png"},
+            {"fptr_connected", @"Image\FiscalRegistratorSettingsScreen\connected_fptr.png"},
+            {"fptr_disconnected", @"Image\FiscalRegistratorSettingsScreen\connect_fail.png"},
+            {"fptr_pair", @"Image\FiscalRegistratorSettingsScreen\pair.png"},
+            {"fptr_ping_ok", @"Image\FiscalRegistratorSettingsScreen\ping_ok.png"},
+            {"fptr_zreport", @"Image\FiscalRegistratorSettingsScreen\zreport.png"},
+            {"fptr_xreport", @"Image\FiscalRegistratorSettingsScreen\xreport.png"},
             //CheckInfoScreen
             {"print_icon", @"Image\CheckInfoScreen\iconCheckPrint.png"},
             {"print_icon_disabel",@"Image\CheckInfoScreen\iconCheckPrint_dis.png" },

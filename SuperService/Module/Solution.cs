@@ -15,7 +15,7 @@ namespace Test
             DConsole.WriteLine("Authorization init...");
             DynamicScreenRefreshService.Init();
             Authorization.Init();
-            if (Authorization.FastAuthorization())
+            if (Authorization.FastAuthorization() && Settings.UserDetailedInfo!=null)
             {
 #if DEBUG
                 DConsole.WriteLine($"Логин и пароль были сохранены." +

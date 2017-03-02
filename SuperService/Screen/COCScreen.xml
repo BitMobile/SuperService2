@@ -110,13 +110,11 @@
             </c:HorizontalLayout>
           </c:VerticalLayout>
         </s:If>
-          <s:If Test="$ShowCheckInfoScreen()">
             <c:HorizontalLine CssClass="WideHL" />
 
-            <c:HorizontalLayout CssClass="BottomContainerHL" OnClick="ApplicatioMaterials_OnClick">
+            <c:HorizontalLayout Visible="false" Id="buttonPrint" CssClass="BottomContainerHL" OnClick="ApplicatioMaterials_OnClick">
               <c:TextView CssClass="BottomTV" Text="#show_check_info#" />
             </c:HorizontalLayout>
-          </s:If>
       </c:VerticalLayout>
     </c:ScrollView>
   </c:VerticalLayout>

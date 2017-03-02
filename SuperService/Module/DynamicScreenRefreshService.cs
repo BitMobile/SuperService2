@@ -14,7 +14,7 @@ namespace Test
             _refreshingScreen = new[]
             {
                 nameof(EventListScreen),
-                nameof(BagListScreen),
+                nameof(FiscalRegistratorSettingsScreen),
                 nameof(ClientListScreen),
                 //nameof(COCScreen),
                 //nameof(RIMListScreen),
