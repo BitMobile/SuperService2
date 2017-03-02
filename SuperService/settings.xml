@@ -11,7 +11,7 @@
 
   <server>
     <supportedMeta version="3.0.0.0" />
-     <host url="https://ssdev.superagent.ru" />
-    <solutionPath url="/bitmobile3/superservice3dev" />
+    <host url="https://sstest.superagent.ru" />
+    <solutionPath url="/bitmobile3/superservice3test" />
   </server>
 </configuration>

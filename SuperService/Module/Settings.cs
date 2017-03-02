@@ -133,8 +133,8 @@ namespace Test
                 stream?.Close();
             }
 
-            Host = serverNode?.Attributes?["url"]?.Value ?? "http://nt0420.bt";
-            var server = Host + (solutionPathNode?.Attributes?["url"]?.Value ?? "/bitmobile/testsolution");
+            Host = serverNode?.Attributes?["url"]?.Value ?? @"https://sstest.superagent.ru";
+            var server = Host + (solutionPathNode?.Attributes?["url"]?.Value ?? @"/bitmobile3/superservice3test");
 
             Server = server + "/device";
             ImageServer = server + "/";
