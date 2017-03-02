@@ -115,14 +115,16 @@ namespace Test
             var statistic = new EventsStatistic();
             var query = new Query(@"SELECT
                                       TOTAL(CASE
-                                            WHEN StartDatePlan >= date('now', 'start of day') AND StartDatePlan < date('now', 'start of day','+1 day')
+                                            WHEN StartDatePlan >= date('now', 'start of day') AND StartDatePlan < date('now', 'start of day', '+1 day')
                                               THEN 1
                                             ELSE 0
                                             END) AS DayTotalAmount,
                                       TOTAL(CASE
                                             WHEN ((Enum_StatusyEvents.name LIKE 'Done' OR Enum_StatusyEvents.Name LIKE 'DoneWithTrouble' OR
-                                                  Enum_StatusyEvents.Name LIKE 'NotDone') AND event.ActualEndDate >= date('now', 'start of day') AND
-                                                 event.ActualEndDate < date('now', 'start of day', '+1 day'))
+                                                   Enum_StatusyEvents.Name LIKE 'NotDone' OR Enum_StatusyEvents.Name LIKE 'Close'
+                                                   OR Enum_StatusyEvents.Name LIKE 'OnTheApprovalOf') AND event.ActualEndDate >= date('now', 'start of day')
+                                                  AND
+                                                  event.ActualEndDate < date('now', 'start of day', '+1 day'))
                                               THEN 1
                                             ELSE 0
                                             END) AS DayCompleteAmout,
@@ -133,7 +135,9 @@ namespace Test
                                             END) AS MonthCompleteAmout,
                                       TOTAL(CASE
                                             WHEN ((Enum_StatusyEvents.name LIKE 'Done' OR Enum_StatusyEvents.Name LIKE 'DoneWithTrouble' OR
-                                                  Enum_StatusyEvents.Name LIKE 'NotDone') AND event.ActualEndDate > date('now', 'start of month')) AND
+                                                   Enum_StatusyEvents.Name LIKE 'NotDone' OR Enum_StatusyEvents.Name LIKE 'Close'
+                                                   OR Enum_StatusyEvents.Name LIKE 'OnTheApprovalOf') AND
+                                                  event.ActualEndDate > date('now', 'start of month')) AND
                                                  event.ActualEndDate < date('now', 'start of month', '+1 month')
                                               THEN 1
                                             ELSE 0
@@ -144,7 +148,7 @@ namespace Test
                                         ON event.Status = Enum_StatusyEvents.Id
 
                                     WHERE
-                                      event.DeletionMark = 0 AND event.UserMA = @userID AND NOT(Enum_StatusyEvents.Name = @OnHarmonization)");
+                                      event.DeletionMark = 0 AND event.UserMA = @userID AND NOT (Enum_StatusyEvents.Name = @OnHarmonization)");
             query.AddParameter("OnHarmonization", EventStatus.OnHarmonization);
             query.AddParameter("userID",Settings.UserDetailedInfo?.Id);
             var result = query.Execute();
