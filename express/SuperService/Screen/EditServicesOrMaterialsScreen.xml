@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:VerticalLayout CssClass="RootLayout">
+    <c:VerticalLayout CssClass="NoHeight" OnClick="ReturnToThePreviousScreen_OnClick" OnEvent="Back"/>
+    <s:If Test="$lineId != null">
+      <s:Push Id="rimDescription" Value="$GetDescriptionByLineId($lineId)" />
+    </s:If>
+    <s:Else>
+      <s:Push Id="rimDescription" Value="$GetDescriptionByRIMID($rimId)" />
+    </s:Else>
+    <c:VerticalLayout OnClick="BackButton_OnClick">
+      <c:Image CssClass="CloseButtonImage" Source="$GetResourceImage(editservicesormaterialsscreen_close)" />
+    </c:VerticalLayout>
+    <c:VerticalLayout CssClass="EmptySpace7sp" />
+    <c:TextView CssClass="EditScreenHeader" Text="$rimDescription.Description" />
+    <c:VerticalLayout CssClass="EmptySpace8sp" />
+    <c:TextView CssClass="SlightlyGrey" Text="#count#" />
+    <c:VerticalLayout CssClass="EmptySpace3sp" />
+    <c:HorizontalLayout CssClass="CounterLayout">
+      <c:VerticalLayout CssClass="PlusMinusImageWrapper" Id="RemoveButton" OnClick="RemoveButton_OnClick">
+        <c:Image Id ="MinusImage" CssClass="PlusMinusImage" Source="$GetResourceImage(editservicesormaterialsscreen_minus)" />
+      </c:VerticalLayout>
+      <c:EditText Id="AmountFactEditText" Text="$rimDescription.AmountFact" Keyboard="numeric"
+                  OnLostFocus="AmountFactEditText_OnLostFocus" />
+      <c:VerticalLayout CssClass="PlusMinusImageWrapper" Id="AddButton" OnClick="AddButton_OnClick">
+        <c:Image CssClass="PlusMinusImage" Source="$GetResourceImage(editservicesormaterialsscreen_plus)" />
+      </c:VerticalLayout>
+    </c:HorizontalLayout>
+    <c:VerticalLayout CssClass="EmptySpace8sp" />
+    <c:HorizontalLayout CssClass="PriceLayout">
+      <c:TextView CssClass="PriceTitle" Id="PriceTitleTextView" Text="#price#" />
+      <c:EditText CssClass="Price" Id="PriceEditText" Text="$rimDescription.Price" Enabled="False" />
+      <c:TextView CssClass="PriceCurrency" Text="#currency#" />
+    </c:HorizontalLayout>
+    <c:HorizontalLine />
+    <c:HorizontalLayout CssClass="PriceLayout">
+      <c:TextView CssClass="PriceTitle" Id="TotalPriceTitleTextView" Text="#total#" />
+      <c:TextView CssClass="TotalPrice" Id="TotalPriceTextView" Text="$rimDescription.SumFact" />
+      <c:TextView CssClass="TotalPriceCurrency" Text="#currency#" />
+    </c:HorizontalLayout>
+    <c:HorizontalLayout CssClass="AddButton" OnClick="AddServiceMaterialButton_OnClick">
+      <c:TextView Text="#confirm#" />
+    </c:HorizontalLayout>
+  </c:VerticalLayout>
+</c:Screen>

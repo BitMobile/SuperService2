@@ -1,0 +1,101 @@
+@import "defaults.less";
+@import "Components/TopInfoComponent.less";
+@import "Components/TabBarComponent.less";
+
+.ExtraLeftLayoutCss {
+    background-color: #4a4b5e;
+    height: 15sp;
+    margin-left: 25%;
+    margin-top: 25%;
+    width: 15sp;
+}
+
+.ExtraRightLayoutCss {
+    background-color: #4a4b5e;
+    height: 15sp;
+    margin-right: 25%;
+    margin-top: 25%;
+    width: 15sp;
+}
+
+.ExtraInfo {
+    background-color: #4a4b5e;
+    color: #9595a3;
+    .text-view-style(@big-title-font-size);
+    text-align: center;
+    width: 100%;
+}
+
+.BottonExtraInfo {
+    background-color: #4a4b5e;
+    color: #9595a3;
+    .text-view-style(@little-title-font-size);
+    text-align: center;
+    width: 100%;
+}
+
+.ClientItemLayout {
+    height: 12sp;
+    horizontal-align: center;
+    width: 90%;
+}
+
+.ClientItemName {
+    .text-view-style(@big-title-font-size);
+    horizontal-align: left;
+    text-align: left;
+}
+
+.ClientItemAddress {
+    .text-view-style(@default-font-size);
+    horizontal-align: left;
+    text-align: left;
+    margin-bottom: 1sp;
+}
+
+.ClientBreaker {
+    background-color: #f3f3f4;
+    width: 90%;
+    vertical-align: center;
+}
+/* End of ClientList */
+
+/*  ClientList */
+
+.ClientListMainSVL {
+    height: auto;
+    width: 100%;
+}
+
+.ClientListItemVL {
+    height: 10sp auto;
+    horizontal-align: center;
+    width: 100%;
+}
+
+.ClientListNameTV {
+    color: #51595b;
+    .text-view-style(@big-title-font-size);
+    horizontal-align: left;
+    margin-left: 5.5sp;
+    margin-top: 3sp;
+    text-align: left;
+    width: 90%;
+    white-space: nowrap;
+}
+
+.ClientListAddressTV {
+    color: #9b9fa0;
+    .text-view-style(@little-title-font-size);
+    horizontal-align: left;
+    margin-bottom: 3sp;
+    margin-left: 5.5sp;
+    margin-top: 0.5sp;
+    text-align: left;
+    width: 90%;
+    white-space: nowrap;
+}
+
+.ClientListBreaker {
+    width: 90%;
+}

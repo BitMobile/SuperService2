@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+
+  <c:VerticalLayout CssClass="RootLayout">
+    <c:EditText Id="name" Placeholder="#add_contact_enter_name#" CssClass = "ContactInfoEditText"/>
+    <c:EditText Id="position" Placeholder="#add_contact_enter_position#" CssClass = "ContactInfoEditText"/>
+    <c:EditText Id="tel" Placeholder="#add_contact_enter_tel#" CssClass = "ContactInfoEditText"/>
+    <c:EditText Id="email" Placeholder="#add_contact_enter_email#" CssClass = "ContactInfoEditText"/>
+
+    <c:Button Id="addButton" Text="#add_contact_add_button#" OnClick="AddContactButton_OnClick" CssClass = "AddButton"/>
+    <c:Button Id="exitButton" Text="#back#" OnClick="Back_OnClick" CssClass = "ExitButton" OnEvent="Back"/>
+    <!--<s:Include File="Components\TabBarСomponent.xml" />-->
+  </c:VerticalLayout>
+
+</c:Screen>

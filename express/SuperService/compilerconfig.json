@@ -1,0 +1,198 @@
+﻿[
+  {
+    "outputFile": "Style/AddContactScreen.css",
+    "inputFile": "Style/Less/AddContactScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/AuthScreen.css",
+    "inputFile": "Style/Less/AuthScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/FiscalRegistratorSettingsScreen.css",
+    "inputFile": "Style/Less/FiscalRegistratorSettingsScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/CheckListScreen.css",
+    "inputFile": "Style/Less/CheckListScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/ClientListScreen.css",
+    "inputFile": "Style/Less/ClientListScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/ClientScreen.css",
+    "inputFile": "Style/Less/ClientScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/CloseEventScreen.css",
+    "inputFile": "Style/Less/CloseEventScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/COCScreen.css",
+    "inputFile": "Style/Less/COCScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/ContactScreen.css",
+    "inputFile": "Style/Less/ContactScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/EditServicesOrMaterialsScreen.css",
+    "inputFile": "Style/Less/EditServicesOrMaterialsScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/EquipmentScreen.css",
+    "inputFile": "Style/Less/EquipmentScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/EventListScreen.css",
+    "inputFile": "Style/Less/EventListScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/EventScreen.css",
+    "inputFile": "Style/Less/EventScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/fancy.css",
+    "inputFile": "Style/Less/fancy.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/fancy2.css",
+    "inputFile": "Style/Less/fancy2.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/MapScreen.css",
+    "inputFile": "Style/Less/MapScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/CheckInfoScreen.css",
+    "inputFile": "Style/Less/CheckInfoScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/RequestHistoryScreen.css",
+    "inputFile": "Style/Less/RequestHistoryScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/RIMListScreen.css",
+    "inputFile": "Style/Less/RIMListScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/SettingsScreen.css",
+    "inputFile": "Style/Less/SettingsScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/style.css",
+    "inputFile": "Style/Less/style.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/TaskListScreen.css",
+    "inputFile": "Style/Less/TaskListScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/TaskScreen.css",
+    "inputFile": "Style/Less/TaskScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFile": "Style/TestScreen.css",
+    "inputFile": "Style/Less/TestScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+    {
+    "outputFile": "Style/CancelEventScreen.css",
+    "inputFile": "Style/Less/CancelEventScreen.less",
+    "minify": {
+      "enabled": false  
+      }
+  },
+    {
+    "outputFile": "Style/ClientParametersScreen.css",
+    "inputFile": "Style/Less/ClientParametersScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+    {  
+    "outputFile": "Style/PhotoScreen.css",
+    "inputFile": "Style/Less/PhotoScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  },
+  {  
+    "outputFile": "Style/PrintCheckScreen.css",
+    "inputFile": "Style/Less/PrintCheckScreen.less",
+    "minify": {
+      "enabled": false
+    }
+  }
+]

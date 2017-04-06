@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+
+  <c:DockLayout CssClass="RootLayout">
+
+    <!-- Добавление верхней панели -->
+    <s:Include File="Components\TopInfoComponent.xml" />
+
+    <c:SwipeVerticalLayout CssClass="RequestHistoryMainSVL">
+      <s:Push Id="LastRequestHistoryDate" Value="$GetDateNowRequestHistory()" />
+
+      <s:Iterator Id="RequestHistory" Value="$GetNeedMats()">
+
+        <s:If Test="$NeedDateLayout($RequestHistory.Date)">
+
+          <s:If Test="$DateIsToday($RequestHistory.Date)">
+          </s:If>
+          <s:Else>
+              <c:HorizontalLine CssClass="RequestHistoryLongBreaker" />    
+          </s:Else>  
+
+          <c:HorizontalLayout CssClass="RequestHistoryDateHL">
+            <c:TextView Text="$GetDateHeaderDescription($RequestHistory.Date)" CssClass="RequestHistoryDateTV" />
+          </c:HorizontalLayout>
+          <c:HorizontalLine CssClass="RequestHistoryLongBreaker" />
+
+        </s:If>      
+        
+        
+        <c:HorizontalLayout CssClass="RequestHistoryItemHL">
+
+          <c:VerticalLayout CssClass="RequestHistoryNumberTimeVL">
+            <c:TextView Text="$RequestHistory.Number" CssClass="RequestHistoryNumberTV" />
+            <c:TextView Text="$ToHoursMinutes($RequestHistory.docTime)" CssClass="RequestHistoryTimeTV" />
+          </c:VerticalLayout>
+
+          <c:VerticalLayout CssClass="RequestHistoryStatusVL">
+            <s:If Test="$RequestHistory.statusName == New">
+              <c:TextView Text="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVNew" />
+            </s:If>
+            <s:If Test="$RequestHistory.statusName == Done">
+              <c:TextView Text="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVDone" />
+            </s:If>
+            <s:If Test="$RequestHistory.statusName == Cancel">
+              <c:TextView Text="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVCancel" />
+            </s:If>
+            <s:If Test="$RequestHistory.statusName == Confirmed">
+              <c:TextView Text="$RequestHistory.statusDescription" CssClass="RequestHistoryStatusTVConfirmed" />
+            </s:If>
+          </c:VerticalLayout>
+        </c:HorizontalLayout>
+
+        <s:Push Id="LastRequestHistoryDate" Value="$DateTimeToDate($RequestHistory.Date)" />
+      </s:Iterator>
+    </c:SwipeVerticalLayout>
+  </c:DockLayout>
+</c:Screen>

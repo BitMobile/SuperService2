@@ -1,0 +1,172 @@
+﻿about		MORE ABOUT THE APPLICATION
+test		ЭТО ТЕСТ
+greeting		Добро Пожаловать!
+back		Назад
+refuse		Отказаться
+start		Начать
+finish		Завершить
+tasks		Задачи
+coc		АВР
+clist		Чек-лист
+time		Время
+workType		Тип Задачи
+comment		Описание
+onmap		Посмотреть на карте
+closeeventquestion		Закрыть наряд?
+yes		Да
+no		Нет
+finishing		Завершение
+comment...		Комментарий...
+wanttobuy		Желание покупки
+thereisaproblem		Возникла проблема
+send		Отправить
+orders		Наряды
+bag		Рюкзак
+clients		Клиенты
+settings		Настройки
+areYouSure		Вы уверены?
+today		сегодня
+per_month		за месяц
+todayUpper		СЕГОДНЯ
+client		Клиент
+clients		Клиенты
+contacts		КОНТАКТЫ
+add_contact		Добавить контакт
+equipments		ОБОРУДОВАНИЕ
+task_finished		Работа выполнена
+task_refused		Не могу выполнить
+task		Задача
+services		Услуги
+materials		Материалы
+add_service		Добавить услугу
+add_materials		Добавить материал
+do_not_have_enough_material		Не хватает материала?
+delete_question		Удалить
+currency		₽
+total		Итоговая сумма
+not_choosedwpoints		Не выбрано..
+not_choosed		Не выбрано
+not_specified		Не указано
+text		Текст..
+description_materialrequest_screen		Добавьте материалы, чтобы сформировать заявку
+add_material		Добавить материал
+request		Заявка		
+count		Количество
+price		Цена
+add		Добавить
+select_answer		Выберите вариант
+requests		Заявки
+confirm		Подтвердить
+add_contact_enter_name		Введите имя
+add_contact_enter_position		Введите должность		    
+add_contact_enter_tel		Введите номер телефона
+add_contact_enter_email		Введите e-mail	
+add_contact_add_button		Добавить контакт
+map		Карта
+get_coordinates		Получить координаты
+save_coordinates		Сохранить координаты
+failed_coordinates		Координаты не получены
+uom_distance		км
+equipment		Оборудование
+PARAMETERS		ПАРАМЕТРЫ
+SERVICEHISTORY		ИСТОРИЯ ОБСЛУЖИВАНИЯ
+login		Логин
+password		Пароль
+log_in		Войти
+cant_signing		Не получается войти?
+bag_empty		Не указан список материалов для рюкзака
+contact		Контакт
+phone		Телефон
+email		E-mail
+call		Позвонить
+send_message		Отправить сообщение
+write_letter		Написать письмо
+edit		Изменить
+send_sms		Отправить сообщение
+send_email		Написать письмо
+allday		Весь день
+cancel		Отмена
+min.		мин.
+m.		м.
+h.		ч.
+name		Имя
+surname		Фамилия
+position		Должность
+save		Сохранить
+add_phone		Добавить телефон
+add_email		Добавить e-mail
+forgot_name		Вы забыли ввести имя
+cancel		Отмена
+developer		РАЗРАБОТЧИК
+report_an_error		Сообщить об ошибке
+send_log		Отправить лог
+company_web_site		www.1cbit.ru
+mandatory_questions_0_1		Обязательных вопросов: {0}/{1}
+sync_success		Синхронизация успешна
+sync_fail		Не удалось синхронизироваться
+start_event		Наряд будет начат. Продолжить?
+successful_auth		Вы успешно авторизовались.
+unsuccessful_auth		Не удалось авторизоваться.
+start_sync		Синхронизация запущена.
+exit		Выйти?
+uncorrect_login_or_pass		Неверный логин или пароль.
+сonnection_error		Ошибка соединения.
+unexpected_error		Непредвиденная ошибка.
+contact_not_present		Контакт не указан
+event_finished_ro		Наряд завершен. Изменение данных невозможно.
+event_canceled_ro		Наряд отменен. Изменение данных невозможно.
+unfinished_business		Остались незаконченные действия в чек-листе
+user_pass_empty		Имя пользователя и пароль не могут быть пустыми.
+user_empty		Имя пользователя не может быть пустым.
+password_empty		Пароль не может быть пустым.
+service_empty		Не указаны услуги
+select_date		Выберите дату
+under_construction		В процессе разработки
+client_parameters		Параметры клиента
+client_parameters_empty		Нет параметров клиента
+SERVICES		УСЛУГИ
+MATERIALS		МАТЕРИАЛЫ
+upload_pictures		Отправить фотографии
+upload_finished		Отправка завершена
+upload_failed		Отправка неудачна
+photo		Фото
+delete		Удалить
+retake_photo		Переснять
+targets		Цели
+yesterdayToUpper		ВЧЕРА
+tomorrowToUpper		ЗАВТРА
+notification		Уведомление
+ask_send_log		Отправить отчет об ошибке разработчикам?
+send_log_ok		Отчет об ошибках отправлен!
+send_log_fail		Не удалось отправить отчет
+NewEventAssigh		Вам назначен новый наряд.
+x_report		X-отчет
+fpt_settings		Настройки ФР
+printZ_caption		Напечатать Z-отчет
+printX_caption		Напечатать X-отчет
+printZ_caption_ask		Будет распечатан Z-отчет. Продолжить?
+show_check_info			Просмотр чека
+cashbox_check		Кассовый чек
+sale_caption		ПРОДАЖА
+total_checkInfo		ИТОГО:
+include_vat		Включая НДС:
+percent_witho_out		БЕЗ НДС
+registration_check		Оформление чека
+total_to_pay		ИТОГО К ОПЛАТЕ
+payment_type		способ оплаты ▼
+contribution_sum		Сумма:
+change		Сдача:
+punch_check		ПРОБИТЬ ЧЕК
+missing_amount		Недостает суммы
+VAT		НДС
+change_is_not_calculated		не рассчитана
+eventChangeSr		Наряд был назначен на другого исполнителя
+registrator		Регистратор
+fptr_is_not_connected		Связь не установлена
+fptr_connected		Связь установлена
+unset_checks		Неотправленных чеков
+ping		Отклик
+connect		Соединиться
+dont_sent_checks		Неотправленных чеков:
+fr_disable		Модуль работы с ФР отключен
+fr_role_disable		Роль пользователя не позволяет работать с ФР

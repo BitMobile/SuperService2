@@ -1,0 +1,92 @@
+﻿@import "defaults.less";
+@import "Components/TopInfoComponent.less";
+
+.ContactDescription {
+    .text-view-style(@big-title-font-size);
+    .auto-height;
+    width: 70%;
+}
+
+.Position {
+    width: 70%;
+}
+
+@action-button-width: 15%;
+
+.TelEMailHL {
+    height: 10sp;
+    width: 90%;
+    horizontal-align: center;
+}
+
+.Container() {
+    height: @default-font-size * 1.1 + @little-title-font-size * 1.1 + @val-title-margin;
+    vertical-align: center;
+}
+
+.TelContainer {
+    .Container;
+    width: 100% - @action-button-width * 2;
+}
+
+.EMailContainer {
+    .Container;
+    width: 100% - @action-button-width;
+}
+
+.ContactValTextView {
+    text-align: left;
+    white-space: nowrap;
+    width: 100%;
+}
+
+@val-title-margin: @little-title-font-size / 2;
+
+.ContactTitleTextView {
+    color: #9b9fa0;
+    .text-view-style(@little-title-font-size);
+    margin-top: @val-title-margin;
+    text-align: left;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.ImageActionButton {
+    .auto-height;
+    width: 15%;
+    vertical-align: center;
+    horizontal-align: center;
+}
+
+.CallToClientContainer {
+    height: 100%;
+    horizontal-align: center;
+    width: 0% auto;
+}
+
+.CallImageImg {
+    height: 5sp;
+    vertical-align: center;
+    horizontal-align: center;
+}
+
+.ActionButtonHL {
+    height: 10sp;
+    width: 90%;
+    horizontal-align: center;
+    vertical-align: center;
+}
+
+.ActionTextTV {
+    color: #fd724c;
+    text-align: left;
+    vertical-align: center;
+    width: 40% auto;
+}
+
+.FatLine {
+    background-color: #c6c6c9;
+    height: 0.3sp;
+    horizontal-align: center;
+    width: 5%;
+}

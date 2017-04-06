@@ -1,0 +1,238 @@
+﻿@import "defaults.less";
+@import "Components/TopInfoComponent.less";
+@import "Components/TabBarComponent.less";
+
+@default-company-info-text-color: #a2a2aa;
+@default-user-info-text-color: #51595b;
+@default-vertical-line-color: #f3f3f3;
+@default-vertical-line-width: 0.15sp;
+@default-social-network-logo-margin: 15%;
+@report-text-color: #cfcfd4;
+@user-initials-text-color: #e3e3e5;
+
+/* Settings style */
+.MainInfoContainer {
+    height: 100%;
+    width: 100%;
+}
+
+.MainPartContainer {
+    .height-and-width(100% auto,100%);
+}
+
+.ExternalImageContainerExit {
+    .height-and-width(0sp auto,8% auto);
+    .horizontal-align(right);
+    margin-top: 3sp;
+    margin-right: 3sp;
+}
+
+.ExitImage {
+    .image-element(4sp);
+    .horizontal-align;
+}
+
+.UserInfo {
+    .height-and-width(40% auto,100%);
+}
+
+.UserInfoContainerHorizontalAlign {
+    .height-and-width(100%,80%);
+    .horizontal-align;
+}
+
+.UserInfoContainerVerticalAlign {
+    .height-and-width(0sp auto,100%);
+    vertical-align: center;
+}
+
+.UserInitials {
+    .text-view-style(@default-font-size * 2.5);
+    width: 5sp auto;
+    color: @user-initials-text-color;
+    vertical-align: center;
+    white-space: nowrap;
+}
+
+.UserFandLName {
+    .text-view-style(@default-font-size * 1.5);
+    width: 100%;
+    color: @default-user-info-text-color;
+    .horizontal-align;
+    white-space: nowrap;
+}
+
+.FatHorizontalLineLayout {
+    .height-and-width(5dp,100%);
+    margin-top: 2sp;
+}
+
+.FatHorizontalLine {
+    .height-and-width(100%, 5sp);
+    .horizontal-align;
+    background-color: #a8acad;
+}
+
+.CompanyInfoContainer {
+    .height-and-width(15%,100%);
+    background-color: #f1f2f5;
+}
+CompanyInfoContainerWithFtpr{
+    .height-and-width(25%,100%);
+    background-color: #f1f2f5;
+}
+
+.ArrowDown {
+    height: 6sp;
+    .horizontal-align;
+}
+
+.SserviceLogo {
+    height: 8sp;
+    margin-top: 5%;
+    .horizontal-align;
+}
+
+.ProductVersion {
+    .horizontal-align;
+    .make-textview-style(@default-font-size, @default-company-info-text-color, 50%);
+}
+
+.TranslateDeveloper {
+    .make-textview-style(@default-font-size, @default-company-info-text-color, 60%);
+    .horizontal-align;
+    margin-top: 5%;
+}
+
+.CompanyLogo {
+    height: 8sp;
+    margin-top: 5%;
+    .horizontal-align;
+}
+
+.CompanySite {
+    .make-textview-style(@default-font-size, @default-company-info-text-color, 60%);
+    .horizontal-align;
+    margin-top: 4%;
+}
+
+.MainSocialLogoContainer {
+    .height-and-width(auto,100%);
+}
+
+.HorizontalAlignLogoContainer {
+    .height-and-width(0sp auto, 50%);
+    vertical-align: center;
+}
+
+.SocialTwitterContainer {
+    .height-and-width(0sp auto,0sp auto);
+    .horizontal-align(right);
+    margin-right: @default-social-network-logo-margin;
+}
+
+.SocialFacebookContainer {
+    .height-and-width(0sp auto,0sp auto);
+    .horizontal-align(left);
+    margin-left: @default-social-network-logo-margin;
+}
+
+.SocialLogo {
+    height: 8sp;
+    .horizontal-align;
+}
+
+.ReportLayout {
+    .height-and-width(30%,100%);
+}
+
+.ReportContainer {
+    .height-and-width(auto, 100%);
+    margin-top: 2sp;
+    .horizontal-align;
+}
+
+.ExternalButtonContainer {
+    .height-and-width(100%,49%);
+}
+
+.VerticalLineContainer {
+    .height-and-width(100%,2%);
+}
+
+.VerticalLine {
+    height: 100%;
+    width: @default-vertical-line-width;
+    background-color: @default-vertical-line-color;
+    .horizontal-align;
+}
+
+.ButtonContainerHorizontalAlign {
+    .height-and-width(100%, 0sp auto);
+    .horizontal-align;
+}
+
+.ButtonContainerVerticalAlign {
+    .height-and-width(12sp, 0sp auto);
+    vertical-align: center;
+}
+
+.ReportImage {
+    height: 4sp;
+    .horizontal-align;
+}
+
+.ReportText {
+    .make-textview-style(@default-font-size, @report-text-color, 30sp, center, normal);
+    margin-top: 1sp;
+    .horizontal-align;
+}
+
+.ReportTextActive {
+    .make-textview-style(@default-font-size, @default-text-color, 30sp, center, normal);
+    margin-top: 1sp;
+    .horizontal-align;
+}
+
+.Userpic {
+    background-image: url(..\Image.SettingsScreen.Userpic_blank.png);
+    height: 15mm;
+    width: 15mm;
+    margin-bottom: 3sp;
+    .horizontal-align;
+}
+
+.UserpicAlign {
+    .height-and-width(100%, 0sp auto);
+    .horizontal-align;
+}
+/* End settings style*/
+/* Mix-in */
+.height-and-width(@_height, @_width) {
+    height: @_height;
+    width: @_width;
+}
+
+.image-container-HorizontalLayout(@_height, @_width, @_horizontal-align: center) {
+    height: @_height;
+    width: @_width;
+    horizontal-align: @_horizontal-align;
+}
+
+.image-element(@_height, @_vertical-align: center) {
+    height: @_height;
+    vertical-align: @_vertical-align;
+}
+
+.horizontal-align(@_align: center) {
+    horizontal-align: @_align;
+}
+
+.make-textview-style(@_text-view-style-font-size, @_color, @_width, @_text-align: center, @_white-space: nowrap) {
+    .text-view-style(@_text-view-style-font-size);
+    color: @_color;
+    width: @_width;
+    text-align: @_text-align;
+    white-space: @_white-space;
+}
+/* End of Mix-in*/

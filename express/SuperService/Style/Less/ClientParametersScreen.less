@@ -1,0 +1,146 @@
+﻿@import "defaults.less";
+@import "Components/TopInfoComponent.less";
+
+.CheckListRequired() {
+    margin-bottom: 1sp;
+    height: 9sp;
+    width: 1%;
+}
+
+.CheckListRequiredVL {
+    .CheckListRequired;
+    background-color: #eb5040;
+}
+
+.CheckListRequiredDoneVL {
+    .CheckListRequired;
+    background-color: #8abf57;
+}
+
+.CheckListNotRequiredVL {
+    .CheckListRequired;
+    background-color: #ffffff;
+}
+
+.CheckListMainSVL {
+    background-color: #ffffff;
+    height: auto;
+    width: 100%;
+}
+
+.CheckListItemHL {
+    height: 0% auto;
+    horizontal-align: center;
+    width: 100%;
+}
+
+.CheckListQuestionVL {
+    height: 9sp auto;
+    width: 55%;
+}
+
+.CheckListDescriptionTV {
+    color: #51595b;
+    font: 2.5sp arial;
+    horizontal-align: center;
+    margin-left: 3sp;
+    margin-top: 3sp;
+    text-align: left;
+    vertical-align: center;
+}
+
+.CheckListAnswerVL {
+    height: 9sp auto;
+    width: 44%;
+}
+
+.CheckListAnswerElement {
+    color: #8587b1;
+    horizontal-align: right;
+    margin-bottom: 3sp;
+    margin-right: 3sp;
+    margin-top: 3sp;
+    placeholder-color: #9b9fa0;
+    text-align: right;
+    vertical-align: center;
+    width: 95%;
+}
+
+.CheckListAnswerElementTV {
+    color: #8587b1;
+    horizontal-align: right;
+    placeholder-color: #9b9fa0;
+    text-align: right;
+    vertical-align: center;
+    width: 95%;
+    height: 2.5sp * 1.2;
+    margin-right: 3sp;
+    margin-top: 3sp - (2.5sp * 0.1);
+    font: 2.5sp arial;
+}
+
+/* End of CheckList common */
+
+.CheckListAnswerImage {
+    background-color: #ffffff;
+    color: #ffffff;
+    height: 50%;
+    horizontal-align: right;
+    margin-bottom: 3sp;
+    margin-right: 3sp;
+    margin-top: 3sp;
+    vertical-align: center;
+}
+
+.CheckListAnswerBool {
+    background-color: #ffffff;
+    color: #ffffff;
+    height: 50%;
+    horizontal-align: right;
+    margin-bottom: 3sp;
+    margin-right: 3sp;
+    margin-top: 3sp;
+    vertical-align: center;
+    width: 25%;
+}
+
+.CheckListStringVL {
+    height: 9sp auto;
+    width: 100%;
+}
+
+.CheckListStringET {
+    color: #8587b1;
+    font: 2.5sp arial;
+    height: 3.5sp auto;
+    horizontal-align: center;
+    margin-bottom: 3sp;
+    margin-left: 3sp;
+    placeholder-color: #a2a2aa;
+    text-align: left;
+    white-space: normal;
+    width: 100%;
+}
+
+.CheckListName {
+    color: #4a4b5e;
+    font: 2sp arial;
+    margin-left: 3%;
+    margin-top: 1sp;
+    text-align: left;
+}
+
+.CheckListBreaker {
+    background-color: #f3f3f4;
+    height: 2px;
+    horizontal-align: center;
+    width: 95%;
+}
+
+.EmptyParametersMessage {
+    .text-view-style(@default-font-size);
+    width: 80%;
+    horizontal-align: center;
+    margin-top: @default-font-size;
+    color: lighten(@default-text-color, 15%);
+}

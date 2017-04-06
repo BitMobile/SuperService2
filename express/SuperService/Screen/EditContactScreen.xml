@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:DockLayout CssClass="RootLayout">
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <c:ScrollView CssClass="RootLayout">
+      <c:VerticalLayout Id="RootLayout">
+        <c:HorizontalLayout CssClass="ContactField">
+          <c:TextView Text="#name#" />
+          <c:EditText Id="NameEditText" Placeholder="#not_specified#" Text="$GetName($contact.Description)" />
+        </c:HorizontalLayout>
+        <c:HorizontalLine />
+        <c:HorizontalLayout CssClass="ContactField">
+          <c:TextView Text="#surname#" />
+          <c:EditText Id="SurnameEditText" PlaceHolder="#not_specified" Text="$GetSurname($contact.Description)" />
+        </c:HorizontalLayout>
+        <c:HorizontalLine />
+        <c:HorizontalLayout CssClass="ContactField">
+          <c:TextView Text="#position#" />
+          <c:EditText Id="PositionEditText" Placeholder="#not_specified#" Text="$contact.Position" />
+        </c:HorizontalLayout>
+
+        <c:VerticalLayout CssClass="EmptySpace2sp" />
+        <c:HorizontalLine CssClass="FullWidth" />
+        <c:HorizontalLayout Id="PhoneLayout" CssClass="ContactFieldWithDelete">
+          <c:VerticalLayout OnClick="RemovePhoneButton_OnClick">
+            <c:Image Source="$GetResourceImage(editcontactscreen_minus)" CssClass="RemoveImage" />
+          </c:VerticalLayout>
+          <c:TextView Text="#phone#" />
+          <c:EditText Keyboard="phone" Id="PhoneEditText" Placeholder="#not_specified#" Text="$contact.Tel" />
+        </c:HorizontalLayout>
+        <c:HorizontalLayout OnClick="AddPhoneButton_OnClick" Id="AddPhoneButton" CssClass="AddButton">
+          <c:Image Source="$GetResourceImage(editcontactscreen_plus)" />
+          <c:TextView Text="#add_phone#" />
+        </c:HorizontalLayout>
+        <c:HorizontalLine CssClass="FullWidth" />
+        <c:HorizontalLayout Id="EmailLayout" CssClass="ContactFieldWithDelete">
+          <c:VerticalLayout OnClick="RemoveEmailButton_OnClick">
+            <c:Image Source="$GetResourceImage(editcontactscreen_minus)" CssClass="RemoveImage" />
+          </c:VerticalLayout>
+          <c:TextView Text="#email#" />
+          <c:EditText Keyboard="email" Id="EMailEditText" Placeholder="#not_specified#" Text="$contact.EMail" />
+        </c:HorizontalLayout>
+        <c:HorizontalLayout OnClick="AddEmailButton_OnClick" Id="AddEmailButton" CssClass="AddButton">
+          <c:Image Source="$GetResourceImage(editcontactscreen_plus)" />
+          <c:TextView Text="#add_email#" />
+        </c:HorizontalLayout>
+      </c:VerticalLayout>
+    </c:ScrollView>
+  </c:DockLayout>
+</c:Screen>

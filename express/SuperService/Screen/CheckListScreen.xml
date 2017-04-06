@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:VerticalLayout CssClass="RootLayout">
+
+    <s:Include File="Components\TopInfoComponent.xml" />
+
+    <c:SwipeVerticalLayout CssClass="CheckListMainSVL">
+
+      <s:Iterator Id="CheckList" Value="$GetCheckList()">
+        <c:HorizontalLayout Id="$CheckList.CheckListId" CssClass="CheckListItemHL"
+                            OnClick="CheckListElementLayout_OnClick">
+
+          <!--Индикатор обязательности-->
+          <s:If Test="$CheckList.Required">
+            <s:Push Id="void" Value="$IncTotalRequired()" />
+            <s:If Test="$IsNotEmptyString($CheckList.Result)">
+              <s:Push Id="void" Value="$IncTotalAnswered()" />
+              <c:VerticalLayout Id="$GenerateRequiredIndicatorId($CheckList.CheckListId)" CssClass="CheckListRequiredDoneVL" />
+            </s:If>
+            <s:Else>
+              <c:VerticalLayout Id="$GenerateRequiredIndicatorId($CheckList.CheckListId)" CssClass="CheckListRequiredVL" />
+            </s:Else>
+          </s:If>
+
+          <s:Else>
+            <c:VerticalLayout Id="$GenerateRequiredIndicatorId($CheckList.CheckListId)" CssClass="CheckListNotRequiredVL" />
+          </s:Else>
+
+          <!--ФОТО-->
+          <s:If Test="$CheckList.TypeName == Snapshot">
+            <c:VerticalLayout CssClass="CheckListQuestionVL">
+              <c:TextView Text="$CheckList.Description" CssClass="CheckListDescriptionTV" />
+            </c:VerticalLayout>
+
+            <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$CheckList.CheckListId"
+                              OnClick="CheckListSnapshot_OnClick">
+              <c:Image Source="$GetResultImage($CheckList.Result)" Id="$CheckList.CheckListId"
+                       CssClass="CheckListAnswerImage" />
+            </c:VerticalLayout>
+          </s:If>
+
+          <!--СПИСОК-->
+          <s:If Test="$CheckList.TypeName == ValList">
+            <c:VerticalLayout CssClass="CheckListQuestionVL">
+              <c:TextView Text="$CheckList.Description" CssClass="CheckListDescriptionTV" />
+            </c:VerticalLayout>
+
+            <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$CheckList.CheckListId"
+                              OnClick="CheckListValList_OnClick">
+              <s:If Test="$IsNotEmptyString($CheckList.Result)">
+                <c:TextView Text="$CheckList.Result" Id="$CheckList.ActionId"
+                            CssClass="CheckListAnswerElement" />
+              </s:If>
+              <s:Else>
+                <c:TextView Text="#not_choosed#" Id="$CheckList.ActionId"
+                            CssClass="CheckListAnswerElement" />
+              </s:Else>
+            </c:VerticalLayout>
+          </s:If>
+
+          <!--ДАТА-->
+          <s:If Test="$CheckList.TypeName == DateTime">
+            <c:VerticalLayout CssClass="CheckListQuestionVL">
+              <c:TextView Text="$CheckList.Description" CssClass="CheckListDescriptionTV" />
+            </c:VerticalLayout>
+
+            <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$CheckList.CheckListId"
+                              OnClick="CheckListDateTime_OnClick">
+              <s:If Test="$IsNotEmptyString($CheckList.Result)">
+                <c:TextView Text="$ToDate($CheckList.Result)" CssClass="CheckListAnswerElement" />
+              </s:If>
+              <s:Else>
+                <c:TextView Text="#not_specified#" CssClass="CheckListAnswerElement" />
+              </s:Else>
+            </c:VerticalLayout>
+          </s:If>
+
+          <!--БУЛЕВО-->
+          <s:If Test="$CheckList.TypeName == Boolean">
+            <c:VerticalLayout CssClass="CheckListQuestionVL">
+              <c:TextView Text="$CheckList.Description" CssClass="CheckListDescriptionTV" />
+            </c:VerticalLayout>
+
+            <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$CheckList.CheckListId"
+                              OnClick="CheckListBoolean_OnClick">
+
+              <s:If Test="$IsEmptyString($CheckList.Result)">
+                <c:TextView Text="#not_choosed#" Id="$CheckList.ActionId"
+                            CssClass="CheckListAnswerElement" />
+              </s:If>
+              <s:Else>
+                <s:If Test="$CheckList.Result == 'true'">
+                  <c:TextView Text="#yes#" Id="$CheckList.ActionId"
+                              CssClass="CheckListAnswerElement" />
+                </s:If>
+                <s:Else>
+                  <s:If Test="$CheckList.Result == 'false'">
+                    <c:TextView Text="#no#" Id="$CheckList.ActionId"
+                                CssClass="CheckListAnswerElement" />
+                  </s:If>
+                  <s:Else>
+                    <c:TextView Text="#not_choosed#" Id="$CheckList.ActionId"
+                                CssClass="CheckListAnswerElement" />
+                  </s:Else>
+                </s:Else>
+              </s:Else>
+            </c:VerticalLayout>
+          </s:If>
+
+          <!--С ТОЧКОЙ-->
+          <s:If Test="$CheckList.TypeName == Decimal">
+            <c:VerticalLayout CssClass="CheckListQuestionVL">
+              <c:TextView Text="$CheckList.Description" CssClass="CheckListDescriptionTV" />
+            </c:VerticalLayout>
+
+            <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$CheckList.CheckListId">
+              <c:EditText Enabled="$IsNotReadonly()" Text="$CheckList.Result" Keyboard="numeric"
+                          OnLostFocus="CheckListDecimal_OnLostFocus" Id="$CheckList.CheckListId"
+                          Placeholder="#not_specified#" CssClass="CheckListAnswerElementTV" OnGetFocus="CheckListDecimal_OnGetFocus" />
+            </c:VerticalLayout>
+          </s:If>
+
+          <!--ЦЕЛОЕ-->
+          <s:If Test="$CheckList.TypeName == Integer">
+            <c:VerticalLayout CssClass="CheckListQuestionVL">
+              <c:TextView Text="$CheckList.Description" CssClass="CheckListDescriptionTV" />
+            </c:VerticalLayout>
+
+            <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$CheckList.CheckListId">
+              <c:EditText Enabled="$IsNotReadonly()" Text="$CheckList.Result" Keyboard="numeric" 
+                          OnLostFocus="CheckListInteger_OnLostFocus" Id="$CheckList.CheckListId"
+                          Placeholder="#not_specified#" CssClass="CheckListAnswerElementTV" OnGetFocus="CheckListInteger_OnGetFocus" />
+            </c:VerticalLayout>
+          </s:If>
+
+          <!--СТРОКА-->
+          <s:If Test="$CheckList.TypeName == String">
+            <c:VerticalLayout CssClass="CheckListStringVL" Id="$CheckList.CheckListId">
+              <c:TextView Text="$CheckList.Description" CssClass="CheckListDescriptionTV" />
+              <c:EditText Enabled="$IsNotReadonly()" Text="$CheckList.Result" Placeholder="#text#" CssClass="CheckListStringET"
+                          OnLostFocus="CheckListString_OnLostFocus" Id="$CheckList.CheckListId" OnGetFocus="CheckListString_OnGetFocus" />
+            </c:VerticalLayout>
+          </s:If>
+        </c:HorizontalLayout>
+        <c:HorizontalLine CssClass="CheckListBreaker" />
+      </s:Iterator>
+    </c:SwipeVerticalLayout>
+  </c:VerticalLayout>
+</c:Screen>

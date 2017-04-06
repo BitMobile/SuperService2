@@ -1,0 +1,175 @@
+<#@ assembly name="System.Core"
+#><#@ assembly name="System.Data.Linq"
+#><#@ assembly name="EnvDTE"
+#><#@ assembly name="System.Xml"
+#><#@ assembly name="System.Xml.Linq"
+#><#@ import namespace="System.Collections.Generic"
+#><#@ import namespace="System.IO"
+#><#@ import namespace="System.Text"
+#><#@ import namespace="Microsoft.VisualStudio.TextTemplating"
+#><#+
+// https://raw.github.com/damieng/DamienGKit
+// http://damieng.com/blog/2009/11/06/multiple-outputs-from-t4-made-easy-revisited
+
+// Manager class records the various blocks so it can split them up
+class Manager {
+    private class Block {
+        public string Name;
+        public int Start, Length;
+        public bool IncludeInDefault;
+    }
+
+    private Block _currentBlock;
+    private readonly List<Block> _files = new List<Block>();
+    private readonly Block _footer = new Block();
+    private readonly Block _header = new Block();
+    private readonly ITextTemplatingEngineHost _host;
+    private readonly StringBuilder _template;
+    protected readonly List<string> GeneratedFileNames = new List<string>();
+
+    public static Manager Create(ITextTemplatingEngineHost host, StringBuilder template) {
+        return (host is IServiceProvider) ? new VsManager(host, template) : new Manager(host, template);
+    }
+
+    public void StartNewFile(string name) {
+        if (name == null)
+            throw new ArgumentNullException("name");
+        CurrentBlock = new Block { Name = name };
+    }
+
+    public void StartFooter(bool includeInDefault = true) {
+        CurrentBlock = _footer;
+        _footer.IncludeInDefault = includeInDefault;
+    }
+
+    public void StartHeader(bool includeInDefault = true) {
+        CurrentBlock = _header;
+        _header.IncludeInDefault = includeInDefault;
+    }
+
+    public void EndBlock() {
+        if (CurrentBlock == null)
+            return;
+        CurrentBlock.Length = _template.Length - CurrentBlock.Start;
+        if (CurrentBlock != _header && CurrentBlock != _footer)
+            _files.Add(CurrentBlock);
+        _currentBlock = null;
+    }
+
+    public virtual void Process(bool split, bool sync = true) {
+        if (split) {
+            EndBlock();
+            string headerText = _template.ToString(_header.Start, _header.Length);
+            string footerText = _template.ToString(_footer.Start, _footer.Length);
+            string outputPath = Path.GetDirectoryName(_host.TemplateFile);
+            _files.Reverse();
+            if (!_footer.IncludeInDefault)
+                _template.Remove(_footer.Start, _footer.Length);
+            foreach(Block block in _files) {
+                string fileName = Path.Combine(outputPath, block.Name);
+                string content = headerText + _template.ToString(block.Start, block.Length) + footerText;
+                GeneratedFileNames.Add(fileName);
+                CreateFile(fileName, content);
+                _template.Remove(block.Start, block.Length);
+            }
+            if (!_header.IncludeInDefault)
+                _template.Remove(_header.Start, _header.Length);
+        }
+    }
+
+    protected virtual void CreateFile(string fileName, string content) {
+        if (IsFileContentDifferent(fileName, content))
+            File.WriteAllText(fileName, content);
+    }
+
+    public virtual string GetCustomToolNamespace(string fileName) {
+        return null;
+    }
+
+    public virtual string DefaultProjectNamespace => null;
+
+    private static bool IsFileContentDifferent(string fileName, string newContent) {
+        return !(File.Exists(fileName) && File.ReadAllText(fileName) == newContent);
+    }
+
+    private Manager(ITextTemplatingEngineHost host, StringBuilder template) {
+        this._host = host;
+        this._template = template;
+    }
+
+    private Block CurrentBlock {
+        get { return _currentBlock; }
+        set {
+            if (CurrentBlock != null)
+                EndBlock();
+            if (value != null)
+                value.Start = _template.Length;
+            _currentBlock = value;
+        }
+    }
+
+    private class VsManager: Manager {
+        private readonly EnvDTE.ProjectItem _templateProjectItem;
+        private readonly EnvDTE.DTE _dte;
+        private readonly Action<string> _checkOutAction;
+        private readonly Action<List<string>> _projectSyncAction;
+
+        public override string DefaultProjectNamespace => _templateProjectItem.ContainingProject.Properties.Item("DefaultNamespace").Value.ToString();
+
+        public override string GetCustomToolNamespace(string fileName) {
+            return _dte.Solution.FindProjectItem(fileName).Properties.Item("CustomToolNamespace").Value.ToString();
+        }
+
+        public override void Process(bool split, bool sync = true) {
+            if (_templateProjectItem.ProjectItems == null)
+                return;
+            base.Process(split, sync);
+            if (sync)
+                _projectSyncAction.EndInvoke(_projectSyncAction.BeginInvoke(GeneratedFileNames, null, null));
+        }
+
+        protected override void CreateFile(string fileName, string content) {
+            if (IsFileContentDifferent(fileName, content)) {
+                CheckoutFileIfRequired(fileName);
+                File.WriteAllText(fileName, content);
+            }
+        }
+
+        internal VsManager(ITextTemplatingEngineHost host, StringBuilder template)
+            : base(host, template) {
+            var hostServiceProvider = (IServiceProvider) host;
+            if (hostServiceProvider == null)
+                throw new ArgumentNullException("Could not obtain IServiceProvider");
+            _dte = (EnvDTE.DTE) hostServiceProvider.GetService(typeof(EnvDTE.DTE));
+            if (_dte == null)
+                throw new ArgumentNullException("Could not obtain DTE from host");
+            _templateProjectItem = _dte.Solution.FindProjectItem(host.TemplateFile);
+            _checkOutAction = fileName => _dte.SourceControl.CheckOutItem(fileName);
+            _projectSyncAction = keepFileNames => ProjectSync(_templateProjectItem, keepFileNames);
+        }
+
+        private static void ProjectSync(EnvDTE.ProjectItem templateProjectItem, List<string> keepFileNames) {
+            var keepFileNameSet = new HashSet<string>(keepFileNames);
+            var projectFiles = new Dictionary<string, EnvDTE.ProjectItem>();
+            var originalFilePrefix = Path.GetFileNameWithoutExtension(templateProjectItem.FileNames[0]) + ".";
+            foreach (EnvDTE.ProjectItem projectItem in templateProjectItem.ProjectItems)
+                projectFiles.Add(projectItem.FileNames[0], projectItem);
+
+            // Remove unused items from the project
+            foreach (var pair in projectFiles)
+                if (!keepFileNames.Contains(pair.Key) && !(Path.GetFileNameWithoutExtension(pair.Key) + ".").StartsWith(originalFilePrefix))
+                    pair.Value.Delete();
+
+            // Add missing files to the project
+            foreach(string fileName in keepFileNameSet)
+                if (!projectFiles.ContainsKey(fileName))
+                    templateProjectItem.ProjectItems.AddFromFile(fileName);
+        }
+
+        private void CheckoutFileIfRequired(string fileName) {
+            var sc = _dte.SourceControl;
+            if (sc != null && sc.IsItemUnderSCC(fileName) && !sc.IsItemCheckedOut(fileName))
+                _checkOutAction.EndInvoke(_checkOutAction.BeginInvoke(fileName, null, null));
+        }
+    }
+} #>

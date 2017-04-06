@@ -1,0 +1,172 @@
+about		MORE ABOUT THE APPLICATION
+test		THIS IS TEST
+greeting		Welcome!
+back		Back
+refuse		Refuse
+start		Start
+finish		Finish
+tasks		Tasks
+coc		CoC
+clist		Check-list
+time		Time
+workType		Type of Work
+comment		Commentary
+onmap		View on map
+closeeventquestion		Are you sure you want to close this order?
+yes		Yes
+no		No
+finishing		Finish
+comment...		Comment...
+wanttobuy		Need a proposal
+thereisaproblem		Have a problem 
+send		Send
+orders		Orders
+bag		SPTA
+clients		Clients
+settings		Settings
+areYouSure		Are you sure?
+today		today
+per_month		per month
+todayUpper		TODAY
+client		Client
+clients		Clients
+contacts		CONTACTS
+add_contact		Add Contact
+equipments		EQUIPMENTS
+task_finished		Task completed
+task_refused		Can't complete
+task		Task
+services		Services
+materials		Materials
+add_service		Add service
+add_materials		Add materials
+do_not_have_enough_material		Do not have enough material?
+delete_question		Delete
+currency		$
+total		Total
+not_choosedwpoints		Not choosed..
+not_choosed		Not choosed
+not_specified		Not specified
+text		Text..
+description_materialrequest_screen		Please add materials
+add_material		Add material
+request		Request
+count		Count
+price		Price
+add		Add
+select_answer		Select value
+requests		Requests
+confirm		Confirm
+add_contact_enter_name		Enter name
+add_contact_enter_position		Enter position
+add_contact_enter_tel		Enter phone number
+add_contact_enter_email		Enter e-mail
+add_contact_add_button		Add contact
+map		Map
+get_coordinates		Get coordinates
+save_coordinates		Save coordinates
+failed_coordinates		Failed to get the coordinates
+uom_distance		km
+equipment		Equipment
+PARAMETERS		PARAMETERS
+SERVICEHISTORY		SERVICE HISTORY
+login		Login
+password		Password
+log_in		Log In
+cant_signing		Can't signing?
+bag_empty		No materials are listed in the SPTA
+contact		Contact
+phone		Phone number
+email		E-mail
+call		Call
+send_message		Send message
+write_letter		Write a letter
+edit		Edit
+send_sms		Send SMS
+send_email		Send e-mail
+allday		All day
+cancel		Cancel
+min.		min.
+m.		m.
+h.		h.
+name		Name
+surname		Surname
+position		Position
+save		Save
+add_phone		Add phone
+add_email		Add e-mail
+forgot_name		You forgot to enter the name
+cancel		Cancel
+developer		DEVELOPER
+report_an_error		Report an error
+send_log		Send Log
+company_web_site		www.superagent.ru
+mandatory_questions_0_1		{0}/{1} mandatory questions
+sync_success		Sync successful
+sync_fail		Sync failed
+start_event		Order start. Continue?
+successful_auth		You have successfully logged in.
+unsuccessful_auth		Unable to login.
+start_sync		Sync started
+exit		Exit?
+uncorrect_login_or_pass		Uncorrect loging or password.
+connection_error		Connection error.
+unexpected_error		Unexpected error.
+contact_not_present		no contact
+event_finished_ro		Order finished. Read-only mode.
+event_canceled_ro		Order canceled. Read-only mode.
+unfinished_business		There are unfinished mandatory actions in check-list
+user_pass_empty		Username and password can not be empty.
+user_empty		Username can not be empty.
+password_empty		Password can not be empty.
+service_empty		Service list is empty
+select_date		Select date
+under_construction		Under construction
+client_parameters		Client parameters
+client_parameters_empty		There are no client parameters
+SERVICES		SERVICES
+MATERIALS		MATERIALS
+upload_pictures		Upload pictures
+upload_finished		Upload finished
+upload_failed		Upload failed
+photo		Photo
+delete		Delete
+retake_photo		Retake
+targets		Targets
+yesterdayToUpper		YESTERDAY
+tomorrowToUpper		TOMORROW
+notification		Notification
+ask_send_log		Send an error report to developers?
+send_log_ok		Error Report has been sent!
+send_log_fail		Unable to send report
+NewEventAssigh		You assigned a new order.
+x_report		X-report
+fpt_settings		Settings FR
+printZ_caption		Print Z-report
+printX_caption		Print X-report
+printZ_caption_ask		Z-report is printed. Continue?
+show_check_info		Show check
+cashbox_check		Cashbox check
+sale_caption		SALE
+total_checkInfo		TOTAL:
+include_vat		Include VAT:
+percent_witho_out		WITHOUT VAT
+registration_check		Registration check
+total_to_pay		TOTAL TO PAY
+payment_type		payment type ▼
+contribution_sum		Sum:
+change		Сhange:
+punch_check		PUNCH CHECK
+missing_amount		The missing amount
+VAT		VAT
+change_is_not_calculated		is not calculated
+eventChangeSr		Order was nominated for another mobile worker
+registrator		Registrator
+fptr_is_not_connected		Communication has not been established
+fptr_connected		Connected
+unset_checks		Unset checks
+ping		Ping
+connect		Connect
+dont_sent_checks		Don't sent checks:
+fr_disable		FR module disable
+fr_role_disable		FR role disable

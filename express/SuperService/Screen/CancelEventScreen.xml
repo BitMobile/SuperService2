@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:VerticalLayout CssClass="RootLayout">
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <c:HorizontalLayout CssClass="EmptySpace4sp" />
+    <c:VerticalLayout CssClass="CommentLayout">
+      <c:MemoEdit Placeholder="#comment...#" Id="CommentaryMemoEdit" CssClass="Comment" />
+      <c:HorizontalLine CssClass="CommentEndLine" />
+    </c:VerticalLayout>
+  </c:VerticalLayout>
+</c:Screen>

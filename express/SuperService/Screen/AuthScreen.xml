@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+
+  <c:VerticalLayout CssClass="RootLayoutWithPattern">
+    <c:VerticalLayout CssClass="ImgContainerVL">
+      <c:HorizontalLayout CssClass="ImgContainerHL">
+        <c:Image CssClass="LogoImg" Source="$GetResourceImage(authscreen_logo)" />
+      </c:HorizontalLayout>
+    </c:VerticalLayout>
+    <c:VerticalLayout Id="08e8121a517e4672a971a56d91617bc3" CssClass="IndicatorHorizontalAlign">
+      <c:HorizontalLayout Id="71ac5a0867824ab9bbd0b6a3ef315011" CssClass="IndicatorVerticalAlign">
+        <c:Indicator Id="971cb7290f7943ea9bf500e63097b04d"
+                     Visible="false" CssClass="Indicator" />
+      </c:HorizontalLayout>
+    </c:VerticalLayout>
+    <c:HorizontalLayout CssClass="LoginPasswordContainerFirstHL">
+      <c:Image CssClass="LoginPasswordImg" Source="$GetResourceImage(authscreen_username)" />
+      <c:EditText Id="AuthScreenLoginET" Placeholder="#login#" />
+    </c:HorizontalLayout>
+    <c:VerticalLayout CssClass="BreakerContainerVL">
+      <c:HorizontalLine CssClass="BreakerHL" />
+    </c:VerticalLayout>
+    <c:HorizontalLayout CssClass="LoginPasswordContainerSecondHL">
+      <c:Image CssClass="LoginPasswordImg" Source="$GetResourceImage(authscreen_password)" />
+      <c:EditText Id="AuthScreenPasswordET" Placeholder="#password#" NeedSecure="true" />
+    </c:HorizontalLayout>
+    <c:VerticalLayout CssClass="BreakerContainerVL">
+      <c:HorizontalLine CssClass="BreakerHL" />
+    </c:VerticalLayout>
+    <c:Button Id="ba603e1782d543f696944a603d7f05f2" Text="#log_in#" OnClick="СonnectButton_OnClick" 
+              CssClass="$GetPlatformRoundButtonStyle()" />
+    <!--TODO: Кнопка временно отключена, так как пока невозможно реализовать её функционал.-->
+    <!--<c:Button Text="#cant_signing#" OnClick="CantSigningButton_OnClick" CssClass="AuthScreenResetPasswordBTN" />-->
+  </c:VerticalLayout>
+</c:Screen>

@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+
+  <c:DockLayout CssClass="RootLayout">
+    <!-- Tab Bar-->
+    <s:Include File="Components\TabBarСomponent.xml" />
+    <s:Push Id="init" Value="$Init()" />
+
+    <c:ScrollView CssClass="MainInfoContainer">
+      <c:VerticalLayout CssClass="MainPartContainer">
+
+        <!--Кнопка выхода-->
+        <c:VerticalLayout Id="Logout" CssClass="ExternalImageContainerExit" OnClick="Logout_OnClick">
+          <c:Image CssClass="ExitImage" Source="$GetResourceImage(settingsscreen_logout)" />
+        </c:VerticalLayout>
+        <!--Конец кнопки выхода-->
+
+        <!--Информация о пользователе-->
+        <c:VerticalLayout CssClass="UserInfo">
+          <c:HorizontalLayout CssClass="UserInfoContainerHorizontalAlign">
+            <c:VerticalLayout CssClass="UserInfoContainerVerticalAlign">
+              <c:VerticalLayout CssClass="Userpic">
+                <c:HorizontalLayout CssClass="UserpicAlign">
+                  <c:TextView CssClass="UserInitials" Text="$GetUserInitials()" />
+                </c:HorizontalLayout>
+              </c:VerticalLayout>
+              <c:TextView CssClass="UserFandLName" Text="$GetUserDescription()" />
+              <!--Толстая линия по центру-->
+              <c:VerticalLayout CssClass="FatHorizontalLineLayout">
+                <c:HorizontalLine CssClass="FatHorizontalLine" />
+              </c:VerticalLayout>
+            </c:VerticalLayout>
+          </c:HorizontalLayout>
+        </c:VerticalLayout>
+        <!--Конец информации о пользователе-->
+        <!--Стрелка-->
+        <c:Image CssClass="ArrowDown" Source="$GetResourceImage(settingsscreen_grey_arrow)" />
+        <!--Информация о компании-->
+        <c:VerticalLayout CssClass="$GetStyleForCompanyInfo()">
+          <!--Логотип SService-->
+          <c:Image CssClass="SserviceLogo" Source="$GetResourceImage(settingsscreen_sservice_logo)" />
+          <!--Версия-->
+          <c:TextView CssClass="ProductVersion" Text="$GetVersion()" />
+
+        </c:VerticalLayout>
+        <!--Конец информации о компании-->
+        <!--Стрелка вниз серого цвета-->
+        <c:Image CssClass="ArrowDown" Source="$GetResourceImage(settingsscreen_white_arrow)" />
+        <!-- Кнопки отзыв и лог -->
+        <c:VerticalLayout CssClass="ReportLayout">
+          <c:HorizontalLayout CssClass="ReportContainer">
+            <!-- Сообщить об ошибке -->
+            <c:VerticalLayout CssClass="ExternalButtonContainer">
+              <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
+                <c:VerticalLayout Id="SendErrorReport" CssClass="ButtonContainerVerticalAlign"
+                                  OnClick="PrintX_OnClick">
+
+                    <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_upload)" />
+                    <c:TextView CssClass="ReportTextActive" Text="#upload_pictures#" />
+
+                </c:VerticalLayout>
+              </c:HorizontalLayout>
+            </c:VerticalLayout>
+            <!-- Вертикальная линия -->
+            <c:VerticalLayout CssClass="VerticalLineContainer">
+              <c:VerticalLayout CssClass="VerticalLine" />
+            </c:VerticalLayout>
+            <!-- Отправить лог -->
+            <c:VerticalLayout CssClass="ExternalButtonContainer">
+              <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
+                <c:VerticalLayout Id="SendLog" CssClass="ButtonContainerVerticalAlign" OnClick="SendLog_OnClick">
+
+                    <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_send_logsend)" />
+                    <c:TextView CssClass="ReportTextActive" Text="#send_log#" />
+
+                </c:VerticalLayout>
+              </c:HorizontalLayout>
+            </c:VerticalLayout>
+          </c:HorizontalLayout>
+        </c:VerticalLayout>
+      </c:VerticalLayout>
+    </c:ScrollView>
+  </c:DockLayout>
+</c:Screen>

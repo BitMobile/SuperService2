@@ -1,0 +1,79 @@
+@import "defaults.less";
+@import "Components/TopInfoComponent.less";
+
+@edittext-color: #8587b1;
+@edittext-placeholder-color: #9b9fa0;
+
+hl {
+    height: 4 * @default-font-size;
+}
+
+.ContactFields {
+    .auto-height;
+}
+
+@text-view-width: 40%;
+
+.ContactField {
+    horizontal-align: center;
+    width: 90%;
+
+    TextView {
+        width: @text-view-width;
+        vertical-align: center;
+        text-align: left;
+    }
+
+    EditText {
+        width: 100% - @text-view-width;
+        font: @deafult-font;
+        height: @default-font-size * 1.5;
+        color: @edittext-color;
+        placeholder-color: @edittext-placeholder-color;
+        vertical-align: center;
+        text-align: right;
+    }
+}
+
+@remove-button-width: 6%;
+@remove-button-margin: 3%;
+
+.ContactFieldWithDelete {
+    .ContactField;
+
+    VerticalLayout {
+        .auto-height;
+        width: @remove-button-width;
+        vertical-align: center;
+        margin-right: @remove-button-margin;
+    }
+
+    EditText {
+        width: 100% - @text-view-width - @remove-button-width - @remove-button-margin;
+    }
+}
+
+.FullWidth {
+    width: 100%;
+}
+
+.AddButton {
+    height: @default-font-size * 4;
+    horizontal-align: center;
+    width: 10sp auto;
+
+    Image {
+        width: 4sp;
+        vertical-align: center;
+        margin-right: 3sp;
+    }
+
+    TextView {
+        color: @default-clickable-color;
+        width: 10% auto;
+    }
+}
+
+.RemoveImage {
+    width: unit(unit(@remove-button-width),sp);
+}

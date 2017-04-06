@@ -1,0 +1,144 @@
+﻿/* ReSharper disable CssNotResolved */
+/* ReSharper disable Html.TagNotResolved */
+/* ReSharper disable InvalidValue */
+
+
+body {
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
+}
+
+.RootLayout {
+    background-color: #808080;
+    height: 100%;
+    width: 100%;
+}
+
+Button {
+    margin-top: 1sp;
+    width: 100%;
+    height: 7sp;
+    background-color: #0000cd;
+    color: #ffffe0;
+    text-align: center;
+    selected-background: #0000ff;
+}
+
+TextView {
+    margin-top: 1sp;
+    width: 100%;
+    height: 7sp;
+    background-color: #ffffff;
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 3px;
+    color: #333333;
+    font: 50% arial;
+}
+
+EditText {
+	margin-top: 1sp;
+	width: 100%;
+	height: 7sp;
+	background-color: #ffa500;
+	border-style: solid;
+	border-color: #0000cd;
+	border-width: 3px;
+	color: #000000;
+	font: 50% arial;
+}
+
+MemoEdit {
+	margin-top: 1sp;
+	width: 100%;
+	height: 7sp;
+	background-color: #ffa500;
+	border-style: solid;
+	border-color: #0000cd;
+	border-width: 3px;
+	color: #000000;
+	font: 30% arial;
+	text-align: left;
+}
+
+Image {
+	margin-top: 1sp;
+	width: 100%;
+}
+
+.SWL {
+    height: 100%;
+    width: 100%;
+}
+
+.VL {
+    height: 40%;
+    width: 100%;
+}
+
+.LoginEditText{
+    width: 60%;
+    height: 10%;
+    margin-top: 20%;
+    margin-left: 20%;
+    background-color: #0000cd;
+    color: #ffffff;
+}
+.PasswordEditText{
+    width: 60%;
+    height: 10%;
+    margin-top: 1%;
+    margin-left: 20%;
+    background-color: #0000cd;
+    color: #ffffff;
+}
+
+.AuthScreenButton {
+    width: 50%;
+    height: 10%;
+    /*margin-top: 15%;*/
+    margin-top: 2%;
+    margin-left: 25%;
+    text-align: center;
+}
+
+.TabBarHL {
+    width: 100%;
+    height: 15%;
+    margin-top: 2%;
+    background-color: #ffffff;
+    horizontal-align: center;
+	dock-align: bottom;
+}
+
+.TabBarVL {
+    width: 25%;
+    height: 100%;
+    margin-bottom: 0%;
+    color: #ffffff;
+    background-color: #ffffff;
+    horizontal-align: center;
+    vertical-align: center;
+}
+
+.TabImage {
+    /*width: 50%;*/
+    height: 50%;
+    color: #ffffff;
+    background-color: #ffffff;
+    horizontal-align: center;
+    vertical-align: center;
+}
+
+.TabTextViewActive {
+    background-color: #ffffff;
+    text-align: center;
+    color: #fd724c;
+}
+
+.TabTextViewNotActive {
+    background-color: #ffffff;
+    text-align: center;
+    color: #9b9fa0;
+}

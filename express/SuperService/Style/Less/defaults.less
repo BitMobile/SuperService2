@@ -1,0 +1,92 @@
+/* ReSharper disable CssNotResolved */
+/* ReSharper disable Html.TagNotResolved */
+/* ReSharper disable InvalidValue */
+/* ReSharper disable RedundantUnits */
+/* ReSharper disable UnexpectedValue */
+
+@default-text-color: #51595b;
+@default-clickable-color: #fd724c;
+@default-font-size: 2.5sp;
+@big-title-font-size: @default-font-size * sqrt(3/2);
+@little-title-font-size: 2sp;
+@deafult-font: @default-font-size arial;
+@emptyspaceiterations: 8;
+
+.height-of-TextView(@font-size) {
+    height: @font-size * 1.11 auto;
+}
+
+.text-view-style(@font-size) {
+    font: @font-size arial;
+    .height-of-TextView(@font-size);
+}
+
+.auto-height() {
+    height: 0sp auto;
+    width: 100%;
+}
+
+.empty-space(@empty) {
+    height: @empty;
+    width: 100%;
+}
+
+body {
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
+}
+
+vl {
+    .auto-height;
+}
+
+hl {
+    .auto-height;
+}
+
+DockLayout {
+    .auto-height;
+}
+
+TextView {
+    color: @default-text-color;
+    font: @deafult-font;
+    .height-of-TextView(@default-font-size);
+    horizontal-align: center;
+    text-align: center;
+    vertical-align: center;
+    white-space: normal;
+    width: 100%;
+}
+
+HorizontalLine {
+    background-color: #f4f4f5;
+    height: 0.15sp;
+    horizontal-align: center;
+    width: 90%;
+}
+
+.NoHeight {
+    height: 0%;
+}
+
+.RootLayout {
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
+}
+
+.EmptySpace3-2sp {
+    .empty-space(1.5sp)
+}
+
+.EmptySpace-loop (@i) when (@i > 0) {
+    .EmptySpace@{i}sp {
+        .empty-space(~"@{i}sp");
+    }
+
+    .EmptySpace-loop (@i - 1);
+}
+
+.EmptySpace-loop(@emptyspaceiterations);

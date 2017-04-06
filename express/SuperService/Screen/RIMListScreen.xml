@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+
+  <c:DockLayout CssClass="RootLayout">
+
+    <!-- Добавление верхней панели -->
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <!---->
+
+    <!-- Список контактов -->
+    <c:ScrollView CssClass="RIMListLayout">
+      <c:VerticalLayout CssClass="RIMListInternalLayuot">
+        <s:Push Id="void_ crutch" Value="$InitClassFields()" />
+        <s:If Test="$GetIsNotEmpty()">
+          <s:Iterator Id="rim" Value="$GetRIM()">
+            <c:HorizontalLayout Id="$rim.Id" OnClick="RIMLayout_OnClick" CssClass="RIMItemLayout">
+              <c:VerticalLayout CssClass="RIMItemAlignLayout">
+                <c:TextView Text="$rim.Description" CssClass="RIMItemDescription" />
+                <c:TextView Text="$GetPriceDescription($rim)" CssClass="RIMItemPrice" />
+                <c:HorizontalLine CssClass="RIMBreaker" />
+              </c:VerticalLayout>
+            </c:HorizontalLayout>
+          </s:Iterator>
+        </s:If>
+        <s:Else>
+          <s:If Test="$isService">
+            <c:TextView Text="#service_empty#" CssClass="EmptyBagText" />
+          </s:If>
+          <s:Else>
+            <c:TextView Text="#bag_empty#" CssClass="EmptyBagText" />
+          </s:Else>
+        </s:Else>
+        <c:VerticalLayout CssClass="EmptySpace2sp" />
+      </c:VerticalLayout>
+    </c:ScrollView>
+  </c:DockLayout>
+</c:Screen>

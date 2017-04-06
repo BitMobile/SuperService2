@@ -1,0 +1,139 @@
+@import "../defaults.less";
+
+@margin-top: 0.75sp;
+@heading-size: @default-font-size * sqrt(2) + @margin-top;
+@topheading-background-color: #4a4b5e;
+@topheading-text-color: #ffffff;
+@topheading-subtext-color: #d4d4d7;
+@topheading-button-color: #fd724c;
+@topheading-text-size: @heading-size * 0.8 * 0.9;
+@header-width: 45%;
+@header-width-with-pic-only: 70%;
+
+.TopInfoLayout {
+    dock-align: top;
+    padding-top: @margin-top;
+    background-color: @topheading-background-color;
+}
+
+.TopInfoHeadingLayout {
+    margin-top: @margin-top;
+    height: @heading-size auto;
+    width: 100%;
+}
+
+.TopInfoHeadingTextLayout {
+    height: 100% auto;
+    width: @header-width;
+    vertical-align: center;
+}
+
+.TopInfoHeading {
+    color: @topheading-text-color;
+    .text-view-style(@topheading-text-size);
+    padding-top: @topheading-text-size * 8 / 86;
+}
+
+.TopInfoSubHeading {
+    color: @topheading-subtext-color;
+    .text-view-style(@topheading-text-size / sqrt(3));
+}
+
+.TopInfoButton(@header-width: @header-width) {
+    width: (100% - @header-width) / 2;
+    height: @heading-size * 0.9;
+    vertical-align: center;
+
+    Image {
+        height: @heading-size * 0.9;
+    }
+
+    TextView {
+        color: @topheading-button-color;
+        .text-view-style(@topheading-text-size * 0.95);
+        margin-top: (@topheading-text-size * 0.05) / 2;
+        horizontal-align: center;
+    }
+}
+
+.TopInfoButtonLeft {
+    .TopInfoButton;
+
+    Image {
+        horizontal-align: left;
+        margin-left: 5sp;
+    }
+}
+
+.TopInfoButtonRight {
+    .TopInfoButton;
+
+    Image {
+        horizontal-align: right;
+        margin-right: 5sp;
+    }
+}
+
+.TopInfoEmptySpace-loop (@i) when (@i > 0) {
+    .TopInfoEmptySpace@{i}sp {
+        .empty-space(~"@{i}sp");
+        background-color: @topheading-background-color;
+    }
+
+    .TopInfoEmptySpace-loop (@i - 1);
+}
+
+.TopInfoEmptySpace-loop(@emptyspaceiterations);
+
+.TopInfoArrowDown {
+    width: 100%;
+}
+
+.TopInfoCommentLayout {
+    width: 80%;
+    horizontal-align: center;
+    margin-top: 1.2sp;
+
+    TextView {
+        margin-top: 0.5sp;
+        .text-view-style(@topheading-text-size / 1.5);
+        color: @topheading-subtext-color;
+    }
+
+    margin-bottom: 0.5sp;
+}
+
+.TopInfoExtraLayout {
+    .auto-height();
+    width: 80%;
+    horizontal-align: center;
+
+    TextView {
+        color: @topheading-text-color;
+    }
+}
+
+.TopInfoHeadingTextLayoutWithPicOnly {
+    .TopInfoHeadingTextLayout;
+    width: @header-width-with-pic-only;
+}
+
+.TopInfoButtonLeftWithPicOnly {
+    .TopInfoButton(@header-width-with-pic-only);
+    dock-align: left;
+
+    Image {
+        horizontal-align: left;
+        margin-left: 5sp;
+    }
+}
+
+.TopInfoButtonRightWithPicOnly {
+    .TopInfoButton(@header-width-with-pic-only);
+    dock-align: right;
+
+    Image {
+        horizontal-align: right;
+        margin-right: 5sp;
+    }
+}

@@ -1,0 +1,45 @@
+﻿@import "defaults.less";
+@import "Components/TopInfoComponent.less";
+
+.OuterButtonLayout {
+    width: 45sp;
+    height: 100%;
+    .nice-border;
+}
+
+.BigPhoto {
+    width: 90%;
+    horizontal-align: center;
+}
+
+.nice-border() {
+    border-color: #f4f4f5;
+    border-style: solid;
+    border-width: 3px;
+}
+
+.ButtonsHolder {
+    height: @big-title-font-size * 3;
+    horizontal-align: center;
+    margin-top: 4sp;
+    width: 90%;
+}
+
+.ButtonLayout {
+    height: 100%;
+    horizontal-align: center;
+    width: 0sp auto;
+
+    Image {
+        height: @big-title-font-size * 1.5;
+        vertical-align: center;
+    }
+
+    TextView {
+        .text-view-style(@big-title-font-size);
+        vertical-align: center;
+        text-align: left;
+        width: 0sp auto;
+        margin-left: 2sp;
+    }
+}

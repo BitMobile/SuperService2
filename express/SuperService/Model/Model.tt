@@ -1,0 +1,113 @@
+<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="E:\Projects\Bitmobile\SuperService2\SDK\BitMobileSDK\BitMobileSDK.exe" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="BitMobileSDK.CodeGeneration.Model" #>
+<#@ include file="ModelHelper.ttinclude"#>
+<#
+    var path = Host.ResolvePath(".");
+    var manager = Manager.Create(Host, GenerationEnvironment);
+    var ns = "Test";
+
+    String fileName = Host.ResolvePath("metadata.xml");
+
+    Config cf = new ModelFactory().GetConfig(fileName);
+    var entities = cf.Entities;
+    foreach (Entity entity in entities)
+    {
+        if (!Directory.Exists($@"{path}\..\Entities\{entity.Schema}"))
+            Directory.CreateDirectory($@"{path}\..\Entities\{entity.Schema}");
+        manager.StartNewFile($@"{path}\..\Entities\{entity.Schema}\{entity.Name}.cs");
+        #>
+using System;
+using BitMobile.DbEngine;
+
+namespace <#= ns #>.<#= entity.Schema #>
+{
+    public class <#= entity.Name #> : DbEntity
+    {
+<#      foreach (Field f in entity.Fields)
+{
+    #>
+        public <#= DataTypeToType(f.DataType) #> <#= f.Name #> { get; set; }
+<# } #>
+<# if (entity.Schema == "Enum") 
+{#>
+        public static DbRef GetDbRefFromEnum(<#= entity.Name #>Enum @enum)
+        {
+            string res = null;
+            switch (@enum)
+            {
+<# foreach (var constant in cf.Constants[entity.Name])
+{#>
+                case <#= entity.Name #>Enum.<#= constant.Name #>:
+                    res = "<#= constant.Id #>";
+                    break;
+<#}#>
+            }
+            if (string.IsNullOrEmpty(res)) return null;
+            return DbRef.FromString($"@ref[<#= entity.Schema #>_<#= entity.Name #>]:{res}");
+        }
+
+        public <#= entity.Name#>Enum GetEnum() 
+        {
+            switch(Id.Guid.ToString())
+            {
+<# foreach (var constant in cf.Constants[entity.Name])
+{#>
+                case "<#= constant.Id.ToString() #>": 
+                    return <#= entity.Name #>Enum.<#= constant.Name #>;
+<#}#>
+            }
+            return default(<#= entity.Name #>Enum);
+<#
+#>
+        }
+<#}#>
+}
+<# foreach (var tabularSection in entity.TabularSections)
+{#>
+    public class <#= entity.Name #>_<#= tabularSection.Name #> : DbEntity
+    {
+<# foreach (var field in tabularSection.Fields)
+{#>
+        public <#= DataTypeToType(field.DataType) #> <#= field.Name #> { get; set; }
+<#}#>
+
+   }
+<#}#>
+
+
+<# if (entity.Schema == "Enum")
+{ #>
+
+    public enum <#= entity.Name #>Enum
+    {
+<# foreach (var constant in cf.Constants[entity.Name])
+{ #>
+        <#= constant.Name #>,
+<# } #>
+    } 
+<# } #>
+}
+    <#
+    }
+#>
+<# manager.Process(true); #>
+<#+
+
+    private string DataTypeToType(string s)
+    {
+        switch (s)
+        {
+            case "Guid":
+                return "DbRef";
+            case "String":
+                return "string";
+            default:
+                return s;
+        }
+    }
+#>

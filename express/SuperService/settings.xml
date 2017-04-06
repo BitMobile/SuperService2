@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<configuration>
+  <resource>
+    <version version="3.1.6.260" />
+  </resource>
+
+  <client>
+    <supportedCore version="3.2.299.1b20" />
+  </client>
+
+  <server>
+    <supportedMeta version="3.0.0.0" />
+    <host url="https://sstest.superagent.ru" />
+    <solutionPath url="/bitmobile3/superservice3demo" />
+  </server>
+</configuration>

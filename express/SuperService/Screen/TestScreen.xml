@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+  <c:DockLayout>
+    <s:Include File="Components\TopInfoComponent.xml" />
+    <c:VerticalLayout>
+      <c:Indicator Id="Indicator" CssClass="NiceIndicator" />
+      <c:Button Text="Start" CssClass="NiceButton" OnClick="NiceStartButton_OnClick" />
+      <c:Button Text="Stop" CssClass="NiceButton" OnClick="NiceStopButton_OnClick" />
+    </c:VerticalLayout>
+  </c:DockLayout>
+</c:Screen>

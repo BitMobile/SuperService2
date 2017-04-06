@@ -1,0 +1,145 @@
+﻿about		O PRODUKTU
+add		Nový
+add_contact		Nový Kontakt
+add_contact_add_button		Nový kontakt
+add_contact_enter_email		Uveďte e-mail
+add_contact_enter_name		Uveďte celé jméno
+add_contact_enter_position		Uveďte pozici
+add_contact_enter_tel		Uveďte telefon
+add_email		Nový e-mail
+add_material		Přidat materiál
+add_materials		Přidat materiál
+add_phone		Nový telefon
+add_service		Přidat službu
+allday		Celý den
+areYouSure		Jste si jisti?
+back		Zpět
+bag		Brašna
+bag_empty		Brašna je prázdná
+call		Hovor
+cancel		Zrušit
+cancel		Zrušit
+cant_signing		Nemůžete se přihlásit?
+client		Klient
+client_parameters		Parametry klientů
+client_parameters_empty		Parametry klienta jsou prázdné
+clients		Klienti
+clients		Klienti
+clist		Check-list
+closeeventquestion		Ukončit práci?
+coc		Kalkulace
+comment		Popis
+comment...		Poznámky...
+company_web_site		http://cz.grotem.com/service/
+confirm		Potvrdit
+contact		Kontakt
+contact_not_present		Není uveden kontakt
+contacts		KONTAKTY
+count		Množství
+currency		Kč
+delete		Smazat
+delete_question		Smazat
+description_materialrequest_screen		Přidejte materiály
+developer		VÝROBCE
+do_not_have_enough_material		Nemáte dost materiálu?
+edit		Upravit
+email		E-mail
+equipment		Zařízení
+equipments		ZAŘÍZENÍ
+event_canceled_ro		Objednávka zrušena. Data nelze upravit.
+event_finished_ro		Objednávka zrušena. Data nelze upravit.
+exit		Odhlásit se?
+failed_coordinates		Nelze načíst aktuální polohu
+finish		Dokončit
+finishing		Dokončení
+forgot_name		Zadejte svůj login
+get_coordinates		Načíst aktuální polohu
+greeting		Vítejte!
+h.		hod.
+log_in		Přihlásit se
+login		Login
+m.		m.
+mandatory_questions_0_1		{0}/{1} povinných otázek
+map		Mapa
+materials		Materiály
+MATERIALS		MATERIÁLY
+min.		min.
+name		Jméno
+no		Ne
+not_choosed		Není vybráno
+not_choosedwpoints		Není vybráno..
+not_specified		Není uvedeno
+notification		Upozornění
+onmap		Zobrazit na mapě
+orders		Objednávky
+PARAMETERS		PARAMETRY
+password		Heslo
+password_empty		Zadejte heslo
+per_month		během měsíce
+phone		Telefon
+photo		Foto
+position		Pozice
+price		Cena
+refuse		Odmítnout
+report_an_error		Uvědomit o problému
+request		Žádost
+requests		Žádosti
+retake_photo		Opakovat
+save		Uložit
+save_coordinates		Uložit polohu
+select_answer		Zvolte
+select_date		Zvolte datum
+send		Odeslat
+send_email		Odeslat e-mail
+send_log		Odeslat žurnál
+send_message		Odeslat zprávu
+send_sms		Odeslat SMS
+service_empty		Nejsou uvedeny služby
+SERVICEHISTORY		SERVISNÍ HISTORIE
+services		Služby
+SERVICES		SLUŽBY
+settings		Nastavení
+start		Zahájit
+start_event		Práce zahájena. Pokračovat?
+start_sync		Probíhá synchronizace
+successful_auth		Přihlášení proběhlo úspěšně.
+surname		Příjmení
+sync_fail		Synchronizace se nezdařila
+sync_success		Synchronizace proběhla
+targets		Cíle
+task		Úkol
+task_finished		Úkol vyřízen
+task_refused		Nemůžu vyřídit
+tasks		Úkoly
+test		TO JE TEST
+text		Text..
+thereisaproblem		Problém
+time		Čas
+today		dnes
+todayUpper		DNES
+tomorrowToUpper		ZÍTRA
+total		Celkem
+uncorrect_login_or_pass		Chybný login nebo heslo
+under_construction		Pracujeme na tom
+unexpected_error		Neočekávaná chyba.
+unfinished_business		V check-listu máte nevyřízené úkoly
+unsuccessful_auth		Nejde se přihlásit
+uom_distance		km
+upload_failed		Odeslání se nezdařilo
+upload_finished		Odeslání proběhlo
+upload_pictures		Odeslat snímky
+user_empty		Pole Login nemůže být prázdné.
+user_pass_empty		Pole Login a Heslo nemůžou být prázdná.
+wanttobuy		Uvědomit o zájmu
+workType		Typ práce
+write_letter		Odeslat zprávu
+yes		Ano
+yesterdayToUpper		VČERA
+сonnection_error		Chyba připojení
+ask_send_log		Zaslat chybovou zprávu pro vývojáře?
+send_log_ok		Chyba Zpráva byla odeslána!
+send_log_fail		Nelze odeslat zprávu
+NewEventAssigh		Přidělen jste novou objednávku.
+percent_witho_out		BEZ DPH
+VAT		VAT
+eventChangeSr		Oděv byl nominován na další umělce

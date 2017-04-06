@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
+
+  <c:DockLayout CssClass="RootLayout">
+
+    <!-- Добавление верхней панели -->
+    <s:Include File="Components\TopInfoComponent.xml" />
+
+    <!-- Tab Bar-->
+    <s:Include File="Components\TabBarСomponent.xml" />
+
+    <!-- Список контактов -->
+    <c:ScrollView CssClass="ClientListMainSVL">
+      <c:VerticalLayout CssClass="VerticalLayoutForScroll">
+        <s:Iterator Id="client" Value="$GetClients()">
+          <c:VerticalLayout Id="$client.Id" onClick="ClientLayout_OnClick" CssClass="ClientListItemVL">
+            <c:TextView Text="$client.Description" CssClass="ClientListNameTV" />
+            <c:TextView Text="$client.Address" CssClass="ClientListAddressTV" />
+            <c:HorizontalLine CssClass="ClientListBreaker" />
+          </c:VerticalLayout>
+        </s:Iterator>
+      </c:VerticalLayout>
+    </c:ScrollView>
+  </c:DockLayout>
+</c:Screen>
