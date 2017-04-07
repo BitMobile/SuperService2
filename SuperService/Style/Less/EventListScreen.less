@@ -19,9 +19,9 @@
     color: @extra-font-color;
     .text-view-style(@little-title-font-size);
     text-align: left;
-    margin-left: 5.5sp;
-    margin-top: @little-title-font-size * 1.5;
-    margin-bottom: @little-title-font-size / 2;
+    padding-left: 5.5sp;
+    padding-top: @little-title-font-size * 1.5;
+    padding-bottom: @little-title-font-size / 2;
 }
 
 .EventListLongBreaker {
@@ -35,11 +35,15 @@
     width: auto;
 }
 
-@listitem-height: (@listitem-margin - 0.2) * 2 + (@big-title-font-size * 1.1) + 0.8sp + 1.3sp + (@little-title-font-size * 1.1) + (@little-title-font-size * 1.1) + 0.7sp;
+@listitem-height: (@listitem-margin - 0.2) * 2
+    + (@big-title-font-size * 1.1) + 0.8sp + 1.3sp
+    + (@little-title-font-size * 1.1)
+    + (@little-title-font-size * 1.1) + 0.7sp;
 
 .EventListItemHL {
     height: @listitem-height auto;
     width: 100%;
+    selected-color: #ebebee;
 }
 
 @listitem-part-time: 20sp;
@@ -47,6 +51,10 @@
 @listitem-part-info: 100sp - @listitem-part-time - @listitem-part-status;
 
 @listitem-margin: 1.5sp;
+
+@long-text-font-size: 2.0sp;
+@event-list-status-image-width: @default-font-size * 3;
+@event-list-status-image-height: @default-font-size * 0.7;
 
 .EventListTimeVL {
     .auto-height;
@@ -59,9 +67,16 @@
     .text-view-style(@default-font-size);
 }
 
+.EventListTimeLongTV {
+    margin-top: @listitem-margin;
+    margin-left: @listitem-part-status / 2;
+    .text-view-style(@long-text-font-size);
+}
+
 .EventListCounterTV {
     color: #fd724c;
-    margin-top: ((@big-title-font-size * 1.1 - 0.2sp) - (@default-font-size * 1.1)) + 0.8sp + (@little-title-font-size * 1.1) + 1.3sp;
+    margin-top: ((@big-title-font-size * 1.1 - 0.2sp) - (@default-font-size * 1.1)) + 0.8sp
+               + (@little-title-font-size * 1.1) + 1.3sp;
     margin-left: @listitem-part-status / 2;
     .text-view-style(@little-title-font-size);
 }
@@ -83,9 +98,88 @@
     height: @listitem-margin + @default-font-size * 1.1 / 6;
 }
 
-.EventListStatusIMG {
+.EventListStatusIMGBlueBorder {
+    background-image: url(..\Image.EventListScreen.blue_border.png);
     horizontal-align: center;
-    height: @default-font-size *3;
+    height: @event-list-status-image-height;
+    width: @event-list-status-image-width;
+}
+
+.EventListStatusIMGBlueCancel {
+    background-image: url(..\Image.EventListScreen.blue_cancel.png);
+    horizontal-align: center;
+    height: @event-list-status-image-height;
+    width: @event-list-status-image-width;
+}
+
+.EventListStatusIMGBlueDone {
+    background-image: url(..\Image.EventListScreen.blue_done.png);
+    horizontal-align: center;
+    height: @event-list-status-image-height;
+    width: @event-list-status-image-width;
+}
+
+.EventListStatusIMGBlueCircle {
+    background-image: url(..\Image.EventListScreen.blue_circle.png);
+    horizontal-align: center;
+    height: @event-list-status-image-height;
+    width: @event-list-status-image-width;
+}
+
+.EventListStatusIMGYellowBorder {
+    background-image: url(..\Image.EventListScreen.yellow_border.png);
+    horizontal-align: center;
+    height: @event-list-status-image-height;
+    width: @event-list-status-image-width;
+}
+
+.EventListStatusIMGYellowCancel {
+    background-image: url(..\Image.EventListScreen.yellow_cancel.png);
+    horizontal-align: center;
+    height: @event-list-status-image-height;
+    width: @event-list-status-image-width;
+}
+
+.EventListStatusIMGYellowDone {
+    background-image: url(..\Image.EventListScreen.yellow_done.png);
+    horizontal-align: center;
+    height: @event-list-status-image-height;
+    width: @event-list-status-image-width;
+}
+
+.EventListStatusIMGYellowCircle {
+    background-image: url(..\Image.EventListScreen.yellow_circle.png);
+    horizontal-align: center;
+    height: @event-list-status-image-height;
+    width: @event-list-status-image-width;
+}
+
+.EventListStatusIMGRedBorder {
+    background-image: url(..\Image.EventListScreen.red_border.png);
+    horizontal-align: center;
+    height: @event-list-status-image-height;
+    width: @event-list-status-image-width;
+}
+
+.EventListStatusIMGRedCancel {
+    background-image: url(..\Image.EventListScreen.red_cancel.png);
+    horizontal-align: center;
+    height: @event-list-status-image-height;
+    width: @event-list-status-image-width;
+}
+
+.EventListStatusIMGRedDone {
+    background-image: url(..\Image.EventListScreen.red_done.png);
+    horizontal-align: center;
+    height: @event-list-status-image-height;
+    width: @event-list-status-image-width;
+}
+
+.EventListStatusIMGRedCircle {
+    background-image: url(..\Image.EventListScreen.red_circle.png);
+    horizontal-align: center;
+    height: @event-list-status-image-height;
+    width: @event-list-status-image-width;
 }
 
 .EventListLineAfterVL {
