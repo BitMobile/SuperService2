@@ -99,7 +99,11 @@ namespace Test
             if (string.IsNullOrEmpty(text))
                 text = Translator.Translate("contact_not_present");
             else
-                rightExtraLayout.OnClick += RightExtraLayoutOnOnClick;
+            {
+                rightExtraLayout.OnClick     += RightExtraLayout_OnClick;
+                rightExtraLayout.OnPressDown += RightExtraLayout_PressDown;
+                rightExtraLayout.OnPressUp   += RightExtraLayout_PressUp;
+            }
 
             rightExtraLayout.AddChild(new TextView
             {
@@ -107,10 +111,12 @@ namespace Test
                 CssClass = "TopInfoSideText"
             });
 
-            leftExtraLayout.OnClick += GoToMapScreen_OnClick;
+            leftExtraLayout.OnClick     += GoToMapScreen_OnClick;
+            leftExtraLayout.OnPressDown += GoToMapScreen_PressDown;
+            leftExtraLayout.OnPressUp   += GoToMapScreen_PressUp;
         }
 
-        private void RightExtraLayoutOnOnClick(object sender, EventArgs eventArgs)
+        private void RightExtraLayout_OnClick(object sender, EventArgs eventArgs)
         {
             if (CheckAndGoIfNotExsist())
             {
@@ -120,6 +126,20 @@ namespace Test
             {
                 [Parameters.Contact] = (Contacts) DBHelper.LoadEntity(_currentEventRecordset["contactId"].ToString())
             });
+        }
+
+        internal void RightExtraLayout_PressDown(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = ResourceManager.GetImage("topinfo_extra_person_active");
+            image.Refresh();
+        }
+
+        internal void RightExtraLayout_PressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = ResourceManager.GetImage("topinfo_extra_person");
+            image.Refresh();
         }
 
         private bool CheckAndGoIfNotExsist()
@@ -506,6 +526,7 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
+
         internal void GoToMapScreen_OnClick(object sender, EventArgs e)
         {
             var clientId = (string) _currentEventRecordset[Parameters.IdClientId];
@@ -524,6 +545,20 @@ namespace Test
                 return;
             }
             Navigation.Move(nameof(MapScreen), dictionary);
+        }
+
+        internal void GoToMapScreen_PressDown(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = ResourceManager.GetImage("topinfo_extra_map_active");
+            image.Refresh();
+        }
+
+        internal void GoToMapScreen_PressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = ResourceManager.GetImage("topinfo_extra_map");
+            image.Refresh();
         }
 
         internal bool IsNotZero(long count)
@@ -554,5 +589,33 @@ namespace Test
 
         internal long GetTotalAnsweredTask(object eventId, object clientId)
             => DBHelper.GetTotalTaskAnsweredByEventIdOrClientId(eventId, clientId);
+
+        internal void StartButton_OnPressDown(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            button.CssClass = "StartButtonPressed";
+            button.Refresh();
+        }
+
+        internal void StartButton_OnPressUp(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            button.CssClass = "StartButton";
+            button.Refresh();
+        }
+
+        internal void RefuseButton_OnPressDown(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            button.CssClass = "RefuseButtonPressed";
+            button.Refresh();
+        }
+
+        internal void RefuseButton_OnPressUp(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            button.CssClass = "RefuseButton";
+            button.Refresh();
+        }
     }
 }

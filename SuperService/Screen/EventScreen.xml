@@ -85,8 +85,12 @@
 
         <s:If Test="$event.statusName == Accepted || $event.statusName == Agreed">
           <c:HorizontalLayout CssClass="EmptySpace2sp" />
-          <c:Button Id="StartButton" Text="#start#" CssClass="StartButton" OnClick="StartButton_OnClick" />
-          <c:Button Id="RefuseButton" Text="#refuse#" CssClass="RefuseButton" OnClick="RefuseButton_OnClick" />
+          <c:Button Id="StartButton" Text="#start#" CssClass="StartButton"
+                    OnPressDown="StartButton_OnPressDown" OnPressUp="StartButton_OnPressUp"
+                    OnClick="StartButton_OnClick" />
+          <c:Button Id="RefuseButton" Text="#refuse#" CssClass="RefuseButton"
+                    OnPressDown="RefuseButton_OnPressDown" OnPressUp="RefuseButton_OnPressUp"
+                    OnClick="RefuseButton_OnClick" />
           <c:HorizontalLayout CssClass="EmptySpace5sp" />
         </s:If>
       </c:VerticalLayout>
