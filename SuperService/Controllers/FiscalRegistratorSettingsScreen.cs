@@ -6,6 +6,7 @@ using BitMobile.Common.Device.Providers;
 using BitMobile.Common.FiscalRegistrator;
 using Test.Components;
 using Test.Enum;
+using Thread = System.Threading.Thread;
 
 namespace Test
 {
@@ -13,14 +14,14 @@ namespace Test
     {
         private TextView _connectedStatusTextView;
         private TextView _connectionButtonDescriptionTextView;
-        private Image _connectionButtonImage;
+        private VerticalLayout _connectionButtonImage;
 
         //        ---------Controls---------
 
         private TextView _dontSendChecksTextView;
         private TextView _dotSendChecksDataTextView;
         private IFiscalRegistratorProvider _fptr;
-        private Image _isConnectedImage;
+        private VerticalLayout _isConnectedImage;
         private VerticalLayout _leftButtonVerticalLayout;
         private bool _readonlyForIos;
         private VerticalLayout _rightButtonVerticalLayout;
@@ -29,6 +30,7 @@ namespace Test
 //        -------------------------------------------------------
         public override void OnLoading()
         {
+            base.OnLoading();
             _tabBarComponent = new TabBarComponent(this);
 
             _leftButtonVerticalLayout =
@@ -48,6 +50,8 @@ namespace Test
             });
 
             B672E6Cf63784Ca9A44Eaa6024E0B11B();
+
+            ChangeLayoutsAsync();
         }
 
         //TODO: бомбануло
@@ -60,9 +64,9 @@ namespace Test
             _connectedStatusTextView =
                 (TextView) GetControl("c3ec25a698d140e89086926246db8e2f", true);
             _isConnectedImage =
-                (Image) GetControl("ab27dfe251704c82a835a85088e98c2b", true);
+                (VerticalLayout) GetControl("ab27dfe251704c82a835a85088e98c2b", true);
             _connectionButtonImage =
-                (Image) GetControl("f0f0255fe94b454982a5a79b51d16ecb", true);
+                (VerticalLayout) GetControl("83841f90385143248d8e865eed46ee3a", true);
             _connectionButtonDescriptionTextView =
                 (TextView) GetControl("cde826477edc449faefce13edf3da0ed", true);
             _rootLayout =
@@ -83,20 +87,21 @@ namespace Test
 
         public override void OnShow()
         {
-            GpsTracking.Start();
-           
+            base.OnShow();
+            GpsTracking.StartAsync();
+
             if (!Settings.EnableFPTR)
             {
                 Toast.MakeToast(Translator.Translate("fr_disable"));
                 return;
             }
-            if(!DBHelper.CheckRole(nameof(WebactionsEnum.MobileFPRAccess)))
+            if (!DBHelper.CheckRole(nameof(WebactionsEnum.MobileFPRAccess)))
             {
                 Toast.MakeToast(Translator.Translate("fr_role_disable"));
                 return;
             }
             if (_readonlyForIos)
-            { 
+            {
                 Toast.MakeToast(Translator.Translate("Функциональность не поддерживается на iOS"));
                 return;
             }
@@ -105,6 +110,8 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
+            Utils.TraceMessage("Lclick");
+
             if (!Settings.EnableFPTR)
             {
                 Toast.MakeToast(Translator.Translate("fr_disable"));
@@ -124,7 +131,7 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-
+            Utils.TraceMessage("Rclick");
             if (!Settings.EnableFPTR)
             {
                 Toast.MakeToast(Translator.Translate("fr_disable"));
@@ -144,54 +151,85 @@ namespace Test
             FptrInstance.Instance.OpenSettings();
         }
 
-        internal string GetFrStatusIcon()
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
         {
-            if (_readonlyForIos)
-                return ResourceManager.GetImage("fptr_disconnected");
-
-            return _fptr.CurrentStatus >= 0
-                ? ResourceManager.GetImage("fptr_connected")
-                : ResourceManager.GetImage("fptr_disconnected");
+            ((Image)_leftButtonVerticalLayout.GetControl(0))
+                .Source = ResourceManager.GetImage("fptr_errorlist_active");
+            _leftButtonVerticalLayout.Refresh();
         }
 
-        internal string GetFrStatusText()
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((Image)_leftButtonVerticalLayout.GetControl(0))
+                .Source = ResourceManager.GetImage("fptr_errorlist");
+            _leftButtonVerticalLayout.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((Image)_rightButtonVerticalLayout.GetControl(0))
+                .Source = ResourceManager.GetImage("fptr_settings_active");
+            _rightButtonVerticalLayout.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((Image)_rightButtonVerticalLayout.GetControl(0))
+                .Source = ResourceManager.GetImage("fptr_settings");
+            _rightButtonVerticalLayout.Refresh();
+        }
+
+        private string GetFrStatusStyle(int statusCode)
         {
             if (_readonlyForIos)
-                return Translator.Translate("fptr_is_not_connected");
+                return Parameters.FiscalRegistratorScreenDisconnectStyle;
 
-            return Translator.Translate(_fptr.CurrentStatus >= 0
+            return statusCode >= 0
+                ? Parameters.FiscalRegistratorScreenConnectStyle
+                : Parameters.FiscalRegistratorScreenDisconnectStyle;
+        }
+
+        private string GetFrStatusText(int statusCode)
+        {
+            return Translator.Translate(statusCode >= 0
                 ? "fptr_connected"
                 : "fptr_is_not_connected");
         }
 
-        internal string GetStatusIconForConnectedButton()
+        internal string GetConnectButtonStyle(int statusCode)
         {
+            Utils.TraceMessage("GetConnectButtonStylemethod");
             if (_readonlyForIos)
-                return ResourceManager.GetImage("fptr_pair");
+                return Parameters.FiscalRegistratorScreenDisconnectedButtonStyle;
 
-            return ResourceManager.GetImage(_fptr.CurrentStatus >= 0
-                ? "fptr_ping_ok"
-                : "fptr_pair");
+            return statusCode >= 0
+                ? Parameters.FiscalRegistratorScreenConnectedButtonStyle
+                : Parameters.FiscalRegistratorScreenDisconnectedButtonStyle;
         }
 
-        internal string GetStatusDescriptionForConnectButton()
+        internal string GetStatusDescriptionForConnectButton(int statusCode)
         {
             if (_readonlyForIos)
                 return Translator.Translate("connect");
 
-            return Translator.Translate(_fptr.CurrentStatus >= 0
+            return Translator.Translate(statusCode >= 0
                 ? "ping"
                 : "connect");
         }
 
+
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
         {
+            Dialog.ShowProgressDialog(Translator.Translate("loading_message"), true);
             _tabBarComponent.Events_OnClick(sender, eventArgs);
             DConsole.WriteLine("Bag Events");
         }
 
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
-            => _tabBarComponent.Clients_OnClick(sender, eventArgs);
+        {
+            Dialog.ShowProgressDialog(Translator.Translate("loading_message"), true);
+            _tabBarComponent.Clients_OnClick(sender, eventArgs);
+        }
 
         internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
         {
@@ -227,25 +265,60 @@ namespace Test
                 return;
             }
 
-            Utils.TraceMessage($"{_fptr.CurrentStatus}: {_fptr.CurrentStatus}");
-
-            if (_fptr.CurrentStatus >= 0)
+            Dialog.ShowProgressDialog(Translator.Translate("please_wait"), true);
+            TaskFactory.RunTaskWithTimeout(() =>
             {
-                _fptr.Beep();
-                ChangeLayoutStatus();
-                ChangeTopInfoTextViews();
-            }
-            else
-            {
-                _fptr.PutDeviceSettings(_fptr.Settings);
-                _fptr.PutDeviceEnabled(true);
-                ChangeLayoutStatus();
+                try
+                {
+                    if (_fptr.CurrentStatus >= 0)
+                    {
+                        _fptr.Beep();
+                        ChangeLayoutsAsync();
+                    }
+                    else
+                    {
+                        _fptr.PutDeviceSettings(_fptr.Settings);
+                        _fptr.PutDeviceEnabled(true);
+                        ChangeLayoutsAsync();
+                        Utils.TraceMessage($"{nameof(_fptr.CurrentStatus)}: {_fptr.CurrentStatus}");
+                    }
+                }
+                catch (FPTRException fptrException)
+                {
+                    Utils.TraceMessage($"ExceptionMessage: {fptrException.Message}" +
+                                       $" ResultCode: {fptrException.Result}");
 
-                ChangeTopInfoTextViews();
-                Utils.TraceMessage($"{nameof(_fptr.CurrentStatus)}: {_fptr.CurrentStatus}");
-            }
+                    Application.InvokeOnMainThread(() => Toast.MakeToast(fptrException.Message));
+                }
+            }, FptrAction.DefaultTimeOut, result =>
+            {
+                
+                if (result.Finished)
+                {
+                    Dialog.HideProgressDialog();
+                    return;
+                }
+                Utils.TraceMessage($"Change status to offline");
+                Application.InvokeOnMainThread(() => ChangeLayoutStatus(-1));
+
+                Dialog.HideProgressDialog();
+
+                Application.InvokeOnMainThread(()
+                    => Toast.MakeToast(Translator.Translate("сonnection_error")));
+            });
         }
 
+        internal void ConnectToFptr_OnPressDown(object sender, EventArgs e)
+        {
+            _connectionButtonImage.CssClass = AddPressedStyle(_connectionButtonImage.CssClass);
+            _connectionButtonImage.Refresh();
+        }
+
+        internal void ConnectToFptr_OnPressUp(object sender, EventArgs e)
+        {
+            _connectionButtonImage.CssClass = RemovePressedStyle(_connectionButtonImage.CssClass);
+            _connectionButtonImage.Refresh();
+        }
 
         internal void PrintX_OnClick(object sender, EventArgs e)
         {
@@ -265,15 +338,47 @@ namespace Test
                 return;
             }
 
-            try
+            Dialog.ShowProgressDialog(Translator.Translate("please_wait"), true);
+
+            TaskFactory.RunTaskWithTimeout(() =>
             {
-                _fptr.PrintX();
-            }
-            catch (FPTRException exception)
+                try
+                {
+                    _fptr.PrintX();
+                }
+                catch (FPTRException exception)
+                {
+                    Toast.MakeToast(exception.Message);
+                }
+            }, FptrAction.PrintingTimeOut, result =>
             {
-                Toast.MakeToast(exception.Message);
-                ChangeLayoutStatus();
-            }
+                if (result.Finished)
+                {
+                    Application.InvokeOnMainThread(() => ChangeLayoutsAsync());
+                    Dialog.HideProgressDialog();
+                    return;
+                }
+
+                Application.InvokeOnMainThread(() => ChangeLayoutStatus(-1));
+                Dialog.HideProgressDialog();
+
+                Application.InvokeOnMainThread(()
+                    => Toast.MakeToast(Translator.Translate("сonnection_error")));
+            });
+        }
+
+        internal void PrintX_OnPressDown(object sender, EventArgs e)
+        {
+            VerticalLayout VL = (VerticalLayout)((HorizontalLayout)sender).GetControl(0);
+            VL.CssClass = AddPressedStyle(VL.CssClass);
+            VL.Refresh();
+        }
+
+        internal void PrintX_OnPressUp(object sender, EventArgs e)
+        {
+            VerticalLayout VL = (VerticalLayout)((HorizontalLayout)sender).GetControl(0);
+            VL.CssClass = RemovePressedStyle(VL.CssClass);
+            VL.Refresh();
         }
 
         internal void PrintZ_OnClick(object sender, EventArgs e)
@@ -294,30 +399,71 @@ namespace Test
                 return;
             }
 
-            try
+
+            Dialog.Ask(Translator.Translate("printZ_caption_ask"), (o, args) =>
             {
-                _fptr.PrintZ();
-            }
-            catch (FPTRException exception)
-            {
-                Toast.MakeToast(exception.Message);
-                ChangeLayoutStatus();
-            }
+                if (args.Result == Dialog.Result.No)
+                    return;
+
+                Dialog.ShowProgressDialog(Translator.Translate("please_wait"), true);
+
+                TaskFactory.RunTaskWithTimeout(() =>
+                {
+                    try
+                    {
+                        _fptr.PrintZ();
+                    }
+                    catch (FPTRException exception)
+                    {
+                        Toast.MakeToast(exception.Message);
+                    }
+                }, FptrAction.PrintingTimeOut, result =>
+                {
+                    if (result.Finished)
+                    {
+                        Dialog.HideProgressDialog();
+                        return;
+                    }
+
+                    Application.InvokeOnMainThread(() => ChangeLayoutStatus(-1));
+
+                    Dialog.HideProgressDialog();
+
+                    Application.InvokeOnMainThread(()
+                        => Toast.MakeToast(Translator.Translate("сonnection_error")));
+                });
+            });
         }
 
-        private void ChangeLayoutStatus()
+        internal void PrintZ_OnPressDown(object sender, EventArgs e)
+        {
+            VerticalLayout VL = (VerticalLayout)((HorizontalLayout)sender).GetControl(0);
+            VL.CssClass = AddPressedStyle(VL.CssClass);
+            VL.Refresh();
+        }
+
+        internal void PrintZ_OnPressUp(object sender, EventArgs e)
+        {
+            VerticalLayout VL = (VerticalLayout)((HorizontalLayout)sender).GetControl(0);
+            VL.CssClass = RemovePressedStyle(VL.CssClass);
+            VL.Refresh();
+        }
+
+        private void ChangeLayoutStatus(int statusCode)
         {
             _connectedStatusTextView.Text =
-                GetFrStatusText();
+                GetFrStatusText(statusCode);
 
-            _isConnectedImage.Source =
-                GetFrStatusIcon();
+            _isConnectedImage.CssClass =
+                GetFrStatusStyle(statusCode);
 
-            _connectionButtonImage.Source
-                = GetStatusIconForConnectedButton();
+            _connectionButtonImage.CssClass
+                = GetConnectButtonStyle(statusCode);
 
             _connectionButtonDescriptionTextView.Text =
-                GetStatusDescriptionForConnectButton();
+                GetStatusDescriptionForConnectButton(statusCode);
+
+            ChangeTopInfoTextViews(statusCode);
 
             _rootLayout.Refresh();
         }
@@ -333,7 +479,7 @@ namespace Test
             return result;
         }
 
-        internal string GetDontSentChecksFormat()
+        private string GetDontSentChecksFormat(int statusCode)
         {
             if (_readonlyForIos) return string.Empty;
             if (_fptr.CurrentStatus >= 0)
@@ -347,7 +493,7 @@ namespace Test
             return string.Empty;
         }
 
-        internal string FormatDate()
+        private string FormatDate(int statusCode)
         {
             if (_readonlyForIos) return string.Empty;
             if (_fptr.CurrentStatus >= 0
@@ -356,12 +502,67 @@ namespace Test
             return string.Empty;
         }
 
-        private void ChangeTopInfoTextViews()
+        private void ChangeTopInfoTextViews(int statusCode)
         {
             _dontSendChecksTextView.Text =
-                GetDontSentChecksFormat();
+                GetDontSentChecksFormat(statusCode);
             _dotSendChecksDataTextView.Text =
-                FormatDate();
+                FormatDate(statusCode);
+        }
+
+        private void ChangeLayoutsAsync()
+        {
+            if (!Settings.EnableFPTR)
+            {
+                Toast.MakeToast(Translator.Translate("fr_disable"));
+                Application.InvokeOnMainThread(() => ChangeLayoutStatus(-1));
+                return;
+            }
+            if (!DBHelper.CheckRole(nameof(WebactionsEnum.MobileFPRAccess)))
+            {
+                Toast.MakeToast(Translator.Translate("fr_role_disable"));
+                Application.InvokeOnMainThread(() => ChangeLayoutStatus(-1));
+                return;
+            }
+            if (_readonlyForIos)
+            {
+                Toast.MakeToast(Translator.Translate("Функциональность не поддерживается на iOS"));
+                Application.InvokeOnMainThread(() => ChangeLayoutStatus(-1));
+                return;
+            }
+
+            TaskFactory.RunTaskWithTimeout(() => new TaskCompletionResult(FptrInstance.Instance.CurrentStatus)
+                , FptrAction.DefaultTimeOut, result =>
+                {
+                    if (!result.Finished)
+                    {
+                        Application.InvokeOnMainThread(() => ChangeLayoutStatus(-1));
+                        return;
+                    }
+
+                    Application.InvokeOnMainThread(() => ChangeLayoutStatus((int) result.Result));
+                });
+        }
+
+        private string AddPressedStyle(string cssClass)
+        {
+            string result = cssClass;
+            if (!cssClass.EndsWith("_Pressed"))
+            {
+                result += "_Pressed";
+            }
+            return result;
+        }
+
+        private string RemovePressedStyle(string cssClass)
+        {
+            string result = cssClass;
+            if (cssClass.EndsWith("_Pressed"))
+            {
+                int index = cssClass.LastIndexOf("_Pressed");
+                result = cssClass.Substring(0, index);
+            }
+            return result;
         }
     }
 }

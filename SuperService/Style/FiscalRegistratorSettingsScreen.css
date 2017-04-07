@@ -39,6 +39,12 @@ HorizontalLine {
 .NoHeight {
   height: 0%;
 }
+.TextAlignLeft {
+  text-align: left;
+}
+.TextAlignCenter {
+  text-align: center;
+}
 .RootLayout {
   background-color: #ffffff;
   height: 100%;
@@ -88,7 +94,6 @@ HorizontalLine {
   width: 100%;
 }
 .TabBarHL {
-  background-color: #ffffff;
   dock-align: bottom;
   height: 100%;
   horizontal-align: center;
@@ -101,24 +106,79 @@ HorizontalLine {
   width: 100%;
 }
 .TabBarItemVL {
-  background-color: #ffffff;
   color: #ffffff;
   height: 100%;
   horizontal-align: center;
   margin-bottom: 0%;
   vertical-align: center;
   width: 25%;
+  selected-color: #fff0ea;
 }
-.TabImage {
-  background-color: #ffffff;
-  color: #ffffff;
+.TabImageEvents {
+  background-image: url(Image._Components.TabBar.Events.png);
   margin-top: 1.5sp;
-  height: 35%;
+  height: 3sp;
   horizontal-align: center;
   vertical-align: center;
+  width: 6sp;
+}
+.TabImageEventsActive {
+  background-image: url(Image._Components.TabBar.EventsActive.png);
+  margin-top: 1.5sp;
+  height: 3sp;
+  horizontal-align: center;
+  vertical-align: center;
+  width: 6sp;
+}
+.TabImageClients {
+  background-image: url(Image._Components.TabBar.Clients.png);
+  margin-top: 1.5sp;
+  height: 3sp;
+  horizontal-align: center;
+  vertical-align: center;
+  width: 6sp;
+}
+.TabImageClientsActive {
+  background-image: url(Image._Components.TabBar.ClientsActive.png);
+  margin-top: 1.5sp;
+  height: 3sp;
+  horizontal-align: center;
+  vertical-align: center;
+  width: 6sp;
+}
+.TabImageKKT {
+  background-image: url(Image._Components.TabBar.reg_inactive.png);
+  margin-top: 1.5sp;
+  height: 3sp;
+  horizontal-align: center;
+  vertical-align: center;
+  width: 6sp;
+}
+.TabImageKKTActive {
+  background-image: url(Image._Components.TabBar.reg_active.png);
+  margin-top: 1.5sp;
+  height: 3sp;
+  horizontal-align: center;
+  vertical-align: center;
+  width: 6sp;
+}
+.TabImageSettings {
+  background-image: url(Image._Components.TabBar.Settings.png);
+  margin-top: 1.5sp;
+  height: 3sp;
+  horizontal-align: center;
+  vertical-align: center;
+  width: 6sp;
+}
+.TabImageSettingsActive {
+  background-image: url(Image._Components.TabBar.SettingsActive.png);
+  margin-top: 1.5sp;
+  height: 3sp;
+  horizontal-align: center;
+  vertical-align: center;
+  width: 6sp;
 }
 .TabTextViewActive {
-  background-color: #ffffff;
   color: #fd724c;
   text-align: center;
   font: 2.04124145sp arial;
@@ -126,7 +186,6 @@ HorizontalLine {
   margin-top: 1sp;
 }
 .TabTextViewNotActive {
-  background-color: #ffffff;
   color: #9b9fa0;
   text-align: center;
   font: 2.04124145sp arial;
@@ -206,11 +265,19 @@ HorizontalLine {
   color: #7b8182;
   white-space: nowrap;
 }
-.ConnectDisconnectIcon {
+.IconConnectStyle {
   margin-top: 2.5sp;
   width: 15sp;
   horizontal-align: center;
   margin-bottom: 2sp;
+  background-image: url(Image.FiscalRegistratorSettingsScreen.connected_fptr.png);
+}
+.IconDisconnectStyle {
+  margin-top: 2.5sp;
+  width: 15sp;
+  horizontal-align: center;
+  margin-bottom: 2sp;
+  background-image: url(Image.FiscalRegistratorSettingsScreen.connect_fail.png);
 }
 .VerticalLine {
   width: 0.3sp;
@@ -219,14 +286,33 @@ HorizontalLine {
   height: 5sp;
   margin-bottom: 2sp;
 }
-.PingButton {
+.ConnectedButtonVL {
   height: 0sp auto;
-  width: 0sp auto;
+  width: 15sp auto;
   horizontal-align: center;
   margin-bottom: 2sp;
+  background-image: url(Image.FiscalRegistratorSettingsScreen.ping_ok.png);
 }
-.PingImage {
-  width: 15sp;
+.ConnectedButtonVL_Pressed {
+  height: 0sp auto;
+  width: 15sp auto;
+  horizontal-align: center;
+  margin-bottom: 2sp;
+  background-image: url(Image.FiscalRegistratorSettingsScreen.ping_ok_Active.png);
+}
+.DisconnectedButtonVL {
+  height: 0sp auto;
+  width: 15sp auto;
+  horizontal-align: center;
+  margin-bottom: 2sp;
+  background-image: url(Image.FiscalRegistratorSettingsScreen.pair.png);
+}
+.DisconnectedButtonVL_Pressed {
+  height: 0sp auto;
+  width: 15sp auto;
+  horizontal-align: center;
+  margin-bottom: 2sp;
+  background-image: url(Image.FiscalRegistratorSettingsScreen.pair_Active.png);
 }
 .ConnectTv {
   font: 2.5sp arial;
@@ -246,9 +332,25 @@ HorizontalLine {
   height: 0sp auto;
   width: 100%;
 }
-.ReportIcon {
+.XReportIcon {
   width: 5sp;
   margin-right: 3sp;
+  background-image: url(Image.FiscalRegistratorSettingsScreen.xreport.png);
+}
+.XReportIcon_Pressed {
+  width: 5sp;
+  margin-right: 3sp;
+  background-image: url(Image.FiscalRegistratorSettingsScreen.xreport_Active.png);
+}
+.ZReportIcon {
+  width: 5sp;
+  margin-right: 3sp;
+  background-image: url(Image.FiscalRegistratorSettingsScreen.zreport.png);
+}
+.ZReportIcon_Pressed {
+  width: 5sp;
+  margin-right: 3sp;
+  background-image: url(Image.FiscalRegistratorSettingsScreen.zreport_Active.png);
 }
 .ReportDescription {
   font: 3.25sp arial;

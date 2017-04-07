@@ -1,10 +1,14 @@
-﻿using BitMobile.Common.Device.Providers;
+﻿using System;
+using BitMobile.Common.Device.Providers;
 using BitMobile.Common.FiscalRegistrator;
 
 namespace Test
 {
     public static class FptrAction
     {
+        public static readonly TimeSpan DefaultTimeOut = new TimeSpan(0,0,10);
+        public static readonly TimeSpan PrintingTimeOut = new TimeSpan(0,0,15);
+
         public static void CheckError(this IFiscalRegistratorProvider provider)
         {
             var resultCode = provider.GetResultCode();
@@ -42,10 +46,16 @@ namespace Test
                 fptr.CheckError();
         }
 
+        [Obsolete("Fix в следующем релизе")]
         public static void RegistrationFz54(this IFiscalRegistratorProvider fptr, string name, double price,
             double quantity, int discountType,
             double discount, int taxNumber)
         {
+
+            Utils.TraceMessage($"Name: {name} Price: {price}{Environment.NewLine}" +
+                               $"Quantity: {quantity} {nameof(discountType)}: {discountType}" +
+                               $"{Environment.NewLine}{nameof(discount)}: {discount} {nameof(taxNumber)}: {taxNumber}");
+
             if (fptr.PutDiscountType(discountType) < 0)
                 fptr.CheckError();
             if (fptr.PutSumm(discount) < 0)
@@ -62,6 +72,30 @@ namespace Test
                 fptr.CheckError();
             if (fptr.Registration() < 0)
                 fptr.CheckError();
+        }
+
+        public static void RegistrationFz54(this IFiscalRegistratorProvider fptr, string name, double price,
+            double quantity, double positionSum, int taxNumber)
+        {
+            Utils.TraceMessage($"Name: {name} Price: {price}{Environment.NewLine}" +
+                              $"Quantity: {quantity}" +
+                              $"{Environment.NewLine}{nameof(taxNumber)}: {taxNumber}");
+
+            if(fptr.PutPositionSum(positionSum) < 0)
+                fptr.CheckError();
+            if (fptr.PutQuantity(quantity) < 0)
+                fptr.CheckError();
+            if (fptr.PutPrice(price) < 0)
+                fptr.CheckError();
+            if (fptr.PutTaxNumber(taxNumber) < 0)
+                fptr.CheckError();
+            if (fptr.PutTextWrap(FiscalRegistratorConsts.WrapWord) < 0)
+                fptr.CheckError();
+            if (fptr.PutName(name) < 0)
+                fptr.CheckError();
+            if (fptr.Registration() < 0)
+                fptr.CheckError();
+
         }
 
         public static void Payment(this IFiscalRegistratorProvider fptr, double sum, int type)

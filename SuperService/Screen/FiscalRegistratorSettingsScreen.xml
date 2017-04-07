@@ -3,95 +3,97 @@
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
 
   <c:DockLayout Id="a2dc5f6557284abe92f6d343ade27192"
-    CssClass="RootLayout">
+                CssClass="RootLayout">
     <!-- Tab Bar-->
     <s:Include File="Components\TabBarСomponent.xml" />
 
     <s:Push Id="void_crutch" Value="$Init()" />
-    
-      <c:VerticalLayout Id="ede910a77e0a4414a29d9cb7a344de76"
-                        CssClass="GrayLayout">
 
-        <c:HorizontalLayout Id="d30266853cbd493b97bca8ae6d222d58"
-                            CssClass="TopContainer">
+    <c:VerticalLayout Id="ede910a77e0a4414a29d9cb7a344de76"
+                      CssClass="GrayLayout">
 
-          <c:VerticalLayout Id="TopInfoLeftButton"
-                            CssClass="TopInfoButtonLeft"
-                            OnClick="TopInfo_LeftButton_OnClick" />
+      <c:HorizontalLayout Id="d30266853cbd493b97bca8ae6d222d58"
+                          CssClass="TopContainer">
 
-          <c:VerticalLayout Id="ea3e64128597467f81087c652b6e4560"
-                            CssClass="TopHeader">
+        <c:VerticalLayout Id="TopInfoLeftButton"
+                          CssClass="TopInfoButtonLeft"
+                          OnPressDown="TopInfo_LeftButton_OnPressDown"
+                          OnPressUp="TopInfo_LeftButton_OnPressUp"
+                          OnClick="TopInfo_LeftButton_OnClick" />
 
-            <c:TextView Id="d93a34ef373b48939b2bf3a588b6e9b1"
-                        CssClass="DontSendedCheckStyle"
-                        Text="$GetDontSentChecksFormat()" />
+        <c:VerticalLayout Id="ea3e64128597467f81087c652b6e4560"
+                          CssClass="TopHeader">
 
-            <c:TextView Id="19931320adbd4fbf9f2bb2f6ae765677"
-                        CssClass="DontSendedCheckDate"
-                        Text="$FormatDate()" />
+          <c:TextView Id="d93a34ef373b48939b2bf3a588b6e9b1"
+                      CssClass="DontSendedCheckStyle" />
 
-          </c:VerticalLayout>
-
-          <c:VerticalLayout Id="TopInfoRightButton"
-                            CssClass="TopInfoButtonRight"
-                            OnClick="TopInfo_RightButton_OnClick" />
-
-        </c:HorizontalLayout>
-
-        <c:VerticalLayout Id="a52412c1aa7342c5b9e148e91e954569"
-                          CssClass="ConnectionInfo">
-
-          <c:TextView Id="c3ec25a698d140e89086926246db8e2f"
-                      CssClass="IsConnectedText"
-                      Text="$GetFrStatusText()" />
-
-          <c:Image Id="ab27dfe251704c82a835a85088e98c2b"
-                   CssClass="ConnectDisconnectIcon"
-                   Source="$GetFrStatusIcon()" />
-
-
-          <c:VerticalLayout CssClass="VerticalLine" />
-
-          <c:VerticalLayout Id="83841f90385143248d8e865eed46ee3a"
-                            CssClass="PingButton"
-                            OnClick="ConnectToFptr_OnClick">
-            <c:Image Id="f0f0255fe94b454982a5a79b51d16ecb"
-                     CssClass="PingImage"
-                     Source="$GetStatusIconForConnectedButton()" />
-          </c:VerticalLayout>
-
-          <c:TextView Id="cde826477edc449faefce13edf3da0ed"
-                      CssClass="ConnectTv"
-                      Text="$GetStatusDescriptionForConnectButton()" />
+          <c:TextView Id="19931320adbd4fbf9f2bb2f6ae765677"
+                      CssClass="DontSendedCheckDate" />
 
         </c:VerticalLayout>
 
+        <c:VerticalLayout Id="TopInfoRightButton"
+                          CssClass="TopInfoButtonRight"
+                          OnPressDown="TopInfo_RightButton_OnPressDown"
+                          OnPressUp="TopInfo_RightButton_OnPressUp"
+                          OnClick="TopInfo_RightButton_OnClick" />
+
+      </c:HorizontalLayout>
+
+      <c:VerticalLayout Id="a52412c1aa7342c5b9e148e91e954569"
+                        CssClass="ConnectionInfo">
+
+        <c:TextView Id="c3ec25a698d140e89086926246db8e2f"
+                    CssClass="IsConnectedText"
+                    Text="#fptr_is_not_connected#" />
+
+        <c:VerticalLayout Id="ab27dfe251704c82a835a85088e98c2b" 
+                          CssClass="IconDisconnectStyle" />
+
+
+        <c:VerticalLayout CssClass="VerticalLine" />
+
+        <c:VerticalLayout Id="83841f90385143248d8e865eed46ee3a"
+                          CssClass="DisconnectedButtonVL"
+                          OnPressDown="ConnectToFptr_OnPressDown"
+                          OnPressUp="ConnectToFptr_OnPressUp"
+                          OnClick="ConnectToFptr_OnClick">
+        </c:VerticalLayout>
+
+        <c:TextView Id="cde826477edc449faefce13edf3da0ed"
+                    CssClass="ConnectTv"
+                    Text="#connect#" />
+
       </c:VerticalLayout>
 
-      <c:Image CssClass="ArrowDown"
-               Source="$GetResourceImage(fptr_arrow_down)" />
+    </c:VerticalLayout>
 
-      <c:VerticalLayout Id="64bee6e819b14dea96eeb439be128e82"
-                        CssClass="ReportContainer">
+    <c:Image CssClass="ArrowDown"
+             Source="$GetResourceImage(fptr_arrow_down)" />
 
-        <c:HorizontalLayout CssClass="ReportsButtons"
-                            OnClick="PrintX_OnClick">
-          <c:Image CssClass="ReportIcon"
-                   Source="$GetResourceImage(fptr_xreport)" />
-          <c:TextView CssClass="ReportDescription"
-                      Text="#printX_caption#" />
-        </c:HorizontalLayout>
+    <c:VerticalLayout Id="64bee6e819b14dea96eeb439be128e82"
+                      CssClass="ReportContainer">
 
-        <c:HorizontalLine CssClass="HorizontalLineSplitter" />
+      <c:HorizontalLayout CssClass="ReportsButtons"
+                          OnPressDown="PrintX_OnPressDown"
+                          OnPressUp="PrintX_OnPressUp"
+                          OnClick="PrintX_OnClick">
+        <c:VerticalLayout CssClass="XReportIcon" />
+        <c:TextView CssClass="ReportDescription"
+                    Text="#printX_caption#" />
+      </c:HorizontalLayout>
 
-        <c:HorizontalLayout CssClass="ReportsButtons"
-                            OnClick="PrintZ_OnClick">
-          <c:Image CssClass="ReportIcon"
-                   Source="$GetResourceImage(fptr_zreport)" />
-          <c:TextView CssClass="ReportDescription"
-                      Text="#printZ_caption#" />
-        </c:HorizontalLayout>
+      <c:HorizontalLine CssClass="HorizontalLineSplitter" />
 
-      </c:VerticalLayout> 
+      <c:HorizontalLayout CssClass="ReportsButtons"
+                          OnPressDown="PrintZ_OnPressDown"
+                          OnPressUp="PrintZ_OnPressUp"
+                          OnClick="PrintZ_OnClick">
+        <c:VerticalLayout CssClass="ZReportIcon" />
+        <c:TextView CssClass="ReportDescription"
+                    Text="#printZ_caption#" />
+      </c:HorizontalLayout>
+
+    </c:VerticalLayout>
   </c:DockLayout>
 </c:Screen>
