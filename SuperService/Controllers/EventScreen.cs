@@ -372,9 +372,21 @@ namespace Test
             _topInfoComponent.Refresh();
         }
 
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back");
+            _topInfoComponent.Refresh();
+        }
+
         internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
         {
             ((Image)_topInfoComponent.RightButtonControl).Source = ResourceManager.GetImage("topheading_info_active");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.RightButtonControl).Source = ResourceManager.GetImage("topheading_info");
             _topInfoComponent.Refresh();
         }
 
