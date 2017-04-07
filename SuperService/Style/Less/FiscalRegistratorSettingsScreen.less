@@ -94,11 +94,20 @@
     white-space: nowrap;
 }
 
-.ConnectDisconnectIcon {
+.IconConnectStyle {
     margin-top: 2.5sp;
     width: 15sp;
     .horizontal-align;
     margin-bottom: 2sp;
+    background-image: url(..\Image.FiscalRegistratorSettingsScreen.connected_fptr.png);
+}
+
+.IconDisconnectStyle {
+    margin-top: 2.5sp;
+    width: 15sp;
+    .horizontal-align;
+    margin-bottom: 2sp;
+    background-image: url(..\Image.FiscalRegistratorSettingsScreen.connect_fail.png);
 }
 
 .VerticalLine {
@@ -109,15 +118,36 @@
     margin-bottom: 2sp;
 }
 
-.PingButton {
+.ConnectedButtonVL {
     height: 0sp auto;
-    width: 0sp auto;
+    width: 15sp auto;
     .horizontal-align;
     margin-bottom: 2sp;
+    background-image: url(..\Image.FiscalRegistratorSettingsScreen.ping_ok.png);
 }
 
-.PingImage {
-    width: 15sp;
+.ConnectedButtonVL_Pressed {
+    height: 0sp auto;
+    width: 15sp auto;
+    .horizontal-align;
+    margin-bottom: 2sp;
+    background-image: url(..\Image.FiscalRegistratorSettingsScreen.ping_ok_Active.png);
+}
+
+.DisconnectedButtonVL {
+    height: 0sp auto;
+    width: 15sp auto;
+    .horizontal-align;
+    margin-bottom: 2sp;
+    background-image: url(..\Image.FiscalRegistratorSettingsScreen.pair.png);
+}
+
+.DisconnectedButtonVL_Pressed {
+    height: 0sp auto;
+    width: 15sp auto;
+    .horizontal-align;
+    margin-bottom: 2sp;
+    background-image: url(..\Image.FiscalRegistratorSettingsScreen.pair_Active.png);
 }
 
 .ConnectTv {
@@ -140,9 +170,28 @@
     width: 100%;
 }
 
-.ReportIcon {
+.XReportIcon {
     width: 5sp;
     margin-right: 3sp;
+    background-image: url(..\Image.FiscalRegistratorSettingsScreen.xreport.png)
+}
+
+.XReportIcon_Pressed {
+    width: 5sp;
+    margin-right: 3sp;
+    background-image: url(..\Image.FiscalRegistratorSettingsScreen.xreport_Active.png)
+}
+
+.ZReportIcon {
+    width: 5sp;
+    margin-right: 3sp;
+    background-image: url(..\Image.FiscalRegistratorSettingsScreen.zreport.png)
+}
+
+.ZReportIcon_Pressed {
+    width: 5sp;
+    margin-right: 3sp;
+    background-image: url(..\Image.FiscalRegistratorSettingsScreen.zreport_Active.png)
 }
 
 .ReportDescription {
