@@ -170,3 +170,7 @@ connect		Connect
 dont_sent_checks		Don't sent checks:
 fr_disable		FR module disable
 fr_role_disable		FR role disable
+ClientDelete		Other employee is responsible for the client now
+loading_message		Please wait.
+logout_message		Exiting the application.
+please_wait		Please wait...

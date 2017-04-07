@@ -47,6 +47,7 @@ total		Итоговая сумма
 not_choosedwpoints		Не выбрано..
 not_choosed		Не выбрано
 not_specified		Не указано
+phone_mask		x-xxx-xxx-xx-xx
 text		Текст..
 description_materialrequest_screen		Добавьте материалы, чтобы сформировать заявку
 add_material		Добавить материал
@@ -96,6 +97,7 @@ save		Сохранить
 add_phone		Добавить телефон
 add_email		Добавить e-mail
 forgot_name		Вы забыли ввести имя
+phone_mask_warn		Неправильный номер телефона
 cancel		Отмена
 developer		РАЗРАБОТЧИК
 report_an_error		Сообщить об ошибке
@@ -170,3 +172,7 @@ connect		Соединиться
 dont_sent_checks		Неотправленных чеков:
 fr_disable		Модуль работы с ФР отключен
 fr_role_disable		Роль пользователя не позволяет работать с ФР
+ClientDelete		Клиент был передан другому сотруднику
+loading_message		Пожалуйста, подождите.
+logout_message		Выход из приложения.
+please_wait		Пожалуйста подождите...
