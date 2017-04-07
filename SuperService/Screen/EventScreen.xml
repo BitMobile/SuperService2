@@ -61,14 +61,14 @@
         <c:TextView Visible="False" />
         <s:If Test="$IsNotZero($totalTask) AND $ShowTaskButton()">
           <c:HorizontalLayout CssClass="InfoLayout" OnClick="TaskCounterLayout_OnClick">
-            <c:Image Source="$GetResourceImage(eventscreen_tasks)" CssClass="InfoImage" />
+            <c:VerticalLayout CssClass="InfoTaskImage" />
             <c:TextView Text="#tasks#" Id="TaskCounterNameTextView" CssClass="InfoTitle" />
             <c:TextView Text="$GetStringPartOfTotal($answeredTask, $totalTask)"
                         Id="TaskCounterTextView" CssClass="InfoContent" />
           </c:HorizontalLayout>
         </s:If>
         <c:HorizontalLayout CssClass="InfoLayout" OnClick="GoToCOCScreen_OnClick">
-          <c:Image Source="$GetResourceImage(eventscreen_coc)" CssClass="InfoImage" />
+          <c:VerticalLayout CssClass="InfoCOCImage" />
           <c:TextView Text="#coc#" Id="CertificateOfCompletionNameTextView" CssClass="InfoTitle" />
           <c:TextView Text="$GetPrice($event)"
                       Id="CertificateOfCompletionTextView" CssClass="InfoContent" />
@@ -76,7 +76,7 @@
 
         <s:If Test="$IsNotZero($event.checkListTotal)">
           <c:HorizontalLayout CssClass="InfoLayout" OnClick="CheckListCounterLayout_OnClick">
-            <c:Image Source="$GetResourceImage(eventscreen_clist)" CssClass="InfoImage" />
+            <c:VerticalLayout CssClass="InfoCListImage" />
             <c:TextView Text="#clist#" Id="CheckListCounterNameTextView" CssClass="InfoTitle" />
             <c:TextView Text="$GetStringPartOfTotal($event.checkListAnswered, $event.checkListTotal)"
                         Id="CheckListCounterTextView" CssClass="InfoContent" />

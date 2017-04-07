@@ -31,6 +31,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             _topInfoComponent = new TopInfoComponent(this);
             _topInfoComponent.ActivateBackButton();
             LoadControls();
@@ -135,12 +136,13 @@ namespace Test
         }
         public override void OnShow()
         {
+            base.OnShow();
             if (CheckAndGoIfNotExsist())
             {
                 return;
             }
             _needSync = ReadEvent();
-            GpsTracking.Start();
+            GpsTracking.StartAsync();
             if ((string) _currentEventRecordset["statusName"] == EventStatus.Done
                 || (string) _currentEventRecordset["statusName"] == EventStatus.DoneWithTrouble
                 || (string) _currentEventRecordset["statusName"] == EventStatus.OnTheApprovalOf
@@ -155,6 +157,13 @@ namespace Test
                 Toast.MakeToast(Translator.Translate("event_canceled_ro"));
                 _readonly = true;
             }
+
+        }
+
+        public override void OnDraw()
+        {
+            base.OnDraw();
+            Dialog.HideProgressDialog();
         }
 
         private void LoadControls()
@@ -204,6 +213,13 @@ namespace Test
 
         internal void WrapUnwrapButton_OnClick(object sender, EventArgs eventArgs)
         {
+            //чтобы текст не съезжал влево
+            TextView et = (TextView)GetControl("EventCommentTextView", true);
+            et.CssClass = "TextAlignLeft";
+            et.Refresh();
+            et.CssClass = "TextAlignCenter";
+            et.Refresh();
+
             if (_taskCommentTextExpanded)
             {
                 _taskCommentTextView.CssClass = "SubComment";
@@ -307,8 +323,8 @@ namespace Test
             var @event = (Event) DBHelper.LoadEntity(currentEventId);
             @event.ActualStartDate = DateTime.Now;
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
-            @event.LatitudeStart = Converter.ToDecimal(latitude);
-            @event.LongitudeStart = Converter.ToDecimal(longitude);
+//            @event.LatitudeStart = Converter.ToDecimal(latitude);
+//            @event.LongitudeStart = Converter.ToDecimal(longitude);
             var enitylist = new ArrayList();
             enitylist.Add(@event);
             enitylist.Add(DBHelper.CreateHistory(@event));
@@ -348,6 +364,18 @@ namespace Test
         {
             _topInfoComponent.Arrow_OnClick(sender, eventArgs);
             _rootLayout.Refresh();
+        }
+
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back_active");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.RightButtonControl).Source = ResourceManager.GetImage("topheading_info_active");
+            _topInfoComponent.Refresh();
         }
 
         internal void TaskCounterLayout_OnClick(object sender, EventArgs eventArgs)

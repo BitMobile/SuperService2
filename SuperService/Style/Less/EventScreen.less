@@ -103,11 +103,30 @@
 @info-title-part: 35%;
 @info-image-part: 8%;
 @info-content-part: 100% - @info-title-part - @info-image-part;
+@info-image-width: @info-font-size * 2.5;
 
-.InfoImage {
+.InfoCOCImage {
+    background-image: url(..\Image.es_coc.png);
     height: @info-font-size * 1.5;
     margin-left: 3%;
     vertical-align: center;
+    width: @info-image-width;
+}
+
+.InfoTaskImage {
+    background-image: url(..\Image.es_tasks.png);
+    height: @info-font-size * 1.5;
+    margin-left: 3%;
+    vertical-align: center;
+    width: @info-image-width;
+}
+
+.InfoCListImage {
+    background-image: url(..\Image.es_clist.png);
+    height: @info-font-size * 1.5;
+    margin-left: 3%;
+    vertical-align: center;
+    width: @info-image-width;
 }
 
 .InfoTitle {
