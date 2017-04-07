@@ -372,7 +372,7 @@ namespace Test
         {
             // TODO: Сделать проверку более аккуратной?
             var layout = (HorizontalLayout) sender;
-            return ((TextView) layout.Controls[2]).Text != "0";
+            return ((TextView) layout.GetControl(2)).Text != "0";
         }
 
         internal void GoToCOCScreen_OnClick(object sender, EventArgs e)

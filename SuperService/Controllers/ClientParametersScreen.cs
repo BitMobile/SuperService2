@@ -182,8 +182,8 @@ namespace Test
         private TextView GetTextView(object sender)
         {
             var hl = (HorizontalLayout)((VerticalLayout)sender).Parent;
-            var vl = (VerticalLayout)hl.Controls[hl.Controls.Length < 3 ? 0 : 1];
-            var tv = (TextView)vl.Controls[0];
+            var vl = (VerticalLayout)hl.GetControl(hl.ControlsCount < 3 ? 0 : 1);
+            var tv = (TextView)vl.GetControl(0);
             return tv;
         }
 

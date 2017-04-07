@@ -135,7 +135,7 @@ namespace Test
         {
             if (index < 0)
                 throw new ArgumentException("Индекс удаляемого элемента не может быть отрицательным.");
-            if (index > container.Controls.Length)
+            if (index > container.ControlsCount)
                 throw new ArgumentException(
                     $"Индекс превышает количество элементов фактически содержащихся в {container.GetType().Name}");
 
@@ -167,9 +167,9 @@ namespace Test
         /// <returns></returns>
         public static int GetChildIndexByChildId(this IContainer container, string childId)
         {
-            for (var i = 0; i < container.Controls.Length; i++)
+            for (var i = 0; i < container.ControlsCount; i++)
             {
-                var id = (IIdentifiable)container.Controls[i];
+                var id = (IIdentifiable)container.GetControl(i);
 
                 if (CompareOrdinal(childId, id.Id) == 0)
                 {
@@ -188,16 +188,16 @@ namespace Test
         /// <returns></returns>
         public static bool TryGetIndexByChildId(this IContainer container, string childId, out int index)
         {
-            DConsole.WriteLine($"Container Lenght = {container.Controls.Length}");
+            DConsole.WriteLine($"Container Lenght = {container.ControlsCount}");
             foreach (var control in container.Controls)
             {
                 var item = (IIdentifiable)control;
                 DConsole.WriteLine($"ID = {item.Id}");
             }
             DConsole.WriteLine("--------------");
-            for (var i = 0; i < container.Controls.Length; i++)
+            for (var i = 0; i < container.ControlsCount; i++)
             {
-                var id = (IIdentifiable)container.Controls[i];
+                var id = (IIdentifiable)container.GetControl(i);
                 DConsole.WriteLine($"{id.Id}");
                 if (CompareOrdinal(childId, id.Id) == 0)
                 {

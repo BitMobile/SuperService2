@@ -53,7 +53,7 @@ namespace Test
 #endif
         }
 
-        public override void OnPushMessage(string message)
+        public override void OnPushMessage(string message, string additionalInfo)
         {
             LocalNotification.Notify(Translator.Translate("notification"),
                 Translator.Translate(message));

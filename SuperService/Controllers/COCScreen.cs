@@ -268,9 +268,9 @@ namespace Test
             else
             {
                 var shl = (SwipeHorizontalLayout) vl.Parent;
-                var hl = (HorizontalLayout) shl.Controls[0];
-                var priceContainer = (VerticalLayout) hl.Controls[1];
-                var priceTv = (TextView) priceContainer.Controls[1];
+                var hl = (HorizontalLayout) shl.GetControl(0);
+                var priceContainer = (VerticalLayout) hl.GetControl(1);
+                var priceTv = (TextView) priceContainer.GetControl(1);
                 var sm = (Event_ServicesMaterials) DBHelper.LoadEntity(vl.Id);
                 var sku = (RIM) sm.SKU.GetObject();
                 priceTv.Text =

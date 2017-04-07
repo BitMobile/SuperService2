@@ -56,7 +56,7 @@ namespace Test
             _taskRefuseButtonImage = (Image)GetControl("TaskRefuseButtonImage", true);
 
             _taskCommentEditText = (MemoEdit)GetControl("TaskCommentEditText", true);
-            _rootLayout = (DockLayout)Controls[0];
+            _rootLayout = (DockLayout)GetControl(0);
             _topInfoComponent.ActivateBackButton();
 
             _isReadOnly = (bool)Variables[Parameters.IdIsReadonly];
