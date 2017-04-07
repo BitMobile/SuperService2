@@ -19,6 +19,7 @@ namespace Test
         public static string LastError => _db.LastError;
         public static DateTime LastSyncTime => _db.LastSyncTime;
         public static bool SuccessSync => _db.SuccessSync;
+        public static bool isPartialSyncRequired = false;
 
         public static void Init()
         {
@@ -33,8 +34,16 @@ namespace Test
         {
             entity.Save();
             _db.Commit();
+            Utils.TraceMessage($"Full sync = {isPartialSyncRequired}");
             if (doSync)
-                SyncAsync();
+                if (isPartialSyncRequired)
+                {
+                    SyncAsync();
+                }
+                else
+                {
+                    UploadAsync();
+                }
         }
         public static EventHistory CreateHistory(Event @event)
         {
@@ -57,8 +66,16 @@ namespace Test
                 entity.Save();
             }
             _db.Commit();
+            Utils.TraceMessage($"Full sync = {isPartialSyncRequired}");
             if (doSync)
-                SyncAsync();
+                if (isPartialSyncRequired)
+                {
+                    SyncAsync(SetToTrue);
+                }
+                else
+                {
+                    UploadAsync();
+                }
         }
 
         public static void DeleteByRef(DbRef @ref, bool doSync = true)
@@ -66,7 +83,76 @@ namespace Test
             _db.Delete(@ref);
             _db.Commit();
             if (doSync)
-                SyncAsync();
+                if (isPartialSyncRequired)
+                {
+                    SyncAsync();
+                }
+                else
+                {
+                    UploadAsync();
+                }
+        }
+
+        public static void Upload(ResultEventHandler<bool> resultEventHandler = null)
+        {
+            if (_db.SyncIsActive)
+            {
+
+                Utils.TraceMessage($"---------------{Environment.NewLine}Синхронизация не запущена," +
+                                    $" происходит другая синхронизация." +
+                                    $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(Upload)}" +
+                                    $"{Environment.NewLine}---------------");
+
+                return;
+            }
+            Utils.TraceMessage($"---------------{Environment.NewLine}Сохранение данных в базу," +
+                                       $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(Upload)}" +
+                                       $"{Environment.NewLine}---------------");
+            Utils.TraceMessage($"---------------{Environment.NewLine}Полная синхронизация не требуется," +
+                                        $" сущности будут сохранены синхронно." +
+                                       $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(Upload)}" +
+                                       $"{Environment.NewLine}---------------");
+            try
+            {
+                _db.UploadChanges(Settings.Server, Settings.User, Settings.Password, Settings.DefaultSyncTimeOut,
+                        SyncHandler + resultEventHandler,
+                        "Partial");
+            }
+            catch (Exception)
+            {
+                SyncHandler("Partial", new ResultEventArgs<bool>(false));
+            }
+
+        }
+        public static void UploadAsync(ResultEventHandler<bool> resultEventHandler = null)
+        {
+            if (_db.SyncIsActive)
+            {
+
+                Utils.TraceMessage($"---------------{Environment.NewLine}Синхронизация не запущена," +
+                                    $" происходит другая синхронизация." +
+                                    $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(UploadAsync)}" +
+                                    $"{Environment.NewLine}---------------");
+
+                return;
+            }
+            Utils.TraceMessage($"---------------{Environment.NewLine}Сохранение данных в базу," +
+                                       $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(UploadAsync)}" +
+                                       $"{Environment.NewLine}---------------");
+            Utils.TraceMessage($"---------------{Environment.NewLine}Полная синхронизация не требуется," +
+                                        $" сущности будут сохранены асинхронно." +
+                                       $"{Environment.NewLine}Class {nameof(DBHelper)} method {nameof(UploadAsync)}" +
+                                       $"{Environment.NewLine}---------------");
+            try
+            {
+                _db.UploadChangesAsync(Settings.Server, Settings.User, Settings.Password, Settings.DefaultSyncTimeOut,
+                        SyncHandler + resultEventHandler,
+                        "Partial");
+            }
+            catch (Exception)
+            {
+                SyncHandler("Partial", new ResultEventArgs<bool>(false));
+            }
         }
 
         public static object LoadEntity(string id)
@@ -99,6 +185,8 @@ namespace Test
                 _db.PerformFullSyncAsync(Settings.Server, Settings.User, Settings.Password, Settings.DefaultSyncTimeOut,
                     SyncHandler + resultEventHandler,
                     "Full");
+                if (resultEventHandler == null)
+                    isPartialSyncRequired = false;
             }
             catch (Exception)
             {
@@ -130,6 +218,8 @@ namespace Test
                 _db.PerformSyncAsync(Settings.Server, Settings.User, Settings.Password, Settings.DefaultSyncTimeOut,
                     SyncHandler + resultEventHandler,
                     "Partial");
+                if (resultEventHandler == null)
+                    isPartialSyncRequired = false;
             }
             catch (Exception)
             {
@@ -161,6 +251,8 @@ namespace Test
                 _db.PerformSync(Settings.Server, Settings.User, Settings.Password, Settings.DefaultSyncTimeOut,
                     SyncHandler + resultEventHandler,
                     "Partial");
+                if (resultEventHandler == null)
+                    isPartialSyncRequired = false;
             }
             catch (Exception)
             {
@@ -170,6 +262,7 @@ namespace Test
 
         private static void SyncHandler(object state, ResultEventArgs<bool> resultEventArgs)
         {
+            
             if (state.Equals("Full"))
             {
                 Toast.MakeToast(Translator.Translate(resultEventArgs.Result ? "sync_success" : "sync_fail"));
@@ -187,6 +280,8 @@ namespace Test
             }
             if (!resultEventArgs.Result)
             {
+                isPartialSyncRequired = true;
+                Utils.TraceMessage($"Full sync = {isPartialSyncRequired}");
 #if DEBUG
                 DConsole.WriteLine(Parameters.Splitter);
                 DConsole.WriteLine($"Новые данные не пришли," +
@@ -209,6 +304,8 @@ namespace Test
             Application.InvokeOnMainThread(() => GpsTracking.Start());
 
             DynamicScreenRefreshService.RefreshScreen();
+            isPartialSyncRequired = false;
+
         }
 
         public static void FullSync(ResultEventHandler<bool> resultEventHandler = null)
@@ -240,6 +337,11 @@ namespace Test
             {
                 SyncHandler("Full", new ResultEventArgs<bool>(false));
             }
+        }
+
+        private static void SetToTrue(object sender, ResultEventArgs<bool> resultEventArgs)
+        {
+            isPartialSyncRequired = true;
         }
     }
 }

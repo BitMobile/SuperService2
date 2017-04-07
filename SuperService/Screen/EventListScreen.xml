@@ -11,7 +11,6 @@
 
     <!-- Main SVL-->
     <c:ScrollView CssClass="RootLayout">
-      <c:VerticalLayout>
 
         <s:Push Id="EventListLastDate" Value="$GetDateNowEventList()" />
         <s:Push Id="EventListCurrentDate" Value="$GetDateNowEventList()" />
@@ -37,13 +36,13 @@
             <c:HorizontalLayout CssClass="EventListItemHL" OnClick="EventListItemHL_OnClick" Id="$EventID">
 
               <c:VerticalLayout CssClass="EventListTimeVL">
-                <c:TextView Text="$GetStartDate($StartPlan, $EndPlan)" CssClass="EventListTimeTV" />
+                <c:TextView Text="$GetStartDate($StartPlan, $EndPlan)" CssClass="$GetTextStyle($GetStartDate($StartPlan, $EndPlan))" />
                 <c:TextView Text="$GetTimeCounter($ActualStartDate, $StatusName)" CssClass="EventListCounterTV" />
               </c:VerticalLayout>
 
               <c:VerticalLayout CssClass="EventListStatusVL">
                 <c:VerticalLayout CssClass="EventListLineBeforeVL" />
-                <c:Image CssClass="EventListStatusIMG" Source="$GetStatusPicture($ImportanceName, $StatusName)" />
+                <c:VerticalLayout CssClass="$GetStatusStyle($ImportanceName, $StatusName)" />
                 <c:VerticalLayout CssClass="EventListLineAfterVL" />
               </c:VerticalLayout>
 
@@ -112,13 +111,13 @@
           <c:HorizontalLayout CssClass="EventListItemHL" OnClick="EventListItemHL_OnClick" Id="$EventID">
 
             <c:VerticalLayout CssClass="EventListTimeVL">
-              <c:TextView Text="$GetStartDate($StartPlan, $EndPlan)" CssClass="EventListTimeTV" />
+              <c:TextView Text="$GetStartDate($StartPlan, $EndPlan)" CssClass="$GetTextStyle($GetStartDate($StartPlan, $EndPlan))" />
               <c:TextView Text="$GetTimeCounter($ActualStartDate, $StatusName)" CssClass="EventListCounterTV" />
             </c:VerticalLayout>
 
             <c:VerticalLayout CssClass="EventListStatusVL">
               <c:VerticalLayout CssClass="EventListLineBeforeVL" />
-              <c:Image CssClass="EventListStatusIMG" Source="$GetStatusPicture($ImportanceName, $StatusName)" />
+              <c:VerticalLayout CssClass="$GetStatusStyle($ImportanceName, $StatusName)" />
               <c:VerticalLayout CssClass="EventListLineAfterVL" />
             </c:VerticalLayout>
 
@@ -130,7 +129,6 @@
           </c:HorizontalLayout>
         </s:If>
         <!-- Конец обработки последнего элемента-->
-      </c:VerticalLayout>
     </c:ScrollView>
   </c:DockLayout>
 </c:Screen>

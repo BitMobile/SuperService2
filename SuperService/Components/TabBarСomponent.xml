@@ -6,22 +6,22 @@
 
     <c:HorizontalLayout Id="TabBarLayout" CssClass="TabBarHL">
       <c:VerticalLayout CssClass="TabBarItemVL" Id="TabBarFirstTabButton" OnClick="TabBarFirstTabButton_OnClick">
-        <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_events)" Id="TabBarFirstTabImage" />
+        <c:VerticalLayout CssClass="TabImageEvents" Id="TabBarFirstTabImage" />
         <c:TextView Text="#orders#" CssClass="TabTextViewNotActive" Id="TabBarFirstTabTextView" />
       </c:VerticalLayout>
 
-      <c:VerticalLayout CssClass="TabBarItemVL" Id="TabBarThirdButton" OnClick="TabBarSecondTabButton_OnClick">
-        <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_clients)" Id="TabBarThirdTabImage" />
-        <c:TextView Text="#clients#" CssClass="TabTextViewNotActive" Id="TabBarThirdTabTextView" />
+      <c:VerticalLayout CssClass="TabBarItemVL" Id="TabBarSecondButton" OnClick="TabBarSecondTabButton_OnClick">
+        <c:VerticalLayout CssClass="TabImageClients" Id="TabBarSecondTabImage" />
+        <c:TextView Text="#clients#" CssClass="TabTextViewNotActive" Id="TabBarSecondTabTextView" />
       </c:VerticalLayout>
 
-      <c:VerticalLayout CssClass="TabBarItemVL" Id="TabBarSecondTabButton" OnClick="TabBarThirdButton_OnClick">
-        <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_fr_inactive)" Id="TabBarSecondTabImage" />
-        <c:TextView Text="#registrator#" CssClass="TabTextViewNotActive" Id="TabBarSecondTabTextView" />
+      <c:VerticalLayout CssClass="TabBarItemVL" Id="TabBarThirdTabButton" OnClick="TabBarThirdButton_OnClick">
+        <c:VerticalLayout CssClass="TabImageKKT" Id="TabBarThirdTabImage" />
+        <c:TextView Text="#registrator#" CssClass="TabTextViewNotActive" Id="TabBarThirdTabTextView" />
       </c:VerticalLayout>
 
       <c:VerticalLayout CssClass="TabBarItemVL" Id="TabBarFourthButton" OnClick="TabBarFourthButton_OnClick">
-        <c:Image CssClass="TabImage" Source="$GetResourceImage(tabbar_settings)" Id="TabBarFourthTabImage" />
+        <c:VerticalLayout CssClass="TabImageSettings" Id="TabBarFourthTabImage" />
         <c:TextView Text="#settings#" CssClass="TabTextViewNotActive" Id="TabBarFourthTabTextView" />
       </c:VerticalLayout>
 

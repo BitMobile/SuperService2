@@ -143,3 +143,4 @@ NewEventAssigh		Přidělen jste novou objednávku.
 percent_witho_out		BEZ DPH
 VAT		VAT
 eventChangeSr		Oděv byl nominován na další umělce
+ClientDelete		Jiný zaměstnanec je odpovědný za klienta nyní

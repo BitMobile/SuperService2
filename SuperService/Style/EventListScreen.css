@@ -39,6 +39,12 @@ HorizontalLine {
 .NoHeight {
   height: 0%;
 }
+.TextAlignLeft {
+  text-align: left;
+}
+.TextAlignCenter {
+  text-align: center;
+}
 .RootLayout {
   background-color: #ffffff;
   height: 100%;
@@ -141,6 +147,44 @@ HorizontalLine {
   horizontal-align: center;
 }
 .TopInfoButtonRight Image {
+  horizontal-align: right;
+  margin-right: 5sp;
+}
+.TopInfoButtonLeftActive {
+  width: 27.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+.TopInfoButtonLeftActive Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonLeftActive TextView {
+  color: #b26055;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonLeftActive Image {
+  horizontal-align: left;
+  margin-left: 5sp;
+}
+.TopInfoButtonRightActive {
+  width: 27.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+.TopInfoButtonRightActive Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonRightActive TextView {
+  color: #b26055;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonRightActive Image {
   horizontal-align: right;
   margin-right: 5sp;
 }
@@ -262,7 +306,6 @@ HorizontalLine {
   width: 100%;
 }
 .TabBarHL {
-  background-color: #ffffff;
   dock-align: bottom;
   height: 100%;
   horizontal-align: center;
@@ -275,24 +318,79 @@ HorizontalLine {
   width: 100%;
 }
 .TabBarItemVL {
-  background-color: #ffffff;
   color: #ffffff;
   height: 100%;
   horizontal-align: center;
   margin-bottom: 0%;
   vertical-align: center;
   width: 25%;
+  selected-color: #fff0ea;
 }
-.TabImage {
-  background-color: #ffffff;
-  color: #ffffff;
+.TabImageEvents {
+  background-image: url(Image._Components.TabBar.Events.png);
   margin-top: 1.5sp;
-  height: 35%;
+  height: 3sp;
   horizontal-align: center;
   vertical-align: center;
+  width: 6sp;
+}
+.TabImageEventsActive {
+  background-image: url(Image._Components.TabBar.EventsActive.png);
+  margin-top: 1.5sp;
+  height: 3sp;
+  horizontal-align: center;
+  vertical-align: center;
+  width: 6sp;
+}
+.TabImageClients {
+  background-image: url(Image._Components.TabBar.Clients.png);
+  margin-top: 1.5sp;
+  height: 3sp;
+  horizontal-align: center;
+  vertical-align: center;
+  width: 6sp;
+}
+.TabImageClientsActive {
+  background-image: url(Image._Components.TabBar.ClientsActive.png);
+  margin-top: 1.5sp;
+  height: 3sp;
+  horizontal-align: center;
+  vertical-align: center;
+  width: 6sp;
+}
+.TabImageKKT {
+  background-image: url(Image._Components.TabBar.reg_inactive.png);
+  margin-top: 1.5sp;
+  height: 3sp;
+  horizontal-align: center;
+  vertical-align: center;
+  width: 6sp;
+}
+.TabImageKKTActive {
+  background-image: url(Image._Components.TabBar.reg_active.png);
+  margin-top: 1.5sp;
+  height: 3sp;
+  horizontal-align: center;
+  vertical-align: center;
+  width: 6sp;
+}
+.TabImageSettings {
+  background-image: url(Image._Components.TabBar.Settings.png);
+  margin-top: 1.5sp;
+  height: 3sp;
+  horizontal-align: center;
+  vertical-align: center;
+  width: 6sp;
+}
+.TabImageSettingsActive {
+  background-image: url(Image._Components.TabBar.SettingsActive.png);
+  margin-top: 1.5sp;
+  height: 3sp;
+  horizontal-align: center;
+  vertical-align: center;
+  width: 6sp;
 }
 .TabTextViewActive {
-  background-color: #ffffff;
   color: #fd724c;
   text-align: center;
   font: 2.04124145sp arial;
@@ -300,7 +398,6 @@ HorizontalLine {
   margin-top: 1sp;
 }
 .TabTextViewNotActive {
-  background-color: #ffffff;
   color: #9b9fa0;
   text-align: center;
   font: 2.04124145sp arial;
@@ -321,9 +418,9 @@ HorizontalLine {
   font: 2sp arial;
   height: 2.22sp auto;
   text-align: left;
-  margin-left: 5.5sp;
-  margin-top: 3sp;
-  margin-bottom: 1sp;
+  padding-left: 5.5sp;
+  padding-top: 3sp;
+  padding-bottom: 1sp;
 }
 .EventListLongBreaker {
   width: 100%;
@@ -337,6 +434,7 @@ HorizontalLine {
 .EventListItemHL {
   height: 13.1680484sp auto;
   width: 100%;
+  selected-color: #ebebee;
 }
 .EventListTimeVL {
   height: 0sp auto;
@@ -348,6 +446,12 @@ HorizontalLine {
   margin-left: 1.5sp;
   font: 2.5sp arial;
   height: 2.775sp auto;
+}
+.EventListTimeLongTV {
+  margin-top: 1.5sp;
+  margin-left: 1.5sp;
+  font: 2sp arial;
+  height: 2.22sp auto;
 }
 .EventListCounterTV {
   color: #fd724c;
@@ -367,9 +471,77 @@ HorizontalLine {
   background-color: #f3f3f4;
   height: 1.95833333sp;
 }
-.EventListStatusIMG {
+.EventListStatusIMGBlueBorder {
+  background-image: url(Image.EventListScreen.blue_border.png);
   horizontal-align: center;
-  height: 7.5sp;
+  height: 1.75sp;
+  width: 7.5sp;
+}
+.EventListStatusIMGBlueCancel {
+  background-image: url(Image.EventListScreen.blue_cancel.png);
+  horizontal-align: center;
+  height: 1.75sp;
+  width: 7.5sp;
+}
+.EventListStatusIMGBlueDone {
+  background-image: url(Image.EventListScreen.blue_done.png);
+  horizontal-align: center;
+  height: 1.75sp;
+  width: 7.5sp;
+}
+.EventListStatusIMGBlueCircle {
+  background-image: url(Image.EventListScreen.blue_circle.png);
+  horizontal-align: center;
+  height: 1.75sp;
+  width: 7.5sp;
+}
+.EventListStatusIMGYellowBorder {
+  background-image: url(Image.EventListScreen.yellow_border.png);
+  horizontal-align: center;
+  height: 1.75sp;
+  width: 7.5sp;
+}
+.EventListStatusIMGYellowCancel {
+  background-image: url(Image.EventListScreen.yellow_cancel.png);
+  horizontal-align: center;
+  height: 1.75sp;
+  width: 7.5sp;
+}
+.EventListStatusIMGYellowDone {
+  background-image: url(Image.EventListScreen.yellow_done.png);
+  horizontal-align: center;
+  height: 1.75sp;
+  width: 7.5sp;
+}
+.EventListStatusIMGYellowCircle {
+  background-image: url(Image.EventListScreen.yellow_circle.png);
+  horizontal-align: center;
+  height: 1.75sp;
+  width: 7.5sp;
+}
+.EventListStatusIMGRedBorder {
+  background-image: url(Image.EventListScreen.red_border.png);
+  horizontal-align: center;
+  height: 1.75sp;
+  width: 7.5sp;
+}
+.EventListStatusIMGRedCancel {
+  background-image: url(Image.EventListScreen.red_cancel.png);
+  horizontal-align: center;
+  height: 1.75sp;
+  width: 7.5sp;
+}
+.EventListStatusIMGRedDone {
+  background-image: url(Image.EventListScreen.red_done.png);
+  horizontal-align: center;
+  height: 1.75sp;
+  width: 7.5sp;
+}
+.EventListStatusIMGRedCircle {
+  background-image: url(Image.EventListScreen.red_circle.png);
+  horizontal-align: center;
+  height: 1.75sp;
+  width: 7.5sp;
 }
 .EventListLineAfterVL {
   horizontal-align: center;
