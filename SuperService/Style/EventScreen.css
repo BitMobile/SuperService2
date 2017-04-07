@@ -39,6 +39,12 @@ HorizontalLine {
 .NoHeight {
   height: 0%;
 }
+.TextAlignLeft {
+  text-align: left;
+}
+.TextAlignCenter {
+  text-align: center;
+}
 .RootLayout {
   background-color: #ffffff;
   height: 100%;
@@ -328,18 +334,37 @@ HorizontalLine {
   height: 7.5sp auto;
 }
 .InfoLayout {
+  background-color: #ffffff;
   border-color: #f4f4f5;
+  border-radius: 10px;
   border-style: solid;
   border-width: 3px;
   height: 9.18558654sp;
   horizontal-align: center;
   margin-bottom: 2sp;
+  selected-color: #ebebee;
   width: 90%;
 }
-.InfoImage {
+.InfoCOCImage {
+  background-image: url(Image.es_coc.png);
   height: 4.59279327sp;
   margin-left: 3%;
   vertical-align: center;
+  width: 7.65465545sp;
+}
+.InfoTaskImage {
+  background-image: url(Image.es_tasks.png);
+  height: 4.59279327sp;
+  margin-left: 3%;
+  vertical-align: center;
+  width: 7.65465545sp;
+}
+.InfoCListImage {
+  background-image: url(Image.es_clist.png);
+  height: 4.59279327sp;
+  margin-left: 3%;
+  vertical-align: center;
+  width: 7.65465545sp;
 }
 .InfoTitle {
   font: 3.06186218sp arial;
@@ -359,8 +384,22 @@ HorizontalLine {
   vertical-align: center;
 }
 .StartButton {
-  background-color: #fd724c;
+  background-color: #ff7c4a;
   border-color: #fd724c;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  color: #ffffff;
+  font: 4sp arial;
+  height: 10sp;
+  horizontal-align: center;
+  margin-top: 2sp;
+  width: 90%;
+}
+.StartButtonPressed {
+  background-color: #ed6d3c;
+  border-color: #fd724c;
+  border-radius: 10px;
   border-style: solid;
   border-width: 2px;
   color: #ffffff;
@@ -372,9 +411,23 @@ HorizontalLine {
 }
 .RefuseButton {
   background-color: #ffffff;
-  border-color: #a4a8a9;
+  border-color: #f4f4f5;
+  border-radius: 10px;
   border-style: solid;
-  border-width: 2px;
+  border-width: 3px;
+  color: #fd724c;
+  font: 4sp arial;
+  height: 10sp;
+  horizontal-align: center;
+  margin-top: 2sp;
+  width: 90%;
+}
+.RefuseButtonPressed {
+  background-color: #fff0ea;
+  border-color: #f4f4f5;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 3px;
   color: #fd724c;
   font: 4sp arial;
   height: 10sp;
@@ -384,8 +437,9 @@ HorizontalLine {
 }
 .FinishButton {
   dock-align: bottom;
-  background-color: #fe9c81;
+  background-color: #ff7c4a;
   height: 10sp;
+  selected-color: #ed6d3c;
   white-space: normal;
   width: 100%;
 }

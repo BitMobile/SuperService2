@@ -91,23 +91,45 @@
 @info-font-size: @default-font-size * sqrt(3/2);
 
 .InfoLayout {
+    background-color: #ffffff;
     border-color: #f4f4f5;
+    border-radius: 10px;
     border-style: solid;
     border-width: 3px;
     height: @info-font-size * 3;
     horizontal-align: center;
     margin-bottom: 2sp;
+    selected-color: #ebebee;
     width: 90%;
 }
 
 @info-title-part: 35%;
 @info-image-part: 8%;
 @info-content-part: 100% - @info-title-part - @info-image-part;
+@info-image-width: @info-font-size * 2.5;
 
-.InfoImage {
+.InfoCOCImage {
+    background-image: url(..\Image.es_coc.png);
     height: @info-font-size * 1.5;
     margin-left: 3%;
     vertical-align: center;
+    width: @info-image-width;
+}
+
+.InfoTaskImage {
+    background-image: url(..\Image.es_tasks.png);
+    height: @info-font-size * 1.5;
+    margin-left: 3%;
+    vertical-align: center;
+    width: @info-image-width;
+}
+
+.InfoCListImage {
+    background-image: url(..\Image.es_clist.png);
+    height: @info-font-size * 1.5;
+    margin-left: 3%;
+    vertical-align: center;
+    width: @info-image-width;
 }
 
 .InfoTitle {
@@ -128,8 +150,23 @@
 }
 
 .StartButton {
-    background-color: #fd724c;
+    background-color: #ff7c4a;
     border-color: #fd724c;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 2px;
+    color: #ffffff;
+    font: 4sp arial;
+    height: 10sp;
+    horizontal-align: center;
+    margin-top: 2sp;
+    width: 90%;
+}
+
+.StartButtonPressed {
+    background-color: #ed6d3c;
+    border-color: #fd724c;
+    border-radius: 10px;
     border-style: solid;
     border-width: 2px;
     color: #ffffff;
@@ -142,9 +179,24 @@
 
 .RefuseButton {
     background-color: #ffffff;
-    border-color: #a4a8a9;
+    border-color: #f4f4f5;
+    border-radius: 10px;
     border-style: solid;
-    border-width: 2px;
+    border-width: 3px;
+    color: #fd724c;
+    font: 4sp arial;
+    height: 10sp;
+    horizontal-align: center;
+    margin-top: 2sp;
+    width: 90%;
+}
+
+.RefuseButtonPressed {
+    background-color: #fff0ea;
+    border-color: #f4f4f5;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 3px;
     color: #fd724c;
     font: 4sp arial;
     height: 10sp;
@@ -155,7 +207,7 @@
 
 .FinishButton {
     dock-align: bottom;
-    background-color: #fe9c81;
+    background-color: #ff7c4a;
 
     TextView {
         margin-top: @info-font-size * 1 / 2;
@@ -164,6 +216,7 @@
     }
 
     height: 10sp;
+    selected-color: #ed6d3c;
     white-space: normal;
     width: 100%;
 }
