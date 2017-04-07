@@ -15,15 +15,22 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             DConsole.WriteLine("SettingsScreen init");
             _tabBarComponent = new TabBarComponent(this);
         }
 
         internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
-            => _tabBarComponent.Events_OnClick(sender, eventArgs);
+        {
+            Dialog.ShowProgressDialog(Translator.Translate("loading_message"), true);
+            _tabBarComponent.Events_OnClick(sender, eventArgs);
+        }
 
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
-            => _tabBarComponent.Clients_OnClick(sender, eventArgs);
+        {
+            Dialog.ShowProgressDialog(Translator.Translate("loading_message"), true);
+            _tabBarComponent.Clients_OnClick(sender, eventArgs);
+        }
 
         internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
             => _tabBarComponent.FrSettings_OnClick(sender, eventArgs);
@@ -137,8 +144,23 @@ namespace Test
             Dialog.Ask(Translator.Translate("exit"), (o, args) =>
             {
                 if (args.Result != Dialog.Result.Yes) return;
+                Dialog.ShowProgressDialog(Translator.Translate("logout_message"), true);
                 Logout();
             });
+        }
+
+        internal void Logout_onPressDown(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = GetResourceImage("settingsscreen_logout_active");
+            image.Refresh();
+        }
+
+        internal void Logout_onPressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = GetResourceImage("settingsscreen_logout");
+            image.Refresh();
         }
 
         private static void Logout()
@@ -209,38 +231,66 @@ namespace Test
         internal void SendLog_OnClick(object sender, EventArgs e)
         {
 
-                Dialog.Ask(Translator.Translate("ask_send_log"),
-                    (o, args) =>
-                    {
-                        if (args.Result == Dialog.Result.No) return;
+            Dialog.Ask(Translator.Translate("ask_send_log"),
+                (o, args) =>
+                {
+                    if (args.Result == Dialog.Result.No) return;
 
-                        var isLogSend = Settings.SendDatabase();
-                        Utils.TraceMessage($"Log is send. Result of sending: {isLogSend}");
+                    var isLogSend = Settings.SendDatabase();
+                    Utils.TraceMessage($"Log is send. Result of sending: {isLogSend}");
 
                     Toast.MakeToast(isLogSend
                         ? Translator.Translate("send_log_ok")
                         : Translator.Translate("send_log_fail"));
                 });
-            
+
+        }
+
+        internal void SendLog_PressDown(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = GetResourceImage("settingsscreen_send_logsend_active");
+            image.Refresh();
+        }
+
+        internal void SendLog_PressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = GetResourceImage("settingsscreen_send_logsend");
+            image.Refresh();
         }
 
         internal void PrintX_OnClick(object sender, EventArgs e)
         {
 
-                Toast.MakeToast(Translator.Translate("start_sync"));
-                FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password, (o, args) =>
-                {
-                    DConsole.WriteLine("Sync succesful? = " + args.Result);
-                    Toast.MakeToast(Translator.Translate(args.Result ? "upload_finished" : "upload_failed"));
-                    if (args.Result)
-                        FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password,
-                            (o1, args1) =>
-                            {
-                                Toast.MakeToast(Translator.Translate(args1.Result ? "sync_success" : "sync_fail"));
-                            });
-                });
-            
-            
+            Toast.MakeToast(Translator.Translate("start_sync"));
+            FileSystem.UploadPrivate(Settings.ImageServer, Settings.User, Settings.Password, (o, args) =>
+            {
+                DConsole.WriteLine("Sync succesful? = " + args.Result);
+                Toast.MakeToast(Translator.Translate(args.Result ? "upload_finished" : "upload_failed"));
+                if (args.Result)
+                    FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password,
+                        (o1, args1) =>
+                        {
+                            Toast.MakeToast(Translator.Translate(args1.Result ? "sync_success" : "sync_fail"));
+                        });
+            });
+
+
+        }
+
+        internal void SendFoto_PressDown(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = GetResourceImage("settingsscreen_upload_active");
+            image.Refresh();
+        }
+
+        internal void SendFoto_PressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = GetResourceImage("settingsscreen_upload");
+            image.Refresh();
         }
     }
 }

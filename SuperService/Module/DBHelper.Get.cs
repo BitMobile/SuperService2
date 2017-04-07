@@ -3,7 +3,6 @@ using BitMobile.DbEngine;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
-using BitMobile.Common.Application;
 using BitMobile.Common.FiscalRegistrator;
 using Test.Catalog;
 using Test.Document;
@@ -405,7 +404,8 @@ namespace Test
                                   "        and equipmentLastChangeDate.Period = Catalog_Equipment_Equipments.Period " +
                                   "" +
                                   "        left join Catalog_Equipment " +
-                                  "        on equipmentLastChangeDate.Equipment = Catalog_Equipment.id");
+                                  "        on equipmentLastChangeDate.Equipment = Catalog_Equipment.id " +
+                                  " order by Catalog_Equipment.Description asc");
 
             query.AddParameter("clientID", clientID);
 
@@ -428,7 +428,7 @@ namespace Test
 
                                   where
                                       Catalog_Client.DeletionMark = 0" +
-                                  "order by Catalog_Client.Description asc");
+                                  " Order by Catalog_Client.Description asc");
 
             return query.Execute();
         }
@@ -482,7 +482,7 @@ namespace Test
                                   "    " +
                                   "where " +
                                   "    checkList.Ref = @eventId " +
-                                  "order by checkList.LineNumber asc");
+                                  "order by actions.Description asc");
 
             query.AddParameter("eventId", eventID);
             return query.Execute();
@@ -627,7 +627,7 @@ namespace Test
                                   from
                                       Document_Event_ServicesMaterials AS DESM
                                    where
-                                   DESM.AmountFact != 0 AND DESM.Ref = @eventId");
+                                   (DESM.AmountFact != 0 or DESM.AmountPlan != 0) AND DESM.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return (double)query.ExecuteScalar();
         }
@@ -654,7 +654,7 @@ namespace Test
                                   "    join Enum_VATS AS EVAT " +
                                   "       on EVAT.Id = CR.VAT " +
                                   " where " +
-                                  " DESM.AmountFact != 0 and" +
+                                  " (DESM.AmountFact != 0 or DESM.AmountPlan != 0) and" +
                                   "    DESM.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
@@ -1086,22 +1086,22 @@ namespace Test
 
         public static DbRecordset GetEventsLocationToday()
         {
-            var query = new Query(@"select
-                                        client.Description as Description,
-                                        client.Latitude as Latitude,
-                                        client.Longitude as Longitude,
-                                        (select Name from Enum_StatusyEvents
-                                         where Enum_StatusyEvents.Id = event.Status) as StatusName
-                                    from
-                                        Document_Event as event
-                                    left join Catalog_Client as client
+            var query = new Query(@"select 
+                                        client.Description as Description, 
+                                        client.Latitude as Latitude, 
+                                        client.Longitude as Longitude, 
+                                        (select Name from Enum_StatusyEvents 
+                                         where Enum_StatusyEvents.Id = event.Status) as StatusName 
+                                    from 
+                                        Document_Event as event 
+                                    left join Catalog_Client as client 
                                         on event.client = client.id
-                                    where
-                                        event.DeletionMark = 0
-                                        and date(event.StartDatePlan) = date('now','start of day')
-                                        and client.Latitude != 0
-                                        and client.Longitude != 0
-                                        and StatusName != 'OnHarmonization'");
+                                    where 
+                                        event.DeletionMark = 0 
+                                        and date(event.StartDatePlan) = date('now','start of day') 
+                                        and client.Latitude != 0 
+                                        and client.Longitude != 0 
+                                        and StatusName != 'OnHarmonization'"); 
 
             return query.Execute();
         }
@@ -1474,7 +1474,7 @@ namespace Test
                                       Catalog_EquipmentOptions_ListValues
                                     WHERE
                                       Catalog_EquipmentOptions_ListValues.Ref = @optionId
-                                    ORDER BY LineNumber ASC");
+                                    ORDER BY Val ASC");
             query.AddParameter("optionId", optionId);
 
             return query.Execute();
@@ -1500,30 +1500,14 @@ namespace Test
 
         public static bool CheckFtprAcsess()
         {
-            bool ios = true;
-
-            switch (Application.TargetPlatform)
-            {
-                case TargetPlatform.Android:
-                    ios = false;
-                    break;
-                case TargetPlatform.iOS:
-                    ios = true;
-                    break;               
-                default:
-                    ios = true;
-                    break;
-            }
+           
+            
             if (Settings.EnableFPTR)
             {
-                Utils.TraceMessage($"{Settings.EnableFPTR}");
                 if (CheckRole("MobileFPRAccess"))
                 {
-                    if (!ios)
-                    {
-                        Utils.TraceMessage($"{CheckRole("MobileFPRAccess")}");
-                        return true;
-                    }
+                    Utils.TraceMessage($"{CheckRole("MobileFPRAccess")}");
+                    return true;
                 }
             }
             return false;

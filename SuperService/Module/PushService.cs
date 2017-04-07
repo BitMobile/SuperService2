@@ -14,7 +14,7 @@ namespace Test
             if (!string.IsNullOrEmpty(Settings.User) && !string.IsNullOrEmpty(Settings.Password) &&
                 !string.IsNullOrEmpty(Settings.SolutionUrl) && (userId != Guid.Empty))
             {
-                PushNotification.InitializePushService(Settings.SolutionUrl, userId.ToString(), Settings.Password);
+                PushNotification.InitializePushServiceAsync(Settings.SolutionUrl, userId.ToString(), Settings.Password);
             }
         }
 
