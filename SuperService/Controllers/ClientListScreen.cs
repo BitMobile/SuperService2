@@ -13,6 +13,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             DConsole.WriteLine("ClientListScreen init");
 
             _topInfoComponent = new TopInfoComponent(this)
@@ -25,11 +26,16 @@ namespace Test
 
         public override void OnShow()
         {
-            GpsTracking.Start();
+            base.OnShow();
+            GpsTracking.StartAsync();
+            Dialog.HideProgressDialog();
         }
 
-        internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs) 
-            => _tabBarComponent.Events_OnClick(sender, eventArgs);
+        internal void TabBarFirstTabButton_OnClick(object sender, EventArgs eventArgs)
+        {
+            Dialog.ShowProgressDialog(Translator.Translate("loading_message"), true);
+            _tabBarComponent.Events_OnClick(sender, eventArgs);
+        }
 
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs) 
         {
@@ -47,6 +53,14 @@ namespace Test
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
+        {
+        }
+
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
         {
         }
 
