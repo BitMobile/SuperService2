@@ -1,5 +1,8 @@
 ﻿@import "../defaults.less";
 
+@tab-image-height: 3sp;
+@tab-image-width: 6sp;
+
 .TabBarMainVL {
     background-color: #ffffff;
     dock-align: bottom;
@@ -9,7 +12,6 @@
 }
 
 .TabBarHL {
-    background-color: #ffffff;
     dock-align: bottom;
     height: 100%;
     horizontal-align: center;
@@ -24,26 +26,88 @@
 }
 
 .TabBarItemVL {
-    background-color: #ffffff;
     color: #ffffff;
     height: 100%;
     horizontal-align: center;
     margin-bottom: 0%;
     vertical-align: center;
     width: 25%;
+    selected-color: #fff0ea;
 }
 
-.TabImage {
-    background-color: #ffffff;
-    color: #ffffff;
+.TabImageEvents {
+    background-image: url(..\..\Image._Components.TabBar.Events.png);
     margin-top: 1.5sp;
-    height: 35%;
+    height: @tab-image-height;
     horizontal-align: center;
     vertical-align: center;
+    width: @tab-image-width;
+}
+
+.TabImageEventsActive {
+    background-image: url(..\..\Image._Components.TabBar.EventsActive.png);
+    margin-top: 1.5sp;
+    height: @tab-image-height;
+    horizontal-align: center;
+    vertical-align: center;
+    width: @tab-image-width;
+}
+
+.TabImageClients {
+    background-image: url(..\..\Image._Components.TabBar.Clients.png);
+    margin-top: 1.5sp;
+    height: @tab-image-height;
+    horizontal-align: center;
+    vertical-align: center;
+    width: @tab-image-width;
+}
+
+.TabImageClientsActive {
+    background-image: url(..\..\Image._Components.TabBar.ClientsActive.png);
+    margin-top: 1.5sp;
+    height: @tab-image-height;
+    horizontal-align: center;
+    vertical-align: center;
+    width: @tab-image-width;
+}
+
+.TabImageKKT {
+    background-image: url(..\..\Image._Components.TabBar.reg_inactive.png);
+    margin-top: 1.5sp;
+    height: @tab-image-height;
+    horizontal-align: center;
+    vertical-align: center;
+    width: @tab-image-width;
+}
+
+.TabImageKKTActive {
+    background-image: url(..\..\Image._Components.TabBar.reg_active.png);
+    margin-top: 1.5sp;
+    height: @tab-image-height;
+    horizontal-align: center;
+    vertical-align: center;
+    width: @tab-image-width;
+}
+
+.TabImageSettings {
+    background-image: url(..\..\Image._Components.TabBar.Settings.png);
+    margin-top: 1.5sp;
+    height: @tab-image-height;
+    horizontal-align: center;
+    vertical-align: center;
+    width: @tab-image-width;
+}
+
+.TabImageSettingsActive {
+    background-image: url(..\..\Image._Components.TabBar.SettingsActive.png);
+    margin-top: 1.5sp;
+    height: @tab-image-height;
+    horizontal-align: center;
+    vertical-align: center;
+    width: @tab-image-width;
 }
 
 .TabTextViewActive {
-    background-color: #ffffff;
     color: #fd724c;
     text-align: center;
     .text-view-style(@default-font-size * sqrt(2/3));
@@ -51,9 +115,8 @@
 }
 
 .TabTextViewNotActive {
-    background-color: #ffffff;
     color: #9b9fa0;
     text-align: center;
     .text-view-style(@default-font-size * sqrt(2/3));
-     margin-top:1sp;
+    margin-top: 1sp;
 }
