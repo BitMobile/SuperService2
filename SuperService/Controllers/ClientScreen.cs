@@ -85,9 +85,21 @@ namespace Test
             _topInfoComponent.Refresh();
         }
 
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back");
+            _topInfoComponent.Refresh();
+        }
+
         internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
         {
             ((Image)_topInfoComponent.RightButtonControl).Source = ResourceManager.GetImage("topheading_edit_active");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.RightButtonControl).Source = ResourceManager.GetImage("topheading_edit");
             _topInfoComponent.Refresh();
         }
 
@@ -266,28 +278,28 @@ namespace Test
 
         internal void ContactContainerLayout_OnPressDown(object sender, EventArgs eventArgs)
         {
-            //Utils.TraceMessage("Down");
-            //Utils.TraceMessage($"{((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass}");
-            //((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass = "ContactsListHLPressed";
-            ////HorizontalLayout HL = (HorizontalLayout)((VerticalLayout)sender).Parent;
-            ////HL.CssClass = "ContactsListHLPressed";
-            ////Utils.TraceMessage($"{HL.CssClass}");
-            //Utils.TraceMessage($"{((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass}");
-            ////HL.Refresh();
-            //((HorizontalLayout)((VerticalLayout)sender).Parent).Refresh();
+            Utils.TraceMessage("Down");
+            Utils.TraceMessage($"{((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass}");
+            ((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass = "ContactsListHLPressed";
+            //HorizontalLayout HL = (HorizontalLayout)((VerticalLayout)sender).Parent;
+            //HL.CssClass = "ContactsListHLPressed";
+            //Utils.TraceMessage($"{HL.CssClass}");
+            Utils.TraceMessage($"{((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass}");
+            //HL.Refresh();
+            ((HorizontalLayout)((VerticalLayout)sender).Parent).Refresh();
         }
 
         internal void ContactContainerLayout_OnPressUp(object sender, EventArgs eventArgs)
         {
-            //Utils.TraceMessage("Up");
-            //Utils.TraceMessage($"{((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass}");
-            //((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass = "ContactsListHL";
-            ////HorizontalLayout HL = (HorizontalLayout)((VerticalLayout)sender).Parent;
-            ////HL.CssClass = "ContactsListHL";
-            ////Utils.TraceMessage($"{HL.CssClass}");
-            //Utils.TraceMessage($"{((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass}");
-            ////HL.Refresh();
-            //((HorizontalLayout)((VerticalLayout)sender).Parent).Refresh();
+            Utils.TraceMessage("Up");
+            Utils.TraceMessage($"{((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass}");
+            ((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass = "ContactsListHL";
+            //HorizontalLayout HL = (HorizontalLayout)((VerticalLayout)sender).Parent;
+            //HL.CssClass = "ContactsListHL";
+            //Utils.TraceMessage($"{HL.CssClass}");
+            Utils.TraceMessage($"{((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass}");
+            //HL.Refresh();
+            ((HorizontalLayout)((VerticalLayout)sender).Parent).Refresh();
         }
 
         internal string GetConstLenghtString(string item)
