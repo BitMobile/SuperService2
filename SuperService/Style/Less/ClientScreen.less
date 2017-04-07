@@ -3,6 +3,10 @@
 
 /* Client Screen css class */
 
+@address-margin: @default-font-size;
+@address-distance-relation: 70%;
+@address-left-intent:       5sp;
+
 .ClientDescriptionVL {
     background-color: #626271;
     width: 100%;
@@ -35,15 +39,12 @@
     width: 100%;
 }
 
-@address-margin: @default-font-size;
-
 .ClientAdressHL {
     height: (@default-font-size + @address-margin * 2) auto;
     width: 90%;
+    padding-left: @address-left-intent;
     horizontal-align: center;
 }
-
-@address-distance-relation: 70%;
 
 .ClientAdressTV {
     .text-view-style(@default-font-size);
@@ -86,6 +87,12 @@
 .ContactsListHL {
     height: 0% auto;
     width: 100%;
+}
+
+.ContactsListHLPressed {
+    height: 0% auto;
+    width: 100%;
+    background-color: #ebebee;
 }
 
 .ContactsListVL {
@@ -228,6 +235,17 @@
 
 .AddTV {
     color: #fd724c;
+    font: 3sp arial;
+    height: 80%;
+    margin-left: 3%;
+    padding-top: 22%;
+    text-align: left;
+    vertical-align: center;
+    width: 40% auto;
+}
+
+.AddTVActive {
+    color: #fec0b4;
     font: 3sp arial;
     height: 80%;
     margin-left: 3%;

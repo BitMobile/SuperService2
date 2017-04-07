@@ -39,6 +39,12 @@ HorizontalLine {
 .NoHeight {
   height: 0%;
 }
+.TextAlignLeft {
+  text-align: left;
+}
+.TextAlignCenter {
+  text-align: center;
+}
 .RootLayout {
   background-color: #ffffff;
   height: 100%;
@@ -141,6 +147,44 @@ HorizontalLine {
   horizontal-align: center;
 }
 .TopInfoButtonRight Image {
+  horizontal-align: right;
+  margin-right: 5sp;
+}
+.TopInfoButtonLeftActive {
+  width: 27.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+.TopInfoButtonLeftActive Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonLeftActive TextView {
+  color: #b26055;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonLeftActive Image {
+  horizontal-align: left;
+  margin-left: 5sp;
+}
+.TopInfoButtonRightActive {
+  width: 27.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+.TopInfoButtonRightActive Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonRightActive TextView {
+  color: #b26055;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonRightActive Image {
   horizontal-align: right;
   margin-right: 5sp;
 }
@@ -287,6 +331,7 @@ HorizontalLine {
 .ClientAdressHL {
   height: 7.5sp auto;
   width: 90%;
+  padding-left: 5sp;
   horizontal-align: center;
 }
 .ClientAdressTV {
@@ -325,6 +370,11 @@ HorizontalLine {
 .ContactsListHL {
   height: 0% auto;
   width: 100%;
+}
+.ContactsListHLPressed {
+  height: 0% auto;
+  width: 100%;
+  background-color: #ebebee;
 }
 .ContactsListVL {
   height: 0% auto;
@@ -446,6 +496,16 @@ HorizontalLine {
 }
 .AddTV {
   color: #fd724c;
+  font: 3sp arial;
+  height: 80%;
+  margin-left: 3%;
+  padding-top: 22%;
+  text-align: left;
+  vertical-align: center;
+  width: 40% auto;
+}
+.AddTVActive {
+  color: #fec0b4;
   font: 3sp arial;
   height: 80%;
   margin-left: 3%;

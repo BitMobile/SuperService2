@@ -20,6 +20,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             DConsole.WriteLine("Client onloading");
             _topInfoComponent = new TopInfoComponent(this)
             {
@@ -46,11 +47,18 @@ namespace Test
 
         public override void OnShow()
         {
-            GpsTracking.Start();
+            base.OnShow();
+            GpsTracking.StartAsync();
         }
 
+        public override void OnDraw()
+        {
+            base.OnDraw();
+            Dialog.HideProgressDialog();
+        }
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
+            Dialog.ShowProgressDialog(Translator.Translate("loading_message"), true);
             Navigation.Back();
         }
 
@@ -69,6 +77,18 @@ namespace Test
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
             _topInfoComponent.Arrow_OnClick(sender, e);
+        }
+
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back_active");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.RightButtonControl).Source = ResourceManager.GetImage("topheading_edit_active");
+            _topInfoComponent.Refresh();
         }
 
         internal string GetResourceImage(string tag)
@@ -90,6 +110,22 @@ namespace Test
                 },
                 [Parameters.IdClientId] = _clientId
             });
+        }
+
+        internal void GoToAddContact_OnPressDown(object sender, EventArgs e)
+        {
+            TextView addContactText = ((TextView)((HorizontalLayout)((VerticalLayout)sender)
+                .GetControl(0)).GetControl(0));
+            addContactText.CssClass = "AddTVActive";
+            addContactText.Refresh();
+        }
+
+        internal void GoToAddContact_OnPressUp(object sender, EventArgs e)
+        {
+            TextView addContactText = ((TextView)((HorizontalLayout)((VerticalLayout)sender)
+                .GetControl(0)).GetControl(0));
+            addContactText.CssClass = "AddTV";
+            addContactText.Refresh();
         }
 
         internal void EquipmentLayout_OnClick(object sender, EventArgs e)
@@ -124,6 +160,7 @@ namespace Test
             Utils.TraceMessage($"{_client["Id"] == null}");
             if (_client["Id"] == null)
             {
+                Toast.MakeToast(Translator.Translate("ClientDelete"));
                 Navigation.ModalMove(nameof(ClientListScreen));
                 return true;
             }
@@ -162,6 +199,22 @@ namespace Test
             Phone.Call(callClientLayout.Id);
         }
 
+        internal void Call_OnPressDown(object sender, EventArgs e)
+        {
+            Image img = ((Image)((HorizontalLayout)((VerticalLayout)sender)
+                .GetControl(0)).GetControl(0));
+            img.Source = GetResourceImage("clientscreen_phone_active");
+            img.Refresh();
+        }
+
+        internal void Call_OnPressUp(object sender, EventArgs e)
+        {
+            Image img = ((Image)((HorizontalLayout)((VerticalLayout)sender)
+                .GetControl(0)).GetControl(0));
+            img.Source = GetResourceImage("clientscreen_phone");
+            img.Refresh();
+        }
+
         internal DbRecordset GetEquipments()
         {
             object clientContacts;
@@ -197,6 +250,7 @@ namespace Test
 
         internal void ContactContainerLayout_OnClick(object sender, EventArgs eventArgs)
         {
+            Utils.TraceMessage("Click");
             if (CheckAndGoIfNotExsist())
             {
                 return;
@@ -208,6 +262,32 @@ namespace Test
             {
                 [Parameters.Contact] = contacts
             });
+        }
+
+        internal void ContactContainerLayout_OnPressDown(object sender, EventArgs eventArgs)
+        {
+            //Utils.TraceMessage("Down");
+            //Utils.TraceMessage($"{((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass}");
+            //((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass = "ContactsListHLPressed";
+            ////HorizontalLayout HL = (HorizontalLayout)((VerticalLayout)sender).Parent;
+            ////HL.CssClass = "ContactsListHLPressed";
+            ////Utils.TraceMessage($"{HL.CssClass}");
+            //Utils.TraceMessage($"{((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass}");
+            ////HL.Refresh();
+            //((HorizontalLayout)((VerticalLayout)sender).Parent).Refresh();
+        }
+
+        internal void ContactContainerLayout_OnPressUp(object sender, EventArgs eventArgs)
+        {
+            //Utils.TraceMessage("Up");
+            //Utils.TraceMessage($"{((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass}");
+            //((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass = "ContactsListHL";
+            ////HorizontalLayout HL = (HorizontalLayout)((VerticalLayout)sender).Parent;
+            ////HL.CssClass = "ContactsListHL";
+            ////Utils.TraceMessage($"{HL.CssClass}");
+            //Utils.TraceMessage($"{((HorizontalLayout)((VerticalLayout)sender).Parent).CssClass}");
+            ////HL.Refresh();
+            //((HorizontalLayout)((VerticalLayout)sender).Parent).Refresh();
         }
 
         internal string GetConstLenghtString(string item)

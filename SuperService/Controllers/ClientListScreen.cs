@@ -60,7 +60,15 @@ namespace Test
         {
         }
 
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+        }
+
         internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
         {
         }
 
