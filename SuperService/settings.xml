@@ -2,7 +2,7 @@
 
 <configuration>
   <resource>
-    <version version="3.1.7.1" />
+    <version version="3.1.8.1" />
   </resource>
 
   <client>
