@@ -52,6 +52,20 @@ namespace Test
             });
         }
 
+        internal void Button_OnPressDown(object sender, EventArgs args)
+        {
+            VerticalLayout parent = (VerticalLayout)((HorizontalLayout)sender).Parent;
+            parent.CssClass = "OuterButtonLayoutPressed";
+            parent.Refresh();
+        }
+
+        internal void Button_OnPressUp(object sender, EventArgs args)
+        {
+            VerticalLayout parent = (VerticalLayout)((HorizontalLayout)sender).Parent;
+            parent.CssClass = "OuterButtonLayout";
+            parent.Refresh();
+        }
+
         private void ChangePhotoInDB(string newVal)
         {
             if (Variables.ContainsKey(nameof(ClientParametersScreen)))
@@ -90,7 +104,17 @@ namespace Test
             _topInfoComponent.Refresh();
         }
 
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back");
+            _topInfoComponent.Refresh();
+        }
+
         internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
         {
         }
 

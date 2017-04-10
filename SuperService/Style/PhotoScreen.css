@@ -299,6 +299,15 @@ HorizontalLine {
   margin-right: 5sp;
 }
 .OuterButtonLayout {
+  background-color: #ffffff;
+  width: 45sp;
+  height: 100%;
+  border-color: #f4f4f5;
+  border-style: solid;
+  border-width: 3px;
+}
+.OuterButtonLayoutPressed {
+  background-color: #fff0ea;
   width: 45sp;
   height: 100%;
   border-color: #f4f4f5;

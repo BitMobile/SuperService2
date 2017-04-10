@@ -12,6 +12,8 @@
           <c:HorizontalLayout CssClass="ButtonsHolder">
             <c:VerticalLayout CssClass="OuterButtonLayout">
               <c:HorizontalLayout CssClass="ButtonLayout"
+                                  OnPressDown="Button_OnPressDown"
+                                  OnPressUp="Button_OnPressUp"
                                   OnClick="DeleteButton_OnClick">
                 <c:Image Source="$GetResourceImage(photoscreen_delete)" />
                 <c:TextView Text="#delete#" />
@@ -19,6 +21,8 @@
             </c:VerticalLayout>
             <c:VerticalLayout CssClass="OuterButtonLayout">
               <c:HorizontalLayout CssClass="ButtonLayout"
+                                  OnPressDown="Button_OnPressDown"
+                                  OnPressUp="Button_OnPressUp"
                                   OnClick="RetakeButton_OnClick">
                 <c:Image Source="$GetResourceImage(photoscreen_retake)" />
                 <c:TextView Text="#retake_photo#" />
