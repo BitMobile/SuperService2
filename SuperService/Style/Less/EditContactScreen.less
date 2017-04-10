@@ -22,6 +22,7 @@ hl {
         width: @text-view-width;
         vertical-align: center;
         text-align: left;
+        margin-left: 9sp;
     }
 
     EditText {
@@ -48,6 +49,10 @@ hl {
         margin-right: @remove-button-margin;
     }
 
+    TextView {
+        margin-left: 2sp;
+    }
+
     EditText {
         width: 100% - @text-view-width - @remove-button-width - @remove-button-margin;
     }
@@ -55,6 +60,11 @@ hl {
 
 .FullWidth {
     width: 100%;
+}
+
+.NotFullWidth {
+    margin-left: 9sp;
+    margin-right: 9sp;
 }
 
 .AddButton {
@@ -66,6 +76,7 @@ hl {
         width: 4sp;
         vertical-align: center;
         margin-right: 3sp;
+        margin-left: 9sp;
     }
 
     TextView {
@@ -76,4 +87,8 @@ hl {
 
 .RemoveImage {
     width: unit(unit(@remove-button-width),sp);
+}
+
+.VerticalLayoutRemoveImage {
+    margin-left: 9sp;
 }
