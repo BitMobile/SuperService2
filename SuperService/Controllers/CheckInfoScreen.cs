@@ -16,6 +16,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             _readonly = (bool) Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
             _topInfoComponent = new TopInfoComponent(this)
             {
@@ -36,6 +37,7 @@ namespace Test
 
         public override void OnShow()
         {
+            base.OnShow();
         }
 
 
@@ -57,6 +59,14 @@ namespace Test
                     {Parameters.IdIsReadonly, _readonly},
                     {Parameters.IdWasEventStarted, _wasStarted}
                 });
+        }
+
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
