@@ -5,7 +5,6 @@
     <s:Include File="Components\TopInfoComponent.xml" />
     <s:Push Id="emptyParameters" Value="true" />
     <c:ScrollView CssClass="CheckListMainSVL">
-      <c:VerticalLayout>
         <s:Iterator Id="Parameter" Value="$GetParameters()">
           <s:Push Id="emptyParameters" Value="false" />
           <c:HorizontalLayout Id="$Parameter.Id" CssClass="CheckListItemHL"
@@ -97,6 +96,7 @@
 
               <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$Parameter.Id">
                 <c:EditText Enabled="$IsNotReadonly()" Text="$Parameter.Result" Keyboard="numeric"
+                            OnLostFocus="CheckListDecimal_OnLostFocus" Id="$Parameter.Id"
                             Placeholder="#not_specified#" CssClass="CheckListAnswerElementTV"
                             OnGetFocus="CheckListDecimal_OnGetFocus" />
               </c:VerticalLayout>
@@ -128,7 +128,7 @@
             </s:If>
           </c:HorizontalLayout>
           <c:HorizontalLine CssClass="CheckListBreaker" />
-        </s:Iterator></c:VerticalLayout>
+        </s:Iterator>
       <s:If Test="$emptyParameters">
         <c:TextView Text="#client_parameters_empty#" CssClass="EmptyParametersMessage" />
       </s:If>
