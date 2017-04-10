@@ -15,6 +15,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             InitClassFields();
             _topInfoComponent = new TopInfoComponent(this)
             {
@@ -75,10 +76,36 @@ namespace Test
             _topInfoComponent.Arrow_OnClick(sender, e);
         }
 
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back_active");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((VerticalLayout)((TextView)_topInfoComponent.RightButtonControl).Parent).CssClass = "TopInfoButtonRightActive";
+            _topInfoComponent.Refresh();
+        }
+
         internal void CallButton_OnClick(object o, EventArgs e)
         {
             DConsole.WriteLine("Пытаемся позвонить");
             Phone.Call(_contact.Tel);
+        }
+
+        internal void CallButton_OnPressDown(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = GetResourceImage("contactscreen_phone_active");
+            image.Refresh();
+        }
+
+        internal void CallButton_OnPressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = GetResourceImage("contactscreen_phone");
+            image.Refresh();
         }
 
         internal void SendMessageButton_OnClick(object o, EventArgs e)
@@ -86,9 +113,37 @@ namespace Test
             Dialog.Message(Translator.Translate("under_construction"));
         }
 
+        internal void SendMessageButton_OnPressDown(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = GetResourceImage("contactscreen_sms_active");
+            image.Refresh();
+        }
+
+        internal void SendMessageButton_OnPressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = GetResourceImage("contactscreen_sms");
+            image.Refresh();
+        }
+
         internal void WriteEMailButton_OnClick(object o, EventArgs e)
         {
             Dialog.Message(Translator.Translate("under_construction"));
+        }
+
+        internal void WriteEMailButton_OnPressDown(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = GetResourceImage("contactscreen_email_active");
+            image.Refresh();
+        }
+
+        internal void WriteEMailButton_OnPressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = GetResourceImage("contactscreen_email");
+            image.Refresh();
         }
 
         internal void BackButton_OnClick(object o, EventArgs e)
