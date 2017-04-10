@@ -29,17 +29,13 @@ namespace Test
         private bool _usedCalculateMaterials;
         private bool _usedCalculateService;
         private bool _wasStarted;
-        private HorizontalLayout _hl;
 
         public override void OnLoading()
         {
-            _hl = (HorizontalLayout)GetControl("buttonPrint", true);
-            if (ShowCheckInfoScreen())
-            {
-                _hl.Visible = true;
-            }
+            base.OnLoading();
             InitClassFields();
             string totalSum;
+
             if (!_usedCalculateMaterials && !_usedCalculateService)
             {
                 totalSum = Parameters.EmptyPriceDescription;
@@ -80,18 +76,20 @@ namespace Test
             _currentEventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
             _usedCalculateService = Settings.ShowServicePrice;
             _usedCalculateMaterials = Settings.ShowMaterialPrice;
+
             GetSums();
 
             _fieldsAreInitialized = true;
 
             _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);
-
+            _isReadOnly = (bool)Variables[Parameters.IdIsReadonly];
             return 0;
         }
 
         public override void OnShow()
         {
-            _isReadOnly = (bool) Variables[Parameters.IdIsReadonly];
+            base.OnShow();
+            Utils.TraceMessage($"_isReadOnly {_isReadOnly}");
         }
 
         internal bool ChechFiscal()
@@ -117,6 +115,26 @@ namespace Test
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
             _topInfoComponent.Arrow_OnClick(sender, e);
+        }
+
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back_active");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
         }
 
         internal void AddService_OnClick(object sender, EventArgs e)
@@ -163,6 +181,28 @@ namespace Test
                 });
             else
                 AddMaterialArgument();
+        }
+
+        internal void AddButton_OnPressDown(object sender, EventArgs e)
+        {
+            HorizontalLayout parentLayout = (HorizontalLayout)((VerticalLayout)sender).GetControl(0);
+            Image plusImage = (Image)parentLayout.GetControl(0);
+
+            parentLayout.CssClass = "AddButtonPressed";
+            plusImage.Source = GetResourceImage("cocscreen_plus_active");
+
+            parentLayout.Refresh();
+        }
+
+        internal void AddButton_OnPressUp(object sender, EventArgs e)
+        {
+            HorizontalLayout parentLayout = (HorizontalLayout)((VerticalLayout)sender).GetControl(0);
+            Image plusImage = (Image)parentLayout.GetControl(0);
+
+            parentLayout.CssClass = "AddButton";
+            plusImage.Source = GetResourceImage("cocscreen_plus");
+
+            parentLayout.Refresh();
         }
 
         private void AddMaterialArgument()
@@ -256,37 +296,39 @@ namespace Test
         {
             if (_isReadOnly) return;
 
-            var vl = (HorizontalLayout) sender;
-            var deleted = CheckAndMaybeDelete(vl.Id);
+            var deleteButton = (Button) sender;
+            var itemId = deleteButton.Id;
+            var deleted = CheckAndMaybeDelete(itemId);
             if (deleted)
             {
-                var shl = (SwipeHorizontalLayout) vl.Parent;
+                var shl = (SwipeHorizontalLayout) deleteButton.Parent;
                 var outerVl = (VerticalLayout) shl.Parent;
-                outerVl.CssClass = "NoHeight";
-                outerVl.Refresh();
+                shl.CssClass = "NoHeight";
+                shl.Refresh();
+
+                /*костыль, чтобы TV "Просмотр чека" остался по центру*/
+                TextView btv = (TextView)this.GetControl("BottomTVId", true);
+                if (btv != null)
+                {
+                    btv.CssClass = "TextAlignLeft";
+                    btv.Refresh();
+                    btv.CssClass = "BottomTV";
+                    btv.Refresh();
+                }
             }
             else
             {
-                var shl = (SwipeHorizontalLayout) vl.Parent;
+                var shl = (SwipeHorizontalLayout) deleteButton.Parent;
                 var hl = (HorizontalLayout) shl.GetControl(0);
                 var priceContainer = (VerticalLayout) hl.GetControl(1);
                 var priceTv = (TextView) priceContainer.GetControl(1);
-                var sm = (Event_ServicesMaterials) DBHelper.LoadEntity(vl.Id);
+                var sm = (Event_ServicesMaterials) DBHelper.LoadEntity(itemId);
                 var sku = (RIM) sm.SKU.GetObject();
                 priceTv.Text =
                     $"{sm.AmountFact} x {sm.Price} {Translator.Translate("currency")} {(string.IsNullOrEmpty(sku.Unit) ? "" : $"/ {sku.Unit}")}";
                 shl.Index = 0;
             }
-            if (ShowCheckInfoScreen())
-            {
-                _hl.Visible = true;
-                _hl.Refresh();
-            }
-            else
-            {
-                _hl.Visible = false;
-                _hl.Refresh();
-            }
+
             var sums = GetSums();
             _totalSumForServices.Text = GetFormatStringForServiceSums();
             _totalSumForMaterials.Text = GetFormatStringForMaterialSums();
@@ -392,6 +434,13 @@ namespace Test
             _wasStarted = (bool)Variables[Parameters.IdWasEventStarted];
             var CountRim = DBHelper.GetCocCountRimByEventId(_currentEventId, !_wasStarted);
             return DBHelper.CheckFtprAcsess() && ((int)CountRim["Sum"] != 0);
+        }
+
+        internal bool IsNotReadOnly()
+        {
+            Utils.TraceMessage($"ReadOnly {!_isReadOnly && ChechFiscal() && _wasStarted}{Environment.NewLine}" +
+                               $"_isReadOnly {_isReadOnly} CheckFiscal {ChechFiscal()}");
+            return !_isReadOnly && ChechFiscal() && _wasStarted;
         }
     }
 }
