@@ -22,11 +22,11 @@
           <c:TextView Text="#phone#" CssClass="ContactTitleTextView" />
         </c:VerticalLayout>
 
-        <c:VerticalLayout CssClass="ImageActionButton" OnClick="SendMessageButton_OnClick">
+        <c:VerticalLayout CssClass="ImageActionButton" OnPressDown="SendMessageButton_OnPressDown" OnPressUp="SendMessageButton_OnPressUp" OnClick="SendMessageButton_OnClick">
           <c:Image Id="CallImage" CssClass="CallImageImg" Source="$GetResourceImage(contactscreen_sms)" />
         </c:VerticalLayout>
 
-        <c:VerticalLayout CssClass="ImageActionButton" OnClick="CallButton_OnClick">
+        <c:VerticalLayout CssClass="ImageActionButton" OnPressDown="CallButton_OnPressDown" OnPressUp="CallButton_OnPressUp" OnClick="CallButton_OnClick">
           <c:Image Id="CallImage" CssClass="CallImageImg" Source="$GetResourceImage(contactscreen_phone)" />
         </c:VerticalLayout>
       </c:HorizontalLayout>
@@ -42,7 +42,7 @@
           <c:TextView Text="#email#" CssClass="ContactTitleTextView" />
         </c:VerticalLayout>
 
-        <c:VerticalLayout CssClass="ImageActionButton" OnClick="WriteEMailButton_OnClick">
+        <c:VerticalLayout CssClass="ImageActionButton" OnPressDown="WriteEMailButton_OnPressDown" OnPressUp="WriteEMailButton_OnPressUp" OnClick="WriteEMailButton_OnClick">
           <c:Image Id="CallImage" CssClass="CallImageImg" Source="$GetResourceImage(contactscreen_email)" />
         </c:VerticalLayout>
       </c:HorizontalLayout>
@@ -50,22 +50,22 @@
 
     <c:VerticalLayout CssClass="EmptySpace5sp" />
     <s:If Test="$IsNotEmptyString($contact.Tel)">
-      <c:HorizontalLayout CssClass="ActionButtonHL" OnClick="CallButton_OnClick">
-        <c:TextView CssClass="ActionTextTV" Text="#call#" />
-      </c:HorizontalLayout>
+        <c:HorizontalLayout CssClass="ActionButtonHL" OnClick="CallButton_OnClick">
+          <c:TextView CssClass="ActionTextTV" Text="#call#" />
+        </c:HorizontalLayout>
       <c:HorizontalLine />
 
-      <c:HorizontalLayout CssClass="ActionButtonHL" OnClick="SendMessageButton_OnClick">
-        <c:TextView CssClass="ActionTextTV" Text="#send_sms#" />
-      </c:HorizontalLayout>
+        <c:HorizontalLayout CssClass="ActionButtonHL" OnClick="SendMessageButton_OnClick">
+          <c:TextView CssClass="ActionTextTV" Text="#send_sms#" />
+        </c:HorizontalLayout>
     </s:If>
     <s:If Test="$IsNotEmptyString($contact.Tel) AND $IsNotEmptyString($contact.EMail)">
       <c:HorizontalLine />
     </s:If>
     <s:If Test="$IsNotEmptyString($contact.EMail)">
-      <c:HorizontalLayout CssClass="ActionButtonHL" OnClick="WriteEMailButton_OnClick">
-        <c:TextView CssClass="ActionTextTV" Text="#send_email#" />
-      </c:HorizontalLayout>
+        <c:HorizontalLayout CssClass="ActionButtonHL" OnClick="WriteEMailButton_OnClick">
+          <c:TextView CssClass="ActionTextTV" Text="#send_email#" />
+        </c:HorizontalLayout>
     </s:If>
   </c:VerticalLayout>
 </c:Screen>
