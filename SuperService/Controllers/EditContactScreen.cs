@@ -159,9 +159,21 @@ namespace Test
             _topInfoComponent.Refresh();
         }
 
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((VerticalLayout)((TextView)_topInfoComponent.LeftButtonControl).Parent).CssClass = "TopInfoButtonLeft";
+            _topInfoComponent.Refresh();
+        }
+
         internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
         {
             ((VerticalLayout)((TextView)_topInfoComponent.RightButtonControl).Parent).CssClass = "TopInfoButtonRightActive";
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((VerticalLayout)((TextView)_topInfoComponent.RightButtonControl).Parent).CssClass = "TopInfoButtonRight";
             _topInfoComponent.Refresh();
         }
 
