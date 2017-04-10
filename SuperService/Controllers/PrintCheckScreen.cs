@@ -31,10 +31,11 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("registration_check"),
-                LeftButtonControl = new Image { Source = ResourceManager.GetImage("topheading_back") },
+                LeftButtonControl = new Image {Source = ResourceManager.GetImage("topheading_back")},
                 ArrowVisible = false
             };
 
@@ -47,14 +48,14 @@ namespace Test
         {
             _choosedPaymentType = 0;
 
-            _paymentTypeTextView = (TextView)GetControl("7c46a01e25b34835b7ff98f6debfeac0", true);
-            _rootDockLayout = (DockLayout)GetControl("07ec0239c319491eb406a40e1183d9b5", true);
-            _changeHorizontalLayout = (HorizontalLayout)GetControl("c129ed940d97427fa7cd303171370fde", true);
-            _enteredSumEditText = (EditText)GetControl("778f105408c745b48d4eab7bff782e72", true);
-            _cashNotEnoughTextView = (TextView)GetControl("fde6ae3fe5e946b88a13eb305372e38d", true);
-            _punchButtonLayout = (VerticalLayout)GetControl("2551f8ad1b2749d3847581fd124c841b", true);
-            _printImage = (Image)GetControl("ecd5c17d8f904d368bb5ef92bae35447", true);
-            _changeTextView = (TextView)GetControl("fa4aad30428344f7ac60ca62f721f67a", true);
+            _paymentTypeTextView = (TextView) GetControl("7c46a01e25b34835b7ff98f6debfeac0", true);
+            _rootDockLayout = (DockLayout) GetControl("07ec0239c319491eb406a40e1183d9b5", true);
+            _changeHorizontalLayout = (HorizontalLayout) GetControl("c129ed940d97427fa7cd303171370fde", true);
+            _enteredSumEditText = (EditText) GetControl("778f105408c745b48d4eab7bff782e72", true);
+            _cashNotEnoughTextView = (TextView) GetControl("fde6ae3fe5e946b88a13eb305372e38d", true);
+            _punchButtonLayout = (VerticalLayout) GetControl("2551f8ad1b2749d3847581fd124c841b", true);
+            _printImage = (Image) GetControl("ecd5c17d8f904d368bb5ef92bae35447", true);
+            _changeTextView = (TextView) GetControl("fa4aad30428344f7ac60ca62f721f67a", true);
             _paymentTypes = new Dictionary<object, string>
             {
                 {"0", "НАЛИЧНЫЕ"},
@@ -64,16 +65,17 @@ namespace Test
             };
 
             _fptr = FptrInstance.Instance;
-            _eventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+            _eventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
 
-            _readonly = (bool)Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
-            _wasStarted = (bool)Variables.GetValueOrDefault(Parameters.IdWasEventStarted, true);
+            _readonly = (bool) Variables.GetValueOrDefault(Parameters.IdIsReadonly, false);
+            _wasStarted = (bool) Variables.GetValueOrDefault(Parameters.IdWasEventStarted, true);
             _enteredSumEditText.Mask = @"^(\+|\-)?\d+([\.\,]\d{0,2})*$";
             _enteredSumEditText.Required = true;
         }
 
         public override void OnShow()
         {
+            base.OnShow();
             try
             {
                 _enteredSumEditText.Text = $"{_totalSum}";
@@ -103,9 +105,17 @@ namespace Test
         {
         }
 
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+        }
+
         internal string GetFormatTotalSum()
         {
-            _eventId = (string)Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
+            _eventId = (string) Variables.GetValueOrDefault(Parameters.IdCurrentEventId, string.Empty);
 
             var totalSum = DBHelper.GetCheckSKUSum(_eventId);
             _totalSum = Converter.ToDecimal(totalSum);
@@ -113,6 +123,11 @@ namespace Test
             Utils.TraceMessage($"{nameof(_totalSum)}: {_totalSum:N} -> {_totalSum}");
 
             return $"{_totalSum:N}";
+        }
+
+        internal void FocusEdit_OnClick(object sender, EventArgs e)
+        {
+            _enteredSumEditText.SetFocus();
         }
 
         internal void ChoosePaymentType_OnClick(object sender, EventArgs e)
@@ -144,9 +159,9 @@ namespace Test
         private void ChangeViewState(bool isVisible)
         {
             _changeHorizontalLayout.Visible = isVisible;
-            ((HorizontalLine)GetControl("b6be07680f594b6bbbc8ae137376ddce", true)).Visible = isVisible;
-            ((HorizontalLine)GetControl("6f931069b5624ed19fc1e705cc0a71b9", true)).Visible = isVisible;
-            ((HorizontalLayout)GetControl("0f36a14440114070a5dd337601396244", true)).Visible = isVisible;
+            ((HorizontalLine) GetControl("b6be07680f594b6bbbc8ae137376ddce", true)).Visible = isVisible;
+            ((HorizontalLine) GetControl("6f931069b5624ed19fc1e705cc0a71b9", true)).Visible = isVisible;
+            ((HorizontalLayout) GetControl("0f36a14440114070a5dd337601396244", true)).Visible = isVisible;
         }
 
         internal void CheckEnteredSumm_OnChange(object sender, EventArgs e)
@@ -248,14 +263,14 @@ namespace Test
         {
             if (isVisible)
             {
-                ((HorizontalLine)GetControl("6f931069b5624ed19fc1e705cc0a71b9", true)).Visible = false;
-                ((HorizontalLayout)GetControl("0f36a14440114070a5dd337601396244", true)).Visible = false;
+                ((HorizontalLine) GetControl("6f931069b5624ed19fc1e705cc0a71b9", true)).Visible = false;
+                ((HorizontalLayout) GetControl("0f36a14440114070a5dd337601396244", true)).Visible = false;
                 EnableButton();
             }
             else
             {
-                ((HorizontalLine)GetControl("6f931069b5624ed19fc1e705cc0a71b9", true)).Visible = true;
-                ((HorizontalLayout)GetControl("0f36a14440114070a5dd337601396244", true)).Visible = true;
+                ((HorizontalLine) GetControl("6f931069b5624ed19fc1e705cc0a71b9", true)).Visible = true;
+                ((HorizontalLayout) GetControl("0f36a14440114070a5dd337601396244", true)).Visible = true;
                 DisableButton();
             }
         }
@@ -264,7 +279,7 @@ namespace Test
         {
             _printImage.Source = ResourceManager.GetImage("printcheckscreen_white_printer");
             _punchButtonLayout.CssClass = "PrintCheckContainerActivate";
-            ((TextView)GetControl("c5e071d3b31b4133917ecfa793ef9614", true)).CssClass = "PunchActive";
+            ((TextView) GetControl("c5e071d3b31b4133917ecfa793ef9614", true)).CssClass = "PunchActive";
             _rootDockLayout.Refresh();
             _punchButtonLayout.OnClick += Print_OnClick;
         }
@@ -273,7 +288,7 @@ namespace Test
         {
             _printImage.Source = ResourceManager.GetImage("printcheckscreen_white_printer_diactivated");
             _punchButtonLayout.CssClass = "PrintCheckContainerDiactivate";
-            ((TextView)GetControl("c5e071d3b31b4133917ecfa793ef9614", true)).CssClass = "PunchDiactive";
+            ((TextView) GetControl("c5e071d3b31b4133917ecfa793ef9614", true)).CssClass = "PunchDiactive";
             _rootDockLayout.Refresh();
             _punchButtonLayout.OnClick -= Print_OnClick;
         }
@@ -289,60 +304,82 @@ namespace Test
                 Ref = DbRef.FromString(_eventId),
                 User = Settings.UserDetailedInfo.Id
             };
+            Dialog.ShowProgressDialog(Translator.Translate("please_wait"), true);
 
-            var checkError = false;
-
-            try
+            TaskFactory.RunTaskWithTimeout(() =>
             {
-                PrintCheck();
+                var checkError = false;
 
-                if (_fptr.CloseCheck() < 0)
-                    _fptr.CheckError();
-
-                checkParameters.Date = DateTime.Now;
-
-                DBHelper.SaveEntity(checkParameters, false);
-            }
-            catch (FPTRException exception)
-            {
-                Utils.TraceMessage($"Error code {exception.Result} {exception.Message}");
-                checkError = true;
-                Toast.MakeToast(exception.Message);
-            }
-            catch (Exception exception)
-            {
-                Utils.TraceMessage($"{exception.Message}{Environment.NewLine}" +
-                                   $"Type {exception.GetType()}");
-            }
-
-            if (!checkError)
-            {
-                SaveFptrParameters(checkParameters);
-                BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId] = _eventId;
-                Navigation.ModalMove(nameof(COCScreen), new Dictionary<string, object>
-                {
-                    {Parameters.IdCurrentEventId, _eventId},
-                    {Parameters.IdIsReadonly, _readonly},
-                    {Parameters.IdWasEventStarted, _wasStarted}
-                });
-            }
-            else
-            {
                 try
                 {
-                    DBHelper.DeleteByRef(checkParameters.Id, false);
-                    _fptr.CancelCheck();
+                    PrintCheck();
+
+                    if (_fptr.CloseCheck() < 0)
+                        _fptr.CheckError();
+
+                    checkParameters.Date = DateTime.Now;
+
+                    DBHelper.SaveEntity(checkParameters, false);
                 }
                 catch (FPTRException exception)
                 {
+                    Utils.TraceMessage($"Error code {exception.Result} {exception.Message}");
+                    checkError = true;
                     Toast.MakeToast(exception.Message);
                 }
-                finally
+                catch (Exception exception)
                 {
-                    if (_choosedPaymentType == 0)
-                        _enteredSumEditText.Enabled = true;
+                    Utils.TraceMessage($"{exception.Message}{Environment.NewLine}" +
+                                       $"Type {exception.GetType()}");
                 }
-            }
+
+                Utils.TraceMessage($"Check Error: {checkError}");
+
+                if (!checkError)
+                {
+                    SaveFptrParameters(checkParameters);
+                    BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId] = _eventId;
+
+                    Utils.TraceMessage($"GoTo {nameof(COCScreen)}");
+                    Application.InvokeOnMainThread(() =>
+                    {
+                        Navigation.ModalMove(nameof(COCScreen), new Dictionary<string, object>
+                        {
+                            {Parameters.IdCurrentEventId, _eventId},
+                            {Parameters.IdIsReadonly, _readonly},
+                            {Parameters.IdWasEventStarted, _wasStarted}
+                        });
+                    });
+                }
+                else
+                {
+                    try
+                    {
+                        DBHelper.DeleteByRef(checkParameters.Id, false);
+                        _fptr.CancelCheck();
+                    }
+                    catch (FPTRException exception)
+                    {
+                        Toast.MakeToast(exception.Message);
+                    }
+                    finally
+                    {
+                        if (_choosedPaymentType == 0)
+                            Application.InvokeOnMainThread(()
+                                => _enteredSumEditText.Enabled = true);
+                    }
+                }
+            }, FptrAction.PrintingTimeOut, result =>
+            {
+                if (result.Finished)
+                {
+                    Dialog.HideProgressDialog();
+                    return;
+                }
+
+                Dialog.HideProgressDialog();
+                Toast.MakeToast(Translator.Translate("сonnection_error"));
+            });
         }
 
         private void PrintCheck()
@@ -356,12 +393,13 @@ namespace Test
             while (query.Next())
             {
                 var name = $"{query["Description"]}";
-                var price = decimal.ToDouble((decimal)query["Price"]);
-                var quantity = decimal.ToDouble((decimal)query["AmountFact"]);
+                var price = decimal.ToDouble((decimal) query["Price"]);
+                var quantity = decimal.ToDouble((decimal) query["AmountFact"]);
                 var vat = int.Parse($"{query["VAT_Number"]}");
 
-                _fptr.RegistrationFz54(name, price, quantity,
-                    FiscalRegistratorConsts.DiscountSumm, 0, vat);
+
+                if (price * quantity >0)
+                    _fptr.RegistrationFz54(name, price, quantity, price * quantity, vat);
             }
 
             _fptr.Payment(decimal.ToDouble(enteredSum), _choosedPaymentType);

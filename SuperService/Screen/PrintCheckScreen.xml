@@ -41,7 +41,7 @@
       <c:VerticalLayout Id="598cba714b2c4094bf2c0fc644a9b2d9"
                         CssClass="SummAndChangeContainer">
         <c:HorizontalLayout Id="55a5f74af9c84d64b1ec52c29212e997"
-                            CssClass="LineContainer">
+                            CssClass="LineContainer" OnClick="FocusEdit_OnClick">
           <c:TextView Id="a6aa0b97309548c09caad2ff7f30436a"
                       CssClass="ContribCaption" Text="#contribution_sum#" />
           <c:EditText Id="778f105408c745b48d4eab7bff782e72"
