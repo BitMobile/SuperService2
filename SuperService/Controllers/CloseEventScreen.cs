@@ -122,6 +122,20 @@ namespace Test
             Navigation.ModalMove("EventListScreen");
         }
 
+        internal void FinishButton_OnPressDown(object sender, EventArgs eventArgs)
+        {
+            Button button = (Button)sender;
+            button.CssClass = "TopButtonPressed";
+            button.Refresh();
+        }
+
+        internal void FinishButton_OnPressUp(object sender, EventArgs eventArgs)
+        {
+            Button button = (Button)sender;
+            button.CssClass = "TopButton";
+            button.Refresh();
+        }
+
         private Reminder CreateReminder(DbRef eventRef, string text)
         {
             return new Reminder

@@ -5,7 +5,9 @@
     <c:HorizontalLayout CssClass="TopLayout">
       <c:Button CssClass="TopButton" Visible="False" />
       <c:TextView Text="#finishing#" Id="HeadingTextView" CssClass="TopHeading" />
-      <c:Button Text="#send#" Id="FinishButton" OnClick="FinishButton_OnClick" CssClass="TopButton" />
+      <c:Button Text="#send#" Id="FinishButton"
+                OnPressDown="FinishButton_OnPressDown" OnPressUp="FinishButton_OnPressUp"
+                OnClick="FinishButton_OnClick" CssClass="TopButton" />
     </c:HorizontalLayout>
     <c:HorizontalLayout CssClass="EmptySpace4sp" />
     <c:VerticalLayout CssClass="CommentLayout">

@@ -317,6 +317,14 @@ HorizontalLine {
   vertical-align: center;
   width: 33%;
 }
+.TopButtonPressed {
+  color: #b26055;
+  font: 3sp arial;
+  height: 0% auto;
+  text-align: center;
+  vertical-align: center;
+  width: 33%;
+}
 .TopHeading {
   color: #ffffff;
   font: 3sp arial;
