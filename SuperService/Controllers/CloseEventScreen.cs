@@ -25,6 +25,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             _wantToBuyButton = (HorizontalLayout)GetControl("WantToBuyButton", true);
             _wantToBuyCommentLayout = (VerticalLayout)GetControl("WantToBuyCommentLayout", true);
             _wantToBuyImage = (Image)GetControl("WantToBuyImage", true);
