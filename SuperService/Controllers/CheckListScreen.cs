@@ -39,6 +39,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             DConsole.WriteLine("CheckListScreen init");
             _topInfoComponent = new TopInfoComponent(this)
             {
@@ -83,6 +84,28 @@ namespace Test
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
             _topInfoComponent.Arrow_OnClick(sender, e);
+        }
+
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+            Image image = (Image)_topInfoComponent.LeftButtonControl;
+            image.Source = ResourceManager.GetImage("topheading_back_active");
+            image.Refresh();
+        }
+
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)_topInfoComponent.LeftButtonControl;
+            image.Source = ResourceManager.GetImage("topheading_back");
+            image.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
         }
 
         internal string GenerateRequiredIndicatorId(DbRef id)
