@@ -16,6 +16,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             _isEnable = true;
             DConsole.WriteLine("AuthScreen init");
 
@@ -27,8 +28,15 @@ namespace Test
 
         public override void OnShow()
         {
-            _loginEditText.Text = Settings.User;
-            _passwordEditText.Text = Settings.Password;
+            base.OnShow();
+            _loginEditText.Text =  Settings.User;
+            _passwordEditText.Text =  Settings.Password;
+        }
+
+        public override void OnDraw()
+        {
+            base.OnDraw();
+            Dialog.HideProgressDialog();
         }
 
         //TODO: Кнопка временно отключена, так как пока невозможно реализовать её функционал.
@@ -51,7 +59,6 @@ namespace Test
                 Toast.MakeToast(Translator.Translate("password_empty"));
             else
                 Authorization.StartAuthorization(_loginEditText.Text, _passwordEditText.Text);
-            
         }
 
         internal string GetResourceImage(string tag)
