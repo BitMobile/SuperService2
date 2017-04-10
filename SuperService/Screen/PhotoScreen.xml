@@ -4,29 +4,29 @@
   <c:VerticalLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
     <c:ScrollView CssClass="RootLayout">
-      <c:VerticalLayout>
-        <c:VerticalLayout CssClass="EmptySpace4sp" />
-        <c:Image
-          Id="Photo"
-          CssClass="BigPhoto" Source="$image" />
-        <c:HorizontalLayout CssClass="ButtonsHolder">
-          <c:VerticalLayout CssClass="OuterButtonLayout">
-            <c:HorizontalLayout CssClass="ButtonLayout"
-                                OnClick="DeleteButton_OnClick">
-              <c:Image Source="$GetResourceImage(photoscreen_delete)" />
-              <c:TextView Text="#delete#" />
-            </c:HorizontalLayout>
-          </c:VerticalLayout>
-          <c:VerticalLayout CssClass="OuterButtonLayout">
-            <c:HorizontalLayout CssClass="ButtonLayout"
-                                OnClick="RetakeButton_OnClick">
-              <c:Image Source="$GetResourceImage(photoscreen_retake)" />
-              <c:TextView Text="#retake_photo#" />
-            </c:HorizontalLayout>
-          </c:VerticalLayout>
-        </c:HorizontalLayout>
-        <c:VerticalLayout CssClass="EmptySpace6sp" />
-      </c:VerticalLayout>
+        <c:VerticalLayout>
+          <c:VerticalLayout CssClass="EmptySpace4sp" />
+            <c:Image
+              Id="Photo"
+              CssClass="BigPhoto" Source="$image" />
+          <c:HorizontalLayout CssClass="ButtonsHolder">
+            <c:VerticalLayout CssClass="OuterButtonLayout">
+              <c:HorizontalLayout CssClass="ButtonLayout"
+                                  OnClick="DeleteButton_OnClick">
+                <c:Image Source="$GetResourceImage(photoscreen_delete)" />
+                <c:TextView Text="#delete#" />
+              </c:HorizontalLayout>
+            </c:VerticalLayout>
+            <c:VerticalLayout CssClass="OuterButtonLayout">
+              <c:HorizontalLayout CssClass="ButtonLayout"
+                                  OnClick="RetakeButton_OnClick">
+                <c:Image Source="$GetResourceImage(photoscreen_retake)" />
+                <c:TextView Text="#retake_photo#" />
+              </c:HorizontalLayout>
+            </c:VerticalLayout>
+          </c:HorizontalLayout>
+          <c:VerticalLayout CssClass="EmptySpace6sp" />
+        </c:VerticalLayout>
     </c:ScrollView>
   </c:VerticalLayout>
 </c:Screen>
