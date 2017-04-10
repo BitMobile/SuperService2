@@ -39,6 +39,12 @@ HorizontalLine {
 .NoHeight {
   height: 0%;
 }
+.TextAlignLeft {
+  text-align: left;
+}
+.TextAlignCenter {
+  text-align: center;
+}
 .RootLayout {
   background-color: #ffffff;
   height: 100%;
@@ -141,6 +147,44 @@ HorizontalLine {
   horizontal-align: center;
 }
 .TopInfoButtonRight Image {
+  horizontal-align: right;
+  margin-right: 5sp;
+}
+.TopInfoButtonLeftActive {
+  width: 27.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+.TopInfoButtonLeftActive Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonLeftActive TextView {
+  color: #b26055;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonLeftActive Image {
+  horizontal-align: left;
+  margin-left: 5sp;
+}
+.TopInfoButtonRightActive {
+  width: 27.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+.TopInfoButtonRightActive Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonRightActive TextView {
+  color: #b26055;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonRightActive Image {
   horizontal-align: right;
   margin-right: 5sp;
 }
@@ -386,7 +430,7 @@ HorizontalLine {
   width: 100%;
   color: #8587b1;
   font: 2.8sp arial;
-  height: 3sp;
+  height: 3sp auto;
   margin-top: 2.8sp;
   width: 90%;
 }

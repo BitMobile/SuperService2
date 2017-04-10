@@ -6,16 +6,17 @@
     <s:Push Id="void" Value="$InitClassFields()" />
     <s:Push Id="emptyParameters" Value="true" />
     <c:ScrollView CssClass="CheckListMainSVL">
-      <c:VerticalLayout>
 
-        <c:TextView Text="$GetEquipmentDescription()" CssClass="HeadingTextView" />
-        <c:HorizontalLine CssClass="HeadingBreaker" />
+        <c:VerticalLayout>
+          <c:TextView Text="$GetEquipmentDescription()" CssClass="HeadingTextView" />
+          <c:HorizontalLine CssClass="HeadingBreaker" />
+        </c:VerticalLayout>
         <c:HorizontalLayout CssClass="EmptySpace2sp" />
         <c:TextView Text="#PARAMETERS#" CssClass="SubHeading" />
         <c:HorizontalLayout CssClass="EmptySpace2sp" />
-        <c:HorizontalLine CssClass="EndLine" />
+          <c:HorizontalLine CssClass="EndLine" />
 
-        <s:Iterator Id="Parameter" Value="$GetParameters()">
+          <s:Iterator Id="Parameter" Value="$GetParameters()">
           <s:Push Id="emptyParameters" Value="false" />
           <c:HorizontalLayout Id="$Parameter.Id" CssClass="CheckListItemHL"
                               OnClick="CheckListElementLayout_OnClick">
@@ -112,6 +113,7 @@
 
               <c:VerticalLayout CssClass="CheckListAnswerVL" Id="$Parameter.Id">
                 <c:EditText Enabled="$IsNotReadonly()" Text="$Parameter.Result" Keyboard="numeric"
+                            OnLostFocus="CheckListDecimal_OnLostFocus" Id="$Parameter.Id"
                             Placeholder="#not_specified#" CssClass="CheckListAnswerElementTV"
                             OnGetFocus="CheckListDecimal_OnGetFocus" />
               </c:VerticalLayout>
@@ -142,7 +144,9 @@
               </c:VerticalLayout>
             </s:If>
           </c:HorizontalLayout>
-          <c:HorizontalLine CssClass="CheckListBreaker" />
+          <c:VerticalLayout>
+            <c:HorizontalLine CssClass="CheckListBreaker" />
+          </c:VerticalLayout>
         </s:Iterator>
 
         <c:HorizontalLayout CssClass="EmptySpace2sp" />
@@ -172,7 +176,6 @@
           <c:HorizontalLine />
         </s:Iterator>
 
-      </c:VerticalLayout>
     </c:ScrollView>
   </c:VerticalLayout>
 </c:Screen>

@@ -37,6 +37,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             InitClassFields();
 
             _topInfoComponent = new TopInfoComponent(this)
@@ -78,6 +79,26 @@ namespace Test
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs eventArgs)
         {
             _topInfoComponent.Arrow_OnClick(sender, eventArgs);
+        }
+
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back_active");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
         }
 
         internal void BackButton_OnClick(object sender, EventArgs eventArgs)
