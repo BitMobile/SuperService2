@@ -385,6 +385,20 @@ HorizontalLine {
   color: #fd724c;
   width: 10% auto;
 }
+.AddButtonPressed {
+  height: 10sp;
+  horizontal-align: center;
+  width: 10sp auto;
+}
+.AddButtonPressed Image {
+  width: 4sp;
+  vertical-align: center;
+  margin-right: 3sp;
+}
+.AddButtonPressed TextView {
+  color: #fec0b4;
+  width: 10% auto;
+}
 .AddTV {
   color: #fd724c;
   font: 3.06186218sp arial;

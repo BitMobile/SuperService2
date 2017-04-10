@@ -48,7 +48,9 @@
 
         <!-- Заканчивается здесь-->
         <s:If Test="$IsNotReadOnly()">
-          <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddService_OnClick">
+          <c:VerticalLayout CssClass="AddButtonVl"
+                            OnPressDown="AddButton_OnPressDown" OnPressUp="AddButton_OnPressUp"
+                            OnClick="AddService_OnClick">
             <c:HorizontalLayout CssClass="AddButton">
               <c:Image Source="$GetResourceImage(cocscreen_plus)" />
               <c:TextView Text="#add_service#" />
@@ -95,7 +97,9 @@
         </s:Iterator>
 
         <s:If Test="$IsNotReadOnly()">
-          <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddMaterial_OnClick">
+          <c:VerticalLayout CssClass="AddButtonVl"
+                            OnPressDown="AddButton_OnPressDown" OnPressUp="AddButton_OnPressUp"
+                            OnClick="AddMaterial_OnClick">
             <c:HorizontalLayout CssClass="AddButton">
               <c:Image Source="$GetResourceImage(cocscreen_plus)" />
               <c:TextView Text="#add_materials#" />

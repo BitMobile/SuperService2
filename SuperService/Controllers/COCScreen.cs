@@ -183,6 +183,28 @@ namespace Test
                 AddMaterialArgument();
         }
 
+        internal void AddButton_OnPressDown(object sender, EventArgs e)
+        {
+            HorizontalLayout parentLayout = (HorizontalLayout)((VerticalLayout)sender).GetControl(0);
+            Image plusImage = (Image)parentLayout.GetControl(0);
+
+            parentLayout.CssClass = "AddButtonPressed";
+            plusImage.Source = GetResourceImage("cocscreen_plus_active");
+
+            parentLayout.Refresh();
+        }
+
+        internal void AddButton_OnPressUp(object sender, EventArgs e)
+        {
+            HorizontalLayout parentLayout = (HorizontalLayout)((VerticalLayout)sender).GetControl(0);
+            Image plusImage = (Image)parentLayout.GetControl(0);
+
+            parentLayout.CssClass = "AddButton";
+            plusImage.Source = GetResourceImage("cocscreen_plus");
+
+            parentLayout.Refresh();
+        }
+
         private void AddMaterialArgument()
         {
             var dictionary = new Dictionary<string, object>
@@ -286,10 +308,13 @@ namespace Test
 
                 /*костыль, чтобы TV "Просмотр чека" остался по центру*/
                 TextView btv = (TextView)this.GetControl("BottomTVId", true);
-                btv.CssClass = "TextAlignLeft";
-                btv.Refresh();
-                btv.CssClass = "BottomTV";
-                btv.Refresh();
+                if (btv != null)
+                {
+                    btv.CssClass = "TextAlignLeft";
+                    btv.Refresh();
+                    btv.CssClass = "BottomTV";
+                    btv.Refresh();
+                }
             }
             else
             {
