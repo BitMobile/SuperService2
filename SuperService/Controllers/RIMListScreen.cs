@@ -23,6 +23,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             InitClassFields();
 
             _topInfoComponent = new TopInfoComponent(this)
@@ -68,6 +69,14 @@ namespace Test
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
             _topInfoComponent.Arrow_OnClick(sender, e);
+        }
+
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
         }
 
         internal void RIMLayout_OnClick(object sender, EventArgs eventArgs)
