@@ -39,6 +39,12 @@ HorizontalLine {
 .NoHeight {
   height: 0%;
 }
+.TextAlignLeft {
+  text-align: left;
+}
+.TextAlignCenter {
+  text-align: center;
+}
 .RootLayout {
   background-color: #ffffff;
   height: 100%;
@@ -144,7 +150,7 @@ EditText {
 .ImgContainerHL {
   height: 100%;
   horizontal-align: center;
-  width: 0% auto;
+  width: 0sp auto;
 }
 .LogoImg {
   height: 8sp;
