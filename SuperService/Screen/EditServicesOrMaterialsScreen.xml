@@ -9,7 +9,9 @@
     <s:Else>
       <s:Push Id="rimDescription" Value="$GetDescriptionByRIMID($rimId)" />
     </s:Else>
-    <c:VerticalLayout OnClick="BackButton_OnClick">
+    <c:VerticalLayout OnPressDown="BackButton_OnPressDown"
+                      OnPressUp="BackButton_OnPressUp"
+                      OnClick="BackButton_OnClick">
       <c:Image CssClass="CloseButtonImage" Source="$GetResourceImage(editservicesormaterialsscreen_close)" />
     </c:VerticalLayout>
     <c:VerticalLayout CssClass="EmptySpace7sp" />
@@ -39,7 +41,9 @@
       <c:TextView CssClass="TotalPrice" Id="TotalPriceTextView" Text="$rimDescription.SumFact" />
       <c:TextView CssClass="TotalPriceCurrency" Text="#currency#" />
     </c:HorizontalLayout>
-    <c:HorizontalLayout CssClass="AddButton" OnClick="AddServiceMaterialButton_OnClick">
+    <c:HorizontalLayout CssClass="AddButton"
+                        OnPressDown="AddButton_OnPressDown" OnPressUp="AddButton_OnPressUp"
+                        OnClick="AddServiceMaterialButton_OnClick">
       <c:TextView Text="#confirm#" />
     </c:HorizontalLayout>
   </c:VerticalLayout>

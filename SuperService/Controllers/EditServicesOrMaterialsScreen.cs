@@ -87,6 +87,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             _behaviourEditServicesOrMaterialsScreen =
                 (BehaviourEditServicesOrMaterialsScreen)
                     Variables.GetValueOrDefault(Parameters.IdBehaviour, BehaviourEditServicesOrMaterialsScreen.None);
@@ -117,6 +118,7 @@ namespace Test
 
         public override void OnShow()
         {
+            base.OnShow();
             Price = Converter.ToDecimal(((DbRecordset)Variables["rimDescription"])["Price"]);
 
             if (_value > 0)
@@ -126,6 +128,20 @@ namespace Test
         internal void BackButton_OnClick(object sender, EventArgs e)
         {
             Navigation.Back();
+        }
+
+        internal void BackButton_OnPressDown(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = ResourceManager.GetImage("editservicesormaterialsscreen_close_active");
+            image.Refresh();
+        }
+
+        internal void BackButton_OnPressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = ResourceManager.GetImage("editservicesormaterialsscreen_close");
+            image.Refresh();
         }
 
         internal void AddServiceMaterialButton_OnClick(object sender, EventArgs eventArgs)
@@ -148,6 +164,20 @@ namespace Test
                     break;
             }
             Navigation.Back();
+        }
+
+        internal void AddButton_OnPressDown(object sender, EventArgs eventArgs)
+        {
+            HorizontalLayout button = (HorizontalLayout)sender;
+            button.CssClass = "AddButtonPressed";
+            button.Refresh();
+        }
+
+        internal void AddButton_OnPressUp(object sender, EventArgs eventArgs)
+        {
+            HorizontalLayout button = (HorizontalLayout)sender;
+            button.CssClass = "AddButton";
+            button.Refresh();
         }
 
         private void ReturnValue()
