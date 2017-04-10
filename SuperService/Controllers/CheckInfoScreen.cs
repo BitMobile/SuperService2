@@ -63,10 +63,36 @@ namespace Test
 
         internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
         {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back_active");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back");
+            _topInfoComponent.Refresh();
         }
 
         internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
         {
+            Image image = (Image)_topInfoComponent.RightButtonControl;
+            image.Source = _fiscalList.Count == 0
+                    ? _readonly
+                        ? ResourceManager.GetImage("print_icon_disabel")
+                        : ResourceManager.GetImage("print_icon_active")
+                    : ResourceManager.GetImage("print_icon_disabel");
+            image.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)_topInfoComponent.RightButtonControl;
+            image.Source = _fiscalList.Count == 0
+                    ? _readonly
+                        ? ResourceManager.GetImage("print_icon_disabel")
+                        : ResourceManager.GetImage("print_icon")
+                    : ResourceManager.GetImage("print_icon_disabel");
+            image.Refresh();
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
