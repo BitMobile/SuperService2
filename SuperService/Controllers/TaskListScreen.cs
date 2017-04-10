@@ -13,6 +13,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("tasks"),
@@ -24,6 +25,7 @@ namespace Test
 
         public override void OnShow()
         {
+            base.OnShow();
         }
 
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs eventArgs)
@@ -32,6 +34,16 @@ namespace Test
         }
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs eventArgs)
+        {
+        }
+
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back_active");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
         {
         }
 
