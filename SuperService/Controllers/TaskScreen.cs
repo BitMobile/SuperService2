@@ -38,6 +38,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("task"),
@@ -66,6 +67,7 @@ namespace Test
 
         public override void OnShow()
         {
+            base.OnShow();
             Utils.TraceMessage($"Task Id {Variables[Parameters.IdTaskId]}{Environment.NewLine}" +
                                $"Event Id {Variables[Parameters.IdCurrentEventId]}{Environment.NewLine}" +
                                $"Client Id {Variables[Parameters.IdClientId]}{Environment.NewLine}" +
@@ -244,6 +246,28 @@ namespace Test
             DBHelper.SaveEntity(_taskStatus, false);
 
             Navigation.Back();
+        }
+
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+            Image image = (Image)_topInfoComponent.LeftButtonControl;
+            image.Source = ResourceManager.GetImage("topheading_back_active");
+            image.Refresh();
+        }
+
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)_topInfoComponent.LeftButtonControl;
+            image.Source = ResourceManager.GetImage("topheading_back");
+            image.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
         }
 
         internal void EquipmentDescriptionLayout_OnClick(object sender, EventArgs eventArgs)
