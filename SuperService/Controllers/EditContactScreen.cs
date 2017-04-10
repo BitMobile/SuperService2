@@ -2,6 +2,7 @@
 using BitMobile.ClientModel3.UI;
 using BitMobile.DbEngine;
 using System;
+using System.Text.RegularExpressions;
 using Test.Catalog;
 using Test.Components;
 
@@ -21,6 +22,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("contact"),
@@ -116,6 +118,14 @@ namespace Test
                 return;
             }
 
+            string pattern = @"^((\d{1,3}|\+\d{1,3})[\- ]?)?(\(?\d{3,5}\)?[\- ]?)?[\d\- ]{7,10}$";
+            Regex r = new Regex(pattern, RegexOptions.None);
+            if (!r.IsMatch(phone) && !phone.Equals(""))
+            {
+                Dialog.Message(Translator.Translate("phone_mask_warn"));
+                return;
+            }
+
             Contact.Description = $"{name} {surname}";
             Contact.Position = position;
             Contact.Tel = phone;
@@ -141,6 +151,30 @@ namespace Test
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
             _topInfoComponent.Arrow_OnClick(sender, e);
+        }
+
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((VerticalLayout)((TextView)_topInfoComponent.LeftButtonControl).Parent).CssClass = "TopInfoButtonLeftActive";
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((VerticalLayout)((TextView)_topInfoComponent.LeftButtonControl).Parent).CssClass = "TopInfoButtonLeft";
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((VerticalLayout)((TextView)_topInfoComponent.RightButtonControl).Parent).CssClass = "TopInfoButtonRightActive";
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((VerticalLayout)((TextView)_topInfoComponent.RightButtonControl).Parent).CssClass = "TopInfoButtonRight";
+            _topInfoComponent.Refresh();
         }
 
         internal string GetResourceImage(string tag)
