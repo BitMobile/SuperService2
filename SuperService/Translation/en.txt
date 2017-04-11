@@ -174,3 +174,4 @@ ClientDelete		Other employee is responsible for the client now
 loading_message		Please wait.
 logout_message		Exiting the application.
 please_wait		Please wait...
+loading_from_database		Loading from database

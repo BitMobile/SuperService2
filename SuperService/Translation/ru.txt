@@ -176,3 +176,4 @@ ClientDelete		Клиент был передан другому сотрудни
 loading_message		Пожалуйста, подождите.
 logout_message		Выход из приложения.
 please_wait		Пожалуйста подождите...
+loading_from_database		Загрузка базы данных
