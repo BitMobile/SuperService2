@@ -33,6 +33,7 @@
 
                 <!--Два TextView с информацией об услугах-->
                 <c:VerticalLayout Id="$services.Id" CssClass="InfoTextContainerVL"
+                                  OnPressDown="COCItem_OnPressDown" OnPressUp="COCItem_OnPressUp"
                                   OnClick="EditServicesOrMaterials_OnClick">
                   <c:TextView CssClass="NameTV" Text="$services.Description" />
                   <c:TextView CssClass="PriceTV"
@@ -83,6 +84,7 @@
 
                 <!--Два TextView с информацией об услугах-->
                 <c:VerticalLayout Id="$materials.Id" CssClass="InfoTextContainerVL"
+                                  OnPressDown="COCItem_OnPressDown" OnPressUp="COCItem_OnPressUp"
                                   OnClick="EditServicesOrMaterials_OnClick">
                   <c:TextView CssClass="NameTV" Text="$materials.Description" />
                   <c:TextView CssClass="PriceTV"

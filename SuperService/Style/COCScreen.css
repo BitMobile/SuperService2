@@ -327,6 +327,12 @@ HorizontalLine {
   width: 100%;
 }
 .InfoNodeHL {
+  background-color: #ffffff;
+  height: 12sp;
+  width: 100%;
+}
+.InfoNodeHLPressed {
+  background-color: #ebebee;
   height: 12sp;
   width: 100%;
 }
