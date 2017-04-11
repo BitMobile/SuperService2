@@ -106,9 +106,9 @@ namespace Test
 
         internal void TopInfo_RightButton_OnClick(object sender, EventArgs e)
         {
-            var name = ((EditText)Variables["NameEditText"]).Text;
-            var surname = ((EditText)Variables["SurnameEditText"]).Text;
-            var position = ((EditText)Variables["PositionEditText"]).Text;
+            var name = ((EditText)Variables["NameEditText"]).Text.Trim();
+            var surname = ((EditText)Variables["SurnameEditText"]).Text.Trim();
+            var position = ((EditText)Variables["PositionEditText"]).Text.Trim();
             var phone = ((EditText)Variables["PhoneEditText"]).Text;
             var email = ((EditText)Variables["EMailEditText"]).Text;
             // TODO: Разбраться с Code
