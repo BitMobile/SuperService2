@@ -442,5 +442,19 @@ namespace Test
                                $"_isReadOnly {_isReadOnly} CheckFiscal {ChechFiscal()}");
             return !_isReadOnly && ChechFiscal() && _wasStarted;
         }
+
+        internal void COCItem_OnPressDown(object sender, EventArgs e)
+        {
+            HorizontalLayout parentLayout = (HorizontalLayout)((VerticalLayout)sender).Parent;
+            parentLayout.CssClass = "InfoNodeHLPressed";
+            parentLayout.Refresh();
+        }
+
+        internal void COCItem_OnPressUp(object sender, EventArgs e)
+        {
+            HorizontalLayout parentLayout = (HorizontalLayout)((VerticalLayout)sender).Parent;
+            parentLayout.CssClass = "InfoNodeHL";
+            parentLayout.Refresh();
+        }
     }
 }

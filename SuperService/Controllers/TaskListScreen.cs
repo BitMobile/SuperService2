@@ -69,6 +69,30 @@ namespace Test
             Navigation.Move("TaskScreen", dictionary);
         }
 
+        internal void TaskLayout_OnPressDown(object sender, EventArgs eventArgs)
+        {
+            Image image = (Image)((VerticalLayout)((HorizontalLayout)sender)
+                .GetControl(1)).GetControl(0);
+
+            if (image.Source == ResourceManager.GetImage("tasklist_notdone"))
+            {
+                image.Source = ResourceManager.GetImage("tasklist_notdone_active");
+                image.Refresh();
+            }
+        }
+
+        internal void TaskLayout_OnPressUp(object sender, EventArgs eventArgs)
+        {
+            Image image = (Image)((VerticalLayout)((HorizontalLayout)sender)
+                .GetControl(1)).GetControl(0);
+
+            if (image.Source == ResourceManager.GetImage("tasklist_notdone_active"))
+            {
+                image.Source = ResourceManager.GetImage("tasklist_notdone");
+                image.Refresh();
+            }
+        }
+
         internal void TopInfo_Arrow_OnClick(object sernder, EventArgs eventArgs)
         {
             _topInfoComponent.Arrow_OnClick(sernder, eventArgs);

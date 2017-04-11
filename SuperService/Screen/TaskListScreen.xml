@@ -5,7 +5,9 @@
     <s:Include File="Components\TopInfoComponent.xml" />
     <c:ScrollView CssClass="TaskListLayout">
       <s:Iterator Id="task" Value="$GetTasks()">
-        <c:HorizontalLayout Id="$task.Id" CssClass="TaskLayout" OnClick="TaskLayout_OnClick">
+        <c:HorizontalLayout Id="$task.Id" CssClass="TaskLayout"
+                            OnPressDown="TaskLayout_OnPressDown" OnPressUp="TaskLayout_OnPressUp"
+                            OnClick="TaskLayout_OnClick">
           <c:VerticalLayout CssClass="TaskInfoLayout">
             <c:TextView Text="$task.TaskType" CssClass="TaskName" />
             <c:TextView Text="$task.Description" CssClass="TaskDescription" />

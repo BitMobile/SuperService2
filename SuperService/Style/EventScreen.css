@@ -150,6 +150,44 @@ HorizontalLine {
   horizontal-align: right;
   margin-right: 5sp;
 }
+.TopInfoButtonLeftActive {
+  width: 27.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+.TopInfoButtonLeftActive Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonLeftActive TextView {
+  color: #b26055;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonLeftActive Image {
+  horizontal-align: left;
+  margin-left: 5sp;
+}
+.TopInfoButtonRightActive {
+  width: 27.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+.TopInfoButtonRightActive Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonRightActive TextView {
+  color: #b26055;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonRightActive Image {
+  horizontal-align: right;
+  margin-right: 5sp;
+}
 .TopInfoEmptySpace8sp {
   height: 8sp;
   width: 100%;
@@ -445,7 +483,7 @@ HorizontalLine {
 }
 .FinishButton TextView {
   margin-top: 1.53093109sp;
-  color: #fecbc0;
+  color: #ffffff;
   font: 3.06186218sp arial;
   height: 3.39866702sp auto;
 }
