@@ -337,14 +337,15 @@ HorizontalLine {
 .RIMItemLayout {
   height: 12sp;
   horizontal-align: center;
-  width: 95%;
+  width: 100%;
 }
 .RIMItemAlignLayout {
   height: 0sp auto;
   width: 100%;
   selected-color: #ebebee;
   vertical-align: center;
-  margin-left: 5sp;
+  padding-left: 5sp;
+  padding-right: 5sp;
 }
 .RIMItemDescription {
   color: #000000;
