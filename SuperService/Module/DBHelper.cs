@@ -160,7 +160,7 @@ namespace Test
             return DbRef.FromString(id).GetObject();
         }
 
-        public static void FullSyncAsync(ResultEventHandler<bool> resultEventHandler = null)
+        public static void FullSyncAsync(ResultEventHandler<bool> resultEventHandler = null, ResultEventHandler<Database.ProgressArgs> progressCallback = null)
         {
             if (_db.SyncIsActive)
             {
@@ -184,7 +184,7 @@ namespace Test
                 Utils.TraceMessage($"Sync(from Settings) login: {Settings.User} password: {Settings.Password}");
                 _db.PerformFullSyncAsync(Settings.Server, Settings.User, Settings.Password, Settings.DefaultSyncTimeOut,
                     SyncHandler + resultEventHandler,
-                    "Full");
+                    "Full", progressCallback);
                 if (resultEventHandler == null)
                     isPartialSyncRequired = false;
             }
