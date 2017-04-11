@@ -88,7 +88,7 @@ namespace Test
                     DConsole.WriteLine($"Запустили полную синхронизацию. From class {nameof(Authorization)}");
 #endif
                     Application.InvokeOnMainThread(() => AuthScreen.EditableVisualElements(false));
-                    DBHelper.FullSyncAsync(ResultEventHandler);
+                    DBHelper.FullSyncAsync(ResultEventHandler, AuthScreen.ProgressChangedCallback);
                 }
             }
             else
