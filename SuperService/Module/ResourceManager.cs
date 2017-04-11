@@ -51,6 +51,7 @@ namespace Test
             //
             {"tasklist_done",                @"Image\TaskList\done.png"},
             {"tasklist_notdone",             @"Image\TaskList\notDone.png"},
+            {"tasklist_notdone_active",      @"Image\TaskList\notDoneActive.png"},
             {"tasklist_specdone",            @"Image\TaskList\spec_done.png"},
             // EventListScreen
             {"eventlistscreen_blueborder",   @"Image\EventListScreen\blue_border.png"},
