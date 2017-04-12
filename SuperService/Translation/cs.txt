@@ -116,7 +116,7 @@ equoment_history_done		Vyřízená
 equoment_history_rejected		Odmítnutá
 test		TO JE TEST
 text		Text..
-thereisaproblem		Problém
+thereisaproblem		Nahlásit problém
 time		Čas
 today		dnes
 todayUpper		DNES
@@ -133,7 +133,7 @@ upload_finished		Odeslání proběhlo
 upload_pictures		Odeslat snímky
 user_empty		Pole Login nemůže být prázdné.
 user_pass_empty		Pole Login a Heslo nemůžou být prázdná.
-wanttobuy		Uvědomit o zájmu
+wanttobuy		Nahlásit zájem
 workType		Typ práce
 write_letter		Odeslat zprávu
 yes		Ano
