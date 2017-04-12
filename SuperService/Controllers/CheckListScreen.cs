@@ -237,7 +237,7 @@ namespace Test
                 {"not_choosed", Translator.Translate("not_choosed")}
             };
             var startKey = _textView.Text == Translator.Translate("not_choosed")
-                ? ""
+                ? "not_choosed"
                 : _textView.Text == Translator.Translate("yes") ? "true" : "false";
             Dialog.Choose(tv.Text, items, startKey, BooleanCallback);
         }
