@@ -122,6 +122,11 @@ namespace Test
             return res;
         }
 
+        internal string GetDescription(string tag)
+        {
+            return Translator.Translate("equoment_history_" + tag.ToLower());
+        }
+
         internal string FormatDateString(string dateTime)
         {
             DateTime date;

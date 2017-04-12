@@ -111,6 +111,9 @@ task		Úkol
 task_finished		Úkol vyřízen
 task_refused		Nemůžu vyřídit
 tasks		Úkoly
+equoment_history_new		Nová
+equoment_history_done		Vyřízená
+equoment_history_rejected		Odmítnutá
 test		TO JE TEST
 text		Text..
 thereisaproblem		Problém

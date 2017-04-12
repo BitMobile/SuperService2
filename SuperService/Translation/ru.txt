@@ -36,6 +36,9 @@ equipments		ОБОРУДОВАНИЕ
 task_finished		Работа выполнена
 task_refused		Не могу выполнить
 task		Задача
+equoment_history_new		Новая
+equoment_history_done		Выполнена
+equoment_history_rejected		Отклонена
 services		Услуги
 materials		Материалы
 add_service		Добавить услугу

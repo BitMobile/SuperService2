@@ -163,10 +163,10 @@
               <c:VerticalLayout CssClass="HistoryDescriptionResultLayout">
                 <c:TextView Text="$history.Description" CssClass="HistoryDescriptionView" />
                 <s:If Test="$history.ResultName == Done">
-                  <c:TextView Text="$history.Result" CssClass="HistoryResultViewDone" />
+                  <c:TextView Text="$GetDescription($history.ResultName)" CssClass="HistoryResultViewDone" />
                 </s:If>
                 <s:Else>
-                  <c:TextView Text="$history.Result" CssClass="HistoryResultViewNotDone" />
+                  <c:TextView Text="$GetDescription($history.ResultName)" CssClass="HistoryResultViewNotDone" />
                 </s:Else>
               </c:VerticalLayout>
               <c:TextView Text="$FormatDateString($history.Date)" CssClass="HistoryDateView" />
