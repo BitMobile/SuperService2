@@ -210,6 +210,13 @@ namespace Test
             var temp = DBHelper.GetEquipmentOptionValueList(_textView.Id);
             while (temp.Next())
             {
+                if (temp["Val"] == null)
+                {
+                    DConsole.WriteLine("Empty value Id: " + (temp["Id"] == null
+                        ? "Id is empty"
+                        : temp["Id"].ToString()));
+                    continue;
+                }
                 items[temp["Id"].ToString()] = temp["Val"].ToString();
                 if (temp["Val"].ToString() == _textView.Text)
                     startObject = temp["Id"].ToString();
