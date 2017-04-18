@@ -701,29 +701,36 @@ namespace Test
         /// </summary>
         /// <param name="eventId">Идентификатор наряда</param>
         /// <returns></returns>
-        public static DbRecordset GetMaterialsByEventId(string eventId)
+        public static DbRecordset GetMaterialsByEventId(string eventId, string eventStatusName)
         {
             // TODO: Написать запрос
 
-            var query = new Query("select " +
-                                  "    Document_Event_ServicesMaterials.Id," +
-                                  "    Document_Event_ServicesMaterials.SKU," +
-                                  "    Document_Event_ServicesMaterials.Price," +
-                                  "    AmountPlan," +
-                                  "    SumPlan," +
-                                  "    AmountFact," +
-                                  "    SumFact," +
-                                  "    Description," +
-                                  "    Code," +
-                                  "    Unit " +
-                                  "from" +
-                                  "    Document_Event_ServicesMaterials " +
-                                  "    join Catalog_RIM " +
-                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
-                                  " where Catalog_RIM.Service = 0 and " +
-                                  " (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and" +
-                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+            var query = new Query(@"SELECT
+                                      Document_Event_ServicesMaterials.Id,
+                                      Document_Event_ServicesMaterials.SKU,
+                                      Document_Event_ServicesMaterials.Price,
+                                      AmountPlan,
+                                      SumPlan,
+                                      AmountFact,
+                                      SumFact,
+                                      Description,
+                                      Code,
+                                      Unit
+                                    FROM
+                                      Document_Event_ServicesMaterials
+                                      JOIN Catalog_RIM
+                                        ON Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id
+                                    WHERE Catalog_RIM.Service = 0 AND
+                                          (CASE
+                                           WHEN @eventStatus = 'OnHarmonization' OR @eventStatus = 'Agreed' OR @eventStatus = 'Accepted'
+                                             THEN 1
+                                           ELSE Document_Event_ServicesMaterials.AmountFact != 0
+                                           END) AND
+                                          (Document_Event_ServicesMaterials.AmountFact != 0 OR Document_Event_ServicesMaterials.AmountPlan != 0) AND
+                                          Document_Event_ServicesMaterials.Ref = @eventId");
+
             query.AddParameter("eventId", eventId);
+            query.AddParameter("eventStatus", eventStatusName);
             return query.Execute();
         }
 
@@ -731,24 +738,24 @@ namespace Test
         {
             // TODO: Написать запрос
 
-            var query = new Query("select " +
-                                  "    Document_Event_ServicesMaterials.Id," +
-                                  "    Document_Event_ServicesMaterials.SKU," +
-                                  "    Document_Event_ServicesMaterials.Price," +
-                                  "    AmountPlan," +
-                                  "    SumPlan," +
-                                  "    AmountFact," +
-                                  "    SumFact," +
-                                  "    Description," +
-                                  "    Code," +
-                                  "    Unit " +
-                                  "from" +
-                                  "    Document_Event_ServicesMaterials " +
-                                  "    join Catalog_RIM " +
-                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
-                                  " where " +
-                                  " (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and" +
-                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+            var query = new Query(@"select 
+                                      Document_Event_ServicesMaterials.Id, 
+                                      Document_Event_ServicesMaterials.SKU, 
+                                      Document_Event_ServicesMaterials.Price, 
+                                      AmountPlan, 
+                                      SumPlan, 
+                                      AmountFact, 
+                                      SumFact, 
+                                      Description, 
+                                      Code, 
+                                      Unit 
+                                  from 
+                                      Document_Event_ServicesMaterials 
+                                      join Catalog_RIM 
+                                          on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id 
+                                   where 
+                                   (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and 
+                                      Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
 //            var queryResult = query.Execute();
 //            while (queryResult.Next())
@@ -770,27 +777,34 @@ namespace Test
         /// </summary>
         /// <param name="eventId">Идентификатор наряда</param>
         /// <returns></returns>
-        public static DbRecordset GetServicesByEventId(string eventId)
+        public static DbRecordset GetServicesByEventId(string eventId, string eventStatusName)
         {
-            var query = new Query("select " +
-                                  "    Document_Event_ServicesMaterials.Id," +
-                                  "    Document_Event_ServicesMaterials.SKU," +
-                                  "    Document_Event_ServicesMaterials.Price," +
-                                  "    AmountPlan," +
-                                  "    SumPlan," +
-                                  "    AmountFact," +
-                                  "    SumFact," +
-                                  "    Description," +
-                                  "    Code," +
-                                  "    Unit " +
-                                  "from" +
-                                  "    Document_Event_ServicesMaterials " +
-                                  "       join Catalog_RIM" +
-                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
-                                  " where Catalog_RIM.Service = 1 and " +
-                                  " (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and" +
-                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+            var query = new Query(@"SELECT
+                                      Document_Event_ServicesMaterials.Id,
+                                      Document_Event_ServicesMaterials.SKU,
+                                      Document_Event_ServicesMaterials.Price,
+                                      AmountPlan,
+                                      SumPlan,
+                                      AmountFact,
+                                      SumFact,
+                                      Description,
+                                      Code,
+                                      Unit
+                                    FROM
+                                      Document_Event_ServicesMaterials
+                                      JOIN Catalog_RIM
+                                        ON Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id
+                                    WHERE Catalog_RIM.Service = 0 AND
+                                          (CASE
+                                           WHEN @eventStatus = 'OnHarmonization' OR @eventStatus = 'Agreed' OR @eventStatus = 'Accepted'
+                                             THEN 1
+                                           ELSE Document_Event_ServicesMaterials.AmountFact != 0
+                                           END) AND
+                                          (Document_Event_ServicesMaterials.AmountFact != 0 OR Document_Event_ServicesMaterials.AmountPlan != 0) AND
+                                          Document_Event_ServicesMaterials.Ref = @eventId");
+
             query.AddParameter("eventId", eventId);
+            query.AddParameter("eventStatus", eventStatusName);
             return query.Execute();
         }
 

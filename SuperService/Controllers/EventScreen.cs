@@ -342,9 +342,10 @@ namespace Test
             var currentEventId = (string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId];
             var @event = (Event) DBHelper.LoadEntity(currentEventId);
             @event.ActualStartDate = DateTime.Now;
+            Utils.TraceMessage($"Event DateTime {@event.ActualStartDate}");
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
-//            @event.LatitudeStart = Converter.ToDecimal(latitude);
-//            @event.LongitudeStart = Converter.ToDecimal(longitude);
+            @event.LatitudeStart = Converter.ToDecimal(latitude);
+            @event.LongitudeStart = Converter.ToDecimal(longitude);
             var enitylist = new ArrayList();
             enitylist.Add(@event);
             enitylist.Add(DBHelper.CreateHistory(@event));
