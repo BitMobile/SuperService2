@@ -380,7 +380,9 @@ namespace Test
             if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdCurrentEventId, out eventId))
                 DConsole.WriteLine("Can't find current event ID, going to crash");
 
-            return DBHelper.GetServicesByEventId((string) eventId);
+            Utils.TraceMessage($"Status is: {(string)_currentEventDbRecordset["StatusName"]}");
+
+            return DBHelper.GetServicesByEventId((string) eventId, (string)_currentEventDbRecordset["StatusName"]);
         }
 
         internal string CreatePriceString(DbRecordset priceRecordset, string serviceString)
@@ -401,7 +403,9 @@ namespace Test
             if (!BusinessProcess.GlobalVariables.TryGetValue(Parameters.IdCurrentEventId, out eventId))
                 DConsole.WriteLine("Can't find current event ID, going to crash");
 
-            return DBHelper.GetMaterialsByEventId((string) eventId);
+            Utils.TraceMessage($"Status is: {(string)_currentEventDbRecordset["StatusName"]}");
+
+            return DBHelper.GetMaterialsByEventId((string) eventId, (string)_currentEventDbRecordset["StatusName"]);
         }
 
         private void ChangeEventStatus()
