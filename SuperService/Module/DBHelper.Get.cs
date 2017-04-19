@@ -794,7 +794,7 @@ namespace Test
                                       Document_Event_ServicesMaterials
                                       JOIN Catalog_RIM
                                         ON Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id
-                                    WHERE Catalog_RIM.Service = 0 AND
+                                    WHERE Catalog_RIM.Service = 1 AND
                                           (CASE
                                            WHEN @eventStatus = 'OnHarmonization' OR @eventStatus = 'Agreed' OR @eventStatus = 'Accepted'
                                              THEN 1
