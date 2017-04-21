@@ -339,7 +339,7 @@ namespace Test
                 {
                     Utils.TraceMessage($"Error code {exception.Result} {exception.Message}");
                     checkError = true;
-                    Toast.MakeToast(Translator.Translate("device_not_found"));
+                    Toast.MakeToast(Translator.Translate(exception.Message));
                 }
                 catch (Exception exception)
                 {
@@ -374,7 +374,7 @@ namespace Test
                     }
                     catch (FPTRException exception)
                     {
-                        Toast.MakeToast(Translator.Translate("device_not_found"));
+                        Toast.MakeToast(Translator.Translate(exception.Message));
                     }
                     finally
                     {
