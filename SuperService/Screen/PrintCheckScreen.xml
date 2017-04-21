@@ -35,7 +35,7 @@
                         CssClass="PaymentTypeContainer"
                         OnClick="ChoosePaymentType_OnClick">
         <c:TextView Id="7c46a01e25b34835b7ff98f6debfeac0" CssClass="PaymentType"
-                    Text="НАЛИЧНЫЕ" />
+                    Text="#cash#" />
       </c:VerticalLayout>
 
       <c:VerticalLayout Id="598cba714b2c4094bf2c0fc644a9b2d9"

@@ -58,10 +58,10 @@ namespace Test
             _changeTextView = (TextView) GetControl("fa4aad30428344f7ac60ca62f721f67a", true);
             _paymentTypes = new Dictionary<object, string>
             {
-                {"0", "НАЛИЧНЫЕ"},
-                {"1", "КАРТОЙ"},
-                {"2", "БОНУСЫ"},
-                {"3", "ТАРОЙ"}
+                {"0", Translator.Translate("cash")},
+                {"1", Translator.Translate("cashless")},
+                {"2", Translator.Translate("bonuses")},
+                {"3", Translator.Translate("bottles")}
             };
 
             _fptr = FptrInstance.Instance;
@@ -339,7 +339,7 @@ namespace Test
                 {
                     Utils.TraceMessage($"Error code {exception.Result} {exception.Message}");
                     checkError = true;
-                    Toast.MakeToast(exception.Message);
+                    Toast.MakeToast(Translator.Translate("device_not_found"));
                 }
                 catch (Exception exception)
                 {
@@ -374,7 +374,7 @@ namespace Test
                     }
                     catch (FPTRException exception)
                     {
-                        Toast.MakeToast(exception.Message);
+                        Toast.MakeToast(Translator.Translate("device_not_found"));
                     }
                     finally
                     {

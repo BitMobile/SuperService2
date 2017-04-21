@@ -180,3 +180,8 @@ loading_message		Пожалуйста, подождите.
 logout_message		Выход из приложения.
 please_wait		Пожалуйста подождите...
 loading_from_database		Загрузка базы данных
+device_not_found		Устройство не включено
+cash		НАЛИЧНЫЕ
+cashless		КАРТОЙ
+bonuses		БОНУСЫ
+bottles		ТАРОЙ
