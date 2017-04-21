@@ -408,6 +408,7 @@ namespace Test
             return DBHelper.GetMaterialsByEventId((string) eventId, (string)_currentEventDbRecordset["StatusName"]);
         }
 
+        //Данный метод надо менять вместе с ChangeEventStatus() в COCScreen
         private void ChangeEventStatus()
         {
             var result = DBHelper.GetCoordinate(TimeRangeCoordinate.DefaultTimeRange);
@@ -418,7 +419,10 @@ namespace Test
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
             @event.LatitudeStart = Converter.ToDecimal(latitude);
             @event.LongitudeStart = Converter.ToDecimal(longitude);
-            DBHelper.SaveEntity(@event);
+            var enitylist = new ArrayList();
+            enitylist.Add(@event);
+            enitylist.Add(DBHelper.CreateHistory(@event));
+            DBHelper.SaveEntities(enitylist);
             Variables[Parameters.IdWasEventStarted] = true;
             _currentEventDbRecordset = DBHelper.GetEventByID(_currentEventId);
             var rimList = DBHelper.GetServicesAndMaterialsByEventId(_currentEventId);
