@@ -333,6 +333,7 @@ namespace Test
             GetCurrentEvent();
         }
 
+        //Данный метод надо менять вместе с ChangeEventStatus() в COCScreen
         private void ChangeEventStatus()
         {
             var result = DBHelper.GetCoordinate(TimeRangeCoordinate.DefaultTimeRange);
