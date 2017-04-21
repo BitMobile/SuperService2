@@ -16,6 +16,9 @@ namespace Test
             if (resultCode >= 0) return;
 
             var resultDescription = provider.GetResultDescription();
+            if (resultDescription.Contains("Устройство не включено"))
+                resultDescription = BitMobile.ClientModel3.Translator.Translate("device_not_found");
+
             string badParameter = null;
 
             if (resultCode == -6)

@@ -166,6 +166,7 @@ printX_caption		Print X-report
 printZ_caption_ask		Z-report is printed. Continue?
 please_wait		Please wait...
 loading_message		Please wait.
+logout_message		Odhlášení
 show_check_info		Show check
 cashbox_check		Cashbox check
 sale_caption		SALE
