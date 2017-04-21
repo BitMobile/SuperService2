@@ -405,7 +405,10 @@ namespace Test
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
             @event.LatitudeStart = Converter.ToDecimal(latitude);
             @event.LongitudeStart = Converter.ToDecimal(longitude);
-            DBHelper.SaveEntity(@event);
+            var enitylist = new ArrayList();
+            enitylist.Add(@event);
+            enitylist.Add(DBHelper.CreateHistory(@event));
+            DBHelper.SaveEntities(enitylist);
             _currentEvent = DBHelper.GetEventByID($"{Variables[Parameters.IdCurrentEventId]}");
             _taskCommentEditText.Enabled = true;
 
