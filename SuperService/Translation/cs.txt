@@ -149,7 +149,7 @@ eventChangeSr		Oděv byl nominován na další umělce
 ClientDelete		Jiný zaměstnanec je odpovědný za klienta nyní
 loading_from_database		Probíhá nahrávání databáze
 device_not_found		Device not found
-cash		CAHS
+cash		CASH
 cashless		CASHLESS
 bonuses		BONUSES
 bottles		BOTTLES
