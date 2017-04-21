@@ -179,7 +179,7 @@ logout_message		Exiting the application.
 please_wait		Please wait...
 loading_from_database		Loading from database
 device_not_found		Device not found
-cash		CAHS
+cash		CASH
 cashless		CASHLESS
 bonuses		BONUSES
 bottles		BOTTLES
