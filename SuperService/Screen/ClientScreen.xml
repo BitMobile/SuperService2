@@ -93,27 +93,27 @@
                             CssClass="MainAlignContainer">
             <c:HorizontalLayout Id="ebbd55edbc284d98b1626cad8f106c8d"
                                 CssClass="InerAlignContainer">
-              <!--<c:TextView CssClass="EquipmentsTV" Text="#equipments#" />-->
+              <c:TextView CssClass="EquipmentsTV" Text="#equipments#" />
             </c:HorizontalLayout>
           </c:VerticalLayout>
-          <!--<c:VerticalLayout CssClass="FatLineContainerVL">
+          <c:VerticalLayout CssClass="FatLineContainerVL">
             <c:HorizontalLine CssClass="FatLineHL" />
-          </c:VerticalLayout>-->
-          <!--<c:VerticalLayout CssClass="EquipmentVL">
+          </c:VerticalLayout>
+          <c:VerticalLayout CssClass="EquipmentVL">
 
             <s:Iterator Id="equipments" Value="$GetEquipments()">
 
               <c:VerticalLayout Id="$equipments.equipmentID" CssClass="EquipmentContainerVL"
-                                OnClick="EquipmentLayout_OnClick">-->
+                                OnClick="EquipmentLayout_OnClick">
                 <!--<c:TextView CssClass="EquipmentTypeTV" Text="Тип оборудования" />-->
-                <!--<c:TextView CssClass="EquipmentNameTV" Text="$equipments.Description" />
+                <c:TextView CssClass="EquipmentNameTV" Text="$equipments.Description" />
               </c:VerticalLayout>
 
               <c:VerticalLayout CssClass="ContainerLineSplitter">
                 <c:HorizontalLine CssClass="LineSplitter" />
               </c:VerticalLayout>
             </s:Iterator>
-          </c:VerticalLayout>-->
+          </c:VerticalLayout>
         </s:If>
     </c:ScrollView>
   </c:VerticalLayout>
