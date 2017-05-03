@@ -39,6 +39,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             DConsole.WriteLine("CheckListScreen init");
             _topInfoComponent = new TopInfoComponent(this)
             {
@@ -83,6 +84,28 @@ namespace Test
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
             _topInfoComponent.Arrow_OnClick(sender, e);
+        }
+
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+            Image image = (Image)_topInfoComponent.LeftButtonControl;
+            image.Source = ResourceManager.GetImage("topheading_back_active");
+            image.Refresh();
+        }
+
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)_topInfoComponent.LeftButtonControl;
+            image.Source = ResourceManager.GetImage("topheading_back");
+            image.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
         }
 
         internal string GenerateRequiredIndicatorId(DbRef id)
@@ -148,6 +171,13 @@ namespace Test
             var temp = DBHelper.GetActionValuesList(_textView.Id);
             while (temp.Next())
             {
+                if (temp["Val"] == null)
+                {
+                    DConsole.WriteLine("Empty value Id: " + (temp["Id"] == null
+                        ? "Id is empty"
+                        : temp["Id"].ToString()));
+                    continue;
+                }
                 items[temp["Id"].ToString()] = temp["Val"].ToString();
                 if (temp["Val"].ToString() == _textView.Text)
                     startObject = temp["Id"].ToString();
@@ -185,7 +215,7 @@ namespace Test
         internal void DateCallback(object state, ResultEventArgs<DateTime> args)
         {
             _textView.Text = args.Result.Date.ToString("dd MMMM yyyy");
-            UpdateChecklist(_currentCheckListItemID, args.Result.ToString("yyyy-MM-dd HH:mm:ss"));
+            UpdateChecklist(_currentCheckListItemID, args.Result.ToString("yyyy-MM-ddTHH:mm:ssZ"));
             //ChangeRequiredIndicator(_lastClickedRequiredIndicatior, true);
             //TODO: КОСТЫЛЬ когда в платформе починять работу bool заменить код ниже на вызов ChangeRequiredIndicator(_lastClickedRequiredIndicatior, true);
             ChangeRequiredIndicatorForDone(_lastClickedRequiredIndicatior);
@@ -207,7 +237,7 @@ namespace Test
                 {"not_choosed", Translator.Translate("not_choosed")}
             };
             var startKey = _textView.Text == Translator.Translate("not_choosed")
-                ? ""
+                ? "not_choosed"
                 : _textView.Text == Translator.Translate("yes") ? "true" : "false";
             Dialog.Choose(tv.Text, items, startKey, BooleanCallback);
         }
@@ -217,8 +247,8 @@ namespace Test
         private TextView GetTextView(object sender)
         {
             var hl = (HorizontalLayout) ((VerticalLayout) sender).Parent;
-            var vl = (VerticalLayout) hl.Controls[hl.Controls.Length < 3 ? 0 : 1];
-            var tv = (TextView) vl.Controls[0];
+            var vl = (VerticalLayout) hl.GetControl(hl.ControlsCount < 3 ? 0 : 1);
+            var tv = (TextView) vl.GetControl(0);
             return tv;
         }
 
@@ -315,7 +345,7 @@ namespace Test
         internal void CheckListElementLayout_OnClick(object sender, EventArgs e)
         {
             var horizontalLayout = (HorizontalLayout) sender;
-            _lastClickedRequiredIndicatior = (VerticalLayout) horizontalLayout.Controls[0];
+            _lastClickedRequiredIndicatior = (VerticalLayout) horizontalLayout.GetControl(0);
         }
 
         //TODO: КОСТЫЛЬ метод оставлен для совместимости. когда-нибудь, когда bool начнет работать как надо он опять начнет использоваться

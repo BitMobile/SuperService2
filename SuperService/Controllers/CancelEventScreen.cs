@@ -14,6 +14,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             _topInfoComponent = new TopInfoComponent(this)
             {
                 ArrowActive = false,
@@ -44,6 +45,32 @@ namespace Test
             DBHelper.SaveEntities(entitiesList);
             Navigation.CleanStack();
             Navigation.ModalMove("EventListScreen");
+        }
+
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+            Image image = (Image)_topInfoComponent.LeftButtonControl;
+            image.Source = ResourceManager.GetImage("topheading_back_active");
+            image.Refresh();
+        }
+
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)_topInfoComponent.LeftButtonControl;
+            image.Source = ResourceManager.GetImage("topheading_back");
+            image.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((VerticalLayout)((TextView)_topInfoComponent.RightButtonControl).Parent).CssClass = "TopInfoButtonRightActive";
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((VerticalLayout)((TextView)_topInfoComponent.RightButtonControl).Parent).CssClass = "TopInfoButtonRight";
+            _topInfoComponent.Refresh();
         }
 
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs args)

@@ -20,11 +20,10 @@
       <c:VerticalLayout CssClass="VLForSView">
         <!-- Итератор по услугам будет здесь-->
         <s:Iterator Id="services" Value="$GetServices()">
-          <c:VerticalLayout>
             <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL">
               <c:HorizontalLayout CssClass="InfoNodeHL">
                 <!-- Красный круг с минусом -->
-                <s:If Test="$isReadonly == false &amp;&amp; $ChechFiscal()">
+                <s:If Test="$IsNotReadOnly()">
                   <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
                     <c:HorizontalLayout Id="Test" CssClass="InfoImageContainerHL">
                       <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(cocscreen_delete)" />
@@ -34,25 +33,25 @@
 
                 <!--Два TextView с информацией об услугах-->
                 <c:VerticalLayout Id="$services.Id" CssClass="InfoTextContainerVL"
+                                  OnPressDown="COCItem_OnPressDown" OnPressUp="COCItem_OnPressUp"
                                   OnClick="EditServicesOrMaterials_OnClick">
                   <c:TextView CssClass="NameTV" Text="$services.Description" />
                   <c:TextView CssClass="PriceTV"
                               Text="$CreatePriceString($services, services)" />
                 </c:VerticalLayout>
               </c:HorizontalLayout>
-              <s:If Test="$isReadonly == false &amp;&amp; $ChechFiscal()">
-                <c:HorizontalLayout Id="$services.Id" CssClass="DeleteButtonVL" OnClick="DeleteButton_OnClick">
-                  <c:TextView CssClass="DeleteButtonTV" Text="#delete_question#" />
-                </c:HorizontalLayout>
+              <s:If Test="$IsNotReadOnly()">
+                <c:Button Id="$services.Id" CssClass="DeleteButton" Text="#delete_question#" OnClick="DeleteButton_OnClick"/>
               </s:If>
             </c:SwipeHorizontalLayout>
             <c:HorizontalLine CssClass="MiddleHL" />
-          </c:VerticalLayout>
         </s:Iterator>
 
         <!-- Заканчивается здесь-->
-        <s:If Test="$isReadonly == false &amp;&amp; $ChechFiscal()">
-          <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddService_OnClick">
+        <s:If Test="$IsNotReadOnly()">
+          <c:VerticalLayout CssClass="AddButtonVl"
+                            OnPressDown="AddButton_OnPressDown" OnPressUp="AddButton_OnPressUp"
+                            OnClick="AddService_OnClick">
             <c:HorizontalLayout CssClass="AddButton">
               <c:Image Source="$GetResourceImage(cocscreen_plus)" />
               <c:TextView Text="#add_service#" />
@@ -63,7 +62,7 @@
 
         <c:VerticalLayout Id="MaterialsInfoVL" CssClass="TotalPriceInfoVL">
           <c:HorizontalLayout Id="MaterialsInfoHL" CssClass="TotalPriceInfoHL">
-            <c:TextView Id="LeftInfoTV" CssClass="LeftInfoTV" Text="#MATERIALS#" />
+            <c:TextView Id="LeftInfoMaterialsTV" CssClass="LeftInfoTV" Text="#MATERIALS#" />
             <c:TextView Id="RightInfoMaterialsTV" CssClass="RightInfoTV" Text="$GetFormatStringForMaterialSums()" />
           </c:HorizontalLayout>
         </c:VerticalLayout>
@@ -71,12 +70,11 @@
         <c:HorizontalLine CssClass="WideHL" />
 
         <s:Iterator Id="materials" Value="$GetMaterials()">
-          <c:VerticalLayout>
             <c:SwipeHorizontalLayout CssClass="SwipeContainerSHL">
 
               <c:HorizontalLayout CssClass="InfoNodeHL">
                 <!-- Красный круг с минусом -->
-                <s:If Test="$isReadonly == false &amp;&amp; $ChechFiscal()">
+                <s:If Test="$IsNotReadOnly()">
                   <c:VerticalLayout CssClass="InfoImageCondtainerVL" OnClick="OpenDeleteButton_OnClick">
                     <c:HorizontalLayout CssClass="InfoImageContainerHL">
                       <c:Image CssClass="DeleteIcoImg" Source="$GetResourceImage(cocscreen_delete)" />
@@ -86,35 +84,37 @@
 
                 <!--Два TextView с информацией об услугах-->
                 <c:VerticalLayout Id="$materials.Id" CssClass="InfoTextContainerVL"
+                                  OnPressDown="COCItem_OnPressDown" OnPressUp="COCItem_OnPressUp"
                                   OnClick="EditServicesOrMaterials_OnClick">
                   <c:TextView CssClass="NameTV" Text="$materials.Description" />
                   <c:TextView CssClass="PriceTV"
                               Text="$CreatePriceString($materials, materials)" />
                 </c:VerticalLayout>
               </c:HorizontalLayout>
-              <s:If Test="$isReadonly == false &amp;&amp; $ChechFiscal()">
-                <c:HorizontalLayout Id="$materials.Id" CssClass="DeleteButtonVL" OnClick="DeleteButton_OnClick">
-                  <c:TextView CssClass="DeleteButtonTV" Text="#delete_question#" />
-                </c:HorizontalLayout>
+              <s:If Test="$IsNotReadOnly()">
+                <c:Button Id="$materials.Id" CssClass="DeleteButton" Text="#delete_question#" OnClick="DeleteButton_OnClick"/>
               </s:If>
             </c:SwipeHorizontalLayout>
             <c:HorizontalLine CssClass="MiddleHL" />
-          </c:VerticalLayout>
         </s:Iterator>
 
-        <s:If Test="$isReadonly == false &amp;&amp; $ChechFiscal()">
-          <c:VerticalLayout CssClass="AddButtonVl" OnClick="AddMaterial_OnClick">
+        <s:If Test="$IsNotReadOnly()">
+          <c:VerticalLayout CssClass="AddButtonVl"
+                            OnPressDown="AddButton_OnPressDown" OnPressUp="AddButton_OnPressUp"
+                            OnClick="AddMaterial_OnClick">
             <c:HorizontalLayout CssClass="AddButton">
               <c:Image Source="$GetResourceImage(cocscreen_plus)" />
               <c:TextView Text="#add_materials#" />
             </c:HorizontalLayout>
           </c:VerticalLayout>
         </s:If>
+          <s:If Test="$ShowCheckInfoScreen()">
             <c:HorizontalLine CssClass="WideHL" />
 
-            <c:HorizontalLayout Visible="false" Id="buttonPrint" CssClass="BottomContainerHL" OnClick="ApplicatioMaterials_OnClick">
-              <c:TextView CssClass="BottomTV" Text="#show_check_info#" />
+            <c:HorizontalLayout CssClass="BottomContainerHL" OnClick="ApplicatioMaterials_OnClick">
+              <c:TextView CssClass="BottomTV" Id="BottomTVId" Text="#show_check_info#" />
             </c:HorizontalLayout>
+          </s:If>
       </c:VerticalLayout>
     </c:ScrollView>
   </c:VerticalLayout>

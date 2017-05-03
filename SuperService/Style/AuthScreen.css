@@ -39,6 +39,12 @@ HorizontalLine {
 .NoHeight {
   height: 0%;
 }
+.TextAlignLeft {
+  text-align: left;
+}
+.TextAlignCenter {
+  text-align: center;
+}
 .RootLayout {
   background-color: #ffffff;
   height: 100%;
@@ -144,7 +150,7 @@ EditText {
 .ImgContainerHL {
   height: 100%;
   horizontal-align: center;
-  width: 0% auto;
+  width: 0sp auto;
 }
 .LogoImg {
   height: 8sp;
@@ -190,4 +196,20 @@ EditText {
   height: 15sp;
   width: 0sp auto;
   horizontal-align: center;
+}
+.SyncProgressBar {
+  background-color: #63647d;
+  color: #c6c8e4;
+  height: 3sp;
+  horizontal-align: center;
+  margin-top: 10sp;
+  margin-bottom: 0sp;
+  width: 85sp;
+}
+.SyncProgressBarText {
+  color: #ffffff;
+  font-size: 2.5sp;
+  height: 0sp auto;
+  margin-top: 2sp;
+  width: 80sp;
 }

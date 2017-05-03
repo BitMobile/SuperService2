@@ -56,5 +56,34 @@
         ///     Представляет разделитель строк для режима DEBUG
         /// </summary>
         public const string Splitter = "-----------------------------------------------";
+
+#region StyleNames
+
+        /// <summary>
+        ///     Стиль для обычного времени
+        /// </summary>
+        public const string EventListScreenStyleTextVeiw = "EventListTimeTV";
+        /// <summary>
+        ///     Стиль для длинного времени
+        /// </summary>
+        public const string EventListScreenStyleLongTextVeiw = "EventListTimeLongTV";
+        /// <summary>
+        ///     Стиль для иконки соединенного фискального аппарата
+        /// </summary>
+        public const string FiscalRegistratorScreenConnectStyle = "IconConnectStyle";
+        /// <summary>
+        ///     Стиль для иконки разъединенного фискального аппарата
+        /// </summary>
+        public const string FiscalRegistratorScreenDisconnectStyle = "IconDisconnectStyle";
+        /// <summary>
+        ///     Стиль для иконки разъединенного фискального аппарата
+        /// </summary>
+        public const string FiscalRegistratorScreenDisconnectedButtonStyle = "DisconnectedButtonVL";
+        /// <summary>
+        ///     Стиль для иконки разъединенного фискального аппарата
+        /// </summary>
+        public const string FiscalRegistratorScreenConnectedButtonStyle = "ConnectedButtonVL";
+
+        #endregion
     }
 }

@@ -11,7 +11,7 @@
       <c:VerticalLayout CssClass="MainPartContainer">
 
         <!--Кнопка выхода-->
-        <c:VerticalLayout Id="Logout" CssClass="ExternalImageContainerExit" OnClick="Logout_OnClick">
+        <c:VerticalLayout Id="Logout" CssClass="ExternalImageContainerExit" OnPressDown="Logout_onPressDown" OnPressUp="Logout_onPressUp" OnClick="Logout_OnClick">
           <c:Image CssClass="ExitImage" Source="$GetResourceImage(settingsscreen_logout)" />
         </c:VerticalLayout>
         <!--Конец кнопки выхода-->
@@ -54,10 +54,10 @@
             <c:VerticalLayout CssClass="ExternalButtonContainer">
               <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
                 <c:VerticalLayout Id="SendErrorReport" CssClass="ButtonContainerVerticalAlign"
-                                  OnClick="PrintX_OnClick">
+                                  OnPressDown="SendFoto_PressDown" OnPressUp="SendFoto_PressUp" OnClick="PrintX_OnClick">
 
-                    <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_upload)" />
-                    <c:TextView CssClass="ReportTextActive" Text="#upload_pictures#" />
+                  <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_upload)" />
+                  <c:TextView CssClass="ReportTextActive" Text="#upload_pictures#" />
 
                 </c:VerticalLayout>
               </c:HorizontalLayout>
@@ -69,10 +69,11 @@
             <!-- Отправить лог -->
             <c:VerticalLayout CssClass="ExternalButtonContainer">
               <c:HorizontalLayout CssClass="ButtonContainerHorizontalAlign">
-                <c:VerticalLayout Id="SendLog" CssClass="ButtonContainerVerticalAlign" OnClick="SendLog_OnClick">
+                <c:VerticalLayout Id="SendLog" CssClass="ButtonContainerVerticalAlign"
+                                  OnPressDown="SendLog_PressDown" OnPressUp="SendLog_PressUp" OnClick="SendLog_OnClick">
 
-                    <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_send_logsend)" />
-                    <c:TextView CssClass="ReportTextActive" Text="#send_log#" />
+                  <c:Image CssClass="ReportImage" Source="$GetResourceImage(settingsscreen_send_logsend)" />
+                  <c:TextView CssClass="ReportTextActive" Text="#send_log#" />
 
                 </c:VerticalLayout>
               </c:HorizontalLayout>

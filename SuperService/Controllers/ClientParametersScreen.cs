@@ -34,6 +34,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("client_parameters"),
@@ -64,6 +65,26 @@ namespace Test
         internal void TopInfo_Arrow_OnClick(object sender, EventArgs e)
         {
             _topInfoComponent.Arrow_OnClick(sender, e);
+        }
+
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back_active");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
         }
 
         internal string GenerateRequiredIndicatorId(DbRef id)
@@ -127,6 +148,13 @@ namespace Test
             var temp = DBHelper.GetClientOptionValuesList(_textView.Id);
             while (temp.Next())
             {
+                if (temp["Val"] == null)
+                {
+                    DConsole.WriteLine("Empty value Id: " + (temp["Id"] == null
+                        ? "Id is empty"
+                        : temp["Id"].ToString()));
+                    continue;
+                }
                 items[temp["Id"].ToString()] = temp["Val"].ToString();
                 if (temp["Val"].ToString() == _textView.Text)
                     startObject = temp["Id"].ToString();
@@ -182,8 +210,8 @@ namespace Test
         private TextView GetTextView(object sender)
         {
             var hl = (HorizontalLayout)((VerticalLayout)sender).Parent;
-            var vl = (VerticalLayout)hl.Controls[hl.Controls.Length < 3 ? 0 : 1];
-            var tv = (TextView)vl.Controls[0];
+            var vl = (VerticalLayout)hl.GetControl(hl.ControlsCount < 3 ? 0 : 1);
+            var tv = (TextView)vl.GetControl(0);
             return tv;
         }
 

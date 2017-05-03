@@ -12,7 +12,6 @@
 
     <!-- Список контактов -->
     <c:ScrollView CssClass="ClientListMainSVL">
-      <c:VerticalLayout CssClass="VerticalLayoutForScroll">
         <s:Iterator Id="client" Value="$GetClients()">
           <c:VerticalLayout Id="$client.Id" onClick="ClientLayout_OnClick" CssClass="ClientListItemVL">
             <c:TextView Text="$client.Description" CssClass="ClientListNameTV" />
@@ -20,7 +19,6 @@
             <c:HorizontalLine CssClass="ClientListBreaker" />
           </c:VerticalLayout>
         </s:Iterator>
-      </c:VerticalLayout>
     </c:ScrollView>
   </c:DockLayout>
 </c:Screen>

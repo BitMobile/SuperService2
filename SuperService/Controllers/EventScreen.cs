@@ -31,6 +31,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             _topInfoComponent = new TopInfoComponent(this);
             _topInfoComponent.ActivateBackButton();
             LoadControls();
@@ -98,7 +99,11 @@ namespace Test
             if (string.IsNullOrEmpty(text))
                 text = Translator.Translate("contact_not_present");
             else
-                rightExtraLayout.OnClick += RightExtraLayoutOnOnClick;
+            {
+                rightExtraLayout.OnClick     += RightExtraLayout_OnClick;
+                rightExtraLayout.OnPressDown += RightExtraLayout_PressDown;
+                rightExtraLayout.OnPressUp   += RightExtraLayout_PressUp;
+            }
 
             rightExtraLayout.AddChild(new TextView
             {
@@ -106,10 +111,12 @@ namespace Test
                 CssClass = "TopInfoSideText"
             });
 
-            leftExtraLayout.OnClick += GoToMapScreen_OnClick;
+            leftExtraLayout.OnClick     += GoToMapScreen_OnClick;
+            leftExtraLayout.OnPressDown += GoToMapScreen_PressDown;
+            leftExtraLayout.OnPressUp   += GoToMapScreen_PressUp;
         }
 
-        private void RightExtraLayoutOnOnClick(object sender, EventArgs eventArgs)
+        private void RightExtraLayout_OnClick(object sender, EventArgs eventArgs)
         {
             if (CheckAndGoIfNotExsist())
             {
@@ -119,6 +126,20 @@ namespace Test
             {
                 [Parameters.Contact] = (Contacts) DBHelper.LoadEntity(_currentEventRecordset["contactId"].ToString())
             });
+        }
+
+        internal void RightExtraLayout_PressDown(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = ResourceManager.GetImage("topinfo_extra_person_active");
+            image.Refresh();
+        }
+
+        internal void RightExtraLayout_PressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = ResourceManager.GetImage("topinfo_extra_person");
+            image.Refresh();
         }
 
         private bool CheckAndGoIfNotExsist()
@@ -135,12 +156,13 @@ namespace Test
         }
         public override void OnShow()
         {
+            base.OnShow();
             if (CheckAndGoIfNotExsist())
             {
                 return;
             }
             _needSync = ReadEvent();
-            GpsTracking.Start();
+            GpsTracking.StartAsync();
             if ((string) _currentEventRecordset["statusName"] == EventStatus.Done
                 || (string) _currentEventRecordset["statusName"] == EventStatus.DoneWithTrouble
                 || (string) _currentEventRecordset["statusName"] == EventStatus.OnTheApprovalOf
@@ -155,6 +177,13 @@ namespace Test
                 Toast.MakeToast(Translator.Translate("event_canceled_ro"));
                 _readonly = true;
             }
+
+        }
+
+        public override void OnDraw()
+        {
+            base.OnDraw();
+            Dialog.HideProgressDialog();
         }
 
         private void LoadControls()
@@ -204,6 +233,13 @@ namespace Test
 
         internal void WrapUnwrapButton_OnClick(object sender, EventArgs eventArgs)
         {
+            //чтобы текст не съезжал влево
+            TextView et = (TextView)GetControl("EventCommentTextView", true);
+            et.CssClass = "TextAlignLeft";
+            et.Refresh();
+            et.CssClass = "TextAlignCenter";
+            et.Refresh();
+
             if (_taskCommentTextExpanded)
             {
                 _taskCommentTextView.CssClass = "SubComment";
@@ -297,6 +333,7 @@ namespace Test
             GetCurrentEvent();
         }
 
+        //Данный метод надо менять вместе с ChangeEventStatus() в COCScreen
         private void ChangeEventStatus()
         {
             var result = DBHelper.GetCoordinate(TimeRangeCoordinate.DefaultTimeRange);
@@ -306,6 +343,7 @@ namespace Test
             var currentEventId = (string) BusinessProcess.GlobalVariables[Parameters.IdCurrentEventId];
             var @event = (Event) DBHelper.LoadEntity(currentEventId);
             @event.ActualStartDate = DateTime.Now;
+            Utils.TraceMessage($"Event DateTime {@event.ActualStartDate}");
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
             @event.LatitudeStart = Converter.ToDecimal(latitude);
             @event.LongitudeStart = Converter.ToDecimal(longitude);
@@ -350,6 +388,30 @@ namespace Test
             _rootLayout.Refresh();
         }
 
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back_active");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.RightButtonControl).Source = ResourceManager.GetImage("topheading_info_active");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.RightButtonControl).Source = ResourceManager.GetImage("topheading_info");
+            _topInfoComponent.Refresh();
+        }
+
         internal void TaskCounterLayout_OnClick(object sender, EventArgs eventArgs)
         {
             if (CheckBigButtonActive(sender))
@@ -372,7 +434,7 @@ namespace Test
         {
             // TODO: Сделать проверку более аккуратной?
             var layout = (HorizontalLayout) sender;
-            return ((TextView) layout.Controls[2]).Text != "0";
+            return ((TextView) layout.GetControl(2)).Text != "0";
         }
 
         internal void GoToCOCScreen_OnClick(object sender, EventArgs e)
@@ -466,6 +528,7 @@ namespace Test
         {
             return ResourceManager.GetImage(tag);
         }
+
         internal void GoToMapScreen_OnClick(object sender, EventArgs e)
         {
             var clientId = (string) _currentEventRecordset[Parameters.IdClientId];
@@ -484,6 +547,20 @@ namespace Test
                 return;
             }
             Navigation.Move(nameof(MapScreen), dictionary);
+        }
+
+        internal void GoToMapScreen_PressDown(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = ResourceManager.GetImage("topinfo_extra_map_active");
+            image.Refresh();
+        }
+
+        internal void GoToMapScreen_PressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)((VerticalLayout)sender).GetControl(0);
+            image.Source = ResourceManager.GetImage("topinfo_extra_map");
+            image.Refresh();
         }
 
         internal bool IsNotZero(long count)
@@ -514,5 +591,33 @@ namespace Test
 
         internal long GetTotalAnsweredTask(object eventId, object clientId)
             => DBHelper.GetTotalTaskAnsweredByEventIdOrClientId(eventId, clientId);
+
+        internal void StartButton_OnPressDown(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            button.CssClass = "StartButtonPressed";
+            button.Refresh();
+        }
+
+        internal void StartButton_OnPressUp(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            button.CssClass = "StartButton";
+            button.Refresh();
+        }
+
+        internal void RefuseButton_OnPressDown(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            button.CssClass = "RefuseButtonPressed";
+            button.Refresh();
+        }
+
+        internal void RefuseButton_OnPressUp(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            button.CssClass = "RefuseButton";
+            button.Refresh();
+        }
     }
 }

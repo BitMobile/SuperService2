@@ -37,6 +37,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             InitClassFields();
 
             _topInfoComponent = new TopInfoComponent(this)
@@ -80,6 +81,26 @@ namespace Test
             _topInfoComponent.Arrow_OnClick(sender, eventArgs);
         }
 
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back_active");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_back");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
+        }
+
         internal void BackButton_OnClick(object sender, EventArgs eventArgs)
         {
             Navigation.Back();
@@ -99,6 +120,11 @@ namespace Test
         {
             var res = DBHelper.GetEquipmentHistoryById(_equipmentId, DateTime.MinValue);
             return res;
+        }
+
+        internal string GetDescription(string tag)
+        {
+            return Translator.Translate("equoment_history_" + tag.ToLower());
         }
 
         internal string FormatDateString(string dateTime)
@@ -184,6 +210,13 @@ namespace Test
             var temp = DBHelper.GetEquipmentOptionValueList(_textView.Id);
             while (temp.Next())
             {
+                if (temp["Val"] == null)
+                {
+                    DConsole.WriteLine("Empty value Id: " + (temp["Id"] == null
+                        ? "Id is empty"
+                        : temp["Id"].ToString()));
+                    continue;
+                }
                 items[temp["Id"].ToString()] = temp["Val"].ToString();
                 if (temp["Val"].ToString() == _textView.Text)
                     startObject = temp["Id"].ToString();
@@ -235,7 +268,7 @@ namespace Test
             };
 
             var startKey = _textView.Text == Translator.Translate("not_choosed")
-                ? ""
+                ? "not_choosed"
                 : _textView.Text == Translator.Translate("yes") ? "true" : "false";
             Dialog.Choose(tv.Text, items, startKey, BooleanCallback);
         }
@@ -243,8 +276,8 @@ namespace Test
         private TextView GetTextView(object sender)
         {
             var hl = (HorizontalLayout) ((VerticalLayout) sender).Parent;
-            var vl = (VerticalLayout) hl.Controls[hl.Controls.Length < 3 ? 0 : 1];
-            var tv = (TextView) vl.Controls[0];
+            var vl = (VerticalLayout) hl.GetControl(hl.ControlsCount < 3 ? 0 : 1);
+            var tv = (TextView) vl.GetControl(0);
             return tv;
         }
 

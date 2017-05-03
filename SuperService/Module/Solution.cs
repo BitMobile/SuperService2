@@ -8,6 +8,7 @@ namespace Test
     {
         public override void OnCreate()
         {
+            base.OnCreate();
             DConsole.WriteLine("DB init...");
             DBHelper.Init();
             DConsole.WriteLine("Settings init...");
@@ -28,6 +29,10 @@ namespace Test
             else
             {
 #if DEBUG
+                if (Settings.UserDetailedInfo == null)
+                {
+                    Utils.TraceMessage("Произошло падение базы... извините");
+                }
                 DConsole.WriteLine($"Логин и пароль НЕ были сохранены." +
                                    $"{Environment.NewLine}" +
                                    $"Login: {Settings.User} Password: {Settings.Password} {Environment.NewLine}");
@@ -39,6 +44,7 @@ namespace Test
 
         public override void OnBackground()
         {
+            base.OnBackground();
             var result = GpsTracking.Stop();
 #if DEBUG
             DConsole.WriteLine($"Свернули приложение. GpsTracking is stop: result = {result}");
@@ -47,17 +53,21 @@ namespace Test
 
         public override void OnRestore()
         {
-            var result = GpsTracking.Start();
-#if DEBUG
-            DConsole.WriteLine($"Развернули приложение.GpsTracking is start: result = {result}");
-#endif
+            base.OnRestore();
+            GpsTracking.StartAsync();
         }
 
-        public override void OnPushMessage(string message)
+        public override void OnPushMessage(string message, string additionalInfo)
         {
+            base.OnPushMessage(message, additionalInfo);
             LocalNotification.Notify(Translator.Translate("notification"),
                 Translator.Translate(message));
-            DBHelper.SyncAsync();
+            DBHelper.SyncAsync(ResultEventHandler);
+        }
+        private static void ResultEventHandler(object sender, ResultEventArgs<bool> resultEventArgs)
+        {
+            if(!resultEventArgs.Result)
+                DBHelper.isPartialSyncRequired = true;
         }
     }
 }

@@ -3,7 +3,6 @@ using BitMobile.DbEngine;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
-using BitMobile.Common.Application;
 using BitMobile.Common.FiscalRegistrator;
 using Test.Catalog;
 using Test.Document;
@@ -115,14 +114,16 @@ namespace Test
             var statistic = new EventsStatistic();
             var query = new Query(@"SELECT
                                       TOTAL(CASE
-                                            WHEN StartDatePlan >= date('now', 'start of day') AND StartDatePlan < date('now', 'start of day','+1 day')
+                                            WHEN StartDatePlan >= date('now', 'start of day') AND StartDatePlan < date('now', 'start of day', '+1 day')
                                               THEN 1
                                             ELSE 0
                                             END) AS DayTotalAmount,
                                       TOTAL(CASE
                                             WHEN ((Enum_StatusyEvents.name LIKE 'Done' OR Enum_StatusyEvents.Name LIKE 'DoneWithTrouble' OR
-                                                  Enum_StatusyEvents.Name LIKE 'NotDone') AND event.ActualEndDate >= date('now', 'start of day') AND
-                                                 event.ActualEndDate < date('now', 'start of day', '+1 day'))
+                                                   Enum_StatusyEvents.Name LIKE 'NotDone' OR Enum_StatusyEvents.Name LIKE 'Close'
+                                                   OR Enum_StatusyEvents.Name LIKE 'OnTheApprovalOf') AND event.ActualEndDate >= date('now', 'start of day')
+                                                  AND
+                                                  event.ActualEndDate < date('now', 'start of day', '+1 day'))
                                               THEN 1
                                             ELSE 0
                                             END) AS DayCompleteAmout,
@@ -133,7 +134,9 @@ namespace Test
                                             END) AS MonthCompleteAmout,
                                       TOTAL(CASE
                                             WHEN ((Enum_StatusyEvents.name LIKE 'Done' OR Enum_StatusyEvents.Name LIKE 'DoneWithTrouble' OR
-                                                  Enum_StatusyEvents.Name LIKE 'NotDone') AND event.ActualEndDate > date('now', 'start of month')) AND
+                                                   Enum_StatusyEvents.Name LIKE 'NotDone' OR Enum_StatusyEvents.Name LIKE 'Close'
+                                                   OR Enum_StatusyEvents.Name LIKE 'OnTheApprovalOf') AND
+                                                  event.ActualEndDate > date('now', 'start of month')) AND
                                                  event.ActualEndDate < date('now', 'start of month', '+1 month')
                                               THEN 1
                                             ELSE 0
@@ -144,7 +147,7 @@ namespace Test
                                         ON event.Status = Enum_StatusyEvents.Id
 
                                     WHERE
-                                      event.DeletionMark = 0 AND event.UserMA = @userID AND NOT(Enum_StatusyEvents.Name = @OnHarmonization)");
+                                      event.DeletionMark = 0 AND event.UserMA = @userID AND NOT (Enum_StatusyEvents.Name = @OnHarmonization)");
             query.AddParameter("OnHarmonization", EventStatus.OnHarmonization);
             query.AddParameter("userID",Settings.UserDetailedInfo?.Id);
             var result = query.Execute();
@@ -401,7 +404,8 @@ namespace Test
                                   "        and equipmentLastChangeDate.Period = Catalog_Equipment_Equipments.Period " +
                                   "" +
                                   "        left join Catalog_Equipment " +
-                                  "        on equipmentLastChangeDate.Equipment = Catalog_Equipment.id");
+                                  "        on equipmentLastChangeDate.Equipment = Catalog_Equipment.id " +
+                                  " order by Catalog_Equipment.Description asc");
 
             query.AddParameter("clientID", clientID);
 
@@ -423,7 +427,8 @@ namespace Test
                                         Catalog_Client
 
                                   where
-                                      Catalog_Client.DeletionMark = 0");
+                                      Catalog_Client.DeletionMark = 0" +
+                                  " Order by Catalog_Client.Description asc");
 
             return query.Execute();
         }
@@ -477,7 +482,7 @@ namespace Test
                                   "    " +
                                   "where " +
                                   "    checkList.Ref = @eventId " +
-                                  "order by checkList.LineNumber asc");
+                                  "order by actions.Description asc");
 
             query.AddParameter("eventId", eventID);
             return query.Execute();
@@ -503,7 +508,7 @@ namespace Test
                                   "    " +
                                   "where " +
                                   "    parameters.Ref = @clientId " +
-                                  "order by parameters.LineNumber asc");
+                                  "order by options.Description asc");
 
             query.AddParameter("clientId", clientId);
             return query.Execute();
@@ -622,7 +627,7 @@ namespace Test
                                   from
                                       Document_Event_ServicesMaterials AS DESM
                                    where
-                                   DESM.AmountFact != 0 AND DESM.Ref = @eventId");
+                                   (DESM.AmountFact != 0 or DESM.AmountPlan != 0) AND DESM.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return (double)query.ExecuteScalar();
         }
@@ -649,7 +654,7 @@ namespace Test
                                   "    join Enum_VATS AS EVAT " +
                                   "       on EVAT.Id = CR.VAT " +
                                   " where " +
-                                  " DESM.AmountFact != 0 and" +
+                                  " (DESM.AmountFact != 0 or DESM.AmountPlan != 0) and" +
                                   "    DESM.Ref = @eventId");
             query.AddParameter("eventId", eventId);
             return query.Execute();
@@ -696,29 +701,36 @@ namespace Test
         /// </summary>
         /// <param name="eventId">Идентификатор наряда</param>
         /// <returns></returns>
-        public static DbRecordset GetMaterialsByEventId(string eventId)
+        public static DbRecordset GetMaterialsByEventId(string eventId, string eventStatusName)
         {
             // TODO: Написать запрос
 
-            var query = new Query("select " +
-                                  "    Document_Event_ServicesMaterials.Id," +
-                                  "    Document_Event_ServicesMaterials.SKU," +
-                                  "    Document_Event_ServicesMaterials.Price," +
-                                  "    AmountPlan," +
-                                  "    SumPlan," +
-                                  "    AmountFact," +
-                                  "    SumFact," +
-                                  "    Description," +
-                                  "    Code," +
-                                  "    Unit " +
-                                  "from" +
-                                  "    Document_Event_ServicesMaterials " +
-                                  "    join Catalog_RIM " +
-                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
-                                  " where Catalog_RIM.Service = 0 and " +
-                                  " (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and" +
-                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+            var query = new Query(@"SELECT
+                                      Document_Event_ServicesMaterials.Id,
+                                      Document_Event_ServicesMaterials.SKU,
+                                      Document_Event_ServicesMaterials.Price,
+                                      AmountPlan,
+                                      SumPlan,
+                                      AmountFact,
+                                      SumFact,
+                                      Description,
+                                      Code,
+                                      Unit
+                                    FROM
+                                      Document_Event_ServicesMaterials
+                                      JOIN Catalog_RIM
+                                        ON Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id
+                                    WHERE Catalog_RIM.Service = 0 AND
+                                          (CASE
+                                           WHEN @eventStatus = 'OnHarmonization' OR @eventStatus = 'Agreed' OR @eventStatus = 'Accepted'
+                                             THEN 1
+                                           ELSE Document_Event_ServicesMaterials.AmountFact != 0
+                                           END) AND
+                                          (Document_Event_ServicesMaterials.AmountFact != 0 OR Document_Event_ServicesMaterials.AmountPlan != 0) AND
+                                          Document_Event_ServicesMaterials.Ref = @eventId");
+
             query.AddParameter("eventId", eventId);
+            query.AddParameter("eventStatus", eventStatusName);
             return query.Execute();
         }
 
@@ -726,24 +738,24 @@ namespace Test
         {
             // TODO: Написать запрос
 
-            var query = new Query("select " +
-                                  "    Document_Event_ServicesMaterials.Id," +
-                                  "    Document_Event_ServicesMaterials.SKU," +
-                                  "    Document_Event_ServicesMaterials.Price," +
-                                  "    AmountPlan," +
-                                  "    SumPlan," +
-                                  "    AmountFact," +
-                                  "    SumFact," +
-                                  "    Description," +
-                                  "    Code," +
-                                  "    Unit " +
-                                  "from" +
-                                  "    Document_Event_ServicesMaterials " +
-                                  "    join Catalog_RIM " +
-                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
-                                  " where " +
-                                  " (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and" +
-                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+            var query = new Query(@"select 
+                                      Document_Event_ServicesMaterials.Id, 
+                                      Document_Event_ServicesMaterials.SKU, 
+                                      Document_Event_ServicesMaterials.Price, 
+                                      AmountPlan, 
+                                      SumPlan, 
+                                      AmountFact, 
+                                      SumFact, 
+                                      Description, 
+                                      Code, 
+                                      Unit 
+                                  from 
+                                      Document_Event_ServicesMaterials 
+                                      join Catalog_RIM 
+                                          on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id 
+                                   where 
+                                   (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and 
+                                      Document_Event_ServicesMaterials.Ref = @eventId");
             query.AddParameter("eventId", eventId);
 //            var queryResult = query.Execute();
 //            while (queryResult.Next())
@@ -765,27 +777,34 @@ namespace Test
         /// </summary>
         /// <param name="eventId">Идентификатор наряда</param>
         /// <returns></returns>
-        public static DbRecordset GetServicesByEventId(string eventId)
+        public static DbRecordset GetServicesByEventId(string eventId, string eventStatusName)
         {
-            var query = new Query("select " +
-                                  "    Document_Event_ServicesMaterials.Id," +
-                                  "    Document_Event_ServicesMaterials.SKU," +
-                                  "    Document_Event_ServicesMaterials.Price," +
-                                  "    AmountPlan," +
-                                  "    SumPlan," +
-                                  "    AmountFact," +
-                                  "    SumFact," +
-                                  "    Description," +
-                                  "    Code," +
-                                  "    Unit " +
-                                  "from" +
-                                  "    Document_Event_ServicesMaterials " +
-                                  "       join Catalog_RIM" +
-                                  "        on Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id " +
-                                  " where Catalog_RIM.Service = 1 and " +
-                                  " (Document_Event_ServicesMaterials.AmountFact != 0 or Document_Event_ServicesMaterials.AmountPlan != 0) and" +
-                                  "    Document_Event_ServicesMaterials.Ref = @eventId");
+            var query = new Query(@"SELECT
+                                      Document_Event_ServicesMaterials.Id,
+                                      Document_Event_ServicesMaterials.SKU,
+                                      Document_Event_ServicesMaterials.Price,
+                                      AmountPlan,
+                                      SumPlan,
+                                      AmountFact,
+                                      SumFact,
+                                      Description,
+                                      Code,
+                                      Unit
+                                    FROM
+                                      Document_Event_ServicesMaterials
+                                      JOIN Catalog_RIM
+                                        ON Document_Event_ServicesMaterials.SKU = Catalog_RIM.Id
+                                    WHERE Catalog_RIM.Service = 1 AND
+                                          (CASE
+                                           WHEN @eventStatus = 'OnHarmonization' OR @eventStatus = 'Agreed' OR @eventStatus = 'Accepted'
+                                             THEN 1
+                                           ELSE Document_Event_ServicesMaterials.AmountFact != 0
+                                           END) AND
+                                          (Document_Event_ServicesMaterials.AmountFact != 0 OR Document_Event_ServicesMaterials.AmountPlan != 0) AND
+                                          Document_Event_ServicesMaterials.Ref = @eventId");
+
             query.AddParameter("eventId", eventId);
+            query.AddParameter("eventStatus", eventStatusName);
             return query.Execute();
         }
 
@@ -1081,19 +1100,22 @@ namespace Test
 
         public static DbRecordset GetEventsLocationToday()
         {
-            var query = new Query(@"select
-                                        client.Description as Description,
-                                        client.Latitude as Latitude,
-                                        client.Longitude as Longitude
-                                    from
-                                        Document_Event as event
-                                    left join Catalog_Client as client
+            var query = new Query(@"select 
+                                        client.Description as Description, 
+                                        client.Latitude as Latitude, 
+                                        client.Longitude as Longitude, 
+                                        (select Name from Enum_StatusyEvents 
+                                         where Enum_StatusyEvents.Id = event.Status) as StatusName 
+                                    from 
+                                        Document_Event as event 
+                                    left join Catalog_Client as client 
                                         on event.client = client.id
-                                    where
-                                        event.DeletionMark = 0
-                                        and date(event.StartDatePlan) = date('now','start of day')
-                                        and client.Latitude != 0
-                                        and client.Longitude != 0");
+                                    where 
+                                        event.DeletionMark = 0 
+                                        and date(event.StartDatePlan) = date('now','start of day') 
+                                        and client.Latitude != 0 
+                                        and client.Longitude != 0 
+                                        and StatusName != 'OnHarmonization'"); 
 
             return query.Execute();
         }
@@ -1205,7 +1227,7 @@ namespace Test
 
                                 WHERE
                                   parameters.Ref = @equipmentId AND options.DeletionMark = 0
-                                ORDER BY parameters.LineNumber ASC";
+                                ORDER BY options.Description ASC";
 
             var query = new Query(queryText);
             query.AddParameter("equipmentId", equipmentId);
@@ -1466,7 +1488,7 @@ namespace Test
                                       Catalog_EquipmentOptions_ListValues
                                     WHERE
                                       Catalog_EquipmentOptions_ListValues.Ref = @optionId
-                                    ORDER BY LineNumber ASC");
+                                    ORDER BY Val ASC");
             query.AddParameter("optionId", optionId);
 
             return query.Execute();
@@ -1492,30 +1514,14 @@ namespace Test
 
         public static bool CheckFtprAcsess()
         {
-            bool ios = true;
-
-            switch (Application.TargetPlatform)
-            {
-                case TargetPlatform.Android:
-                    ios = false;
-                    break;
-                case TargetPlatform.iOS:
-                    ios = true;
-                    break;               
-                default:
-                    ios = true;
-                    break;
-            }
+           
+            
             if (Settings.EnableFPTR)
             {
-                Utils.TraceMessage($"{Settings.EnableFPTR}");
                 if (CheckRole("MobileFPRAccess"))
                 {
-                    if (!ios)
-                    {
-                        Utils.TraceMessage($"{CheckRole("MobileFPRAccess")}");
-                        return true;
-                    }
+                    Utils.TraceMessage($"{CheckRole("MobileFPRAccess")}");
+                    return true;
                 }
             }
             return false;

@@ -4,17 +4,20 @@
   <c:DockLayout CssClass="RootLayout">
     <s:Include File="Components\TopInfoComponent.xml" />
     <c:ScrollView CssClass="RootLayout">
-      <c:VerticalLayout Id="RootLayout">
         <c:HorizontalLayout CssClass="ContactField">
           <c:TextView Text="#name#" />
           <c:EditText Id="NameEditText" Placeholder="#not_specified#" Text="$GetName($contact.Description)" />
         </c:HorizontalLayout>
-        <c:HorizontalLine />
+        <c:VerticalLayout>
+          <c:HorizontalLine CssClass="NotFullWidth" />
+        </c:VerticalLayout>
         <c:HorizontalLayout CssClass="ContactField">
           <c:TextView Text="#surname#" />
           <c:EditText Id="SurnameEditText" PlaceHolder="#not_specified" Text="$GetSurname($contact.Description)" />
         </c:HorizontalLayout>
-        <c:HorizontalLine />
+        <c:VerticalLayout>
+          <c:HorizontalLine CssClass="NotFullWidth" />
+        </c:VerticalLayout>
         <c:HorizontalLayout CssClass="ContactField">
           <c:TextView Text="#position#" />
           <c:EditText Id="PositionEditText" Placeholder="#not_specified#" Text="$contact.Position" />
@@ -23,11 +26,11 @@
         <c:VerticalLayout CssClass="EmptySpace2sp" />
         <c:HorizontalLine CssClass="FullWidth" />
         <c:HorizontalLayout Id="PhoneLayout" CssClass="ContactFieldWithDelete">
-          <c:VerticalLayout OnClick="RemovePhoneButton_OnClick">
+          <c:VerticalLayout OnClick="RemovePhoneButton_OnClick"  CssClass="VerticalLayoutRemoveImage">
             <c:Image Source="$GetResourceImage(editcontactscreen_minus)" CssClass="RemoveImage" />
           </c:VerticalLayout>
           <c:TextView Text="#phone#" />
-          <c:EditText Keyboard="phone" Id="PhoneEditText" Placeholder="#not_specified#" Text="$contact.Tel" />
+          <c:EditText Keyboard="phone" Id="PhoneEditText" Placeholder="#phone_mask#" Text="$contact.Tel" />
         </c:HorizontalLayout>
         <c:HorizontalLayout OnClick="AddPhoneButton_OnClick" Id="AddPhoneButton" CssClass="AddButton">
           <c:Image Source="$GetResourceImage(editcontactscreen_plus)" />
@@ -35,7 +38,7 @@
         </c:HorizontalLayout>
         <c:HorizontalLine CssClass="FullWidth" />
         <c:HorizontalLayout Id="EmailLayout" CssClass="ContactFieldWithDelete">
-          <c:VerticalLayout OnClick="RemoveEmailButton_OnClick">
+          <c:VerticalLayout OnClick="RemoveEmailButton_OnClick" CssClass="VerticalLayoutRemoveImage">
             <c:Image Source="$GetResourceImage(editcontactscreen_minus)" CssClass="RemoveImage" />
           </c:VerticalLayout>
           <c:TextView Text="#email#" />
@@ -45,7 +48,6 @@
           <c:Image Source="$GetResourceImage(editcontactscreen_plus)" />
           <c:TextView Text="#add_email#" />
         </c:HorizontalLayout>
-      </c:VerticalLayout>
     </c:ScrollView>
   </c:DockLayout>
 </c:Screen>

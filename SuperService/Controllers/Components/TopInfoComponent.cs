@@ -118,12 +118,12 @@ namespace Test.Components
 
         private IWrappedControl3 GetIfNotEmpty(VerticalLayout layout)
         {
-            return layout.Controls.Length == 0 ? null : (IWrappedControl3)layout.Controls[0];
+            return layout.ControlsCount == 0 ? null : (IWrappedControl3)layout.GetControl(0);
         }
 
         private void AddIfNotEmpty(VerticalLayout verticalLayout, IWrappedControl3 control)
         {
-            if (verticalLayout.Controls.Length == 0) verticalLayout.AddChild(control);
+            if (verticalLayout.ControlsCount == 0) verticalLayout.AddChild(control);
             if (LeftButtonControl == null || RightButtonControl == null)
                 return;
             if (LeftButtonControl.GetType().Name == nameof(Image) && RightButtonControl.GetType().Name == nameof(Image))

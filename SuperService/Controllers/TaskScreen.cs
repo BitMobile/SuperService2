@@ -38,6 +38,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             _topInfoComponent = new TopInfoComponent(this)
             {
                 Header = Translator.Translate("task"),
@@ -56,7 +57,7 @@ namespace Test
             _taskRefuseButtonImage = (Image)GetControl("TaskRefuseButtonImage", true);
 
             _taskCommentEditText = (MemoEdit)GetControl("TaskCommentEditText", true);
-            _rootLayout = (DockLayout)Controls[0];
+            _rootLayout = (DockLayout)GetControl(0);
             _topInfoComponent.ActivateBackButton();
 
             _isReadOnly = (bool)Variables[Parameters.IdIsReadonly];
@@ -66,6 +67,7 @@ namespace Test
 
         public override void OnShow()
         {
+            base.OnShow();
             Utils.TraceMessage($"Task Id {Variables[Parameters.IdTaskId]}{Environment.NewLine}" +
                                $"Event Id {Variables[Parameters.IdCurrentEventId]}{Environment.NewLine}" +
                                $"Client Id {Variables[Parameters.IdClientId]}{Environment.NewLine}" +
@@ -246,6 +248,28 @@ namespace Test
             Navigation.Back();
         }
 
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+            Image image = (Image)_topInfoComponent.LeftButtonControl;
+            image.Source = ResourceManager.GetImage("topheading_back_active");
+            image.Refresh();
+        }
+
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            Image image = (Image)_topInfoComponent.LeftButtonControl;
+            image.Source = ResourceManager.GetImage("topheading_back");
+            image.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
+        }
+
         internal void EquipmentDescriptionLayout_OnClick(object sender, EventArgs eventArgs)
         {
             // TODO(SUPS-718): Передавать информацию об оборудовании
@@ -381,7 +405,10 @@ namespace Test
             @event.Status = StatusyEvents.GetDbRefFromEnum(StatusyEventsEnum.InWork);
             @event.LatitudeStart = Converter.ToDecimal(latitude);
             @event.LongitudeStart = Converter.ToDecimal(longitude);
-            DBHelper.SaveEntity(@event);
+            var enitylist = new ArrayList();
+            enitylist.Add(@event);
+            enitylist.Add(DBHelper.CreateHistory(@event));
+            DBHelper.SaveEntities(enitylist);
             _currentEvent = DBHelper.GetEventByID($"{Variables[Parameters.IdCurrentEventId]}");
             _taskCommentEditText.Enabled = true;
 

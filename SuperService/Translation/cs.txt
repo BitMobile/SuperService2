@@ -111,9 +111,12 @@ task		Úkol
 task_finished		Úkol vyřízen
 task_refused		Nemůžu vyřídit
 tasks		Úkoly
+equoment_history_new		Nová
+equoment_history_done		Vyřízená
+equoment_history_rejected		Odmítnutá
 test		TO JE TEST
 text		Text..
-thereisaproblem		Problém
+thereisaproblem		Nahlásit problém
 time		Čas
 today		dnes
 todayUpper		DNES
@@ -130,7 +133,7 @@ upload_finished		Odeslání proběhlo
 upload_pictures		Odeslat snímky
 user_empty		Pole Login nemůže být prázdné.
 user_pass_empty		Pole Login a Heslo nemůžou být prázdná.
-wanttobuy		Uvědomit o zájmu
+wanttobuy		Nahlásit zájem
 workType		Typ práce
 write_letter		Odeslat zprávu
 yes		Ano
@@ -139,7 +142,42 @@ yesterdayToUpper		VČERA
 ask_send_log		Zaslat chybovou zprávu pro vývojáře?
 send_log_ok		Chyba Zpráva byla odeslána!
 send_log_fail		Nelze odeslat zprávu
-NewEventAssigh		Přidělen jste novou objednávku.
+NewEventAssigh		Byla Vám přidělena nová objednávka.
 percent_witho_out		BEZ DPH
 VAT		VAT
 eventChangeSr		Oděv byl nominován na další umělce
+ClientDelete		Jiný zaměstnanec je odpovědný za klienta nyní
+loading_from_database		Probíhá nahrávání databáze
+device_not_found		Device not found
+cash		CASH
+cashless		CASHLESS
+bonuses		BONUSES
+bottles		BOTTLES
+fptr_is_not_connected		Communication has not been established
+fptr_connected		Connected
+unset_checks		Unset checks
+ping		Ping
+connect		Connect
+dont_sent_checks		Don't sent checks:
+fr_disable		FR module disable
+fr_role_disable		FR role disable
+printZ_caption		Print Z-report
+printX_caption		Print X-report
+printZ_caption_ask		Z-report is printed. Continue?
+please_wait		Please wait...
+loading_message		Please wait.
+logout_message		Odhlášení
+show_check_info		Show check
+cashbox_check		Cashbox check
+sale_caption		SALE
+total_checkInfo		TOTAL:
+include_vat		Include VAT:
+registration_check		Registration check
+total_to_pay		TOTAL TO PAY
+payment_type		payment type ▼
+contribution_sum		Sum:
+change		Сhange:
+punch_check		PUNCH CHECK
+missing_amount		The missing amount
+change_is_not_calculated		is not calculated
+registrator		Registrator

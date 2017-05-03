@@ -25,6 +25,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             _wantToBuyButton = (HorizontalLayout)GetControl("WantToBuyButton", true);
             _wantToBuyCommentLayout = (VerticalLayout)GetControl("WantToBuyCommentLayout", true);
             _wantToBuyImage = (Image)GetControl("WantToBuyImage", true);
@@ -119,6 +120,20 @@ namespace Test
             DBHelper.SaveEntities(entitiesList);
             Navigation.CleanStack();
             Navigation.ModalMove("EventListScreen");
+        }
+
+        internal void FinishButton_OnPressDown(object sender, EventArgs eventArgs)
+        {
+            Button button = (Button)sender;
+            button.CssClass = "TopButtonPressed";
+            button.Refresh();
+        }
+
+        internal void FinishButton_OnPressUp(object sender, EventArgs eventArgs)
+        {
+            Button button = (Button)sender;
+            button.CssClass = "TopButton";
+            button.Refresh();
         }
 
         private Reminder CreateReminder(DbRef eventRef, string text)

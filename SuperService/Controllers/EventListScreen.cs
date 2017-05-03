@@ -17,6 +17,7 @@ namespace Test
 
         public override void OnLoading()
         {
+            base.OnLoading();
             DConsole.WriteLine("OnLoading EventList");
 
             _tabBarComponent = new TabBarComponent(this);
@@ -60,48 +61,56 @@ namespace Test
 
         public override void OnShow()
         {
-            GpsTracking.Start();
+            base.OnShow();
+            GpsTracking.StartAsync();
             PushService.Init();
             DynamicScreenRefreshService.Init();
         }
 
-        internal string GetStatusPicture(string importance, string status)
+        public override void OnDraw()
         {
-            var pictureTag = @"eventlistscreen_";
+            base.OnDraw();
+            Dialog.HideProgressDialog();
+        }
+
+
+        internal string GetStatusStyle(string importance, string status)
+        {
+            string styleResult = "EventListStatusIMG";
             switch (importance)
             {
                 case "Standart":
-                    pictureTag += "blue";
+                    styleResult += "Blue";
                     break;
 
                 case "High":
-                    pictureTag += "yellow";
+                    styleResult += "Yellow";
                     break;
 
                 case "Critical":
-                    pictureTag += "red";
+                    styleResult += "Red";
                     break;
             }
 
             if (status == EventStatus.Agreed || status == EventStatus.Accepted)
             {
-                pictureTag += "border";
+                styleResult += "Border";
             }
             else if (status == EventStatus.Cancel)
             {
-                pictureTag += "cancel";
+                styleResult += "Cancel";
             }
             else if (status == EventStatus.DoneWithTrouble || status == EventStatus.Done ||
                      status == EventStatus.OnTheApprovalOf || status == EventStatus.Close ||
                      status == EventStatus.NotDone)
             {
-                pictureTag += "done";
+                styleResult += "Done";
             }
             else if (status == EventStatus.InWork)
             {
-                pictureTag += "circle";
+                styleResult += "Circle";
             }
-            return ResourceManager.GetImage(pictureTag);
+            return styleResult;
         }
 
         internal string GetDateNowEventList()
@@ -189,6 +198,11 @@ namespace Test
                 return $"{hours} {Translator.Translate("h.")} {ans.Minutes} {Translator.Translate("m.")}";
             return $"{hours} {Translator.Translate("h.")}";
         }
+
+        internal string GetTextStyle(object text)
+            => text.ToString().Length > 5
+                ? Parameters.EventListScreenStyleLongTextVeiw
+                : Parameters.EventListScreenStyleTextVeiw;
 
         internal int SetTodayLayoutToFalse()
         {
@@ -278,6 +292,7 @@ namespace Test
         internal void TopInfo_LeftButton_OnClick(object sender, EventArgs e)
         {
             Toast.MakeToast(Translator.Translate("start_sync"));
+            Dialog.HideProgressDialog();
             DBHelper.SyncAsync();
         }
 
@@ -296,7 +311,32 @@ namespace Test
             };
             DConsole.WriteLine("After");
             BusinessProcess.GlobalVariables[Parameters.IdScreenStateId] = MapScreenStates.EventListScreen;
+            Dialog.ShowProgressDialog(Translator.Translate("loading_message"), true);
             Navigation.Move("MapScreen", dictionary);
+        }
+
+        internal void TopInfo_LeftButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_sync_active");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_LeftButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.LeftButtonControl).Source = ResourceManager.GetImage("topheading_sync");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressDown(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.RightButtonControl).Source = ResourceManager.GetImage("topheading_map_active");
+            _topInfoComponent.Refresh();
+        }
+
+        internal void TopInfo_RightButton_OnPressUp(object sender, EventArgs e)
+        {
+            ((Image)_topInfoComponent.RightButtonControl).Source = ResourceManager.GetImage("topheading_map");
+            _topInfoComponent.Refresh();
         }
 
         internal void EventListItemHL_OnClick(object sender, EventArgs e)
@@ -314,7 +354,10 @@ namespace Test
         }
 
         internal void TabBarSecondTabButton_OnClick(object sender, EventArgs eventArgs)
-            => _tabBarComponent.Clients_OnClick(sender, eventArgs);
+        {
+            Dialog.ShowProgressDialog(Translator.Translate("loading_message"), true);
+            _tabBarComponent.Clients_OnClick(sender, eventArgs);
+        }
 
         internal void TabBarThirdButton_OnClick(object sender, EventArgs eventArgs)
             => _tabBarComponent.FrSettings_OnClick(sender, eventArgs);

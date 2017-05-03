@@ -36,6 +36,9 @@ equipments		EQUIPMENTS
 task_finished		Task completed
 task_refused		Can't complete
 task		Task
+equoment_history_new		New
+equoment_history_done		Done
+equoment_history_rejected		Rejected
 services		Services
 materials		Materials
 add_service		Add service
@@ -170,3 +173,13 @@ connect		Connect
 dont_sent_checks		Don't sent checks:
 fr_disable		FR module disable
 fr_role_disable		FR role disable
+ClientDelete		Other employee is responsible for the client now
+loading_message		Please wait.
+logout_message		Exiting the application.
+please_wait		Please wait...
+loading_from_database		Loading from database
+device_not_found		Device not found
+cash		CASH
+cashless		CASHLESS
+bonuses		BONUSES
+bottles		BOTTLES

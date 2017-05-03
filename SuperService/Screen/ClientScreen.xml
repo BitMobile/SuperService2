@@ -13,7 +13,6 @@
     </c:VerticalLayout>
 
     <c:ScrollView Id="ClientSV" CssClass="ClientSV">
-      <c:VerticalLayout>
         <c:HorizontalLayout Id="MapClientContainer" CssClass="MapContainerHL" OnClick="GoToMapScreen_OnClick">
           <c:WebMapGoogle Id="MapClient" CssClass="MapStyleClient" />
         </c:HorizontalLayout>
@@ -32,19 +31,25 @@
         <c:VerticalLayout CssClass="EmptySpace4sp" />
         <c:TextView CssClass="ContactsTV" Text="#contacts#" />
         <c:VerticalLayout CssClass="EmptySpace1sp" />
-        <c:HorizontalLine CssClass="FatLine" />
+      <!--Оборачиваем для работы horizontal-align-->
+        <c:VerticalLayout>
+          <c:HorizontalLine CssClass="FatLine" />
+        </c:VerticalLayout>
 
         <c:VerticalLayout CssClass="ContactsListVL">
 
           <s:Iterator Id="contact" Value="$GetContacts()">
             <c:HorizontalLayout Id="$contact.Id" CssClass="ContactsListHL">
               <s:If Test="$IsNotEmptyString($contact.Tel)">
-                <c:VerticalLayout OnClick="ContactContainerLayout_OnClick" CssClass="ContactsContainerVL">
+                <c:VerticalLayout CssClass="ContactsContainerVL"
+                                  OnPressDown="ContactContainerLayout_OnPressDown"
+                                  OnPressUp="ContactContainerLayout_OnPressUp"
+                                  OnClick="ContactContainerLayout_OnClick">
                   <c:TextView CssClass="ContactDescriptionTV" Text="$contact.Description" />
                   <c:TextView CssClass="ContactPositionTV" Text="$contact.Position" />
                 </c:VerticalLayout>
 
-                <c:VerticalLayout Id="$contact.Tel" CssClass="CallToClientButton" OnClick="Call_OnClick">
+                <c:VerticalLayout Id="$contact.Tel" CssClass="CallToClientButton" OnPressDown="Call_OnPressDown" OnPressUp="Call_OnPressUp" OnClick="Call_OnClick">
                   <c:HorizontalLayout CssClass="CallToClientContainer">
                     <c:Image Id="CallImage" CssClass="CallImageImg" Source="$GetResourceImage(clientscreen_phone)" />
                   </c:HorizontalLayout>
@@ -52,7 +57,10 @@
               </s:If>
               <s:Else>
 
-                <c:VerticalLayout OnClick="ContactContainerLayout_OnClick" CssClass="ContactsContainerVL">
+                <c:VerticalLayout CssClass="ContactsContainerVL"
+                                  OnPressDown="ContactContainerLayout_OnPressDown"
+                                  OnPressUp="ContactContainerLayout_OnPressUp"
+                                  OnClick="ContactContainerLayout_OnClick">
                   <c:TextView CssClass="ContactDescriptionTV" Text="$contact.Description" />
                   <c:TextView CssClass="ContactPositionTV" Text="$contact.Position" />
                 </c:VerticalLayout>
@@ -71,7 +79,7 @@
           </s:Iterator>
         </c:VerticalLayout>
 
-        <c:VerticalLayout CssClass="MainAlignContainer" OnClick="GoToAddContact_OnClick">
+        <c:VerticalLayout CssClass="MainAlignContainer" OnPressDown="GoToAddContact_OnPressDown" OnPressUp="GoToAddContact_OnPressUp" OnClick="GoToAddContact_OnClick">
           <c:HorizontalLayout CssClass="InerAlignContainer">
             <!--<c:Image CssClass="AddImg" Source="$GetResourceImage(cocscreen_plus)" />-->
             <c:TextView CssClass="AddTV" Text="$FormatAddContactText()" />
@@ -107,7 +115,6 @@
             </s:Iterator>
           </c:VerticalLayout>
         </s:If>
-      </c:VerticalLayout>
     </c:ScrollView>
   </c:VerticalLayout>
 </c:Screen>

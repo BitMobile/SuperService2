@@ -6,6 +6,7 @@
 @topheading-text-color: #ffffff;
 @topheading-subtext-color: #d4d4d7;
 @topheading-button-color: #fd724c;
+@topheading-active-button-color: #b26055;
 @topheading-text-size: @heading-size * 0.8 * 0.9;
 @header-width: 45%;
 @header-width-with-pic-only: 70%;
@@ -56,6 +57,23 @@
     }
 }
 
+.TopInfoButtonActive(@header-width: @header-width) {
+    width: (100% - @header-width) / 2;
+    height: @heading-size * 0.9;
+    vertical-align: center;
+
+    Image {
+        height: @heading-size * 0.9;
+    }
+
+    TextView {
+        color: @topheading-active-button-color;
+        .text-view-style(@topheading-text-size * 0.95);
+        margin-top: (@topheading-text-size * 0.05) / 2;
+        horizontal-align: center;
+    }
+}
+
 .TopInfoButtonLeft {
     .TopInfoButton;
 
@@ -67,6 +85,24 @@
 
 .TopInfoButtonRight {
     .TopInfoButton;
+
+    Image {
+        horizontal-align: right;
+        margin-right: 5sp;
+    }
+}
+
+.TopInfoButtonLeftActive {
+    .TopInfoButtonActive;
+
+    Image {
+        horizontal-align: left;
+        margin-left: 5sp;
+    }
+}
+
+.TopInfoButtonRightActive {
+    .TopInfoButtonActive;
 
     Image {
         horizontal-align: right;

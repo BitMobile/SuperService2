@@ -10,7 +10,6 @@
 
     <!-- Список контактов -->
     <c:ScrollView CssClass="RIMListLayout">
-      <c:VerticalLayout CssClass="RIMListInternalLayuot">
         <s:Push Id="void_ crutch" Value="$InitClassFields()" />
         <s:If Test="$GetIsNotEmpty()">
           <s:Iterator Id="rim" Value="$GetRIM()">
@@ -32,7 +31,6 @@
           </s:Else>
         </s:Else>
         <c:VerticalLayout CssClass="EmptySpace2sp" />
-      </c:VerticalLayout>
     </c:ScrollView>
   </c:DockLayout>
 </c:Screen>

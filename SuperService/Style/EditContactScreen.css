@@ -39,6 +39,12 @@ HorizontalLine {
 .NoHeight {
   height: 0%;
 }
+.TextAlignLeft {
+  text-align: left;
+}
+.TextAlignCenter {
+  text-align: center;
+}
 .RootLayout {
   background-color: #ffffff;
   height: 100%;
@@ -125,22 +131,60 @@ HorizontalLine {
   horizontal-align: left;
   margin-left: 5sp;
 }
-TopInfoButtonRight {
+.TopInfoButtonRight {
   width: 27.5%;
   height: 3.85698052sp;
   vertical-align: center;
 }
-TopInfoButtonRight Image {
+.TopInfoButtonRight Image {
   height: 3.85698052sp;
 }
-TopInfoButtonRight TextView {
+.TopInfoButtonRight TextView {
   color: #fd724c;
   font: 2.93130519sp arial;
   height: 3.25374876sp auto;
   margin-top: 0.07713961sp;
   horizontal-align: center;
 }
-TopInfoButtonRight Image {
+.TopInfoButtonRight Image {
+  horizontal-align: right;
+  margin-right: 5sp;
+}
+.TopInfoButtonLeftActive {
+  width: 27.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+.TopInfoButtonLeftActive Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonLeftActive TextView {
+  color: #b26055;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonLeftActive Image {
+  horizontal-align: left;
+  margin-left: 5sp;
+}
+.TopInfoButtonRightActive {
+  width: 27.5%;
+  height: 3.85698052sp;
+  vertical-align: center;
+}
+.TopInfoButtonRightActive Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonRightActive TextView {
+  color: #b26055;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonRightActive Image {
   horizontal-align: right;
   margin-right: 5sp;
 }
@@ -208,6 +252,52 @@ TopInfoButtonRight Image {
 .TopInfoExtraLayout TextView {
   color: #ffffff;
 }
+.TopInfoHeadingTextLayoutWithPicOnly {
+  height: 100% auto;
+  width: 45%;
+  vertical-align: center;
+  width: 70%;
+}
+.TopInfoButtonLeftWithPicOnly {
+  width: 15%;
+  height: 3.85698052sp;
+  vertical-align: center;
+  dock-align: left;
+}
+.TopInfoButtonLeftWithPicOnly Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonLeftWithPicOnly TextView {
+  color: #fd724c;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonLeftWithPicOnly Image {
+  horizontal-align: left;
+  margin-left: 5sp;
+}
+.TopInfoButtonRightWithPicOnly {
+  width: 15%;
+  height: 3.85698052sp;
+  vertical-align: center;
+  dock-align: right;
+}
+.TopInfoButtonRightWithPicOnly Image {
+  height: 3.85698052sp;
+}
+.TopInfoButtonRightWithPicOnly TextView {
+  color: #fd724c;
+  font: 2.93130519sp arial;
+  height: 3.25374876sp auto;
+  margin-top: 0.07713961sp;
+  horizontal-align: center;
+}
+.TopInfoButtonRightWithPicOnly Image {
+  horizontal-align: right;
+  margin-right: 5sp;
+}
 hl {
   height: 10sp;
 }
@@ -223,6 +313,7 @@ hl {
   width: 40%;
   vertical-align: center;
   text-align: left;
+  margin-left: 9sp;
 }
 .ContactField EditText {
   width: 60%;
@@ -241,6 +332,7 @@ hl {
   width: 40%;
   vertical-align: center;
   text-align: left;
+  margin-left: 9sp;
 }
 .ContactFieldWithDelete EditText {
   width: 60%;
@@ -258,11 +350,18 @@ hl {
   vertical-align: center;
   margin-right: 3%;
 }
+.ContactFieldWithDelete TextView {
+  margin-left: 2sp;
+}
 .ContactFieldWithDelete EditText {
   width: 51%;
 }
 .FullWidth {
   width: 100%;
+}
+.NotFullWidth {
+  margin-left: 9sp;
+  margin-right: 9sp;
 }
 .AddButton {
   height: 10sp;
@@ -273,6 +372,7 @@ hl {
   width: 4sp;
   vertical-align: center;
   margin-right: 3sp;
+  margin-left: 9sp;
 }
 .AddButton TextView {
   color: #fd724c;
@@ -280,4 +380,7 @@ hl {
 }
 .RemoveImage {
   width: 6sp;
+}
+.VerticalLayoutRemoveImage {
+  margin-left: 9sp;
 }
