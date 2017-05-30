@@ -381,31 +381,34 @@ namespace Test
         /// <param name="clientID"> Идентификатор клиента</param>
         public static DbRecordset GetEquipmentByClientID(string clientID)
         {
-            var query = new Query("select " +
-                                  "    equipmentLastChangeDate.Equipment as equipmentID, " +
-                                  "    equipmentLastChangeDate.period as lastChange, " +
-                                  "    Catalog_Equipment.Description " +
-                                  "" +
-                                  "from " +
-                                  "       (select " +
-                                  "            clients, " +
-                                  "            Equipment, " +
-                                  "            MAX(period) as period " +
-                                  "        from " +
-                                  "            Catalog_Equipment_Equipments " +
-                                  "        where " +
-                                  "            clients = @clientID " +
-                                  "        group by " +
-                                  "            clients, Equipment) as equipmentLastChangeDate " +
-                                  "" +
-                                  "        left join Catalog_Equipment_Equipments " +
-                                  "        on equipmentLastChangeDate.clients = Catalog_Equipment_Equipments.clients " +
-                                  "        and equipmentLastChangeDate.Equipment = Catalog_Equipment_Equipments.Equipment " +
-                                  "        and equipmentLastChangeDate.Period = Catalog_Equipment_Equipments.Period " +
-                                  "" +
-                                  "        left join Catalog_Equipment " +
-                                  "        on equipmentLastChangeDate.Equipment = Catalog_Equipment.id " +
-                                  " order by Catalog_Equipment.Description asc");
+            var query = new Query(@"SELECT
+                                  equipmentLastChangeDate.Equipment AS equipmentID,
+                                  equipmentLastChangeDate.period    AS lastChange,
+                                  Catalog_Equipment.Description
+
+                                FROM
+                                  (SELECT
+                                     clients,
+                                     Equipment,
+                                     MAX(period) AS period
+                                   FROM
+                                     Catalog_Equipment_Equipments
+                                   WHERE
+                                     clients = @clientID
+                                   GROUP BY
+                                     clients, Equipment) AS equipmentLastChangeDate
+
+                                  LEFT JOIN Catalog_Equipment_Equipments
+                                    ON equipmentLastChangeDate.clients = Catalog_Equipment_Equipments.clients
+                                       AND equipmentLastChangeDate.Equipment = Catalog_Equipment_Equipments.Equipment
+                                       AND equipmentLastChangeDate.Period = Catalog_Equipment_Equipments.Period
+
+                                  LEFT JOIN Catalog_Equipment
+                                    ON equipmentLastChangeDate.Equipment = Catalog_Equipment.id
+
+                                WHERE DeletionMark = 0
+                                ORDER BY Catalog_Equipment.Description
+                                  ASC");
 
             query.AddParameter("clientID", clientID);
 
