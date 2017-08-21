@@ -57,10 +57,6 @@ namespace Test
 
             if (settings.ContainsKey(Parameters.UserSolutionName))
                 _serverEditText.Text = settings[Parameters.UserSolutionName];
-
-            _serverEditText.Text = "superservice3dev";
-            _loginEditText.Text = "ivan";
-            _passwordEditText.Text = "2502";
         }
 
         public override void OnDraw()
@@ -153,10 +149,10 @@ namespace Test
             if (passwordHL != null)
                 passwordHL.Visible = edit;
 
-            if (_serverLayout != null)
+            if (_serverLayout != null && !_isStanAlone)
                 _serverLayout.Visible = edit;
 
-            if (_serverBreakerLayout != null)
+            if (_serverBreakerLayout != null && !_isStanAlone)
                 _serverBreakerLayout.Visible = edit;
 
             if (_loginBreaker != null)
@@ -168,32 +164,24 @@ namespace Test
             if (_enterButton != null)
                 _enterButton.Visible = edit;
 
-            try
+            if (_progressBar != null)
             {
-                if (_progressBar != null)
-                {
-                    _progressBar.Visible = !edit;
-                    _progressBar.CssClass = edit ? "NoHeight" : "SyncProgressBar";
-                    _progressBar.Refresh();
-                }
-
-                if (_progressBarText != null)
-                {
-                    _progressBarText.Visible = !edit;
-                    _progressBarText.CssClass = edit ? "NoHeight" : "SyncProgressBarText";
-                    _progressBarText.Refresh();
-                }
+                _progressBar.Visible = !edit;
+                _progressBar.CssClass = edit ? "NoHeight" : "SyncProgressBar";
+                _progressBar.Refresh();
             }
-            catch (Exception ex)
+
+            if (_progressBarText != null)
             {
-                Utils.TraceMessage(ex.Message);
-                Utils.TraceMessage(ex.StackTrace);
+                _progressBarText.Visible = !edit;
+                _progressBarText.CssClass = edit ? "NoHeight" : "SyncProgressBarText";
+                _progressBarText.Refresh();
             }
 
             if (_enterButton != null)
                 _enterButton.Enabled = edit;
 
-            if (_demoEntranceButton != null)
+            if (_demoEntranceButton != null && !_isStanAlone)
                 _demoEntranceButton.Visible = edit;
         }
 
