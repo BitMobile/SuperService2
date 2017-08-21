@@ -38,6 +38,8 @@ namespace Test
             }
         }
 
+        public static string ClientEnviromentType { get; set; }
+
         // TODO: Хранить сервер
         public static string Server { get; set; }
 
@@ -54,6 +56,8 @@ namespace Test
 
         public static string AuthUrl { get; set; }
         public static string SolutionUrl { get; set; }
+        public static string SolutionName { get; set; }
+        public static bool HasSolutionNameChanged { get; set; }
 
         public static string GPSSyncUrl { get; set; }
         public static bool AllowGallery => GetLogicValue(Parameters.AllowGallery);
@@ -73,6 +77,18 @@ namespace Test
             => Application.SendDatabase(SolutionUrl, User, Password);
 
         public static void Init()
+        {
+            SetMobileSettings();
+            SetUrlSettings(SolutionName);
+
+            _initialized = true;
+
+            GpsTrackingInit();
+
+            CheckAllProperty();
+        }
+
+        private static void SetMobileSettings()
         {
             if (!_initialized)
                 ApplicationContext.Current.Settings.ReadSettings();
@@ -105,8 +121,38 @@ namespace Test
             }
             DConsole.WriteLine($"{Parameters.Splitter}{Environment.NewLine}");
 #endif
+        }
+
+        public static void SetUrlSettings(string solutionName)
+        {
+            string server = GetServerFromXML();
+
+            if (!string.IsNullOrWhiteSpace(solutionName))
+                server = string.Format(server, solutionName);
+
+            Server = server + "/device";
+            ImageServer = server + "/";
+            AuthUrl = Server + @"/GetUserId";
+            GPSSyncUrl = server;
+            SolutionUrl = server;
+
+            DConsole.WriteLine($"Host = {Host}");
+            DConsole.WriteLine($"Server = {Server}");
+
+            ReinitGpsTracking();
+        }
+
+        private static void ReinitGpsTracking()
+        {
+            if (_initialized)
+                GpsTrackingInit();
+        }
+
+        private static string GetServerFromXML()
+        {
             XmlNode serverNode;
             XmlNode solutionPathNode;
+            XmlNode enviromentTypeNode;
 
             Stream stream = Stream.Null;
             try
@@ -127,29 +173,18 @@ namespace Test
                 DConsole.WriteLine($"{serverNode?.Name}:{serverNode?.Attributes?["url"]?.Value}");
                 solutionPathNode = xmlDocument.SelectSingleNode("/configuration/server/solutionPath");
                 DConsole.WriteLine($"{solutionPathNode?.Name}:{solutionPathNode?.Attributes?["url"]?.Value}");
+                enviromentTypeNode = xmlDocument.SelectSingleNode("/configuration/client/enviromentType");
             }
             finally
             {
                 stream?.Close();
             }
 
+            ClientEnviromentType = enviromentTypeNode?.Attributes?["value"]?.Value;
             Host = serverNode?.Attributes?["url"]?.Value ?? @"https://sstest.superagent.ru";
-            var server = Host + (solutionPathNode?.Attributes?["url"]?.Value ?? @"/bitmobile3/superservice3test");
+            var server = Host + solutionPathNode?.Attributes?["url"]?.Value ?? @"/bitmobile3/superservice3test";
 
-            Server = server + "/device";
-            ImageServer = server + "/";
-            AuthUrl = Server + @"/GetUserId";
-            GPSSyncUrl = server;
-            SolutionUrl = server;
-
-            DConsole.WriteLine($"Host = {Host}");
-            DConsole.WriteLine($"Server = {Server}");
-
-            _initialized = true;
-
-            GpsTrackingInit();
-
-            CheckAllProperty();
+            return server;
         }
 
         private static bool GetLogicValue(string setupName, bool @default = false)

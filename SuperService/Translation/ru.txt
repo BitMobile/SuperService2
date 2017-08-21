@@ -185,3 +185,7 @@ cash		НАЛИЧНЫЕ
 cashless		КАРТОЙ
 bonuses		БОНУСЫ
 bottles		ТАРОЙ
+try_demo		Демо режим
+server_empty		Сервер не может быть пустым.
+server		Сервер
+server_not_found		Сервер не найден

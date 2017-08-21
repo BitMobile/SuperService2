@@ -3,21 +3,37 @@
 <c:Screen xmlns:c="BitMobile.ClientModel3.UI" xmlns:s="BitMobile.ValueStack">
 
   <c:VerticalLayout CssClass="RootLayoutWithPattern">
+    <!--рисунок ЛОГО-->
     <c:VerticalLayout CssClass="ImgContainerVL">
       <c:HorizontalLayout CssClass="ImgContainerHL">
         <c:Image CssClass="LogoImg" Source="$GetResourceImage(authscreen_logo)" />
       </c:HorizontalLayout>
     </c:VerticalLayout>
+
+    <!--Прогресс бар при синхре-->
     <c:VerticalLayout Id="08e8121a517e4672a971a56d91617bc3" CssClass="IndicatorHorizontalAlign">
-      <c:ProgressBar Id="SyncProgress" CssClass="SyncProgressBar" />
-      <c:TextView Id="SyncProgressBarText" Text="#loading_from_database#" CssClass="SyncProgressBarText" Visible="False"/>
+      <c:ProgressBar Id="SyncProgress" CssClass="NoHeight" />
+      <c:TextView Id="SyncProgressBarText" Text="#loading_from_database#" CssClass="NoHeight" Visible="False"/>
     </c:VerticalLayout>
-    <c:HorizontalLayout CssClass="LoginPasswordContainerFirstHL">
+
+    <!--Поле для ввода сервера-->
+    <c:HorizontalLayout Id="ServerLayout" CssClass="LoginPasswordContainerSecondHL">
+      <c:Image CssClass="LoginPasswordImg" Source="$GetResourceImage(authscreen_username)" />
+      <c:EditText Id="AuthScreenServerET" Placeholder="#server#" />
+    </c:HorizontalLayout>
+    <c:VerticalLayout Id="ServerBreakerLayout" CssClass="BreakerContainerVL">
+      <c:HorizontalLine CssClass="BreakerHL" />
+    </c:VerticalLayout>
+
+    <!--Поле для ввода логина-->
+    <c:HorizontalLayout CssClass="LoginPasswordContainerSecondHL">
       <c:Image CssClass="LoginPasswordImg" Source="$GetResourceImage(authscreen_username)" />
       <c:EditText Id="AuthScreenLoginET" Placeholder="#login#" />
     </c:HorizontalLayout>
     <c:VerticalLayout Id="LoginBreaker" CssClass="BreakerContainerVL">
       <c:HorizontalLine CssClass="BreakerHL" />
+
+      <!--Поле для ввода пароля-->
     </c:VerticalLayout>
     <c:HorizontalLayout CssClass="LoginPasswordContainerSecondHL">
       <c:Image CssClass="LoginPasswordImg" Source="$GetResourceImage(authscreen_password)" />
@@ -26,9 +42,11 @@
     <c:VerticalLayout Id="PasswordBreaker" CssClass="BreakerContainerVL">
       <c:HorizontalLine CssClass="BreakerHL" />
     </c:VerticalLayout>
+
+    <!--Кнопка входа-->
     <c:Button Id="ba603e1782d543f696944a603d7f05f2" Text="#log_in#" OnClick="СonnectButton_OnClick" 
               CssClass="$GetPlatformRoundButtonStyle()" />
-    <!--TODO: Кнопка временно отключена, так как пока невозможно реализовать её функционал.-->
-    <!--<c:Button Text="#cant_signing#" OnClick="CantSigningButton_OnClick" CssClass="AuthScreenResetPasswordBTN" />-->
+    <!--Кнопка демо-входа-->
+    <c:Button Id="DemoEntranceButton" Text="#try_demo#" OnClick="TryDemoButton_OnClick" CssClass="AuthScreenTryDemoBTN" />
   </c:VerticalLayout>
 </c:Screen>
