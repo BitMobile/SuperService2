@@ -57,7 +57,16 @@
         /// </summary>
         public const string Splitter = "-----------------------------------------------";
 
-#region StyleNames
+        public const string UserSolutionName = "UserSolutionName";
+
+        #region Clients enviroment types
+
+        public const string ClientEnviromentStandAlone = "StandAlone";
+        public const string ClientEnviromentBox = "Box";
+
+        #endregion
+
+        #region StyleNames
 
         /// <summary>
         ///     Стиль для обычного времени

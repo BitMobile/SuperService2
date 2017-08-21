@@ -69,10 +69,19 @@ namespace Test
 
                     Settings.Password = _password;
 
+                    if (Settings.HasSolutionNameChanged)
+                    {
+                        DConsole.WriteLine($"Запустили полную синхронизацию. From class {nameof(Authorization)}");
+                        DBHelper.FullSyncAsync();
+                        Settings.HasSolutionNameChanged = false;
+                    }
+                    else
+                    {
 #if DEBUG
-                    DConsole.WriteLine($"Запустили частичную синхронизацию. From class {nameof(Authorization)}");
+                        DConsole.WriteLine($"Запустили частичную синхронизацию. From class {nameof(Authorization)}");
 #endif
-                    DBHelper.SyncAsync();
+                        DBHelper.SyncAsync();
+                    }
                     DConsole.WriteLine("Loading first screen...");
                     Navigation.ModalMove("EventListScreen");
                 }
@@ -138,6 +147,10 @@ namespace Test
 
                 case 401:
                     Toast.MakeToast(Translator.Translate("uncorrect_login_or_pass"));
+                    break;
+
+                case 404:
+                    Toast.MakeToast(Translator.Translate("server_not_found"));
                     break;
 
                 default:

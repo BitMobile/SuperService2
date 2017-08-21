@@ -10,12 +10,18 @@ namespace Test
     {
         private static EditText _loginEditText;
         private static EditText _passwordEditText;
+        private static EditText _serverEditText;
         private static VerticalLayout _loginBreaker;
         private static VerticalLayout _passwordBreaker;
+        private static HorizontalLayout _serverLayout;
+        private static VerticalLayout _serverBreakerLayout;
         private static Button _enterButton;
         private static ProgressBar _progressBar;
         private static TextView _progressBarText;
         private static bool _isEnable;
+
+        private static Button _demoEntranceButton;
+        private static bool _isStanAlone;
 
         public override void OnLoading()
         {
@@ -25,29 +31,49 @@ namespace Test
 
             _loginEditText = (EditText)GetControl("AuthScreenLoginET", true);
             _passwordEditText = (EditText)GetControl("AuthScreenPasswordET", true);
+            _serverEditText = (EditText)GetControl("AuthScreenServerET", true);
+            _serverLayout = (HorizontalLayout)GetControl("ServerLayout", true);
+            _serverBreakerLayout = (VerticalLayout)GetControl("ServerBreakerLayout", true);
             _enterButton = (Button)GetControl("ba603e1782d543f696944a603d7f05f2", true);
             _loginBreaker = (VerticalLayout)GetControl("LoginBreaker", true);
             _passwordBreaker = (VerticalLayout)GetControl("PasswordBreaker", true);
             _progressBar = (ProgressBar)GetControl("SyncProgress", true);
             _progressBarText = (TextView)GetControl("SyncProgressBarText", true);
+            _demoEntranceButton = (Button)GetControl("DemoEntranceButton", true);
+
+            _isStanAlone = Settings.ClientEnviromentType.ToLower() == Parameters.ClientEnviromentStandAlone.ToLower();
+            _demoEntranceButton.Visible = !_isStanAlone;
         }
 
         public override void OnShow()
         {
             base.OnShow();
-            _loginEditText.Text =  Settings.User;
-            _passwordEditText.Text =  Settings.Password;
+            _loginEditText.Text = Settings.User;
+            _passwordEditText.Text = Settings.Password;
+
+            _serverLayout.Visible = _serverBreakerLayout.Visible = !_isStanAlone;
+
+            var settings = BitMobile.Application.ApplicationContext.Current.Settings.CustomSettings;
+
+            if (settings.ContainsKey(Parameters.UserSolutionName))
+                _serverEditText.Text = settings[Parameters.UserSolutionName];
         }
 
         public override void OnDraw()
         {
             base.OnDraw();
-            Dialog.HideProgressDialog();
         }
 
         //TODO: Кнопка временно отключена, так как пока невозможно реализовать её функционал.
-        internal void CantSigningButton_OnClick(object sender, EventArgs e)
+        internal void TryDemoButton_OnClick(object sender, EventArgs e)
         {
+            string user = "demo";
+            string password = "Demo1";
+            string solutionName = "demo";
+
+            SetSolutionSettings(solutionName);
+
+            TryToLogin(user, password);
         }
 
         internal void СonnectButton_OnClick(object sender, EventArgs e)
@@ -63,8 +89,40 @@ namespace Test
                 Toast.MakeToast(Translator.Translate("user_empty"));
             else if (string.IsNullOrEmpty(_passwordEditText.Text))
                 Toast.MakeToast(Translator.Translate("password_empty"));
+            else if (string.IsNullOrEmpty(_serverEditText.Text) && !_isStanAlone)
+                Toast.MakeToast(Translator.Translate("server_empty"));
             else
-                Authorization.StartAuthorization(_loginEditText.Text, _passwordEditText.Text);
+            {
+                SetSolutionSettings(_serverEditText.Text);
+                TryToLogin(_loginEditText.Text, _passwordEditText.Text);
+            }
+        }
+
+        private void SetSolutionSettings(string serverName)
+        {
+            Settings.SolutionName = serverName;
+
+            var settings = BitMobile.Application.ApplicationContext.Current.Settings.CustomSettings;
+            if (settings.ContainsKey(Parameters.UserSolutionName))
+            {
+                if (settings[Parameters.UserSolutionName] != Settings.SolutionName)
+                {
+                    settings[Parameters.UserSolutionName] = Settings.SolutionName;
+                    Settings.HasSolutionNameChanged = true;
+                }
+            }
+            else
+            {
+                BitMobile.Application.ApplicationContext.Current.Settings.CustomSettings.Add(Parameters.UserSolutionName, Settings.SolutionName);
+                Settings.HasSolutionNameChanged = true;
+            }
+
+            Settings.SetUrlSettings(Settings.SolutionName);
+        }
+
+        private void TryToLogin(string userName, string password)
+        {
+            Authorization.StartAuthorization(userName, password);
         }
 
         internal string GetResourceImage(string tag)
@@ -91,6 +149,12 @@ namespace Test
             if (passwordHL != null)
                 passwordHL.Visible = edit;
 
+            if (_serverLayout != null && !_isStanAlone)
+                _serverLayout.Visible = edit;
+
+            if (_serverBreakerLayout != null && !_isStanAlone)
+                _serverBreakerLayout.Visible = edit;
+
             if (_loginBreaker != null)
                 _loginBreaker.Visible = edit;
 
@@ -101,13 +165,24 @@ namespace Test
                 _enterButton.Visible = edit;
 
             if (_progressBar != null)
+            {
                 _progressBar.Visible = !edit;
+                _progressBar.CssClass = edit ? "NoHeight" : "SyncProgressBar";
+                _progressBar.Refresh();
+            }
 
             if (_progressBarText != null)
+            {
                 _progressBarText.Visible = !edit;
+                _progressBarText.CssClass = edit ? "NoHeight" : "SyncProgressBarText";
+                _progressBarText.Refresh();
+            }
 
             if (_enterButton != null)
                 _enterButton.Enabled = edit;
+
+            if (_demoEntranceButton != null && !_isStanAlone)
+                _demoEntranceButton.Visible = edit;
         }
 
         public string GetPlatformRoundButtonStyle()

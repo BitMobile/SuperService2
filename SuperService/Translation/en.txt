@@ -183,3 +183,7 @@ cash		CASH
 cashless		CASHLESS
 bonuses		BONUSES
 bottles		BOTTLES
+try_demo		Demo mode
+server_empty		Server can not be empty.
+server		Server
+server_not_found		Server not found
