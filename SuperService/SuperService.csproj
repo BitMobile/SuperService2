@@ -34,28 +34,28 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Application.W, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Windows.3.6.494\lib\net45\Application.W.dll</HintPath>
+      <HintPath>packages\Windows.3.6.590\lib\net45\Application.W.dll</HintPath>
     </Reference>
-    <Reference Include="BusinessProcess.W, Version=3.6.494.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Windows.3.6.494\lib\net45\BusinessProcess.W.dll</HintPath>
+    <Reference Include="BusinessProcess.W, Version=3.6.590.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Windows.3.6.590\lib\net45\BusinessProcess.W.dll</HintPath>
     </Reference>
-    <Reference Include="ClientModel3.W, Version=3.6.494.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Windows.3.6.494\lib\net45\ClientModel3.W.dll</HintPath>
+    <Reference Include="ClientModel3.W, Version=3.6.590.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Windows.3.6.590\lib\net45\ClientModel3.W.dll</HintPath>
     </Reference>
     <Reference Include="Common.W, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Windows.3.6.494\lib\net45\Common.W.dll</HintPath>
+      <HintPath>packages\Windows.3.6.590\lib\net45\Common.W.dll</HintPath>
     </Reference>
-    <Reference Include="CustomSync.Objects.W, Version=3.6.494.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Windows.3.6.494\lib\net45\CustomSync.Objects.W.dll</HintPath>
+    <Reference Include="CustomSync.Objects.W, Version=3.6.590.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Windows.3.6.590\lib\net45\CustomSync.Objects.W.dll</HintPath>
     </Reference>
     <Reference Include="DbEngine.W, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Windows.3.6.494\lib\net45\DbEngine.W.dll</HintPath>
+      <HintPath>packages\Windows.3.6.590\lib\net45\DbEngine.W.dll</HintPath>
     </Reference>
     <Reference Include="Elasticsearch.Net, Version=5.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <HintPath>packages\Elasticsearch.Net.5.4.0\lib\net46\Elasticsearch.Net.dll</HintPath>
     </Reference>
-    <Reference Include="ILInterpreter, Version=1.0.6386.26169, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Windows.3.6.494\lib\net45\ILInterpreter.dll</HintPath>
+    <Reference Include="ILInterpreter, Version=1.0.6451.32191, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Windows.3.6.590\lib\net45\ILInterpreter.dll</HintPath>
     </Reference>
     <Reference Include="MessagePack, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MessagePack.1.1.1\lib\net45\MessagePack.dll</HintPath>
@@ -124,8 +124,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Windows, Version=3.6.494.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Windows.3.6.494\lib\net45\Windows.exe</HintPath>
+    <Reference Include="Windows, Version=3.6.590.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Windows.3.6.590\lib\net45\Windows.exe</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
