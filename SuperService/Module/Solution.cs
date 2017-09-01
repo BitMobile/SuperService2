@@ -1,4 +1,5 @@
-﻿using BitMobile.ClientModel3;
+﻿using BitMobile.Application.Log;
+using BitMobile.ClientModel3;
 using ClientModel3.MD;
 using System;
 
@@ -9,6 +10,8 @@ namespace Test
         public override void OnCreate()
         {
             base.OnCreate();
+            Logger.SolutionType = "Grotem Service 2 mobile app";
+            ReadLoggerSettings();
             DConsole.WriteLine("DB init...");
             DBHelper.Init();
             DConsole.WriteLine("Settings init...");
@@ -42,6 +45,14 @@ namespace Test
             }
         }
 
+        private void ReadLoggerSettings()
+        {
+            var settings = BitMobile.Application.ApplicationContext.Current.Settings.CustomSettings;
+            if (string.IsNullOrEmpty(Settings.SolutionName))
+                if (settings.ContainsKey(Parameters.UserSolutionName))
+                    Logger.SolutionName = Settings.SolutionName = settings[Parameters.UserSolutionName];
+        }
+
         public override void OnBackground()
         {
             base.OnBackground();
@@ -54,6 +65,7 @@ namespace Test
         public override void OnRestore()
         {
             base.OnRestore();
+            ReadLoggerSettings();
             GpsTracking.StartAsync();
         }
 

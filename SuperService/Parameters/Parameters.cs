@@ -41,6 +41,7 @@
         public const string LogicValue = "LogicValue";
         public const string NumericValue = "NumericValue";
         public const string EnableFPTR = "EnableFPTR";
+        public const string LoggingLevel = "LoggingLevel";
         /// <summary>
         /// Индетефикатор задачи
         /// </summary>
@@ -92,6 +93,12 @@
         ///     Стиль для иконки разъединенного фискального аппарата
         /// </summary>
         public const string FiscalRegistratorScreenConnectedButtonStyle = "ConnectedButtonVL";
+
+        #endregion
+
+        #region Logger
+
+        public const string FiscalRegistratorScope = "FiscalRegistrator";
 
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using BitMobile.ClientModel3;
+﻿using BitMobile.Application.Log;
+using BitMobile.ClientModel3;
 using BitMobile.Common.Controls;
 using System;
 using System.Collections;
@@ -238,6 +239,18 @@ namespace Test
             DConsole.WriteLine($"Member Name: {memberName} ");
             DConsole.WriteLine($"Source file path: {filePath} ");
             DConsole.WriteLine($"Source line number: {sourceLineNumber} {Environment.NewLine}");
+        }
+
+        public static void TraceFiscalRegistratorActions(string message,
+            [CallerMemberName] string memberName = "",
+            [CallerFilePath] string filePath = "",
+            [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            var fileName = Path.GetFileName(filePath);
+            Logger.Info(Parameters.FiscalRegistratorScope, "CallerMemberName: {CallerMemberName} " +
+                                                          "CallerFile: {CallerFile} CallerLineNumber: {CallerLineNumber} " +
+                                                          "Message: {Message} ",
+                                                          memberName, fileName, sourceLineNumber, message);
         }
     }
 
