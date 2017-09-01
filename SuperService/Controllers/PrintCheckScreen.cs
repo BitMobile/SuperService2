@@ -76,6 +76,7 @@ namespace Test
         public override void OnShow()
         {
             base.OnShow();
+            Utils.TraceFiscalRegistratorActions($"Status: {_fptr.CurrentStatus}");
             try
             {
                 _enteredSumEditText.Text = $"{_totalSum}";
@@ -185,6 +186,8 @@ namespace Test
 
         private void ProcessingPaymentType()
         {
+            Utils.TraceFiscalRegistratorActions($"Payment type: {_choosedPaymentType}");
+
             switch (_choosedPaymentType)
             {
                 case 0:
@@ -326,6 +329,7 @@ namespace Test
 
                 try
                 {
+                    Utils.TraceFiscalRegistratorActions("Start printing cheque");
                     PrintCheck();
 
                     if (_fptr.CloseCheck() < 0)
@@ -333,17 +337,21 @@ namespace Test
 
                     checkParameters.Date = DateTime.Now;
 
+                    Utils.TraceFiscalRegistratorActions("Start saving data to DB");
                     DBHelper.SaveEntity(checkParameters, false);
+                    Utils.TraceFiscalRegistratorActions("Data saved");
+
+                    Utils.TraceFiscalRegistratorActions("Cheque is printed");
                 }
                 catch (FPTRException exception)
                 {
-                    Utils.TraceMessage($"Error code {exception.Result} {exception.Message}");
+                    Utils.TraceFiscalRegistratorActions($"Error code {exception.Result} {exception.Message}");
                     checkError = true;
                     Toast.MakeToast(Translator.Translate(exception.Message));
                 }
                 catch (Exception exception)
                 {
-                    Utils.TraceMessage($"{exception.Message}{Environment.NewLine}" +
+                    Utils.TraceFiscalRegistratorActions($"{exception.Message}{Environment.NewLine}" +
                                        $"Type {exception.GetType()}");
                 }
 
@@ -401,6 +409,7 @@ namespace Test
             var query = DBHelper.GetCheckSKU(_eventId);
 
             var enteredSum = GetEnteredSum();
+            Utils.TraceFiscalRegistratorActions($"Entered sum: {enteredSum}");
 
             _fptr.OpenCheck(FiscalRegistratorConsts.ChequeTypeSell);
 

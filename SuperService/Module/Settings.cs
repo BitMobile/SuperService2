@@ -1,4 +1,5 @@
 ﻿using BitMobile.Application;
+using BitMobile.Application.Log;
 using BitMobile.ClientModel3;
 using BitMobile.DbEngine;
 using System;
@@ -69,6 +70,7 @@ namespace Test
         public static bool ShowServicePrice => GetLogicValue(Parameters.ShowServicePrice);
         public static bool ShowMaterialPrice => GetLogicValue(Parameters.ShowMaterialPrice);
         public static bool EnableFPTR => GetLogicValue(Parameters.EnableFPTR);
+        public static int LoggingLevel => GetNumericValue(Parameters.LoggingLevel, 3);
 
         public static User UserDetailedInfo =>
            (User)((DbRef)DBHelper.GetUserInfoByUserName(User)?["Id"])?.GetObject();
@@ -86,6 +88,28 @@ namespace Test
             GpsTrackingInit();
 
             CheckAllProperty();
+
+            Logger.MinimumLevel = GetLoggingLevel();
+        }
+
+        private static LogLevel GetLoggingLevel()
+        {
+            LogLevel level = LogLevel.Warning;
+
+            if (LoggingLevel == 0)
+                level = LogLevel.Verbose;
+            if (LoggingLevel == 1)
+                level = LogLevel.Debug;
+            if (LoggingLevel == 2)
+                level = LogLevel.Information;
+            if (LoggingLevel == 3)
+                level = LogLevel.Warning;
+            if (LoggingLevel == 4)
+                level = LogLevel.Error;
+            if (LoggingLevel == 5)
+                level = LogLevel.Fatal;
+
+            return level;
         }
 
         private static void SetMobileSettings()

@@ -1,4 +1,5 @@
-﻿using BitMobile.ClientModel3;
+﻿using BitMobile.Application.Log;
+using BitMobile.ClientModel3;
 using System;
 using System.Text;
 using Test.Catalog;
@@ -131,6 +132,9 @@ namespace Test
             DConsole.WriteLine(Parameters.Splitter);
             DConsole.WriteLine("Loading first screen...");
 #endif
+            Logger.SolutionName = Settings.SolutionName;
+            Logger.Warning("Authorization", "Authorization success User: {User}", Settings.User);
+
             FileSystem.ClearPrivate();
             FileSystem.ClearShared();
             FileSystem.SyncShared(Settings.ImageServer, Settings.User, Settings.Password);
