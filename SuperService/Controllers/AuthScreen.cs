@@ -62,6 +62,7 @@ namespace Test
         public override void OnDraw()
         {
             base.OnDraw();
+            Dialog.HideProgressDialog();
         }
 
         //TODO: Кнопка временно отключена, так как пока невозможно реализовать её функционал.
